@@ -217,7 +217,7 @@
                             <div class="form-group">
                                 <label>Nama Dokter</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
                                 <span class="text-danger" id="error_nama"></span>
                             </div>
 
@@ -253,7 +253,7 @@
                             <div class="form-group">
                                 <label>Nama Dokter</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
                             </div>
                         </div>

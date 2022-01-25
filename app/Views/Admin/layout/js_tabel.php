@@ -21,5 +21,5 @@
 <script src="<?= base_url() ?>/docs/adminlte/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url() ?>/docs/adminlte/dist/js/demo.js"></script>
-<!-- Page specific script -->
-<script>
+
+<script src="<?= base_url() ?>/docs/tambahan/assets/plugins/parsleyjs/dist/parsley.min.js"></script>

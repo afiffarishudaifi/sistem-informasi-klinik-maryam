@@ -200,7 +200,7 @@
 
         <!-- Start Modal Add Class-->
         <form action="<?php echo base_url('Admin/Obat/add_obat'); ?>" method="post" id="form_add"
-            data-parsley-validate="true">
+            data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -217,7 +217,7 @@
                             <div class="form-group">
                                 <label>Nama Obat</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Obat">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Obat" autofocus="on">
                                 <span class="text-danger" id="error_nama"></span>
                             </div>
 
@@ -235,7 +235,7 @@
 
         <!-- Modal Edit Class-->
         <form action="<?php echo base_url('Admin/Obat/update_obat'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true">
+            data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -253,7 +253,7 @@
                             <div class="form-group">
                                 <label>Nama Obat</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Obat">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Obat" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
                             </div>
                         </div>

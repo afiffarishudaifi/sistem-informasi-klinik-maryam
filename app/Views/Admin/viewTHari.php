@@ -47,141 +47,29 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>No</th>
+                                                <th>Nama Hari</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 7</td>
-                                                <td>Win XP SP2+</td>
-                                                <td>7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>AOL browser (AOL desktop)</td>
-                                                <td>Win XP</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.0</td>
-                                                <td>OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.5</td>
-                                                <td>OSX.3+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape 7.2</td>
-                                                <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Browser 8</td>
-                                                <td>Win 98SE+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Navigator 9</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td>-</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
-                                            </tr>
+                                            <?php
+                                                $no = 1;
+                                                foreach ($hari as $item) {
+                                                ?>
+                                                <tr>
+                                                    <td width="1%"><?= $no++; ?></td>
+                                                    <td><?= $item['nama_hari']; ?></td>
+                                                    <td>
+                                                        <center>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_hari']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
+                                                                    class="fa fa-pen"></i></a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_hari']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_hari']; ?>"><i class="fa fa-trash"></i></a>
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -200,7 +88,7 @@
 
         <!-- Start Modal Add Class-->
         <form action="<?php echo base_url('Admin/Hari/add_hari'); ?>" method="post" id="form_add"
-            data-parsley-validate="true">
+            data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -217,7 +105,7 @@
                             <div class="form-group">
                                 <label>Nama Hari</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Hari">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Hari" autofocus="on">
                                 <span class="text-danger" id="error_nama"></span>
                             </div>
 
@@ -235,7 +123,7 @@
 
         <!-- Modal Edit Class-->
         <form action="<?php echo base_url('Admin/Hari/update_hari'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true">
+            data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -253,7 +141,7 @@
                             <div class="form-group">
                                 <label>Nama Hari</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Hari">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Hari" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
                             </div>
                         </div>
@@ -286,7 +174,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <input type="hidden" name="id" class="id">
+                            <input type="text" name="id" class="id">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -307,31 +195,113 @@
     </div>
     <!-- ./wrapper -->
 
+    <?= $this->include("Admin/layout/js_tabel") ?>
+
+    
+    <!-- Page specific script -->
     <script>
         function Hapus(id){
             $('.id').val(id);
             $('#deleteModal').modal('show');
         };
+
+        $(function() {
+            $("#input_nama").keyup(function(){
+
+                var nama = $(this).val().trim();
+          
+                if(nama != ''){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Hari/cek_nama'); ?>' + '/' + nama,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_nama").html('Nama telah dipakai,coba yang lain');
+                                $("#input_nama").val('');
+                            }else{
+                                $("#error_nama").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+              });
+            $("#edit_nama").keyup(function(){
+
+                var nama = $(this).val().trim();
+          
+                if(nama != '' && nama != $('#edit_nama_lama').val()){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Hari/cek_nama'); ?>' + '/' + nama,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
+                                $("#edit_nama").val('');
+                            }else{
+                                $("#error_edit_nama").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+            });
+
+            $('#batal').on('click', function() {
+                $('#form_add')[0].reset();
+                $('#form_edit')[0].reset();
+                $("#input_nama").val('');
+                $("#input_deskripsi").val('');
+            });
+
+            $('#batal_add').on('click', function() {
+                $('#form_add')[0].reset();
+                $("#input_nama").val('');
+                $("#input_deskripsi").val('');
+            });
+
+            $('#batal_up').on('click', function() {
+                $('#form_edit')[0].reset();
+                $("#edit_nama").val('');
+                $("#edit_deskripsi").val('');
+            });
+        })
+
+        function detail_edit(isi) {
+            $.getJSON('<?php echo base_url('Admin/Hari/data_edit'); ?>' + '/' + isi, {},
+                function(json) {
+                    $('#id_hari').val(json.id_hari);
+                    $('#edit_nama').val(json.nama_hari);
+                });
+        }
     </script>
 
-    <?= $this->include("Admin/layout/js_tabel") ?>
-
+    <script type="text/javascript">
     $(function() {
-    $("#example1").DataTable({
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    });
+        $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        });
     });
     </script>
 </body>
