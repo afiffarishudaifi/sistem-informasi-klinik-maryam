@@ -242,7 +242,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Hari
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Hari</h5>
                                 <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -251,9 +251,9 @@
                             <input type="hidden" name="id_hari" id="id_hari">
 
                             <div class="form-group">
-                                <label>Nama H</label>
+                                <label>Nama Hari</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama H">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Hari">
                                 <span class="text-danger" id="error_edit_nama"></span>
                             </div>
                         </div>
