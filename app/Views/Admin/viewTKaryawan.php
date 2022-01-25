@@ -315,7 +315,7 @@
     </script>
 
     <?= $this->include("Admin/layout/js_tabel") ?>
-
+<script type="text/javascript">
     $(function() {
     $("#example1").DataTable({
     "responsive": true,
