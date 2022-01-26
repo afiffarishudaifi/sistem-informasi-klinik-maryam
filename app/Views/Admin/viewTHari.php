@@ -174,7 +174,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <input type="text" name="id" class="id">
+                            <input type="hidden" name="id" class="id">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>

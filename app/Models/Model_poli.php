@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Model_poliklinik extends Model
+class Model_poli extends Model
 {
     protected $table = 'poliklinik';
-    protected $primaryKey = 'id_poliklinik';
+    protected $primaryKey = 'id_poli';
 
     public function view_data()
     {
@@ -26,7 +26,7 @@ class Model_poliklinik extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('poliklinik');
-        $builder->where('id_poliklinik', $id);
+        $builder->where('id_poli', $id);
         return $builder->get();
     }
 
@@ -34,7 +34,7 @@ class Model_poliklinik extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('poliklinik');
-        $builder->where('id_poliklinik', $id);
+        $builder->where('id_poli', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -43,7 +43,7 @@ class Model_poliklinik extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('poliklinik');
-        $builder->where('id_poliklinik', $id);
+        $builder->where('id_poli', $id);
         return $builder->delete();
     }
 
@@ -51,8 +51,8 @@ class Model_poliklinik extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('poliklinik');
-        $builder->select('id_poliklinik');
-        $builder->where('nama_poliklinik', $nama);
+        $builder->select('id_poli');
+        $builder->where('nama_poli', $nama);
         return $builder->get();
     }
 }

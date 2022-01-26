@@ -47,141 +47,33 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>No</th>
+                                                <th>Nama</th>
+                                                <th>Stok</th>
+                                                <th>Harga</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 7</td>
-                                                <td>Win XP SP2+</td>
-                                                <td>7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>AOL browser (AOL desktop)</td>
-                                                <td>Win XP</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.0</td>
-                                                <td>OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.5</td>
-                                                <td>OSX.3+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape 7.2</td>
-                                                <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Browser 8</td>
-                                                <td>Win 98SE+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Navigator 9</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td>-</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
-                                            </tr>
+                                            <?php
+                                                $no = 1;
+                                                foreach ($obat as $item) {
+                                                ?>
+                                                <tr>
+                                                    <td width="1%"><?= $no++; ?></td>
+                                                    <td><?= $item['nama_obat']; ?></td>
+                                                    <td><?= $item['stok_obat']; ?></td>
+                                                    <td><?= $item['harga_obat']; ?></td>
+                                                    <td>
+                                                        <center>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_obat']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
+                                                                    class="fa fa-pen"></i></a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_obat']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_obat']; ?>"><i class="fa fa-trash"></i></a>
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -221,6 +113,18 @@
                                 <span class="text-danger" id="error_nama"></span>
                             </div>
 
+                            <div class="form-group">
+                                <label>Stok Obat</label>
+                                <input type="number" class="form-control" id="input_stok" name="input_stok"
+                                    data-parsley-required="true" placeholder="Masukkan Stok Obat" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Harga Obat</label>
+                                <input type="number" class="form-control" id="input_harga" name="input_harga"
+                                    data-parsley-required="true" placeholder="Masukkan Harga Obat" autofocus="on">
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_add"
@@ -243,9 +147,9 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Ubah Data Obat</h5>
-                                <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_obat" id="id_obat">
@@ -256,6 +160,19 @@
                                     data-parsley-required="true" placeholder="Masukkan Nama Obat" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
                             </div>
+
+                            <div class="form-group">
+                                <label>Stok Obat</label>
+                                <input type="number" class="form-control" id="edit_stok" name="edit_stok"
+                                    data-parsley-required="true" placeholder="Masukkan Stok Obat" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Harga Obat</label>
+                                <input type="number" class="form-control" id="edit_harga" name="edit_harga"
+                                    data-parsley-required="true" placeholder="Masukkan Harga Obat" autofocus="on">
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up"
@@ -307,31 +224,115 @@
     </div>
     <!-- ./wrapper -->
 
+    <?= $this->include("Admin/layout/js_tabel") ?>
+
     <script>
-    function Hapus(id) {
-        $('.id').val(id);
-        $('#deleteModal').modal('show');
-    };
+        function Hapus(id){
+            $('.id').val(id);
+            $('#deleteModal').modal('show');
+        };
+
+        $(function() {
+            $("#input_nama").keyup(function(){
+
+                var nama = $(this).val().trim();
+          
+                if(nama != ''){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Obat/cek_nama'); ?>' + '/' + nama,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_nama").html('Nama telah dipakai,coba yang lain');
+                                $("#input_nama").val('');
+                            }else{
+                                $("#error_nama").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+              });
+            $("#edit_nama").keyup(function(){
+
+                var nama = $(this).val().trim();
+          
+                if(nama != '' && nama != $('#edit_nama_lama').val()){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Obat/cek_nama'); ?>' + '/' + nama,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
+                                $("#edit_nama").val('');
+                            }else{
+                                $("#error_edit_nama").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+            });
+
+            $('#batal').on('click', function() {
+                $('#form_add')[0].reset();
+                $('#form_edit')[0].reset();
+                $("#input_nama").val('');
+                $("#input_stok").val('');
+                $("#input_harga").val('');
+            });
+
+            $('#batal_add').on('click', function() {
+                $('#form_add')[0].reset();
+                $("#input_nama").val('');
+                $("#input_stok").val('');
+                $("#input_harga").val('');
+            });
+
+            $('#batal_up').on('click', function() {
+                $('#form_edit')[0].reset();
+                $("#edit_nama").val('');
+                $("#edit_stok").val('');
+                $("#edit_harga").val('');
+            });
+        })
+
+        function detail_edit(isi) {
+            $.getJSON('<?php echo base_url('Admin/Obat/data_edit'); ?>' + '/' + isi, {},
+                function(json) {
+                    $('#id_obat').val(json.id_obat);
+                    $('#edit_nama').val(json.nama_obat);
+                    $('#edit_stok').val(json.stok_obat);
+                    $('#edit_harga').val(json.harga_obat);
+                });
+        }
     </script>
 
-    <?= $this->include("Admin/layout/js_tabel") ?>
-<script type="text/javascript">
+    <script type="text/javascript">
     $(function() {
-    $("#example1").DataTable({
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    });
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
     </script>
 </body>

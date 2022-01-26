@@ -55,4 +55,13 @@ class Model_pasien extends Model
         $builder->where('username_pasien', $username);
         return $builder->get();
     }
+
+    public function cek_nik($nik)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pasien');
+        $builder->select('id_pasien');
+        $builder->where('nik', $nik);
+        return $builder->get();
+    }
 }

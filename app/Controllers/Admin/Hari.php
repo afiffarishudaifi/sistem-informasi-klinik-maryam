@@ -44,11 +44,13 @@ class Hari extends BaseController
     {
         $session = session();
         $model = new Model_hari();
+        date_default_timezone_set('Asia/Jakarta');
         
         $id = $this->request->getPost('id_hari');
         $data = array(
             'nama_hari'     => $this->request->getPost('edit_nama'),
-            'id_hari'     => $this->request->getPost('id_hari')
+            'id_hari'     => $this->request->getPost('id_hari'),
+            'updated_at' => date('Y-m-d H:i:s')
         );
 
         $model->update_data($data, $id);
