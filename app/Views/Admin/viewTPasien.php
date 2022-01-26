@@ -282,7 +282,7 @@
                         url: '<?php echo base_url('Admin/Pasien/cek_username'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_username").html('Nama telah dipakai,coba yang lain');
+                                $("#error_username").html('Username telah dipakai,coba yang lain');
                                 $("#input_username").val('');
                             }else{
                                 $("#error_username").html('');
@@ -306,7 +306,7 @@
                         url: '<?php echo base_url('Admin/Pasien/cek_username'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_edit_username").html('Nama telah dipakai,coba yang lain');
+                                $("#error_edit_username").html('Username telah dipakai,coba yang lain');
                                 $("#edit_username").val('');
                             }else{
                                 $("#error_edit_username").html('');
