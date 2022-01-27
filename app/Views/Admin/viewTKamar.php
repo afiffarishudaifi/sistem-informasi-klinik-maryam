@@ -47,141 +47,25 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>Nomor Kamar</th>
+                                                <th>Biaya Kamar</th>
+                                                <th>Status Kamar</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php 
+                                                foreach ($kamar as $item) {
+                                                ?>
                                             <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
+                                                <td><? $item['no_kamar']; ?></td>
+                                                <td><?= $item['biaya_kamar']; ?></td>
+                                                <td><?= $item['status_kamar']; ?></td>
+                                                <td><a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kamar']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_kamar']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_kamar']; ?>">Hapus</a></td>
                                             </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 7</td>
-                                                <td>Win XP SP2+</td>
-                                                <td>7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>AOL browser (AOL desktop)</td>
-                                                <td>Win XP</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.0</td>
-                                                <td>OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.5</td>
-                                                <td>OSX.3+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape 7.2</td>
-                                                <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Browser 8</td>
-                                                <td>Win 98SE+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Navigator 9</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td>-</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
-                                            </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -215,10 +99,22 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Nama Kamar</label>
-                                <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Kamar" autofocus="on">
-                                <span class="text-danger" id="error_nama"></span>
+                                <label>Nomor Kamar</label>
+                                <input type="text" class="form-control" id="input_nomor" name="input_nomor"
+                                    data-parsley-required="true" placeholder="Masukkan Nomor Kamar" autofocus="on">
+                                <span class="text-danger" id="error_nomor"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Biaya Kamar</label>
+                                <input type="text" class="form-control" id="input_biaya" name="input_biaya"
+                                    data-parsley-required="true" placeholder="Masukkan Biaya Kamar" autofocus="on">
+                                <span class="text-danger" id="error_biaya"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Kamar</label>
+                                <input type="text" class="form-control" id="input_status" name="input_status"
+                                    data-parsley-required="true" placeholder="Masukkan Status Kamar" autofocus="on">
+                                <span class="text-danger" id="error_status"></span>
                             </div>
 
                         </div>
@@ -251,10 +147,22 @@
                             <input type="hidden" name="id_kamar" id="id_kamar">
 
                             <div class="form-group">
-                                <label>Nama Kamar</label>
-                                <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Kamar" autofocus="on">
-                                <span class="text-danger" id="error_edit_nama"></span>
+                                <label>Nomor Kamar</label>
+                                <input type="text" class="form-control" id="edit_nomor" name="edit_nomor"
+                                    data-parsley-required="true" placeholder="Masukkan Nomor Kamar" autofocus="on">
+                                <span class="text-danger" id="error_edit_nomor"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Biaya Kamar</label>
+                                <input type="text" class="form-control" id="edit_biaya" name="edit_biaya"
+                                    data-parsley-required="true" placeholder="Masukkan Biaya Kamar" autofocus="on">
+                                <span class="text-danger" id="error_edit_biaya"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Status Kamar</label>
+                                <input type="text" class="form-control" id="edit_status" name="edit_status"
+                                    data-parsley-required="true" placeholder="Masukkan Status Kamar" autofocus="on">
+                                <span class="text-danger" id="error_edit_status"></span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -307,14 +215,92 @@
     </div>
     <!-- ./wrapper -->
 
+    <?= $this->include("Admin/layout/js_tabel") ?>
+
     <script>
         function Hapus(id){
             $('.id').val(id);
             $('#deleteModal').modal('show');
         };
-    </script>
 
-    <?= $this->include("Admin/layout/js_tabel") ?>
+        $(function() {
+            $("#input_nomor").keyup(function(){
+
+                var nomor = $(this).val().trim();
+          
+                if(nomor != ''){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Kamar/cek_nomor'); ?>' + '/' + nomor,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_nomor").html('Nomor telah dipakai,coba yang lain');
+                                $("#input_nomor").val('');
+                            }else{
+                                $("#error_nomor").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+              });
+            $("#edit_nomor").keyup(function(){
+
+                var nomor = $(this).val().trim();
+          
+                if(nomor != '' && nomor != $('#edit_nomor_lama').val()){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Kamar/cek_nomor'); ?>' + '/' + nomor,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_edit_nomor").html('Nomor telah dipakai,coba yang lain');
+                                $("#edit_nomor").val('');
+                            }else{
+                                $("#error_edit_nomor").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+            });
+
+            $('#batal').on('click', function() {
+                $('#form_add')[0].reset();
+                $('#form_edit')[0].reset();
+                $("#input_nomor").val('');
+                $("#input_deskripsi").val('');
+            });
+
+            $('#batal_add').on('click', function() {
+                $('#form_add')[0].reset();
+                $("#input_nomor").val('');
+                $("#input_deskripsi").val('');
+            });
+
+            $('#batal_up').on('click', function() {
+                $('#form_edit')[0].reset();
+                $("#edit_nomor").val('');
+                $("#edit_deskripsi").val('');
+            });
+        })
+
+        function detail_edit(isi) {
+            $.getJSON('<?php echo base_url('Admin/Kamar/data_edit'); ?>' + '/' + isi, {},
+                function(json) {
+                    $('#id_kamar').val(json.id_kamar);
+                    $('#edit_nomor').val(json.nomor_kamar);
+                });
+        }
+    </script>
 
 <script type="text/javascript">
     $(function() {
