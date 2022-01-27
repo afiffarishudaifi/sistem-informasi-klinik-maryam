@@ -66,10 +66,9 @@
                                                     <td><?= $item['no_telp_pasien']; ?></td>
                                                     <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pasien']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
-                                                                    class="fa fa-pen"></i></a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pasien']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</i></a>
                                                             <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pasien']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_pasien']; ?>"><i class="fa fa-trash"></i></a>
+                                                                data-target="#deleteModal" data-id="<?= $item['id_pasien']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
                                                 </tr>
