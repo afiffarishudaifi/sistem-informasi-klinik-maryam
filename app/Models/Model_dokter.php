@@ -55,4 +55,13 @@ class Model_dokter extends Model
         $builder->where('nama_dokter', $nama);
         return $builder->get();
     }
+
+    public function cek_foreign($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('dokter');
+        $builder->join('jadwal_dokter', 'jadwal_dokter.id_dokter = dokter.id_dokter');
+        $builder->where('dokter.id_dokter', $id);
+        return $builder->countAllResults();
+    }
 }

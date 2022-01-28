@@ -38,7 +38,7 @@ class Kamar extends BaseController
         $validation =  \Config\Services::validation();
         $validation->setRules([
             'input_nomor' => 'required|numeric',
-            'biaya_kamar' => 'required',
+            'biaya_kamar' => 'required|numeric',
             'status_kamar' => 'required',
         ]);
         $model = new Model_kamar();
@@ -55,9 +55,10 @@ class Kamar extends BaseController
         
         $id = $this->request->getPost('id_kamar');
         $data = array(
-            'no_kamar'     => $this->request->getPost('edit_nomor'),
             'id_kamar'     => $this->request->getPost('id_kamar'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'no_kamar'     => $this->request->getPost('edit_nomor'),
+            'biaya_kamar'  => $this->request->getPost('edit_biaya'),
+            'status_kamar'     => $this->request->getPost('edit_status'),
         );
 
         $model->update_data($data, $id);
@@ -79,5 +80,29 @@ class Kamar extends BaseController
             session()->setFlashdata('sukses', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         }
         return redirect()->to('/Admin/Kamar');
+    }
+
+    public function cek_nomor($nomor)
+    {
+        $model = new Model_kamar();
+        $cek_nomor = $model->cek_nomor($nomor)->getResultArray();
+        $respon = json_decode(json_encode($cek_nomor), true);
+        $data['results'] = count($respon);
+        echo json_encode($data);
+    }
+
+    public function data_edit($id_kamar)
+    {
+        $model = new Model_kamar();
+        $datakamar = $model->detail_data($id_kamar)->getResultArray();
+        $respon = json_decode(json_encode($datakamar), true);
+        $data['results'] = array();
+        foreach ($respon as $value) :
+            $isi['id_kamar'] = $value['id_kamar'];
+            $isi['no_kamar'] = $value['no_kamar'];
+            $isi['biaya_kamar'] = $value['biaya_kamar'];
+            $isi['status_kamar'] = $value['status_kamar'];
+        endforeach;
+        echo json_encode($isi);
     }
 }

@@ -52,7 +52,7 @@ class Model_kamar extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
         $builder->select('id_kamar');
-        $builder->where('nomor_kamar', $nomor);
+        $builder->where('no_kamar', $nomor);
         return $builder->get();
     }
 
@@ -60,7 +60,7 @@ class Model_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->join('pendafataran_inap', 'pendaftaran_inap.id_kamar = kamar.id_kamar');
+        $builder->join('pendaftaran_inap', 'pendaftaran_inap.id_kamar = kamar.id_kamar');
         $builder->where('kamar.id_kamar', $id);
         return $builder->countAllResults();
     }
