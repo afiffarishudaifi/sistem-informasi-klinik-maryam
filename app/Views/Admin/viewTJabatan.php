@@ -256,13 +256,13 @@
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nama").val('');
-                $("#input_deskripsi").val('');
+               
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nama").val('');
-                $("#input_deskripsi").val('');
+               
             });
 
             $('#batal_up').on('click', function() {

@@ -58,7 +58,8 @@
                                                 foreach ($kamar as $item) {
                                                 ?>
                                             <tr>
-                                                <td><? $item['no_kamar']; ?></td>
+            
+                                                <td><?= sprintf("%03s", $item['no_kamar']) ; ?></td>
                                                 <td><?= $item['biaya_kamar']; ?></td>
                                                 <td><?= $item['status_kamar']; ?></td>
                                                 <td><a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kamar']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
@@ -106,15 +107,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Biaya Kamar</label>
-                                <input type="text" class="form-control" id="input_biaya" name="input_biaya"
+                                <input type="number" class="form-control" id="input_biaya" name="input_biaya"
                                     data-parsley-required="true" placeholder="Masukkan Biaya Kamar" autofocus="on">
-                                <span class="text-danger" id="error_biaya"></span>
                             </div>
                             <div class="form-group">
                                 <label>Status Kamar</label>
                                 <input type="text" class="form-control" id="input_status" name="input_status"
                                     data-parsley-required="true" placeholder="Masukkan Status Kamar" autofocus="on">
-                                <span class="text-danger" id="error_status"></span>
                             </div>
 
                         </div>
@@ -154,15 +153,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Biaya Kamar</label>
-                                <input type="text" class="form-control" id="edit_biaya" name="edit_biaya"
+                                <input type="number" class="form-control" id="edit_biaya" name="edit_biaya"
                                     data-parsley-required="true" placeholder="Masukkan Biaya Kamar" autofocus="on">
-                                <span class="text-danger" id="error_edit_biaya"></span>
                             </div>
                             <div class="form-group">
                                 <label>Status Kamar</label>
                                 <input type="text" class="form-control" id="edit_status" name="edit_status"
                                     data-parsley-required="true" placeholder="Masukkan Status Kamar" autofocus="on">
-                                <span class="text-danger" id="error_edit_status"></span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -277,19 +274,22 @@
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nomor").val('');
-                $("#input_deskripsi").val('');
+                $("#input_biaya").val('');
+                $("#input_status").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nomor").val('');
-                $("#input_deskripsi").val('');
+                $("#input_biaya").val('');
+                $("#input_status").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nomor").val('');
-                $("#edit_deskripsi").val('');
+                $("#edit_biaya").val('');
+                $("#edit_status").val('');
             });
         })
 
@@ -297,7 +297,9 @@
             $.getJSON('<?php echo base_url('Admin/Kamar/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_kamar').val(json.id_kamar);
-                    $('#edit_nomor').val(json.nomor_kamar);
+                    $('#edit_nomor').val(json.no_kamar);
+                    $('#edit_biaya').val(json.biaya_kamar);
+                    $('#edit_status').val(json.status_kamar);
                 });
         }
     </script>
