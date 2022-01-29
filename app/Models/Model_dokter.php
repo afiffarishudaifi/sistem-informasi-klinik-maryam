@@ -13,6 +13,14 @@ class Model_dokter extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('dokter');
+        $builder->join('poliklinik', 'poliklinik.id_poli = dokter.id_poli');
+        return $builder->get();
+    }
+    
+    public function view_poli()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('poliklinik');
         return $builder->get();
     }
 
@@ -53,6 +61,15 @@ class Model_dokter extends Model
         $builder = $db->table('dokter');
         $builder->select('id_dokter');
         $builder->where('nama_dokter', $nama);
+        return $builder->get();
+    }
+
+    public function cek_foto($foto)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('dokter');
+        $builder->select('id_dokter');
+        $builder->where('foto_dokter', $foto);
         return $builder->get();
     }
 

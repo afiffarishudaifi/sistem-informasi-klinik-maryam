@@ -1,3 +1,4 @@
+<?php $session = session(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,141 +48,25 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>Nama Dokter</th>
+                                                <th>Poli</th>
+                                                <th>Alamat</th>
+                                                <th>No Telepon</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php 
+                                                foreach ($dokter as $item) {
+                                            ?>
                                             <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
+                                                <td><?= $item['nama_dokter']; ?></td>
+                                                <td><?= $item['nama_poli']; ?></td>
+                                                <td><?= $item['alamat_dokter']; ?></td>
+                                                <td><?= $item['no_telp_dokter']; ?></td>
+                                                <td><?= $item['status_dokter']; ?></td>
                                             </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 7</td>
-                                                <td>Win XP SP2+</td>
-                                                <td>7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>AOL browser (AOL desktop)</td>
-                                                <td>Win XP</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.0</td>
-                                                <td>OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.5</td>
-                                                <td>OSX.3+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape 7.2</td>
-                                                <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Browser 8</td>
-                                                <td>Win 98SE+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Navigator 9</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td>-</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
-                                            </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -217,8 +102,40 @@
                             <div class="form-group">
                                 <label>Nama Dokter</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
-                                <span class="text-danger" id="error_nama"></span>
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">  
+                            </div>
+                            <div class="form-group">
+                                <label>Poli</label>
+                               <select class="form-control" id="input_poli" name="input_poli">
+                                   <?php foreach ($poli as $item) { ?>
+                                        <option value="<?= $item['id_poli']; ?>" selected=""><?= $item['nama_poli']; ?></option>
+                                    <?php } ?>
+                                </select>   
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <input type="text" class="form-control" id="input_alamat" name="input_alamat"
+                                    data-parsley-required="true" placeholder="Masukkan Alamat Dokter" autofocus="on">
+                            </div>
+                            <div class="form-group">
+                                <label>No Telp</label>
+                                <input type="text" class="form-control" id="input_no_telp" name="input_no_telp"
+                                    data-parsley-required="true" placeholder="Masukkan No Telp Dokter" autofocus="on">
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="input_status" name="input_status"
+                                            value="Aktif"> &nbsp Aktif
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Foto</label>
+                                <br>
+                                <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
+                                <span class="text-danger" id="error_foto"></span>
                             </div>
 
                         </div>
@@ -254,7 +171,34 @@
                                 <label>Nama Dokter</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
-                                <span class="text-danger" id="error_edit_nama"></span>
+                             
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
+                               
+                            </div>
+                            <div class="form-group">
+                                <label>No Telp</label>
+                                <input type="text" class="form-control" id="edit_no_telp" name="edit_no_telp"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
+                                
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="edit_status" name="edit_status"
+                                            value="Aktif"> &nbsp Aktif
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Foto</label>
+                                <br>
+                                <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
+                                <span class="text-danger" id="error_edit_foto"></span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -311,6 +255,109 @@
             $('.id').val(id);
             $('#deleteModal').modal('show');
         };
+
+        $( document ).ready(function() {
+            if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
+                toastr.success('<?= $session->getFlashdata('sukses'); ?>')
+            } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
+                toastr.error('<?= $session->getFlashdata('gagal'); ?>')
+            }
+        });
+
+        $(function() {
+            $("#input_foto").keyup(function(){
+
+                var foto = $(this).val().trim();
+          
+                if(foto != ''){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Dokter/cek_foto'); ?>' + '/' + foto,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_foto").html('Foto telah dipakai,coba yang lain');
+                                $("#input_foto").val('');
+                            }else{
+                                $("#error_foto").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+              });
+
+            $("#edit_foto").keyup(function(){
+
+                var foto = $(this).val().trim();
+          
+                if(foto != '' && foto != $('#edit_foto_lama').val()){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Dokter/cek_foto'); ?>' + '/' + foto,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_edit_foto").html('Foto telah dipakai,coba yang lain');
+                                $("#edit_foto").val('');
+                            }else{
+                                $("#error_edit_foto").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+            });
+
+            $('#batal').on('click', function() {
+                $('#form_add')[0].reset();
+                $('#form_edit')[0].reset();
+                $("#input_nama").val('');
+                $("#input_poli").val('');
+                $("#input_alamat").val('');
+                $("#input_no_telp").val('');
+                $("#input_status").val('');
+                $("#input_foto").val('');
+            });
+
+            $('#batal_add').on('click', function() {
+                $('#form_add')[0].reset();
+                $("#input_nama").val('');
+                $("#input_poli").val('');
+                $("#input_alamat").val('');
+                $("#input_no_telp").val('');
+                $("#input_status").val('');
+                $("#input_foto").val('');
+            });
+
+            $('#batal_up').on('click', function() {
+                $('#form_edit')[0].reset();
+                $("#edit_nama").val('');
+                $("#edit_poli").val('');
+                $("#edit_alamat").val('');
+                $("#edit_no_telp").val('');
+                $("#edit_status").val('');
+                $("#edit_foto").val('');
+            });
+        })
+
+        function detail_edit(isi) {
+            $.getJSON('<?php echo base_url('Admin/Dokter/data_edit'); ?>' + '/' + isi, {},
+                function(json) {
+                    $('#id_dokter').val(json.id_dokter);
+                    $('#edit_nama').val(json.nama_dokter);
+                    $('#edit_alamat').val(json.alamat_dokter);
+                    $('#edit_no_telp').val(json.no_telp_dokter);
+                    $('#edit_status').val(json.status_dokter);
+                    $('#edit_foto').val(json.foto_dokter);
+                });
+        }
     </script>
 
     <?= $this->include("Admin/layout/js_tabel") ?>

@@ -56,7 +56,7 @@
                                         <tbody>
                                             <?php 
                                                 foreach ($kamar as $item) {
-                                                ?>
+                                            ?>
                                             <tr>
             
                                                 <td><?= sprintf("%03s", $item['no_kamar']) ; ?></td>

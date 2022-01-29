@@ -11,6 +11,11 @@ class Dokter extends BaseController
     protected $Model_dokter;
     public function __construct()
     {
+        $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Admin') {
+            return redirect()->to('Login/loginAdmin');
+        }
         $this->Model_dokter = new Model_dokter();
         helper(['form', 'url']);
     }
@@ -20,23 +25,33 @@ class Dokter extends BaseController
         $session = session();
         $model = new Model_dokter();
         $dokter = $model->view_data()->getResultArray();
+        $poli = $model->view_poli()->getResultArray();
 
         $data = [
             'judul' => 'Tabel Dokter',
-            'dokter' => $dokter
+            'dokter' => $dokter,
+            'poli' => $poli
         ];
+
         return view('Admin/viewTDokter', $data);
     }
 
     public function add_dokter()
     {
         $session = session();
+
+        if($this->request->getPost('input_status') == '') {
+            $status = 'Tidak Aktif';
+        } else {
+            $status = 'Aktif';
+        }
+
         $data = array(
             'id_poli'     => $this->request->getPost('input_poli'),
             'nama_dokter'     => $this->request->getPost('input_nama'),
             'alamat_dokter' => $this->request->getPost('input_alamat'),
             'no_telp_dokter' => $this->request->getPost('input_no_telp'),
-            'status_dokter' => $this->request->getPost('input_status'), 
+            'status_dokter' => $status, 
             'foto_dokter' => $this->request->getPost('input_foto'), 
         );
         $validation =  \Config\Services::validation();
@@ -54,14 +69,20 @@ class Dokter extends BaseController
         $session = session();
         $model = new Model_dokter();
         date_default_timezone_set('Asia/Jakarta');
+
+        if($this->request->getPost('edit_status') == '') {
+            $status = 'Tidak Aktif';
+        } else {
+            $status = 'Aktif';
+        }
         
-        $id = $this->request->getPost('id_kamar');
+        $id = $this->request->getPost('id_dokter');
         $data = array(
             'id_poli'     => $this->request->getPost('id_poli'),
             'nama_dokter'  => $this->request->getPost('edit_nama'),
             'alamat_dokter'   => $this->request->getPost('edit_alamat'),
             'no_telp_dokter'  => $this->request->getPost('edit_no_telp'),
-            'status_dokter'   => $this->request->getPost('edit_status'),
+            'status_dokter'   => $status,
             'foto_dokter'     => $this->request->getPost('edit_foto'),
             'updated_at' => date('Y-m-d H:i:s')
         );
