@@ -75,11 +75,11 @@ class Login extends BaseController
                 return redirect()->to('/Admin/Dashboard');
             } else {
                 $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                return redirect()->to('/Login');
+                return redirect()->to('/Login/loginAdmin');
             }
         } else {
             $session->setFlashdata('msg', 'Username Tidak di Temukan');
-            return redirect()->to('/Login');
+            return redirect()->to('/Login/loginAdmin');
         }
     }
 
