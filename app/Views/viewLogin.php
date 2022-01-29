@@ -1,3 +1,4 @@
+<?php $session = session(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,9 @@
   <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/dist/css/adminlte.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/plugins/toastr/toastr.min.css">
+
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -24,9 +28,9 @@
     <div class="card-body">
       <p class="login-box-msg">Login untuk dapat akses ke sistem</p>
 
-      <form action="<?= base_url('Login/loginSistem'); ?>" method="POST" autocomplete="off">
+      <form action="<?= base_url('Login/loginSistem'); ?>" method="POST" autocomplete="off" data-parsley-validate="true">
         <div class="input-group mb-3">
-          <input type="text"  name="username" id="username" class="form-control" placeholder="Username">
+          <input type="text" required=""  name="username" id="username" class="form-control" placeholder="Username">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa fa-user"></span>
@@ -34,7 +38,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+          <input type="password" required="" name="password" id="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -42,7 +46,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-            <select name="status" class="form-control" id="status">
+            <select name="status" required="" class="form-control" id="status">
                 <option value="Pasien" selected="">Pasien</option>
                 <option value="Karyawan">Karyawan</option>
             </select>
@@ -77,5 +81,15 @@
 <script src="<?= base_url() ?>/docs/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url() ?>/docs/adminlte/dist/js/adminlte.min.js"></script>
+<!-- Toastr -->
+<script src="<?= base_url() ?>/docs/adminlte/plugins/toastr/toastr.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      if ('<?= $session->getFlashdata('msg'); ?>' != '') {
+          toastr.error('<?= $session->getFlashdata('msg'); ?>')
+      }
+  });
+</script>
 </body>
 </html>
