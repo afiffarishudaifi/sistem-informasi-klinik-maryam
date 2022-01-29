@@ -58,18 +58,18 @@
                                         <tbody>
                                             <?php
                                                 $no = 1;
-                                                foreach ($pasien as $item) {
+                                                foreach ($admin as $item) {
                                                 ?>
                                                 <tr>
                                                     <td width="1%"><?= $no++; ?></td>
-                                                    <td><?= $item['nama_pasien']; ?></td>
-                                                    <td><?= $item['alamat_pasien']; ?></td>
-                                                    <td><?= $item['no_telp_pasien']; ?></td>
+                                                    <td><?= $item['nama_admin']; ?></td>
+                                                    <td><?= $item['alamat_admin']; ?></td>
+                                                    <td><?= $item['no_telp_admin']; ?></td>
                                                     <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pasien']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</i></a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pasien']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_pasien']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_admin']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</i></a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_admin']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_admin']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
                                                 </tr>
@@ -91,7 +91,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/Pasien/add_pasien'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Admin/Admin/add_admin'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -99,7 +99,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pasien </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Admin </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -107,27 +107,20 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Nama Pasien</label>
+                                <label>Nama Admin</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Admin" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>NIK Pasien</label>
-                                <input type="number" class="form-control" id="input_nik" name="input_nik"
-                                    data-parsley-required="true" placeholder="Masukkan NIK Pasien" autofocus="on">
-                                <span class="text-danger" id="error_nik"></span>
-                                <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Username Pasien</label>
+                                <label>Username Admin</label>
                                 <input type="text" class="form-control" id="input_username" name="input_username"
-                                    data-parsley-required="true" placeholder="Masukkan Username Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Username Admin" autofocus="on">
                                 <span class="text-danger" id="error_username"></span>
                             </div>
                             <div class="form-group">
-                                <label>Password Pasien</label>
+                                <label>Password Admin</label>
                                 <input type="Password" class="form-control" id="input_password" name="input_password"
-                                    data-parsley-required="true" placeholder="Masukkan Password Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Password Admin" autofocus="on">
                             </div>
                             <div class="form-group">
                                 <label>Ulangi Password</label>
@@ -135,13 +128,13 @@
                                     data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#input_password">
                             </div>
                             <div class="form-group">
-                                <label>Alamat Pasien</label>
+                                <label>Alamat Admin</label>
                                 <textarea class="form-control" id="input_alamat" name="input_alamat" placeholder="Masukkan alamat"></textarea>
                             </div>
                             <div class="form-group">
-                                <label>No Telp Pasien</label>
+                                <label>No Telp Admin</label>
                                 <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
-                                    data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan No Telp Admin" autofocus="on">
                             </div>
 
                         </div>
@@ -157,7 +150,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/Pasien/update_pasien'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Admin/Admin/update_admin'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -165,50 +158,43 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Pasien</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Admin</h5>
                                 <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pasien" id="id_pasien">
+                            <input type="hidden" name="id_admin" id="id_admin">
 
                             <div class="form-group">
-                                <label>Nama Pasien</label>
+                                <label>Nama Admin</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Admin" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>NIK Pasien</label>
-                                <input type="number" class="form-control" id="edit_nik" name="edit_nik"
-                                    data-parsley-required="true" placeholder="Masukkan NIK Pasien" autofocus="on">
-                                <span class="text-danger" id="error_nik_edit"></span>
-                                <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Username Pasien</label>
+                                <label>Username Admin</label>
                                 <input type="text" class="form-control" id="edit_username" name="edit_username"
-                                    data-parsley-required="true" placeholder="Masukkan Username Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Username Admin" autofocus="on">
                                 <span class="text-danger" id="error_edit_username"></span>
                             </div>
                             <div class="form-group">
-                                <label>Password Pasien</label>
+                                <label>Password Admin</label>
                                 <input type="Password" class="form-control" id="edit_password" name="edit_password"
-                                    placeholder="Masukkan Password Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Password Admin" autofocus="on">
                             </div>
                             <div class="form-group">
                                 <label>Ulangi Password</label>
                                 <input type="Password" class="form-control" id="edit_password_konfirmasi" name="edit_password_konfirmasi"
-                                    placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#edit_password">
+                                    data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#edit_password">
                             </div>
                             <div class="form-group">
-                                <label>Alamat Pasien</label>
+                                <label>Alamat Admin</label>
                                 <textarea class="form-control" id="edit_alamat" name="edit_alamat" placeholder="Masukkan alamat"></textarea>
                             </div>
                             <div class="form-group">
-                                <label>No Telp Pasien</label>
+                                <label>No Telp Admin</label>
                                 <input type="number" class="form-control" id="edit_no_telp" name="edit_no_telp"
-                                    data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan No Telp Admin" autofocus="on">
                             </div>
 
                         </div>
@@ -224,7 +210,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/Pasien/delete_pasien'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Admin/delete_admin'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -237,7 +223,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus Pasien ini?</h4>
+                            <h4>Apakah Ingin menghapus Admin ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -287,7 +273,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Pasien/cek_username'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Admin/cek_username'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_username").html('Username telah dipakai,coba yang lain');
@@ -311,7 +297,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Pasien/cek_username'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Admin/cek_username'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_edit_username").html('Username telah dipakai,coba yang lain');
@@ -327,59 +313,10 @@
                 }
             });
 
-            $("#input_nik").keyup(function(){
-
-                var nik = $(this).val().trim();
-          
-                if(nik != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Pasien/cek_nik'); ?>' + '/' + nik,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_nik").html('NIK telah dipakai,coba yang lain');
-                                $("#input_nik").val('');
-                            }else{
-                                $("#error_nik").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-              });
-            $("#edit_nik").keyup(function(){
-
-                var nik = $(this).val().trim();
-          
-                if(nik != '' && nik != $('#edit_username_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Pasien/cek_nik'); ?>' + '/' + nik,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nik").html('NIK telah dipakai,coba yang lain');
-                                $("#edit_nik").val('');
-                            }else{
-                                $("#error_edit_nik").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-            });
-
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nama").val('');
-                $("#input_nik").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
@@ -390,7 +327,6 @@
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nama").val('');
-                $("#input_nik").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
@@ -401,7 +337,6 @@
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nama").val('');
-                $("#edit_nik").val('');
                 $("#edit_username").val('');
                 $("#edit_password").val('');
                 $("#edit_password_konfirmasi").val('');
@@ -411,14 +346,13 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/Pasien/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Admin/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pasien').val(json.id_pasien);
-                    $('#edit_nama').val(json.nama_pasien);
-                    $('#edit_nik').val(json.nik);
-                    $('#edit_username').val(json.username_pasien);
-                    $('#edit_alamat').val(json.alamat_pasien);
-                    $('#edit_no_telp').val(json.no_telp_pasien);
+                    $('#id_admin').val(json.id_admin);
+                    $('#edit_nama').val(json.nama_admin);
+                    $('#edit_username').val(json.username_admin);
+                    $('#edit_alamat').val(json.alamat_admin);
+                    $('#edit_no_telp').val(json.no_telp_admin);
                 });
         }
     </script>

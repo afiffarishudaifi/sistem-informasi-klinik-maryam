@@ -10,6 +10,12 @@ class Poliklinik extends BaseController
     protected $Model_poli;
     public function __construct()
     {
+        $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Admin') {
+            return redirect()->to('Login/loginAdmin');
+        }
+
         $this->Model_poli = new Model_poli();
         helper(['form', 'url']);
     }
@@ -82,7 +88,7 @@ class Poliklinik extends BaseController
             $model->delete_data($id);
             session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
         // } else {
-        //     session()->setFlashdata('sukses', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
+        //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         // }
         return redirect()->to('/Admin/Poliklinik');
     }
