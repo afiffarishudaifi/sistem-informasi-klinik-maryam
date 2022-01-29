@@ -85,7 +85,7 @@
 
         <!-- Start Modal Add Class-->
         <form action="<?php echo base_url('Admin/Dokter/add_dokter'); ?>" method="post" id="form_add"
-            data-parsley-validate="true">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telp</label>
-                                <input type="text" class="form-control" id="input_no_telp" name="input_no_telp"
+                                <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan No Telp Dokter" autofocus="on">
                             </div>
                             <div class="form-group">
@@ -152,7 +152,7 @@
 
         <!-- Modal Edit Class-->
         <form action="<?php echo base_url('Admin/Dokter/update_dokter'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -181,7 +181,7 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telp</label>
-                                <input type="text" class="form-control" id="edit_no_telp" name="edit_no_telp"
+                                <input type="number" class="form-control" id="edit_no_telp" name="edit_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
                                 
                             </div>

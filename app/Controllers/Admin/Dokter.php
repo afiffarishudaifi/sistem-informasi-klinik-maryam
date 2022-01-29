@@ -46,18 +46,23 @@ class Dokter extends BaseController
             $status = 'Aktif';
         }
 
+        $avatar      = $this->request->getFile('input_foto');
+        if ($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_dokter/', $namabaru);
+        } else {
+            $namabaru = 'noimage.jpg';
+        }
+
         $data = array(
             'id_poli'     => $this->request->getPost('input_poli'),
             'nama_dokter'     => $this->request->getPost('input_nama'),
             'alamat_dokter' => $this->request->getPost('input_alamat'),
             'no_telp_dokter' => $this->request->getPost('input_no_telp'),
-            'status_dokter' => $status, 
-            'foto_dokter' => $this->request->getPost('input_foto'), 
+            'status_dokter' => $status,
+            'foto_dokter'     => "docs/img/img_dokter/" . $namabaru
         );
-        $validation =  \Config\Services::validation();
-        $validation->setRules([
-            'input_telp' => 'required|numeric',
-        ]);
+        
         $model = new Model_dokter();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
@@ -77,15 +82,41 @@ class Dokter extends BaseController
         }
         
         $id = $this->request->getPost('id_dokter');
-        $data = array(
-            'id_poli'     => $this->request->getPost('id_poli'),
-            'nama_dokter'  => $this->request->getPost('edit_nama'),
-            'alamat_dokter'   => $this->request->getPost('edit_alamat'),
-            'no_telp_dokter'  => $this->request->getPost('edit_no_telp'),
-            'status_dokter'   => $status,
-            'foto_dokter'     => $this->request->getPost('edit_foto'),
-            'updated_at' => date('Y-m-d H:i:s')
-        );
+
+        $avatar      = $this->request->getFile('edit_foto');
+        if ($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_dokter/', $namabaru);
+
+            $data = array(
+                'id_poli'     => $this->request->getPost('id_poli'),
+                'nama_dokter'  => $this->request->getPost('edit_nama'),
+                'alamat_dokter'   => $this->request->getPost('edit_alamat'),
+                'no_telp_dokter'  => $this->request->getPost('edit_no_telp'),
+                'status_dokter'   => $status,
+                'foto_dokter'     => "docs/img/img_dokter/" . $namabaru,
+                'updated_at' => date('Y-m-d H:i:s')
+            );
+
+            $data_foto = $model->detail_data($id)->getRowArray();
+
+            if ($data_foto != null) {
+                if ($data_foto['foto_dokter'] != 'docs/img/img_dokter/noimage.jpg') {
+                    if (file_exists($data_foto['foto_dokter'])) {
+                        unlink($data_foto['foto_dokter']);
+                    }
+                }
+            }
+        } else {
+            $data = array(
+                'id_poli'     => $this->request->getPost('id_poli'),
+                'nama_dokter'  => $this->request->getPost('edit_nama'),
+                'alamat_dokter'   => $this->request->getPost('edit_alamat'),
+                'no_telp_dokter'  => $this->request->getPost('edit_no_telp'),
+                'status_dokter'   => $status,
+                'updated_at' => date('Y-m-d H:i:s')
+            );
+        }
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
@@ -100,6 +131,15 @@ class Dokter extends BaseController
         $session = session();
         $foreign = $model->cek_foreign($id);
         if ($foreign == 0) {
+            $data_foto = $model->detail_data($id)->getRowArray();
+
+            if ($data_foto != null) {
+                if ($data_foto['foto_dokter'] != 'docs/img/img_dokter/noimage.jpg') {
+                    if (file_exists($data_foto['foto_dokter'])) {
+                        unlink($data_foto['foto_dokter']);
+                    }
+                }
+            }
             $model->delete_data($id);
             session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
         } else {
