@@ -312,6 +312,14 @@
             $('.id').val(id);
             $('#deleteModal').modal('show');
         };
+        
+        $( document ).ready(function() {
+            if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
+                toastr.success('<?= $session->getFlashdata('sukses'); ?>')
+            } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
+                toastr.error('<?= $session->getFlashdata('gagal'); ?>')
+            }
+        });
     </script>
 
     <?= $this->include("Admin/layout/js_tabel") ?>
