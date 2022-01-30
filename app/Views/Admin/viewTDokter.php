@@ -53,6 +53,7 @@
                                                 <th>Alamat</th>
                                                 <th>No Telepon</th>
                                                 <th>Status</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,6 +66,13 @@
                                                 <td><?= $item['alamat_dokter']; ?></td>
                                                 <td><?= $item['no_telp_dokter']; ?></td>
                                                 <td><?= $item['status_dokter']; ?></td>
+                                                <td>
+                                                        <center>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_dokter']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_dokter']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_dokter']; ?>">Hapus</a>
+                                                        </center>
+                                                    </td>
                                             </tr>
                                             <?php } ?>
                                         </tbody>
@@ -170,21 +178,30 @@
                             <div class="form-group">
                                 <label>Nama Dokter</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
-                             
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">  
                             </div>
+
+                             <div class="form-group">
+                                <label>Poli</label>
+                                    <select name="edit_poli" id="edit_poli" class="form-control">
+                                        <?php foreach ($poli as $value) { ?>
+                                        <option value="<?= $value['id_poli'] ?>"><?= $value['nama_poli'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Alamat</label>
                                 <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
-                               
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">   
                             </div>
+
                             <div class="form-group">
                                 <label>No Telp</label>
                                 <input type="number" class="form-control" id="edit_no_telp" name="edit_no_telp"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">
-                                
+                                    data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">   
                             </div>
+
                             <div class="form-group">
                                 <label>Status</label>
                                 <div class="checkbox">
@@ -194,12 +211,14 @@
                                     </label>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label>Foto</label>
                                 <br>
                                 <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
                                 <span class="text-danger" id="error_edit_foto"></span>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up"
@@ -250,6 +269,9 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+    
+    <?= $this->include("Admin/layout/js_tabel") ?>
+
     <script>
         function Hapus(id){
             $('.id').val(id);
@@ -352,16 +374,31 @@
                 function(json) {
                     $('#id_dokter').val(json.id_dokter);
                     $('#edit_nama').val(json.nama_dokter);
+        
+                    
+
                     $('#edit_alamat').val(json.alamat_dokter);
                     $('#edit_no_telp').val(json.no_telp_dokter);
-                    $('#edit_status').val(json.status_dokter);
+
+                    if(json.status_dokter=='Aktif'){
+                        $("#edit_status").prop('checked',true);
+                    }else{
+                        $("#edit_status").prop('checked',false);
+                    }
                     $('#edit_foto').val(json.foto_dokter);
+
+                    $('#edit_poli').append('<option selected value="' + json.id_poli + '">' + json.nama_poli +
+                        '</option>');
+                    $('#edit_poli').select2('data', {
+                        id: json.id_poli,
+                        text: json.nama_poli
+                    });
+                    $('#edit_poli').trigger('change');
                 });
         }
     </script>
 
-    <?= $this->include("Admin/layout/js_tabel") ?>
-
+    <script>
     $(function() {
     $("#example1").DataTable({
     "responsive": true,
