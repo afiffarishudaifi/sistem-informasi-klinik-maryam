@@ -283,21 +283,47 @@
         $(function() {
             $('.select2').select2()
 
-            $('#input_poli').select2({
+            $("#input_poli").select2({
                 placeholder: "Pilih Poliklinik",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/Dokter/data_poli'); ?>',
-                    dataType: 'json'
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
                 }
             });
 
-            $('#edit_poli').select2({
+            $("#edit_poli").select2({
                 placeholder: "Pilih Poliklinik",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/Dokter/data_poli'); ?>',
-                    dataType: 'json'
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
                 }
             });
 

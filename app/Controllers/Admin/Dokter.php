@@ -18,6 +18,7 @@ class Dokter extends BaseController
         }
         $this->Model_dokter = new Model_dokter();
         helper(['form', 'url']);
+        $this->db = db_connect();
     }
 
     public function index()
@@ -177,16 +178,44 @@ class Dokter extends BaseController
 
     public function data_poli()
     {
-        $model = new Model_dokter();
-        $poli = $model->view_poli()->getResultArray();
-        $respon = json_decode(json_encode($poli), true);
-        $data['results'] = array();
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
 
-        foreach ($respon as $value) {
-            $isi['id'] = $value['id_poli'];
-            $isi['text'] = $value['nama_poli'];
-            array_push($data['results'], $isi);
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("poliklinik");
+
+        $poli = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('id_poli, nama_poli');
+            $builder->like('nama_poli', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_poli, nama_poli');
+            $query = $builder->get();
+            $data = $query->getResult();
         }
-        echo json_encode($data);
+
+        foreach ($data as $country) {
+            $poli[] = array(
+                "id" => $country->id_poli,
+                "text" => $country->nama_poli,
+            );
+        }
+
+        $response['data'] = $poli;
+
+        return $this->response->setJSON($response);
     }
 }
