@@ -25,10 +25,12 @@ class Karyawan extends BaseController
         $session = session();
         $model = new Model_karyawan();
         $karyawan = $model->view_data()->getResultArray();
+        $jabatan = $model->view_jabatan()->getResultArray();
 
         $data = [
             'judul' => 'Tabel Karyawan',
-            'karyawan' => $karyawan
+            'karyawan' => $karyawan,
+            'jabatan' => $jabatan
         ];
         return view('Admin/viewTKaryawan', $data);
     }
@@ -172,11 +174,21 @@ class Karyawan extends BaseController
             $isi['username_karyawan'] = $value['username_karyawan'];
             $isi['password_karyawan'] = $value['password_karyawan'];
             $isi['nama_karyawan'] = $value['nama_karyawan'];
+            $isi['id_jabatan'] = $value['id_jabatan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];
             $isi['status_karyawan'] = $value['status_karyawan'];
             $isi['foto_karyawan'] = $value['foto_karyawan'];
         endforeach;
-        echo json_encode($isi);
+        dd( json_encode($isi));
+    }
+
+    public function cek_username($username)
+    {
+        $model = new Model_karyawan();
+        $cek_username = $model->cek_username($username)->getResultArray();
+        $respon = json_decode(json_encode($cek_username), true);
+        $data['results'] = count($respon);
+        echo json_encode($data);
     }
 }

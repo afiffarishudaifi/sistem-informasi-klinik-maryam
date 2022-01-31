@@ -1,3 +1,4 @@
+<?php $session = session(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,141 +48,33 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>Nama</th>
+                                                <th>Jabatan</th>
+                                                <th>Alamat</th>
+                                                <th>No Telp</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
+                                                <?php 
+                                                    foreach ($karyawan as $item) {
+                                                ?>
+                                                <td><?= $item['nama_karyawan']; ?></td>
+                                                <td><?= $item['nama_jabatan']; ?></td>
+                                                <td><?= $item['alamat_karyawan']; ?></td>
+                                                <td><?= $item['no_telp_karyawan']; ?></td>
+                                                <td><?= $item['status_karyawan']; ?></td>
+                                                <td>
+                                                       <center>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_karyawan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_karyawan']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_karyawan']; ?>">Hapus</a>
+                                                        </center>
                                                 </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
                                             </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 7</td>
-                                                <td>Win XP SP2+</td>
-                                                <td>7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>AOL browser (AOL desktop)</td>
-                                                <td>Win XP</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.0</td>
-                                                <td>OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.5</td>
-                                                <td>OSX.3+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape 7.2</td>
-                                                <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Browser 8</td>
-                                                <td>Win 98SE+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Navigator 9</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td>-</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
-                                            </tr>
+                                             <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -218,7 +111,59 @@
                                 <label>Nama Karyawan</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
-                                <span class="text-danger" id="error_nama"></span>
+                                
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jabatan</label>
+                                     <select class="form-control" id="input_jabatan" name="input_jabatan">
+                                        <?php foreach ($jabatan as $item) { ?>
+                                            <option value="<?= $item['id_jabatan']; ?>" selected=""><?= $item['nama_jabatan']; ?></option>
+                                        <?php } ?>
+                                    </select>  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" id="input_username" name="input_username"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                                <span class="text-danger" id="error_username"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="Password" class="form-control" id="input_password" name="input_password"
+                                    data-parsley-required="true" placeholder="Masukkan Password Pasien" autofocus="on">
+                              
+                            </div>
+
+                            <div class="form-group">
+                                <label>No Telepon</label>
+                                <input type="text" class="form-control" id="input_no_telp" name="input_no_telp"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <input type="text" class="form-control" id="input_alamat" name="input_alamat"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Status</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="input_status" name="input_status"
+                                            value="Aktif"> &nbsp Aktif
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Foto</label>
+                                <br>
+                                <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
+                                <span class="text-danger" id="error_foto"></span>
                             </div>
 
                         </div>
@@ -254,7 +199,52 @@
                                 <label>Nama Karyawan</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
-                                <span class="text-danger" id="error_edit_nama"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jabatan</label>
+                                    <select name="edit_jabatan" id="edit_jabatan" class="form-control">
+                                        <?php foreach ($jabatan as $value) { ?>
+                                        <option value="<?= $value['id_jabatan'] ?>"><?= $value['nama_jabatan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" id="edit_username" name="edit_username"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                                <span class="text-danger" id="error_edit_username"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="Password" class="form-control" id="edit_password" name="edit_password"
+                                    placeholder="Masukkan Password Pasien" autofocus="on">
+                            </div>
+                            <div class="form-group">
+                                <label>No Telepon</label>
+                                <input type="text" class="form-control" id="edit_no_telp" name="edit_no_telp"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat</label>
+                                <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="edit_status" name="edit_status"
+                                            value="Aktif"> &nbsp Aktif
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Foto</label>
+                                <br>
+                                <input type="file" id="edit_foto" class="dropify-event" name="edit_foto" accept="image/png, image/gif, image/jpeg"/>
+                                <span class="text-danger" id="error_edit_foto"></span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -307,6 +297,8 @@
     </div>
     <!-- ./wrapper -->
 
+    <?= $this->include("Admin/layout/js_tabel") ?>
+
     <script>
         function Hapus(id){
             $('.id').val(id);
@@ -320,27 +312,142 @@
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
         });
+
+         $(function() {
+            $("#input_username").keyup(function(){
+
+                var username = $(this).val().trim();
+          
+                if(username != ''){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Karyawan/cek_username'); ?>' + '/' + username,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_username").html('Username telah dipakai,coba yang lain');
+                                $("#input_username").val('');
+                            }else{
+                                $("#error_username").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+              });
+
+            $("#edit_username").keyup(function(){
+
+                var username = $(this).val().trim();
+          
+                if(username != '' && username != $('#edit_username_lama').val()){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Karyawan/cek_username'); ?>' + '/' + username,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_edit_username").html('Username telah dipakai,coba yang lain');
+                                $("#edit_username").val('');
+                            }else{
+                                $("#error_edit_username").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+            });
+
+            $('#batal').on('click', function() {
+                $('#form_add')[0].reset();
+                $('#form_edit')[0].reset();
+                $("#input_nama").val('');
+                $("#input_jabatan").val('');
+                $("#input_username").val('');
+                $("#input_password").val('');
+                $("#input_no_telp").val('');
+                $("#input_alamat").val('');
+                $("#input_status").val('');
+                $("#input_foto").val('');
+            });
+
+            $('#batal_add').on('click', function() {
+                $('#form_add')[0].reset();
+                $("#input_nama").val('');
+                $("#input_jabatan").val('');
+                $("#input_username").val('');
+                $("#input_password").val('');
+                $("#input_no_telp").val('');
+                $("#input_alamat").val('');
+                $("#input_status").val('');
+                $("#input_foto").val('');
+            });
+
+            $('#batal_up').on('click', function() {
+                $('#form_edit')[0].reset();
+                $("#edit_nama").val('');
+                $("#edit_jabatan").val('');
+                $("#edit_username").val('');
+                $("#edit_password").val('');
+                $("#edit_no_telp").val('');
+                $("#edit_alamat").val('');
+                $("#edit_status").val('');
+                $("#edit_foto").val('');
+            });
+        })
+
+        function detail_edit(isi) {
+            $.getJSON('<?php echo base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
+                function(json) {
+                    $('#id_karyawan').val(json.id_karyawan);
+                    $('#edit_nama').val(json.nama_karyawan);
+                    $('#edit_jabatan').val(json.id_jabatan);
+                    $('#edit_username').val(json.username_karyawan);
+                    $('#edit_password').val(json.password_karyawan);
+                    $('#edit_no_telp').val(json.no_telp_karyawan);
+                    $('#edit_alamat').val(json.alamat_karyawan);
+                    $('#edit_foto').val(json.alamat_karyawan);
+                    if(json.status_karyawan=='Aktif'){
+                        $("#edit_status").prop('checked',true);
+                    }else{
+                        $("#edit_status").prop('checked',false);
+                    }
+
+                    $('#edit_jabatan').select2('data', {
+                        id: json.id_jabatan,
+                        text: json.nama_jabatan
+                    });
+                    $('#edit_jabatan').trigger('change');
+                   
+                    
+                });
+        }
     </script>
 
-    <?= $this->include("Admin/layout/js_tabel") ?>
-<script type="text/javascript">
-    $(function() {
-    $("#example1").DataTable({
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    });
-    });
+    
+    <script type="text/javascript">
+        $(function() {
+        $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        });
+        });
     </script>
 </body>
 
