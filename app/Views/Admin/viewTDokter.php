@@ -94,7 +94,7 @@
         <!-- Start Modal Add Class-->
         <form action="<?php echo base_url('Admin/Dokter/add_dokter'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -114,10 +114,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Poli</label>
-                               <select class="form-control" id="input_poli" name="input_poli">
-                                   <?php foreach ($poli as $item) { ?>
-                                        <option value="<?= $item['id_poli']; ?>" selected=""><?= $item['nama_poli']; ?></option>
-                                    <?php } ?>
+                                <select class="form-control select2" id="input_poli" name="input_poli">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -161,7 +158,7 @@
         <!-- Modal Edit Class-->
         <form action="<?php echo base_url('Admin/Dokter/update_dokter'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
-            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -183,11 +180,8 @@
 
                              <div class="form-group">
                                 <label>Poli</label>
-                                    <select name="edit_poli" id="edit_poli" class="form-control">
-                                        <?php foreach ($poli as $value) { ?>
-                                        <option value="<?= $value['id_poli'] ?>"><?= $value['nama_poli'] ?></option>
-                                        <?php } ?>
-                                    </select>
+                                <select class="form-control select2" name="edit_poli" id="edit_poli">
+                                </select>
                             </div>
 
                             <div class="form-group">
@@ -287,54 +281,24 @@
         });
 
         $(function() {
-            $("#input_foto").keyup(function(){
+            $('.select2').select2()
 
-                var foto = $(this).val().trim();
-          
-                if(foto != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Dokter/cek_foto'); ?>' + '/' + foto,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_foto").html('Foto telah dipakai,coba yang lain');
-                                $("#input_foto").val('');
-                            }else{
-                                $("#error_foto").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
+            $('#input_poli').select2({
+                placeholder: "Pilih Poliklinik",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Dokter/data_poli'); ?>',
+                    dataType: 'json'
                 }
-          
-              });
+            });
 
-            $("#edit_foto").keyup(function(){
-
-                var foto = $(this).val().trim();
-          
-                if(foto != '' && foto != $('#edit_foto_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Dokter/cek_foto'); ?>' + '/' + foto,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_foto").html('Foto telah dipakai,coba yang lain');
-                                $("#edit_foto").val('');
-                            }else{
-                                $("#error_edit_foto").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
+            $('#edit_poli').select2({
+                placeholder: "Pilih Poliklinik",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Dokter/data_poli'); ?>',
+                    dataType: 'json'
                 }
-          
             });
 
             $('#batal').on('click', function() {
@@ -374,8 +338,6 @@
                 function(json) {
                     $('#id_dokter').val(json.id_dokter);
                     $('#edit_nama').val(json.nama_dokter);
-        
-                    
 
                     $('#edit_alamat').val(json.alamat_dokter);
                     $('#edit_no_telp').val(json.no_telp_dokter);
@@ -396,25 +358,23 @@
                     $('#edit_poli').trigger('change');
                 });
         }
-    </script>
-
-    <script>
+        
     $(function() {
-    $("#example1").DataTable({
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    });
+        $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        });
     });
     </script>
 </body>

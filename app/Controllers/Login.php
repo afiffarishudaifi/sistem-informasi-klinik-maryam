@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\Model_login;
+use App\Models\Model_pasien;
 
 class Login extends BaseController
 {
@@ -17,20 +18,6 @@ class Login extends BaseController
 
         helper(['form']);
         return view('viewLogin');
-    }
-
-    public function pengajuanMagang()
-    {
-        $session = session();
-
-        // if ($session->get('username_login') || $session->get('status_login') == 'Admin') {
-        //     return redirect()->to('Admin/Dashboard');
-        // } else if ($session->get('username_login') || $session->get('status_login') == 'Customer') {
-        //     return redirect()->to('Customer/Dashboard');
-        // }
-
-        helper(['form']);
-        return view('viewPengajuanMagang');
     }
 
     public function loginAdmin()
@@ -166,7 +153,21 @@ class Login extends BaseController
     public function simpanPasien()
     {
         $session = session();
-        $model = new Model_login();
+        $encrypter = \Config\Services::encrypter();
+
+        $data = array(
+            'nik'     => $this->request->getPost('input_nik'),
+            'username_pasien'     => $this->request->getPost('input_username'),
+            'password_pasien'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
+            'nama_pasien'     => $this->request->getPost('input_nama'),
+            'alamat_pasien'     => $this->request->getPost('input_alamat'),
+            'no_telp_pasien'     => $this->request->getPost('input_no_telp')
+        );
+
+        $model = new Model_pasien();
+        $model->add_data($data);
+        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
+        return redirect()->to(base_url('Login/registrasiPasien'));
     }
 
     public function logout()

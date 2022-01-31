@@ -114,7 +114,7 @@
                             <div class="form-group">
                                 <label>NIK Pasien</label>
                                 <input type="number" class="form-control" id="input_nik" name="input_nik"
-                                    data-parsley-required="true" placeholder="Masukkan NIK Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan NIK Pasien" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
                             </div>
@@ -181,7 +181,7 @@
                             <div class="form-group">
                                 <label>NIK Pasien</label>
                                 <input type="number" class="form-control" id="edit_nik" name="edit_nik"
-                                    data-parsley-required="true" placeholder="Masukkan NIK Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan NIK Pasien" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik_edit"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
                             </div>

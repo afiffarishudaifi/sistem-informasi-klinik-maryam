@@ -61,7 +61,7 @@
           <p><i class="fa fa-question-circle"></i> Apakah anda yakin ingin keluar? <br /></p>
           <div class="actionsBtns">
               <center>
-                  <a href="<?php echo base_url('Login/logout'); ?>" class="btn btn-default btn-danger">Keluar</a>
+                  <a href="<?php echo base_url('Login/logout'); ?>" class="btn btn-danger">Keluar</a>
                   <button class="btn btn-default" data-dismiss="modal">Batal</button>
               </center>
           </div>

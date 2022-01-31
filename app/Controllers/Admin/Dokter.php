@@ -174,4 +174,19 @@ class Dokter extends BaseController
         endforeach;
         echo json_encode($isi);
     }
+
+    public function data_poli()
+    {
+        $model = new Model_dokter();
+        $poli = $model->view_poli()->getResultArray();
+        $respon = json_decode(json_encode($poli), true);
+        $data['results'] = array();
+
+        foreach ($respon as $value) {
+            $isi['id'] = $value['id_poli'];
+            $isi['text'] = $value['nama_poli'];
+            array_push($data['results'], $isi);
+        }
+        echo json_encode($data);
+    }
 }

@@ -1,3 +1,4 @@
+<?php $session = session(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,8 @@
   <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/dist/css/adminlte.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/plugins/toastr/toastr.min.css">
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -23,32 +26,47 @@
     <div class="card-body">
       <p class="login-box-msg">Calon Pasien Baru</p>
 
-      <form action="../../index.html" method="post" autocomplete="off">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
-          <div class="input-group-append">
-          </div>
+      <form action="<?= base_url('Login/simpanPasien'); ?>" method="post" data-parsley-validate="true" autocomplete="off">
+        <div class="form-group">
+            <label>Nama Pasien</label>
+            <input type="text" class="form-control" id="input_nama" name="input_nama"
+                data-parsley-required="true" placeholder="Masukkan Nama Pasien" autofocus="on">
         </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
-          <div class="input-group-append">
-          </div>
+        <div class="form-group">
+            <label>NIK Pasien</label>
+            <input type="number" class="form-control" id="input_nik" name="input_nik"
+                data-parsley-required="true" placeholder="Masukkan NIK Pasien" minlength="16" maxlength="16" autofocus="on">
+            <span class="text-danger" id="error_nik"></span>
+            <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-          </div>
+        <div class="form-group">
+            <label>Username Pasien</label>
+            <input type="text" class="form-control" id="input_username" name="input_username"
+                data-parsley-required="true" placeholder="Masukkan Username Pasien" autofocus="on">
+            <span class="text-danger" id="error_username"></span>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
-          <div class="input-group-append">
-          </div>
+        <div class="form-group">
+            <label>Password Pasien</label>
+            <input type="Password" class="form-control" id="input_password" name="input_password"
+                data-parsley-required="true" placeholder="Masukkan Password Pasien" autofocus="on">
+        </div>
+        <div class="form-group">
+            <label>Ulangi Password</label>
+            <input type="Password" class="form-control" id="input_password_konfirmasi" name="input_password_konfirmasi"
+                data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#input_password">
+        </div>
+        <div class="form-group">
+            <label>Alamat Pasien</label>
+            <textarea class="form-control" id="input_alamat" name="input_alamat" placeholder="Masukkan alamat"></textarea>
+        </div>
+        <div class="form-group">
+            <label>No Telp Pasien</label>
+            <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
+                data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
         </div>
         <div class="social-auth-links text-center">
-	        <a href="#" class="btn btn-block btn-primary">
-	          <i class="fas fa-user-plus"></i>
-	          Pendaftaran Pasien
-	        </a>
+          <button type="submit" name="tambah" class="btn btn-primary"><i class="fas fa-user-plus"></i>
+            Pendaftaran Pasien</button>
 	     </div>
       </form>
       <a href="<?= base_url('Login') ?>" class="text-center">Saya sudah memiliki akun pasien</a>
@@ -64,5 +82,42 @@
 <script src="<?= base_url() ?>/docs/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url() ?>/docs/adminlte/dist/js/adminlte.min.js"></script>
+<!-- Toastr -->
+<script src="<?= base_url() ?>/docs/adminlte/plugins/toastr/toastr.min.js"></script>
+<script src="<?= base_url() ?>/docs/tambahan/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+<script type="text/javascript">
+  $("#input_username").keyup(function(){
+
+    var nama = $(this).val().trim();
+
+    if(nama != ''){
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url('Admin/Pasien/cek_username'); ?>' + '/' + nama,
+            success: function (data) {
+                if(data['results']>0){
+                    $("#error_username").html('Username telah dipakai,coba yang lain');
+                    $("#input_username").val('');
+                }else{
+                    $("#error_username").html('');
+                }
+            }, error: function () {
+
+                alert('error');
+            }
+        });
+    }
+  });
+
+  $(document).ready(function() {
+      if ('<?= $session->getFlashdata('msg'); ?>' != '') {
+          toastr.error('<?= $session->getFlashdata('msg'); ?>')
+      } else if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
+          toastr.success('<?= $session->getFlashdata('sukses'); ?>')
+      }
+  });
+</script>
 </body>
 </html>
