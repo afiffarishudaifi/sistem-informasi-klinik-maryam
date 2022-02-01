@@ -61,16 +61,28 @@ class Pasien extends BaseController
         date_default_timezone_set('Asia/Jakarta');
         
         $id = $this->request->getPost('id_pasien');
-        $data = array(
-            'nik'     => $this->request->getPost('edit_nik'),
-            'username_pasien'     => $this->request->getPost('edit_username'),
-            'password_pasien'     => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
-            'nama_pasien'     => $this->request->getPost('edit_nama'),
-            'alamat_pasien'     => $this->request->getPost('edit_alamat'),
-            'no_telp_pasien'     => $this->request->getPost('edit_no_telp'),
-            'id_pasien'     => $this->request->getPost('id_pasien'),
-            'updated_at' => date('Y-m-d H:i:s')
-        );
+        if($this->request->getPost('edit_password') != '') {
+            $data = array(
+                'nik'     => $this->request->getPost('edit_nik'),
+                'username_pasien'     => $this->request->getPost('edit_username'),
+                'password_pasien'     => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                'nama_pasien'     => $this->request->getPost('edit_nama'),
+                'alamat_pasien'     => $this->request->getPost('edit_alamat'),
+                'no_telp_pasien'     => $this->request->getPost('edit_no_telp'),
+                'id_pasien'     => $this->request->getPost('id_pasien'),
+                'updated_at' => date('Y-m-d H:i:s')
+            );
+        } else {
+            $data = array(
+                'nik'     => $this->request->getPost('edit_nik'),
+                'username_pasien'     => $this->request->getPost('edit_username'),
+                'nama_pasien'     => $this->request->getPost('edit_nama'),
+                'alamat_pasien'     => $this->request->getPost('edit_alamat'),
+                'no_telp_pasien'     => $this->request->getPost('edit_no_telp'),
+                'id_pasien'     => $this->request->getPost('id_pasien'),
+                'updated_at' => date('Y-m-d H:i:s')
+            );
+        }
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');

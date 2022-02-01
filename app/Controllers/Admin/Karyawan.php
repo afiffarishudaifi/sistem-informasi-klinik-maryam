@@ -79,31 +79,42 @@ class Karyawan extends BaseController
         $encrypter = \Config\Services::encrypter();
         $model = new Model_karyawan();
         date_default_timezone_set('Asia/Jakarta');
-
-        $avatar      = $this->request->getFile('edit_foto');
-        if ($avatar != '') {
-            $namabaru     = $avatar->getRandomName();
-            $avatar->move('docs/img/img_karyawan/', $namabaru);
-            
         if($this->request->getPost('edit_status') == '') {
             $status = 'Tidak Aktif';
         } else {
             $status = 'Aktif';
         }
-        
-        $id = $this->request->getPost('id_karyawan');
 
-            $data = array(
-                'id_jabatan'     => $this->request->getPost('edit_jabatan'),
-                'username_karyawan'  => $this->request->getPost('edit_username'),
-                'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
-                'nama_karyawan'  => $this->request->getPost('edit_nama'),
-                'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
-                'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
-                'status_karyawan'  => $status,
-                'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru,
-                'updated_at' => date('Y-m-d H:i:s')
-            );
+        $id = $this->request->getPost('id_karyawan');
+        $avatar      = $this->request->getFile('edit_foto');
+        if ($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_karyawan/', $namabaru);
+
+            if($this->request->getPost('edit_password') != '') {
+                $data = array(
+                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
+                    'username_karyawan'  => $this->request->getPost('edit_username'),
+                    'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                    'nama_karyawan'  => $this->request->getPost('edit_nama'),
+                    'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
+                    'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
+                    'status_karyawan'  => $status,
+                    'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru,
+                    'updated_at' => date('Y-m-d H:i:s')
+                );
+            } else {
+                $data = array(
+                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
+                    'username_karyawan'  => $this->request->getPost('edit_username'),
+                    'nama_karyawan'  => $this->request->getPost('edit_nama'),
+                    'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
+                    'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
+                    'status_karyawan'  => $status,
+                    'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru,
+                    'updated_at' => date('Y-m-d H:i:s')
+                );
+            }
 
             $data_foto = $model->detail_data($id)->getRowArray();
 
@@ -115,24 +126,31 @@ class Karyawan extends BaseController
                 }
             }
         } else {
-            if($this->request->getPost('edit_status') == '') {
-                $status = 'Tidak Aktif';
+
+            if($this->request->getPost('edit_password') != '') {
+                $data = array(
+                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
+                    'username_karyawan'  => $this->request->getPost('edit_username'),
+                    'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                    'nama_karyawan'  => $this->request->getPost('edit_nama'),
+                    'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
+                    'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
+                    'status_karyawan'  => $status,
+                    'updated_at' => date('Y-m-d H:i:s')
+                );
             } else {
-                $status = 'Aktif';
+                $data = array(
+                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
+                    'username_karyawan'  => $this->request->getPost('edit_username'),
+                    'nama_karyawan'  => $this->request->getPost('edit_nama'),
+                    'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
+                    'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
+                    'status_karyawan'  => $status,
+                    'updated_at' => date('Y-m-d H:i:s')
+                );
             }
 
-            $id = $this->request->getPost('id_karyawan');
-
-            $data = array(
-                'id_jabatan'     => $this->request->getPost('edit_jabatan'),
-                'username_karyawan'  => $this->request->getPost('edit_username'),
-                'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
-                'nama_karyawan'  => $this->request->getPost('edit_nama'),
-                'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
-                'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
-                'status_karyawan'  => $status,
-                'updated_at' => date('Y-m-d H:i:s')
-            );
+            
         }
 
         $model->update_data($data, $id);

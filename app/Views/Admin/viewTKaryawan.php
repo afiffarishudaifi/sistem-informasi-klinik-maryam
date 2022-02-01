@@ -130,7 +130,7 @@
                             <div class="form-group">
                                 <label>Password Karyawan</label>
                                 <input type="Password" class="form-control" id="input_password" name="input_password"
-                                    data-parsley-required="true" placeholder="Masukkan Password Kar" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Password Kar" autofocus="on" data-parsley-equalto="#input_password_konfirmasi">
                             </div>
 
                             <div class="form-group">
@@ -218,7 +218,7 @@
                             <div class="form-group">
                                 <label>Password Karyawan</label>
                                 <input type="Password" class="form-control" id="edit_password" name="edit_password"
-                                    placeholder="Masukkan Password Pasien" autofocus="on">
+                                    placeholder="Masukkan Password Pasien" autofocus="on" data-parsley-equalto="#edit_password_konfirmasi">
                             </div>
                             <div class="form-group">
                                 <label>Ulangi Password</label>
