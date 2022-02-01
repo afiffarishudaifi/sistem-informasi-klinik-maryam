@@ -13,14 +13,8 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
+        $builder->select('karyawan.id_karyawan, karyawan.id_jabatan, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, jabatan.nama_jabatan');
         $builder->join('jabatan', 'jabatan.id_jabatan = karyawan.id_jabatan');
-        return $builder->get();
-    }
-
-     public function view_jabatan()
-    {
-        $db      = \Config\Database::connect();
-        $builder = $db->table('jabatan');
         return $builder->get();
     }
 

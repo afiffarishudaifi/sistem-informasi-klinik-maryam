@@ -26,12 +26,10 @@ class Karyawan extends BaseController
         $session = session();
         $model = new Model_karyawan();
         $karyawan = $model->view_data()->getResultArray();
-        $jabatan = $model->view_jabatan()->getResultArray();
 
         $data = [
             'judul' => 'Tabel Karyawan',
-            'karyawan' => $karyawan,
-            'jabatan' => $jabatan
+            'karyawan' => $karyawan
         ];
         return view('Admin/viewTKaryawan', $data);
     }
@@ -163,9 +161,8 @@ class Karyawan extends BaseController
         $session = session();
         $model = new Model_karyawan();
         $id = $this->request->getPost('id');
-        $session = session();
-        $foreign = $model->cek_foreign($id);
-        if ($foreign == 0) {
+        // $foreign = $model->cek_foreign($id);
+        // if ($foreign == 0) {
             $data_foto = $model->detail_data($id)->getRowArray();
 
             if ($data_foto != null) {
@@ -177,10 +174,10 @@ class Karyawan extends BaseController
             }
             $model->delete_data($id);
             session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
-        } else {
-            session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
-        }
-        return redirect()->to('/Admin/Dokter');
+        // } else {
+        //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
+        // }
+        return redirect()->to('/Admin/Karyawan');
     }
 
     public function data_edit($id_karyawan)

@@ -48,33 +48,36 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama</th>
-                                                <th>Jabatan</th>
-                                                <th>Alamat</th>
+                                                <th>No</th>
+                                                <th>Nama Karyawan</th>
+                                                <th>Jabatan Karyawan</th>
                                                 <th>No Telp</th>
-                                                <th>Status</th>
+                                                <th>Status Karyawan</th>
+                                                <th>Status Karyawan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <?php 
-                                                    foreach ($karyawan as $item) {
+                                            <?php
+                                                $no = 1;
+                                                foreach ($karyawan as $item) {
                                                 ?>
-                                                <td><?= $item['nama_karyawan']; ?></td>
-                                                <td><?= $item['nama_jabatan']; ?></td>
-                                                <td><?= $item['alamat_karyawan']; ?></td>
-                                                <td><?= $item['no_telp_karyawan']; ?></td>
-                                                <td><?= $item['status_karyawan']; ?></td>
-                                                <td>
-                                                       <center>
+                                                <tr>
+                                                    <td width="1%"><?= $no++; ?></td>
+                                                    <td><?= $item['nama_karyawan']; ?></td>
+                                                    <td><?= $item['nama_jabatan']; ?></td>
+                                                    <td><?= $item['no_telp_karyawan']; ?></td>
+                                                    <td><?= $item['status_karyawan']; ?></td>
+                                                    <td><?= $item['status_karyawan']; ?></td>
+                                                    <td>
+                                                        <center>
                                                             <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_karyawan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
                                                             <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_karyawan']; ?>)" data-toggle="modal"
                                                                 data-target="#deleteModal" data-id="<?= $item['id_karyawan']; ?>">Hapus</a>
                                                         </center>
-                                                </td>
-                                            </tr>
-                                             <?php } ?>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -111,7 +114,6 @@
                                 <label>Nama Karyawan</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
-                                
                             </div>
 
                             <div class="form-group">

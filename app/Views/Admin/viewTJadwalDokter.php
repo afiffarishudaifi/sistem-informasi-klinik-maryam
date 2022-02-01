@@ -1,3 +1,4 @@
+<?php $session = session(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,141 +48,33 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>Hari</th>
+                                                <th>Sesi</th>
+                                                <th>Nama Dokter</th>
+                                                <th>Status Jadwal</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 7</td>
-                                                <td>Win XP SP2+</td>
-                                                <td>7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>AOL browser (AOL desktop)</td>
-                                                <td>Win XP</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.0</td>
-                                                <td>OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Camino 1.5</td>
-                                                <td>OSX.3+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape 7.2</td>
-                                                <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Browser 8</td>
-                                                <td>Win 98SE+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Netscape Navigator 9</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td>-</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
-                                            </tr>
+                                            <?php
+                                                $no = 1;
+                                                foreach ($jadwal as $item) {
+                                                ?>
+                                                <tr>
+                                                    <!-- <td width="1%"><?= $no++; ?></td> -->
+                                                    <td><?= $item['nama_hari']; ?></td>
+                                                    <td><?= $item['nama_sesi']; ?></td>
+                                                    <td><?= $item['nama_dokter']; ?></td>
+                                                    <td><?= $item['status_jadwal']; ?></td>
+                                                    <td>
+                                                        <center>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_jadwal']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_jadwal']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_jadwal']; ?>">Hapus</a>
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -215,10 +108,29 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Nama Jadwal</label>
-                                <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Jadwal" autofocus="on">
-                                <span class="text-danger" id="error_nama"></span>
+                                <label>Hari</label>
+                                <select class="form-control select2" id="input_hari" name="input_hari">
+                                </select>   
+                            </div>
+                            <div class="form-group">
+                                <label>Sesi</label>
+                                <select class="form-control select2" id="input_hari" name="input_hari">
+                                </select>   
+                            </div>
+                            <div class="form-group">
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="input_hari" name="input_hari">
+                                </select>   
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Jadwal</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="input_status" name="input_status"
+                                            value="Aktif"> &nbsp Aktif
+                                    </label>
+                                </div>
                             </div>
 
                         </div>
@@ -251,11 +163,31 @@
                             <input type="hidden" name="id_jadwal" id="id_jadwal">
 
                             <div class="form-group">
-                                <label>Nama Jadwal</label>
-                                <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Jadwal" autofocus="on">
-                                <span class="text-danger" id="error_edit_nama"></span>
+                                <label>Hari</label>
+                                <select class="form-control select2" name="edit_hari" id="edit_hari">
+                                </select>
                             </div>
+                            <div class="form-group">
+                                <label>Sesi</label>
+                                <select class="form-control select2" name="edit_sesi" id="edit_sesi">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Dokter</label>
+                                <select class="form-control select2" name="edit_dokter" id="edit_dokter">
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Jadwal</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="edit_status" name="edit_status"
+                                            value="Aktif"> &nbsp Aktif
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up"
@@ -312,6 +244,211 @@
         $('.id').val(id);
         $('#deleteModal').modal('show');
     };
+
+     $( document ).ready(function() {
+            if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
+                toastr.success('<?= $session->getFlashdata('sukses'); ?>')
+            } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
+                toastr.error('<?= $session->getFlashdata('gagal'); ?>')
+            }
+        });
+
+    $(function() {
+
+            $('.select2').select2()
+
+            $("#input_hari").select2({
+                placeholder: "Pilih Hari",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/JadwalDokter/data_hari'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_hari").select2({
+                placeholder: "Pilih Jabatan",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Karyawan/data_hari'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#input_sesi").select2({
+                placeholder: "Pilih Sesi",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/JadwalDokter/data_sesi'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_sesi").select2({
+                placeholder: "Pilih Jabatan",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Karyawan/data_sesi'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#input_dokter").select2({
+                placeholder: "Pilih Hari",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/JadwalDokter/data_dokter'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_dokter").select2({
+                placeholder: "Pilih Jabatan",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Karyawan/data_dokter'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $('#batal').on('click', function() {
+                $('#form_add')[0].reset();
+                $('#form_edit')[0].reset();
+                $("#input_hari").val('');
+                $("#input_sesi").val('');
+                $("#input_dokter").val('');
+                $("#input_status").prop('checked',false);
+            });
+
+            $('#batal_add').on('click', function() {
+                $('#form_add')[0].reset();
+                $("#input_hari").val('');
+                $("#input_sesi").val('');
+                $("#input_dokter").val('');
+                $("#input_status").prop('checked',false);
+            });
+
+            $('#batal_up').on('click', function() {
+                $('#form_edit')[0].reset();
+                $("#edit_hari").val('');
+                $("#edit_sesi").val('');
+                $("#edit_dokter").val('');
+                $("#edit_status").prop('checked',false);
+            });
+        })
+
+        function detail_edit(isi) {
+            $.getJSON('<?php echo base_url('Admin/JadwalDokter/data_edit'); ?>' + '/' + isi, {},
+                function(json) {
+
+                    $('#edit_hari').append('<option selected value="' + json.id_hari + '">' + json.nama_hari +
+                        '</option>');
+                    $('#edit_hari').select2('data', {
+                        id: json.id_hari,
+                        text: json.nama_hari
+                    });
+
+                    $('#edit_sesi').append('<option selected value="' + json.id_sesi + '">' + json.nama_sesi +
+                        '</option>');
+                    $('#edit_sesi').select2('data', {
+                        id: json.id_sesi,
+                        text: json.nama_sesi
+                    });
+
+                    $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter +
+                        '</option>');
+                    $('#edit_dokter').select2('data', {
+                        id: json.id_dokter,
+                        text: json.nama_dokter
+                    });
+                   
+                    
+                    if(json.status_jadwal=='Aktif'){
+                        $("#edit_status").prop('checked',true);
+                    }else{
+                        $("#edit_status").prop('checked',false);
+                    }
+                    
+                });
+        }
     </script>
 
     <?= $this->include("Admin/layout/js_tabel") ?>
