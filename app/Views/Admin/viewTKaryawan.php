@@ -460,6 +460,14 @@
             $.getJSON('<?php echo base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
 
+                    $('#edit_nama').val(json.nama_karyawan);
+                    $('#edit_jabatan').append('<option selected value="' + json.id_jabatan + '">' + json.nama_jabatan +
+                        '</option>');
+                    $('#edit_jabatan').select2('data', {
+                        id: json.id_jabatan,
+                        text: json.nama_jabatan
+                    });
+                    $('#edit_jabatan').trigger('change');
                     $('#id_karyawan').val(json.id_karyawan);
                     
                     if(json.status_karyawan=='Aktif'){
@@ -468,19 +476,13 @@
                         $("#edit_status").prop('checked',false);
                     }
 
-                    $('#edit_nama').val(json.nama_karyawan);
+                   
                     $('#edit_username').val(json.username_karyawan);
                     $('#edit_no_telp').val(json.no_telp_karyawan);
                     $('#edit_alamat').val(json.alamat_karyawan);
                     $('#edit_foto').val(json.foto_karyawan);
 
-                    $('#edit_jabatan').append('<option selected value="' + json.id_jabatan + '">' + json.nama_jabatan +
-                        '</option>');
-                    $('#edit_jabatan').select2('data', {
-                        id: json.id_jabatan,
-                        text: json.nama_jabatan
-                    });
-                    $('#edit_jabatan').trigger('change');
+                    
                    
                     
                 });

@@ -174,6 +174,7 @@ class Karyawan extends BaseController
         foreach ($respon as $value) :
             $isi['id_karyawan'] = $value['id_karyawan'];
             $isi['id_jabatan'] = $value['id_jabatan'];
+            $isi['nama_jabatan'] = $value['nama_jabatan'];
             $isi['username_karyawan'] = $value['username_karyawan'];
             $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
