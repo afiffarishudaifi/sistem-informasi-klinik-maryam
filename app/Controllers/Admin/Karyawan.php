@@ -18,6 +18,7 @@ class Karyawan extends BaseController
 
         $this->Model_karyawan = new Model_karyawan();
         helper(['form', 'url']);
+        $this->db = db_connect();
     }
 
     public function index()
