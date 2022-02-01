@@ -397,7 +397,7 @@
                 placeholder: "Pilih Jabatan",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/Jabatan/data_jabatan'); ?>',
+                    url: '<?php echo base_url('Admin/Karyawan/data_jabatan'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
