@@ -34,8 +34,8 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select('karyawan.id_karyawan, karyawan.id_jabatan, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan, jabatan.nama_jabatan');
-        $builder->join('jabatan', 'jabatan.id_jabatan = karyawan.id_jabatan');
+        $builder->select('karyawan.id_karyawan, karyawan.username_karyawan, karyawan.id_jabatan, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan, jabatan.nama_jabatan');
+        $builder->join('jabatan', 'karyawan.id_jabatan = jabatan.id_jabatan');
         $builder->where('id_karyawan', $id);
         return $builder->get();
     }

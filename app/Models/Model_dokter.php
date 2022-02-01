@@ -57,24 +57,6 @@ class Model_dokter extends Model
         return $builder->delete();
     }
 
-    public function cek_nama($nama)
-    {
-        $db      = \Config\Database::connect();
-        $builder = $db->table('dokter');
-        $builder->select('id_dokter');
-        $builder->where('nama_dokter', $nama);
-        return $builder->get();
-    }
-
-    public function cek_foto($foto)
-    {
-        $db      = \Config\Database::connect();
-        $builder = $db->table('dokter');
-        $builder->select('id_dokter');
-        $builder->where('foto_dokter', $foto);
-        return $builder->get();
-    }
-
     public function cek_foreign($id)
     {
         $db      = \Config\Database::connect();

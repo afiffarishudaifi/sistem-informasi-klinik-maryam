@@ -61,7 +61,7 @@ class Karyawan extends BaseController
             'nama_karyawan'     => $this->request->getPost('input_nama'),
             'no_telp_karyawan'     => $this->request->getPost('input_no_telp'),
             'alamat_karyawan'     => $this->request->getPost('input_alamat'),
-            'status_karyawan'     => $this->request->getPost('input_status'),
+            'status_karyawan'     => $status,
             'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru
             
         );
@@ -75,6 +75,7 @@ class Karyawan extends BaseController
     public function update_karyawan()
     {
         $session = session();
+        $encrypter = \Config\Services::encrypter();
         $model = new Model_karyawan();
         date_default_timezone_set('Asia/Jakarta');
 
@@ -94,9 +95,9 @@ class Karyawan extends BaseController
             $data = array(
                 'id_jabatan'     => $this->request->getPost('edit_jabatan'),
                 'username_karyawan'  => $this->request->getPost('edit_username'),
-                'password_karyawan'   => $this->request->getPost('edit_nama'),
-                'nama_karyawan'  => $this->request->getPost('edit_no_telp'),
-                'no_telp_karyawan'   => $this->request->getPost('edit_status'),
+                'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                'nama_karyawan'  => $this->request->getPost('edit_nama'),
+                'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                 'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
                 'status_karyawan'  => $status,
                 'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru,
@@ -124,9 +125,9 @@ class Karyawan extends BaseController
             $data = array(
                 'id_jabatan'     => $this->request->getPost('edit_jabatan'),
                 'username_karyawan'  => $this->request->getPost('edit_username'),
-                'password_karyawan'   => $this->request->getPost('edit_nama'),
-                'nama_karyawan'  => $this->request->getPost('edit_no_telp'),
-                'no_telp_karyawan'   => $this->request->getPost('edit_status'),
+                'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                'nama_karyawan'  => $this->request->getPost('edit_nama'),
+                'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                 'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
                 'status_karyawan'  => $status,
                 'updated_at' => date('Y-m-d H:i:s')
@@ -171,16 +172,15 @@ class Karyawan extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_karyawan'] = $value['id_karyawan'];
-            $isi['username_karyawan'] = $value['username_karyawan'];
-            $isi['password_karyawan'] = $value['password_karyawan'];
-            $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['id_jabatan'] = $value['id_jabatan'];
+            $isi['username_karyawan'] = $value['username_karyawan'];
+            $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];
             $isi['status_karyawan'] = $value['status_karyawan'];
             $isi['foto_karyawan'] = $value['foto_karyawan'];
         endforeach;
-        dd( json_encode($isi));
+        echo json_encode($isi);
     }
 
     public function cek_username($username)
@@ -190,5 +190,48 @@ class Karyawan extends BaseController
         $respon = json_decode(json_encode($cek_username), true);
         $data['results'] = count($respon);
         echo json_encode($data);
+    }
+
+     public function data_jabatan()
+    {
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("jabatan");
+
+        $jabatan = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('id_jabatan, nama_jabatan');
+            $builder->like('nama_jabatan', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_jabatan, nama_jabatan');
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+
+        foreach ($data as $country) {
+            $jabatan[] = array(
+                "id" => $country->id_jabatan,
+                "text" => $country->nama_jabatan,
+            );
+        }
+
+        $response['data'] = $jabatan;
+
+        return $this->response->setJSON($response);
     }
 }

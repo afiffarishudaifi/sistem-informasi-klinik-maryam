@@ -118,17 +118,18 @@
                                 </select>   
                             </div>
                             <div class="form-group">
-                                <label>Alamat</label>
+                                <label>Alamat Dokter</label>
                                 <input type="text" class="form-control" id="input_alamat" name="input_alamat"
                                     data-parsley-required="true" placeholder="Masukkan Alamat Dokter" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>No Telp</label>
+                                <label>No Telp Dokter</label>
                                 <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan No Telp Dokter" autofocus="on">
                             </div>
+
                             <div class="form-group">
-                                <label>Status</label>
+                                <label>Status Dokter</label>
                                 <div class="checkbox">
                                     <label for="example-checkbox1">
                                         <input type="checkbox" id="input_status" name="input_status"
@@ -136,8 +137,9 @@
                                     </label>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label>Foto</label>
+                                <label>Foto Dokter</label>
                                 <br>
                                 <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
                                 <span class="text-danger" id="error_foto"></span>
@@ -185,19 +187,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Alamat</label>
+                                <label>Alamat Dokter</label>
                                 <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
                                     data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">   
                             </div>
 
                             <div class="form-group">
-                                <label>No Telp</label>
+                                <label>No Telp Dokter</label>
                                 <input type="number" class="form-control" id="edit_no_telp" name="edit_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">   
                             </div>
 
                             <div class="form-group">
-                                <label>Status</label>
+                                <label>Status Dokter</label>
                                 <div class="checkbox">
                                     <label for="example-checkbox1">
                                         <input type="checkbox" id="edit_status" name="edit_status"
@@ -207,7 +209,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Foto</label>
+                                <label>Foto Dokter</label>
                                 <br>
                                 <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
                                 <span class="text-danger" id="error_edit_foto"></span>
@@ -334,7 +336,7 @@
                 $("#input_poli").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
-                $("#input_status").val('');
+                $("#input_status").prop('checked',false);
                 $("#input_foto").val('');
             });
 
@@ -344,7 +346,7 @@
                 $("#input_poli").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
-                $("#input_status").val('');
+                $("#input_status").prop('checked',false);
                 $("#input_foto").val('');
             });
 
@@ -354,7 +356,7 @@
                 $("#edit_poli").val('');
                 $("#edit_alamat").val('');
                 $("#edit_no_telp").val('');
-                $("#edit_status").val('');
+                $("#edit_status").prop('checked',false);
                 $("#edit_foto").val('');
             });
         })

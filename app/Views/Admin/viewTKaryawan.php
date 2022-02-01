@@ -116,41 +116,43 @@
 
                             <div class="form-group">
                                 <label>Jabatan</label>
-                                     <select class="form-control" id="input_jabatan" name="input_jabatan">
-                                        <?php foreach ($jabatan as $item) { ?>
-                                            <option value="<?= $item['id_jabatan']; ?>" selected=""><?= $item['nama_jabatan']; ?></option>
-                                        <?php } ?>
-                                    </select>  
+                                <select class="form-control select2" id="input_jabatan" name="input_jabatan">
+                                </select>   
                             </div>
 
                             <div class="form-group">
-                                <label>Username</label>
+                                <label>Username Karyawan</label>
                                 <input type="text" class="form-control" id="input_username" name="input_username"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
                                 <span class="text-danger" id="error_username"></span>
                             </div>
 
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>Password Karyawan</label>
                                 <input type="Password" class="form-control" id="input_password" name="input_password"
-                                    data-parsley-required="true" placeholder="Masukkan Password Pasien" autofocus="on">
-                              
+                                    data-parsley-required="true" placeholder="Masukkan Password Kar" autofocus="on">
                             </div>
 
                             <div class="form-group">
-                                <label>No Telepon</label>
+                                <label>Ulangi Password</label>
+                                <input type="Password" class="form-control" id="input_password_konfirmasi" name="input_password_konfirmasi"
+                                    data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#input_password">
+                            </div>
+
+                            <div class="form-group">
+                                <label>No Telepon Karyawan</label>
                                 <input type="text" class="form-control" id="input_no_telp" name="input_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
 
                             <div class="form-group">
-                                <label>Alamat</label>
+                                <label>Alamat Karyawan</label>
                                 <input type="text" class="form-control" id="input_alamat" name="input_alamat"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
                             
                             <div class="form-group">
-                                <label>Status</label>
+                                <label>Status Karyawan</label>
                                 <div class="checkbox">
                                     <label for="example-checkbox1">
                                         <input type="checkbox" id="input_status" name="input_status"
@@ -160,7 +162,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Foto</label>
+                                <label>Foto Karyawan</label>
                                 <br>
                                 <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
                                 <span class="text-danger" id="error_foto"></span>
@@ -203,36 +205,39 @@
 
                             <div class="form-group">
                                 <label>Jabatan</label>
-                                    <select name="edit_jabatan" id="edit_jabatan" class="form-control">
-                                        <?php foreach ($jabatan as $value) { ?>
-                                        <option value="<?= $value['id_jabatan'] ?>"><?= $value['nama_jabatan'] ?></option>
-                                        <?php } ?>
-                                    </select>
+                                <select class="form-control select2" name="edit_jabatan" id="edit_jabatan">
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Username</label>
+                                <label>Username Karyawan</label>
                                 <input type="text" class="form-control" id="edit_username" name="edit_username"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
                                 <span class="text-danger" id="error_edit_username"></span>
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>Password Karyawan</label>
                                 <input type="Password" class="form-control" id="edit_password" name="edit_password"
                                     placeholder="Masukkan Password Pasien" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>No Telepon</label>
+                                <label>Ulangi Password</label>
+                                <input type="Password" class="form-control" id="edit_password_konfirmasi" name="edit_password_konfirmasi"
+                                    placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#edit_password">
+                            </div>
+                            <div class="form-group">
+                                <label>No Telepon Karyawan</label>
                                 <input type="text" class="form-control" id="edit_no_telp" name="edit_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>Alamat</label>
+                                <label>Alamat Karyawan</label>
                                 <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
+
                             <div class="form-group">
-                                <label>Status</label>
+                                <label>Status Karyawan</label>
                                 <div class="checkbox">
                                     <label for="example-checkbox1">
                                         <input type="checkbox" id="edit_status" name="edit_status"
@@ -240,8 +245,9 @@
                                     </label>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label>Foto</label>
+                                <label>Foto Karyawan</label>
                                 <br>
                                 <input type="file" id="edit_foto" class="dropify-event" name="edit_foto" accept="image/png, image/gif, image/jpeg"/>
                                 <span class="text-danger" id="error_edit_foto"></span>
@@ -363,6 +369,52 @@
                 }
             });
 
+            $('.select2').select2()
+
+            $("#input_jabatan").select2({
+                placeholder: "Pilih Jabatan",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Karyawan/data_jabatan'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_jabatan").select2({
+                placeholder: "Pilih Jabatan",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Jabatan/data_jabatan'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
@@ -370,9 +422,10 @@
                 $("#input_jabatan").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
+                $("#input_password_konfirmasi").val('');
                 $("#input_no_telp").val('');
                 $("#input_alamat").val('');
-                $("#input_status").val('');
+                $("#input_status").prop('checked',false);
                 $("#input_foto").val('');
             });
 
@@ -382,9 +435,10 @@
                 $("#input_jabatan").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
+                $("#input_password_konfirmasi").val('');
                 $("#input_no_telp").val('');
                 $("#input_alamat").val('');
-                $("#input_status").val('');
+                $("#input_status").prop('checked',false);
                 $("#input_foto").val('');
             });
 
@@ -394,9 +448,10 @@
                 $("#edit_jabatan").val('');
                 $("#edit_username").val('');
                 $("#edit_password").val('');
+                $("#edit_password_konfirmasi").val('');
                 $("#edit_no_telp").val('');
                 $("#edit_alamat").val('');
-                $("#edit_status").val('');
+                $("#edit_status").prop('checked',false);
                 $("#edit_foto").val('');
             });
         })
@@ -404,20 +459,23 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
+
                     $('#id_karyawan').val(json.id_karyawan);
-                    $('#edit_nama').val(json.nama_karyawan);
-                    $('#edit_jabatan').val(json.id_jabatan);
-                    $('#edit_username').val(json.username_karyawan);
-                    $('#edit_password').val(json.password_karyawan);
-                    $('#edit_no_telp').val(json.no_telp_karyawan);
-                    $('#edit_alamat').val(json.alamat_karyawan);
-                    $('#edit_foto').val(json.alamat_karyawan);
+                    
                     if(json.status_karyawan=='Aktif'){
                         $("#edit_status").prop('checked',true);
                     }else{
                         $("#edit_status").prop('checked',false);
                     }
 
+                    $('#edit_nama').val(json.nama_karyawan);
+                    $('#edit_username').val(json.username_karyawan);
+                    $('#edit_no_telp').val(json.no_telp_karyawan);
+                    $('#edit_alamat').val(json.alamat_karyawan);
+                    $('#edit_foto').val(json.foto_karyawan);
+
+                    $('#edit_jabatan').append('<option selected value="' + json.id_jabatan + '">' + json.nama_jabatan +
+                        '</option>');
                     $('#edit_jabatan').select2('data', {
                         id: json.id_jabatan,
                         text: json.nama_jabatan
