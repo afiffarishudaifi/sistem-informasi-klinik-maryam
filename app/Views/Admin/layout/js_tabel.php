@@ -26,3 +26,5 @@
 <script src="<?= base_url() ?>/docs/adminlte/dist/js/demo.js"></script>
 <!-- Toastr -->
 <script src="<?= base_url() ?>/docs/adminlte/plugins/toastr/toastr.min.js"></script>
+<!-- Parsley -->
+<script src="<?= base_url() ?>/docs/tambahan/assets/plugins/parsleyjs/dist/parsley.min.js"></script>

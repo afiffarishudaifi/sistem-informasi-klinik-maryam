@@ -113,8 +113,10 @@
                             </div>
                             <div class="form-group">
                                 <label>Status Kamar</label>
-                                <input type="text" class="form-control" id="input_status" name="input_status"
-                                    data-parsley-required="true" placeholder="Masukkan Status Kamar" autofocus="on">
+                                <select name="input_status" data-parsley-required="true" class="form-control" id="input_status">
+                                    <option value="Kosong" selected="">Kosong</option>
+                                    <option value="Terisi">Terisi</option>
+                                </select>
                             </div>
 
                         </div>
@@ -159,8 +161,10 @@
                             </div>
                             <div class="form-group">
                                 <label>Status Kamar</label>
-                                <input type="text" class="form-control" id="edit_status" name="edit_status"
-                                    data-parsley-required="true" placeholder="Masukkan Status Kamar" autofocus="on">
+                                <select name="edit_status" class="form-control" data-parsley-required="true" id="edit_status">
+                                    <option value="Kosong" selected="">Kosong</option>
+                                    <option value="Terisi">Terisi</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -308,28 +312,32 @@
                     $('#id_kamar').val(json.id_kamar);
                     $('#edit_nomor').val(json.no_kamar);
                     $('#edit_biaya').val(json.biaya_kamar);
-                    $('#edit_status').val(json.status_kamar);
+                    if (json.status_kamar == 'Terisi') {
+                        document.getElementById("edit_status").selectedIndex = 1;
+                    } else {
+                        document.getElementById("edit_status").selectedIndex = 0;
+                    }
                 });
         }
     </script>
 
 <script type="text/javascript">
     $(function() {
-    $("#example1").DataTable({
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    });
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        });
     });
     </script>
 </body>
