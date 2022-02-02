@@ -144,13 +144,13 @@
                             <div class="form-group">
                                 <label>No Telepon Karyawan</label>
                                 <input type="text" class="form-control" id="input_no_telp" name="input_no_telp"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                                    data-parsley-type="number" placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
 
                             <div class="form-group">
                                 <label>Alamat Karyawan</label>
                                 <input type="text" class="form-control" id="input_alamat" name="input_alamat"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                                    placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
                             
                             <div class="form-group">
@@ -230,12 +230,12 @@
                             <div class="form-group">
                                 <label>No Telepon Karyawan</label>
                                 <input type="text" class="form-control" id="edit_no_telp" name="edit_no_telp"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                                    data-parsley-type="number" placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
                             <div class="form-group">
                                 <label>Alamat Karyawan</label>
                                 <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                                    placeholder="Masukkan Nama Karyawan" autofocus="on">
                             </div>
 
                             <div class="form-group">

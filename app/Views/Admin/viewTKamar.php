@@ -151,13 +151,13 @@
                             <div class="form-group">
                                 <label>Nomor Kamar</label>
                                 <input type="text" class="form-control" id="edit_nomor" name="edit_nomor"
-                                    data-parsley-required="true" placeholder="Masukkan Nomor Kamar" autofocus="on">
+                                    data-parsley-required="true" data-parsley-type="number" placeholder="Masukkan Nomor Kamar" autofocus="on">
                                 <span class="text-danger" id="error_edit_nomor"></span>
                             </div>
                             <div class="form-group">
                                 <label>Biaya Kamar</label>
                                 <input type="number" class="form-control" id="edit_biaya" name="edit_biaya"
-                                    data-parsley-required="true" placeholder="Masukkan Biaya Kamar" autofocus="on">
+                                    data-parsley-required="true" data-parsley-type="number" placeholder="Masukkan Biaya Kamar" autofocus="on">
                             </div>
                             <div class="form-group">
                                 <label>Status Kamar</label>
