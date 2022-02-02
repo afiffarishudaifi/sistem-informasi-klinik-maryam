@@ -46,4 +46,13 @@ class Model_sesi extends Model
         $builder->where('id_sesi', $id);
         return $builder->delete();
     }
+
+    public function cek_nama($nama)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('sesi');
+        $builder->select('id_sesi');
+        $builder->where('nama_sesi', $nama);
+        return $builder->get();
+    }
 }
