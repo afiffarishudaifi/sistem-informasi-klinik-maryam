@@ -12,6 +12,7 @@ class JadwalDokter extends BaseController
     {
         $this->Model_jadwaldokter = new Model_jadwaldokter();
         helper(['form', 'url']);
+        $this->db = db_connect();
     }
     public function index()
     {
@@ -29,6 +30,12 @@ class JadwalDokter extends BaseController
     public function add_jadwal()
     {
         $session = session();
+        if($this->request->getPost('input_status') == '') {
+            $status = 'Tidak Aktif';
+        } else {
+            $status = 'Aktif';
+        }
+        
         $data = array(
             'id_hari'     => $this->request->getPost('input_hari'),
             'id_sesi'     => $this->request->getPost('input_sesi'),

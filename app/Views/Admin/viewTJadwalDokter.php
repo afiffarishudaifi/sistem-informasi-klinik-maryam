@@ -48,6 +48,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Hari</th>
                                                 <th>Sesi</th>
                                                 <th>Nama Dokter</th>
@@ -61,7 +62,7 @@
                                                 foreach ($jadwal as $item) {
                                                 ?>
                                                 <tr>
-                                                    <!-- <td width="1%"><?= $no++; ?></td> -->
+                                                    <td width="1%"><?= $no++; ?></td>
                                                     <td><?= $item['nama_hari']; ?></td>
                                                     <td><?= $item['nama_sesi']; ?></td>
                                                     <td><?= $item['nama_dokter']; ?></td>
@@ -245,16 +246,13 @@
         $('#deleteModal').modal('show');
     };
 
-     $( document ).ready(function() {
-            if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
+
+    $(function() {
+         if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
                 toastr.success('<?= $session->getFlashdata('sukses'); ?>')
             } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
-        });
-
-    $(function() {
-
             $('.select2').select2()
 
             $("#input_hari").select2({
@@ -280,10 +278,10 @@
             });
 
             $("#edit_hari").select2({
-                placeholder: "Pilih Jabatan",
+                placeholder: "Pilih Hari",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/Karyawan/data_hari'); ?>',
+                    url: '<?php echo base_url('Admin/JadwalDokter/data_hari'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -301,6 +299,7 @@
                 }
             });
 
+            
             $("#input_sesi").select2({
                 placeholder: "Pilih Sesi",
                 theme: 'bootstrap4',
@@ -324,10 +323,10 @@
             });
 
             $("#edit_sesi").select2({
-                placeholder: "Pilih Jabatan",
+                placeholder: "Pilih Sesi",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/Karyawan/data_sesi'); ?>',
+                    url: '<?php echo base_url('Admin/JadwalDokter/data_sesi'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -346,7 +345,7 @@
             });
 
             $("#input_dokter").select2({
-                placeholder: "Pilih Hari",
+                placeholder: "Pilih Dokter",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/JadwalDokter/data_dokter'); ?>',
@@ -368,10 +367,10 @@
             });
 
             $("#edit_dokter").select2({
-                placeholder: "Pilih Jabatan",
+                placeholder: "Pilih Dokter",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/Karyawan/data_dokter'); ?>',
+                    url: '<?php echo base_url('Admin/JadwalDokter/data_dokter'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -388,6 +387,8 @@
                     cache: true
                 }
             });
+
+
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
@@ -419,12 +420,19 @@
             $.getJSON('<?php echo base_url('Admin/JadwalDokter/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
 
+                    if(json.status_dokter=='Aktif'){
+                        $("#edit_status").prop('checked',true);
+                    }else{
+                        $("#edit_status").prop('checked',false);
+                    }
+
                     $('#edit_hari').append('<option selected value="' + json.id_hari + '">' + json.nama_hari +
                         '</option>');
                     $('#edit_hari').select2('data', {
                         id: json.id_hari,
                         text: json.nama_hari
                     });
+                    $('#edit_hari').trigger('change');
 
                     $('#edit_sesi').append('<option selected value="' + json.id_sesi + '">' + json.nama_sesi +
                         '</option>');
@@ -432,6 +440,7 @@
                         id: json.id_sesi,
                         text: json.nama_sesi
                     });
+                    $('#edit_sesi').trigger('change');
 
                     $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter +
                         '</option>');
@@ -439,14 +448,7 @@
                         id: json.id_dokter,
                         text: json.nama_dokter
                     });
-                   
-                    
-                    if(json.status_jadwal=='Aktif'){
-                        $("#edit_status").prop('checked',true);
-                    }else{
-                        $("#edit_status").prop('checked',false);
-                    }
-                    
+                    $('#edit_dokter').trigger('change');
                 });
         }
     </script>
