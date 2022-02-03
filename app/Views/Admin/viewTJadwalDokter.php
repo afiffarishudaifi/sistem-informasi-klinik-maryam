@@ -115,12 +115,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Sesi</label>
-                                <select class="form-control select2" id="input_hari" name="input_hari">
+                                <select class="form-control select2" id="input_sesi" name="input_sesi">
                                 </select>   
                             </div>
                             <div class="form-group">
                                 <label>Dokter</label>
-                                <select class="form-control select2" id="input_hari" name="input_hari">
+                                <select class="form-control select2" id="input_dokter" name="input_dokter">
                                 </select>   
                             </div>
 
@@ -240,14 +240,15 @@
     </div>
     <!-- ./wrapper -->
 
+    <?= $this->include("Admin/layout/js_tabel") ?>
+
     <script>
-    function Hapus(id) {
-        $('.id').val(id);
-        $('#deleteModal').modal('show');
-    };
-
-
     $(function() {
+        function Hapus(id) {
+            $('.id').val(id);
+            $('#deleteModal').modal('show');
+        };
+
          if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
                 toastr.success('<?= $session->getFlashdata('sukses'); ?>')
             } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
@@ -419,6 +420,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/JadwalDokter/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
+                    $('#id_jadwal').val(json.id_jadwal);
 
                     if(json.status_dokter=='Aktif'){
                         $("#edit_status").prop('checked',true);
@@ -453,25 +455,23 @@
         }
     </script>
 
-    <?= $this->include("Admin/layout/js_tabel") ?>
-
     <script type="text/javascript">
     $(function() {
-    $("#example1").DataTable({
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-    "paging": true,
-    "lengthChange": false,
-    "searching": false,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    });
+        $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        });
     });
     </script>
 </body>

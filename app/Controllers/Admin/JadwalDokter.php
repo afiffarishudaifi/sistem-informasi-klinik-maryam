@@ -46,7 +46,7 @@ class JadwalDokter extends BaseController
         $model = new Model_jadwaldokter();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/Kamar'));
+        return redirect()->to(base_url('Admin/JadwalDokter'));
     }
 
     public function update_jadwal()
@@ -64,6 +64,7 @@ class JadwalDokter extends BaseController
         $id = $this->request->getPost('id_jadwal');
         $data = array(
             'id_hari'     => $this->request->getPost('edit_hari'),
+            'id_sesi'     => $this->request->getPost('edit_sesi'),
             'id_dokter'     => $this->request->getPost('edit_dokter'),
             'status_jadwal'     => $status,
             'updated_at' => date('Y-m-d H:i:s')
@@ -99,9 +100,11 @@ class JadwalDokter extends BaseController
             $isi['id_jadwal'] = $value['id_jadwal'];
             $isi['id_hari'] = $value['id_hari'];
             $isi['id_sesi'] = $value['id_sesi'];
+            $isi['nama_sesi'] = $value['nama_sesi'];
+            $isi['nama_sesi'] = $value['nama_sesi'];
+            $isi['nama_sesi'] = $value['nama_sesi'];
             $isi['id_dokter'] = $value['id_dokter'];
             $isi['nama_hari'] = $value['nama_hari'];
-            $isi['nama_sesi'] = $value['no_telp_karyawan'];
             $isi['nama_dokter'] = $value['nama_dokter'];
             $isi['status_jadwal'] = $value['status_jadwal'];
         endforeach;
