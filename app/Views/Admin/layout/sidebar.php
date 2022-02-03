@@ -169,7 +169,7 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatJalan'); ?>" class="nav-link">
                                 <i class="fa fa-plus-circle nav-icon"></i>
                                 <p>Daftar Rawat Jalan</p>
                             </a>
