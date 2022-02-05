@@ -126,13 +126,25 @@
                             </div>
                             <div class="form-group">
                                 <label>Waktu Keluar</label>
-                                <input type="datetime-local" class="form-control" id="input_keluar" name="input_keluar" autocomplete="off" />
+                                <input type="date" class="form-control" id="input_keluar" name="input_keluar" autocomplete="off" />
                             </div>
+
                             <div class="form-group">
                                 <label>Total Biaya</label>
                                 <input type="number" disabled class="form-control" id="input_tagihan" name="input_tagihan"
-                                    data-parsley-type="number" autofocus="on">
+                                autofocus="on">
                             </div>
+
+                            <div class="form-group">
+                                <label>Status Inap</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="input_status" name="input_status"
+                                            value="Selesai"> &nbsp Selesai
+                                    </label>
+                                </div>
+                            </div>
+
 
                         </div>
                         <div class="modal-footer">
@@ -179,12 +191,23 @@
                             </div>
                             <div class="form-group">
                                 <label>Waktu Keluar</label>
-                                <input type="datetime-local" class="form-control" id="edit_keluar" name="edit_keluar" data-parsley-required="true" autocomplete="off" />
+                                <input type="date" class="form-control" id="edit_keluar" name="edit_keluar" data-parsley-required="true" autocomplete="off" />
                             </div>
+
                             <div class="form-group">
                                 <label>Total Biaya</label>
                                 <input type="number" disabled class="form-control" id="edit_tagihan" name="edit_tagihan"
                                     data-parsley-required="true" data-parsley-type="number" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Inap</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="edit_status" name="edit_status"
+                                            value="Selesai"> &nbsp Selesai
+                                    </label>
+                                </div>
                             </div>
 
                         </div>
@@ -348,60 +371,48 @@
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_nama").val('');
+                $("#input_pasien").val('');
                 $("#input_kamar").val('');
                 $("#input_masuk").val('');
                 $("#input_keluar").val('');
                 $("#input_status").prop('checked',false);
-                $("#input_foto").val('');
+                $("#input_biaya").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_nama").val('');
-                $("#input_poli").val('');
-                $("#input_alamat").val('');
-                $("#input_no_telp").val('');
+                $("#input_pasien").val('');
+                $("#input_kamar").val('');
+                $("#input_masuk").val('');
+                $("#input_keluar").val('');
                 $("#input_status").prop('checked',false);
-                $("#input_foto").val('');
+                $("#input_biaya").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nama").val('');
-                $("#edit_poli").val('');
-                $("#edit_alamat").val('');
-                $("#edit_no_telp").val('');
+                $("#edit_kamar").val('');
+                $("#edit_masuk").val('');
+                $("#edit_keluar").val('');
                 $("#edit_status").prop('checked',false);
-                $("#edit_foto").val('');
+                $("#edit_biaya").val('');
             });
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatInput/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pendaftaran').val(json.id_pendaftaran);
+                    $('#id_inap').val(json.id_inap);
+                    $('#waktu_masuk').val(json.waktu_masuk);
+                    $('#waktu_keluar').val(json.waktu_keluar);
+                    $('#total_tagihan_inap').val(json.total_tagihan_inap);
 
-                    $('#edit_alamat').val(json.alamat_dokter);
-                    $('#edit_no_telp').val(json.no_telp_dokter);
-                    $('#edit_tanggal').val(json.tanggal_daftar);
-                    $('#edit_keluhan').val(json.keluhan);
-                    $('#edit_umur').val(json.umur);
-
-                    if(json.status_dokter=='Aktif'){
+                    if(json.status_inap=='Selesai'){
                         $("#edit_status").prop('checked',true);
                     }else{
                         $("#edit_status").prop('checked',false);
                     }
-                    $('#edit_foto').val(json.foto_dokter);
-
-                    $('#edit_poli').append('<option selected value="' + json.id_poli + '">' + json.nama_poli +
-                        '</option>');
-                    $('#edit_poli').select2('data', {
-                        id: json.id_poli,
-                        text: json.nama_poli
-                    });
-                    $('#edit_poli').trigger('change');
 
                     $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
                         '</option>');
@@ -411,13 +422,13 @@
                     });
                     $('#edit_pasien').trigger('change');
 
-                    $('#edit_jadwal').append('<option selected value="' + json.id_jadwal + '">' + json.nama_hari + ', ' + json.nama_sesi +
+                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.no_kamar +
                         '</option>');
-                    $('#edit_jadwal').select2('data', {
-                        id: json.id_jadwal,
-                        text: json.nama_hari + ', ' + json.nama_sesi
+                    $('#edit_kamar').select2('data', {
+                        id: json.id_kamar,
+                        text: json.no_kamar
                     });
-                    $('#edit_jadwal').trigger('change');
+                    $('#edit_kamar').trigger('change');
                 });
         }
         

@@ -36,13 +36,19 @@ class RawatInap extends BaseController
 
     public function add_pendaftaran()
     {
-        $session = session();  
+        $session = session(); 
+        if($this->request->getPost('input_status') == '') {
+            $status = 'Belum Selesai';
+        } else {
+            $status = 'Selesai';
+        } 
 
         $data = array(
             'id_pasien'     => $this->request->getPost('input_pasien'),
             'id_kamar'     => $this->request->getPost('input_kamar'),
             'waktu_masuk'     => $this->request->getPost('input_masuk'),
-            'waktu_masuk'     => $this->request->getPost('input_keluar'),
+            'waktu_keluar'     => $this->request->getPost('input_keluar'),
+            'status_inap'     => $status,
             'total_tagihan_inap'     => $this->request->getPost('input_tagihan')
         );
 
@@ -58,6 +64,11 @@ class RawatInap extends BaseController
         $model = new Model_rawatinap();
         date_default_timezone_set('Asia/Jakarta');
         
+        if($this->request->getPost('edit_status') == '') {
+            $status = 'Belum Selesai';
+        } else {
+            $status = 'Selesai';
+        }
         $id = $this->request->getPost('id_inap');
 
         $data = array(
@@ -65,6 +76,7 @@ class RawatInap extends BaseController
             'id_kamar'     => $this->request->getPost('edit_kamar'),
             'waktu_masuk'     => $this->request->getPost('edit_masuk'),
             'waktu_keluar'     => $this->request->getPost('edit_keluar'),
+            'status_inap'     => $status,
             'total_tagihan_inap'     => $this->request->getPost('edit_tagihan')
         );
 
@@ -88,11 +100,11 @@ class RawatInap extends BaseController
         return redirect()->to('/Admin/RawatInap');
     }
 
-    public function data_edit($id_pendaftaran)
+    public function data_edit($id_inap)
     {
         $model = new Model_rawatinap();
-        $datahari = $model->detail_data($id_pendaftaran)->getResultArray();
-        $respon = json_decode(json_encode($datahari), true);
+        $datainap = $model->detail_data($id_inap)->getResultArray();
+        $respon = json_decode(json_encode($datainap), true);
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_inap'] = $value['id_inap'];
@@ -102,6 +114,7 @@ class RawatInap extends BaseController
             $isi['no_kamar'] = $value['no_kamar'];
             $isi['waktu_masuk'] = $value['waktu_masuk'];
             $isi['waktu_keluar'] = $value['waktu_keluar'];
+            $isi['status_inap'] = $value['status_inap'];
             $isi['total_tagihan_inap'] = $value['total_tagihan_inap'];
         endforeach;
         echo json_encode($isi);

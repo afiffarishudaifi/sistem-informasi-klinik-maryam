@@ -13,7 +13,7 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pendaftaran_inap');
-        $builder->select('id_inap, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, pendaftaran_inap.waktu_masuk, pendaftaran_inap.waktu_keluar, pendaftaran_inap.status_inap');
+        $builder->select('id_inap, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, pendaftaran_inap.waktu_masuk, pendaftaran_inap.waktu_keluar, pendaftaran_inap.total_tagihan_inap, pendaftaran_inap.status_inap');
         $builder->join('kamar','pendaftaran_inap.id_kamar = kamar.id_kamar');
         $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
         return $builder->get();
@@ -29,7 +29,7 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pendaftaran_inap');
-        $builder->select('id_inap, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, pendaftaran_inap.waktu_masuk, pendaftaran_inap.waktu_keluar, pendaftaran_inap.status_inap');
+        $builder->select('id_inap, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, pendaftaran_inap.waktu_masuk, pendaftaran_inap.waktu_keluar, pendaftaran_inap.total_tagihan_inap, pendaftaran_inap.status_inap');
         $builder->join('kamar','pendaftaran_inap.id_kamar = kamar.id_kamar');
         $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
         $builder->where('id_inap', $id);
