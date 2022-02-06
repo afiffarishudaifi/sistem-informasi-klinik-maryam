@@ -223,7 +223,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatInput/delete_pendaftaran'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/RawatInap/delete_pendaftaran'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
