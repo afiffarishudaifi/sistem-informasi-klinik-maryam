@@ -159,7 +159,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatInput/update_pendaftaran'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Admin/RawatInap/update_pendaftaran'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -173,7 +173,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pendaftaran" id="id_pendaftaran">
+                            <input type="hidden" name="id_inap" id="id_inap">
 
                             <div class="form-group">
                                 <label>Pasien</label>
@@ -196,7 +196,7 @@
 
                             <div class="form-group">
                                 <label>Total Biaya</label>
-                                <input type="number" disabled class="form-control" id="edit_tagihan" name="edit_tagihan"
+                                <input type="number" class="form-control" id="edit_tagihan" name="edit_tagihan"
                                     data-parsley-required="true" data-parsley-type="number" autofocus="on">
                             </div>
 
@@ -404,8 +404,8 @@
             $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_inap').val(json.id_inap);
-                    $('#waktu_masuk').val(json.waktu_masuk);
-                    $('#waktu_keluar').val(json.waktu_keluar);
+                    $('#edit_masuk').val(json.waktu_masuk);
+                    $('#edit_keluar').val(json.waktu_keluar);
                     $('#total_tagihan_inap').val(json.total_tagihan_inap);
 
                     if(json.status_inap=='Selesai'){

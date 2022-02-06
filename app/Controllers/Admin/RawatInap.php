@@ -76,8 +76,8 @@ class RawatInap extends BaseController
             'id_kamar'     => $this->request->getPost('edit_kamar'),
             'waktu_masuk'     => $this->request->getPost('edit_masuk'),
             'waktu_keluar'     => $this->request->getPost('edit_keluar'),
-            'status_inap'     => $status,
-            'total_tagihan_inap'     => $this->request->getPost('edit_tagihan')
+            'total_tagihan_inap'     => $this->request->getPost('edit_tagihan'),
+            'status_inap'     => $status
         );
 
         $model->update_data($data, $id);
