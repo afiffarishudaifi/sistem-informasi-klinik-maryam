@@ -175,7 +175,7 @@ $session = session();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatJalan/rekamJalan'); ?>" class="nav-link">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rekam Medis Rawat Jalan</p>
                             </a>

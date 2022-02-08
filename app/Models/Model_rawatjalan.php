@@ -82,4 +82,58 @@ class Model_rawatjalan extends Model
         $builder->where('pendaftaran_rawat_jalan.tanggal_daftar', $params['tanggal_daftar']);
         return $builder->get();
     }
+
+    // rekam medis
+
+    public function view_data_rekam()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_jalan');
+        $builder->select('rekam_medis_jalan.id_pemeriksaan, rekam_medis_jalan.hasil_pemeriksaan, rekam_medis_jalan.saran_dokter, rekam_medis_jalan.tensi_darah, rekam_medis_jalan.id_pendaftaran, pasien.nama_pasien, pendaftaran_rawat_jalan.tanggal_daftar, dokter.nama_dokter, poliklinik.nama_poli');
+        $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
+        $builder->join('jadwal_dokter','pendaftaran_rawat_jalan.id_jadwal = jadwal_dokter.id_jadwal');
+        $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
+        $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
+        $builder->join('poliklinik','pendaftaran_rawat_jalan.id_poli = poliklinik.id_poli');
+        $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+        return $builder->get();
+    }
+
+    public function add_data_rekam($data)
+    {
+        $query = $this->db->table('rekam_medis_jalan')->insert($data);
+        return $query;
+    }
+
+    public function detail_data_rekam($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_jalan');
+        $builder->select("rekam_medis_jalan.id_pemeriksaan, rekam_medis_jalan.hasil_pemeriksaan, rekam_medis_jalan.saran_dokter, rekam_medis_jalan.tensi_darah, rekam_medis_jalan.id_pendaftaran, pasien.nama_pasien, pendaftaran_rawat_jalan.tanggal_daftar, dokter.nama_dokter, poliklinik.nama_poli");
+        $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
+        $builder->join('jadwal_dokter','pendaftaran_rawat_jalan.id_jadwal = jadwal_dokter.id_jadwal');
+        $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
+        $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
+        $builder->join('poliklinik','pendaftaran_rawat_jalan.id_poli = poliklinik.id_poli');
+        $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+        $builder->where('id_pemeriksaan', $id);
+        return $builder->get();
+    }
+
+    public function update_data_rekam($data, $id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_jalan');
+        $builder->where('id_pemeriksaan', $id);
+        $builder->set($data);
+        return $builder->update();
+    }
+
+    public function delete_data_rekam($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_jalan');
+        $builder->where('id_pemeriksaan', $id);
+        return $builder->delete();
+    }
 }
