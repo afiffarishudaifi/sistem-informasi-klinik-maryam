@@ -198,7 +198,7 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/RawatInap'); ?>" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatInap/rekamInap'); ?>" class="nav-link">
                                 <i class="fa fa-plus-square nav-icon"></i>
                                 <p>Daftar Rawat Inap</p>
                             </a>

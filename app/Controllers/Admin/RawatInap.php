@@ -206,5 +206,85 @@ class RawatInap extends BaseController
         return $this->response->setJSON($response);
     }
 
-   
+    public function rekamInap()
+    {
+        $session = session();
+        $model = new Model_rawatinap();
+        $data = $model->view_data_rekam()->getResultArray();
+
+        $data = [
+            'judul' => 'Tabel Rekam Medis Rawat Inap',
+            'data' => $data
+        ];
+        return view('Admin/viewRekamMedisInap', $data);
+    }
+
+    public function add_rekam()
+    {
+        $session = session();
+        $model = new Model_rawatinap();
+
+        $data = array(
+            'id_pasien'     => $this->request->getPost('input_pasien'),
+            'id_dokter'     => $this->request->getPost('input_dokter'),
+            'hasil_pemeriksaan'     => $this->request->getPost('input_hasil'),
+            'saran_dokter'     => $this->request->getPost('input_saran'),
+            'tensi'     => $this->request->getPost('input_tensi')
+        );
+
+        $model->add_data_rekam($data);
+        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
+        return redirect()->to(base_url('Admin/RawatJalan/rekamJalan'));
+    }
+
+    public function update_rekam()
+    {
+        $session = session();
+        $model = new Model_rawatinap();
+        
+        $id = $this->request->getPost('id_pendaftaran');
+        $data = array(
+            'id_pendaftaran'     => $this->request->getPost('input_pendaftaran'),
+            'hasil_pemeriksaan'     => $this->request->getPost('input_hasil'),
+            'saran_dokter'     => $this->request->getPost('input_saran'),
+            'tensi_darah'     => $this->request->getPost('input_tensi')
+        );
+
+        $model->update_data_rekam($data, $id);
+        $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
+        return redirect()->to(base_url('Admin/RawatJalan/rekamJalan'));
+    }
+
+    public function delete_rekam()
+    {
+        $session = session();
+        $model = new Model_rawatinap();
+        $id = $this->request->getPost('id');
+        // $foreign = $model->cek_foreign($id);
+        // if ($foreign == 0) {
+            $model->delete_data_rekam($id);
+            session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
+        // } else {
+        //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
+        // }
+        return redirect()->to('/Admin/RawatJalan/rekamJalan');
+    }
+
+    public function data_edit_rekam($id_pemeriksaan)
+    {
+        $model = new Model_rawatinap();
+        $datahari = $model->detail_data_rekam($id_pemeriksaan)->getResultArray();
+        $respon = json_decode(json_encode($datahari), true);
+        $data['results'] = array();
+        foreach ($respon as $value) :
+            $isi['id_pemeriksaan'] = $value['id_pemeriksaan'];
+            $isi['tanggal_daftar'] = $value['tanggal_daftar'];
+            $isi['nama_pasien'] = $value['nama_pasien'];
+            $isi['nama_dokter'] = $value['nama_dokter'];
+            $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
+            $isi['tensi_darah'] = $value['tensi_darah'];
+            $isi['saran_dokter'] = $value['saran_dokter'];
+        endforeach;
+        echo json_encode($isi);
+    }
 }

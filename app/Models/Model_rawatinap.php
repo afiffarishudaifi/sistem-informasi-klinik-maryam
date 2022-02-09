@@ -62,4 +62,58 @@ class Model_rawatinap extends Model
         return $builder->countAllResults();
     }
 
+    //rekam medis
+
+    public function view_data_rekam()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_inap');
+        $builder->select('rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi_darah, rekam_medis_inap.waktu_rekam, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, pasien.nama_pasien, pendaftaran_rawat_jalan.tanggal_daftar, dokter.nama_dokter, poliklinik.nama_poli');
+        $builder->join('pendaftaran_inap','pendaftaran_inap.id_inap = rekam_medis_inap.id_inap');
+        $builder->join('jadwal_dokter','pendaftaran_inap.id_jadwal = jadwal_dokter.id_jadwal');
+        $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
+        $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
+        $builder->join('poliklinik','pendaftaran_inap.id_poli = poliklinik.id_poli');
+        $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
+        return $builder->get();
+    }
+
+    public function add_data_rekam($data)
+    {
+        $query = $this->db->table('rekam_medis_inap')->insert($data);
+        return $query;
+    }
+
+    public function detail_data_rekam($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_inap');
+        $builder->select('rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi_darah, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, pasien.nama_pasien, pendaftaran_rawat_jalan.tanggal_daftar, dokter.nama_dokter, poliklinik.nama_poli');
+        $builder->join('pendaftaran_inap','pendaftaran_inap.id_inap = rekam_medis_inap.id_inap');
+        $builder->join('jadwal_dokter','pendaftaran_inap.id_jadwal = jadwal_dokter.id_jadwal');
+        $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
+        $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
+        $builder->join('poliklinik','pendaftaran_inap.id_poli = poliklinik.id_poli');
+        $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
+        $builder->where('id_rekam_inap', $id);
+        return $builder->get();
+    }
+
+    public function update_data_rekam($data, $id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_inap');
+        $builder->where('id_rekam_inap', $id);
+        $builder->set($data);
+        return $builder->update();
+    }
+
+    public function delete_data_rekam($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_inap');
+        $builder->where('id_rekam_inap', $id);
+        return $builder->delete();
+    }
+
 }
