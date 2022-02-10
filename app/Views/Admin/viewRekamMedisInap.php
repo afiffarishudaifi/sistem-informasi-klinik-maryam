@@ -370,8 +370,9 @@
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_saran").val('');
-                $("#edit_pendaftaran").val('');
+                $("#edit_pasien").val('');
+                $("#edit_dokter").val('');
+                $("#edit_hasil").val('');
                 $("#edit_tensi").val('');
                 $("#edit_saran").val('');
             });
@@ -394,7 +395,7 @@
                     });
                     $('#edit_pasien').trigger('change');
 
-                    $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter + " poli " + json.nama_poli +
+                    $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter + ", poli " + json.nama_poli +
                         '</option>');
                     $('#edit_dokter').select2('data', {
                         id: json.id_dokter,

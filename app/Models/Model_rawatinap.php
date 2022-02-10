@@ -86,11 +86,12 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('rekam_medis_inap');
-        $builder->select('rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, pasien.nama_pasien, dokter.nama_dokter');
+        $builder->select('rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, rekam_medis_inap.waktu_rekam, pasien.nama_pasien, dokter.nama_dokter, poliklinik.nama_poli');
         $builder->join('dokter','dokter.id_dokter = rekam_medis_inap.id_dokter');
         $builder->join('jadwal_dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
         $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
         $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
+        $builder->join('poliklinik','poliklinik.id_poli = dokter.id_poli');
         $builder->where('id_rekam_inap', $id);
         return $builder->get();
     }

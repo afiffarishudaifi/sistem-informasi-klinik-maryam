@@ -245,9 +245,9 @@ class RawatInap extends BaseController
         $session = session();
         $model = new Model_rawatinap();
         date_default_timezone_set('Asia/Jakarta');
+        $id = $this->request->getPost('id_rekam_inap');
         $waktu_rekam = $this->request->getPost('edit_tanggal');
         
-        $id = $this->request->getPost('id_pendaftaran');
         $data = array(
             'id_pasien'     => $this->request->getPost('edit_pasien'),
             'id_dokter'     => $this->request->getPost('edit_dokter'),
@@ -260,7 +260,7 @@ class RawatInap extends BaseController
 
         $model->update_data_rekam($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/RawatInput/rekamInap'));
+        return redirect()->to(base_url('Admin/RawatInap/rekamInap'));
     }
 
     public function delete_inap()
@@ -281,14 +281,16 @@ class RawatInap extends BaseController
     public function data_edit_rekam($id_pemeriksaan)
     {
         $model = new Model_rawatinap();
-        $datahari = $model->detail_data_rekam($id_pemeriksaan)->getResultArray();
-        $respon = json_decode(json_encode($datahari), true);
+        $datarekam = $model->detail_data_rekam($id_pemeriksaan)->getResultArray();
+        $respon = json_decode(json_encode($datarekam), true);
         $data['results'] = array();
         foreach ($respon as $value) :
+            $isi['id_rekam_inap'] = $value['id_rekam_inap'];
             $isi['id_pasien'] = $value['id_pasien'];
             $isi['id_dokter'] = $value['id_dokter'];
             $isi['nama_pasien'] = $value['nama_pasien'];
             $isi['nama_dokter'] = $value['nama_dokter'];
+            $isi['nama_poli'] = $value['nama_poli'];
             $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
             $isi['tensi'] = $value['tensi'];
             $isi['saran_dokter'] = $value['saran_dokter'];
@@ -373,7 +375,8 @@ class RawatInap extends BaseController
         } else {
 
             // Fetch record
-            $builder->select('id_dokter, nama_dokter');
+            $builder->select('dokter.id_dokter, dokter.nama_dokter, dokter.id_poli, poliklinik.nama_poli');
+            $builder->join('poliklinik','poliklinik.id_poli = dokter.id_poli');
             $query = $builder->get();
             $data = $query->getResult();
         }
@@ -381,7 +384,7 @@ class RawatInap extends BaseController
         foreach ($data as $country) {
             $dokter[] = array(
                 "id" => $country->id_dokter,
-                "text" => $country->nama_dokter,
+                "text" => $country->nama_dokter. ', poli ' . $country->nama_poli,
             );
         }
 
