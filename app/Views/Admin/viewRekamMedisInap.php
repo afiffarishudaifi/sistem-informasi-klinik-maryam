@@ -49,7 +49,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Pasien</th>
-                                                <th>Nama Poli</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Hasil Pemeriksaan</th>
                                                 <th>Saran Dokter</th>
@@ -63,7 +62,6 @@
                                             ?>
                                             <tr>
                                                 <td><?= $item['nama_pasien']; ?></td>
-                                                <td><?= $item['nama_poli']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
                                                 <td><?= $item['hasil_pemeriksaan']; ?></td>
                                                 <td><?= $item['saran_dokter']; ?></td>
@@ -94,7 +92,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/add_rekam'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Admin/RawatInap/add_rekam'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -110,8 +108,13 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Pendaftaran</label>
-                                <select class="form-control select2" id="input_pendaftaran" name="input_pendaftaran">
+                                <label>Pasien</label>
+                                <select class="form-control select2" id="input_pasien" name="input_pasien">
+                                </select>   
+                            </div>
+                            <div class="form-group">
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="input_dokter" name="input_dokter">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -125,7 +128,11 @@
                             <div class="form-group">
                                 <label>Tensi Darah Pasien</label>
                                 <input type="number" class="form-control" id="input_tensi" name="input_tensi"
-                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Tekanan Tensi Pasien" autofocus="on">
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Rekam</label>
+                                <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
                             </div>
 
                         </div>
@@ -141,7 +148,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/update_rekam'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Admin/RawatInap/update_rekam'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -155,11 +162,16 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pemeriksaan" id="id_pemeriksaan">
+                            <input type="hidden" name="id_rekam_inap" id="id_rekam_inap">
 
                             <div class="form-group">
-                                <label>Pendaftaran</label>
-                                <select class="form-control select2" id="edit_pendaftaran" name="edit_pendaftaran">
+                                <label>Pasien</label>
+                                <select class="form-control select2" id="edit_pasien" name="edit_pasien">
+                                </select>   
+                            </div>
+                            <div class="form-group">
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="edit_dokter" name="edit_dokter">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -173,9 +185,12 @@
                             <div class="form-group">
                                 <label>Tensi Darah Pasien</label>
                                 <input type="number" class="form-control" id="edit_tensi" name="edit_tensi"
-                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Tekanan Tensi Pasien" autofocus="on">
                             </div>
-
+                            <div class="form-group">
+                                <label>Tanggal Rekam</label>
+                                <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up"
@@ -189,7 +204,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatJalan/delete_rekam'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/RawatInap/delete_inap'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -246,11 +261,11 @@
         $(function() {
             $('.select2').select2()
 
-            $("#input_pendaftaran").select2({
+            $("#input_pasien").select2({
                 placeholder: "Pilih Pendaftaran",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pendaftaran'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_pendaftaran'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -268,11 +283,55 @@
                 }
             });
 
-            $("#edit_pendaftaran").select2({
+            $("#edit_pasien").select2({
                 placeholder: "Pilih Pendaftaran",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pendaftaran'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_pendaftaran'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#input_dokter").select2({
+                placeholder: "Pilih Pendaftaran",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/RawatInap/data_dokter'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_dokter").select2({
+                placeholder: "Pilih Pendaftaran",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/RawatInap/data_dokter'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -293,16 +352,18 @@
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_saran").val('');
-                $("#input_pendaftaran").val('');
+                $("#input_pasien").val('');
+                $("#input_dokter").val('');
+                $("#input_hasil").val('');
                 $("#input_tensi").val('');
                 $("#input_saran").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_saran").val('');
-                $("#input_pendaftaran").val('');
+                $("#input_pasien").val('');
+                $("#input_dokter").val('');
+                $("#input_hasil").val('');
                 $("#input_tensi").val('');
                 $("#input_saran").val('');
             });
@@ -317,22 +378,29 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_rekam'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit_rekam'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pemeriksaan').val(json.id_pemeriksaan);
+                    $('#id_rekam_inap').val(json.id_rekam_inap);
 
                     $('#edit_saran').val(json.saran_dokter);
-                    $('#edit_pendaftaran').val(json.no_telp_dokter);
-                    $('#edit_tensi').val(json.tensi_darah);
+                    $('#edit_tensi').val(json.tensi);
                     $('#edit_hasil').val(json.hasil_pemeriksaan);
 
-                    $('#edit_pendaftaran').append('<option selected value="' + json.id_pendaftaran + '">' + json.tanggal_daftar + " pasien " + json.nama_pasien +
+                    $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
                         '</option>');
-                    $('#edit_pendaftaran').select2('data', {
-                        id: json.id_pendaftaran,
-                        text: json.tanggal_daftar
+                    $('#edit_pasien').select2('data', {
+                        id: json.id_pasien,
+                        text: json.nama_pasien
                     });
-                    $('#edit_pendaftaran').trigger('change');
+                    $('#edit_pasien').trigger('change');
+
+                    $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter + " poli " + json.nama_poli +
+                        '</option>');
+                    $('#edit_dokter').select2('data', {
+                        id: json.id_dokter,
+                        text: json.nama_dokter
+                    });
+                    $('#edit_dokter').trigger('change');
                 });
         }
         

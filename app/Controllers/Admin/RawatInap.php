@@ -77,7 +77,8 @@ class RawatInap extends BaseController
             'waktu_masuk'     => $this->request->getPost('edit_masuk'),
             'waktu_keluar'     => $this->request->getPost('edit_keluar'),
             'total_tagihan_inap'     => $this->request->getPost('edit_tagihan'),
-            'status_inap'     => $status
+            'status_inap'     => $status,
+            'updated_at' => date('Y-m-d H:i:s')
         );
 
         $model->update_data($data, $id);
@@ -223,39 +224,46 @@ class RawatInap extends BaseController
     {
         $session = session();
         $model = new Model_rawatinap();
+        $waktu_rekam = $this->request->getPost('input_tanggal');
 
         $data = array(
             'id_pasien'     => $this->request->getPost('input_pasien'),
             'id_dokter'     => $this->request->getPost('input_dokter'),
             'hasil_pemeriksaan'     => $this->request->getPost('input_hasil'),
             'saran_dokter'     => $this->request->getPost('input_saran'),
-            'tensi'     => $this->request->getPost('input_tensi')
+            'tensi'     => $this->request->getPost('input_tensi'),
+            'waktu_rekam'     => $waktu_rekam
         );
 
         $model->add_data_rekam($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/RawatJalan/rekamJalan'));
+        return redirect()->to(base_url('Admin/RawatInap/rekamInap'));
     }
 
     public function update_rekam()
     {
         $session = session();
         $model = new Model_rawatinap();
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu_rekam = $this->request->getPost('edit_tanggal');
         
         $id = $this->request->getPost('id_pendaftaran');
         $data = array(
-            'id_pendaftaran'     => $this->request->getPost('input_pendaftaran'),
-            'hasil_pemeriksaan'     => $this->request->getPost('input_hasil'),
-            'saran_dokter'     => $this->request->getPost('input_saran'),
-            'tensi_darah'     => $this->request->getPost('input_tensi')
+            'id_pasien'     => $this->request->getPost('edit_pasien'),
+            'id_dokter'     => $this->request->getPost('edit_dokter'),
+            'hasil_pemeriksaan'     => $this->request->getPost('edit_hasil'),
+            'saran_dokter'     => $this->request->getPost('edit_saran'),
+            'tensi'     => $this->request->getPost('edit_tensi'),
+            'waktu_rekam'     => $waktu_rekam,
+            'updated_at' => date('Y-m-d H:i:s')
         );
 
         $model->update_data_rekam($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/RawatJalan/rekamJalan'));
+        return redirect()->to(base_url('Admin/RawatInput/rekamInap'));
     }
 
-    public function delete_rekam()
+    public function delete_inap()
     {
         $session = session();
         $model = new Model_rawatinap();
@@ -267,7 +275,7 @@ class RawatInap extends BaseController
         // } else {
         //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         // }
-        return redirect()->to('/Admin/RawatJalan/rekamJalan');
+        return redirect()->to('/Admin/RawatInap/rekamInap');
     }
 
     public function data_edit_rekam($id_pemeriksaan)
@@ -277,14 +285,108 @@ class RawatInap extends BaseController
         $respon = json_decode(json_encode($datahari), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id_pemeriksaan'] = $value['id_pemeriksaan'];
-            $isi['tanggal_daftar'] = $value['tanggal_daftar'];
+            $isi['id_pasien'] = $value['id_pasien'];
+            $isi['id_dokter'] = $value['id_dokter'];
             $isi['nama_pasien'] = $value['nama_pasien'];
             $isi['nama_dokter'] = $value['nama_dokter'];
             $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
-            $isi['tensi_darah'] = $value['tensi_darah'];
+            $isi['tensi'] = $value['tensi'];
             $isi['saran_dokter'] = $value['saran_dokter'];
+            $isi['waktu_rekam'] = $value['waktu_rekam'];
         endforeach;
         echo json_encode($isi);
+    }
+
+    public function data_pendaftaran()
+    {
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("pendaftaran_inap");
+
+        $pasien = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('pendaftaran_inap.id_pasien, pasien.nama_pasien');
+            $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
+            $builder->where('status_inap','Belum Selesai');
+            $builder->orderBy('id_inap', 'DESC');
+            $builder->like('pasien.nama_pasien', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('pendaftaran_inap.id_pasien, pasien.nama_pasien');
+            $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
+            $builder->where('status_inap','Belum Selesai');
+            $builder->orderBy('id_inap', 'DESC');
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+
+        foreach ($data as $country) {
+            $pasien[] = array(
+                "id" => $country->id_pasien,
+                "text" => $country->nama_pasien,
+            );
+        }
+
+        $response['data'] = $pasien;
+
+        return $this->response->setJSON($response);
+    }
+
+    public function data_dokter()
+    {
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("dokter");
+
+        $dokter = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('dokter.id_dokter, dokter.nama_dokter, dokter.id_poli, poliklinik.nama_poli');
+            $builder->join('poliklinik','poliklinik.id_poli = dokter.id_poli');
+            $builder->like('nama_dokter', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_dokter, nama_dokter');
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+
+        foreach ($data as $country) {
+            $dokter[] = array(
+                "id" => $country->id_dokter,
+                "text" => $country->nama_dokter,
+            );
+        }
+
+        $response['data'] = $dokter;
+
+        return $this->response->setJSON($response);
     }
 }
