@@ -25,6 +25,16 @@ class Model_rawatinap extends Model
         return $query;
     }
 
+    public function cek_pasien($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pendaftaran_inap');
+        $builder->selectCount('pendaftaran_inap.id_pasien');
+        $builder->where('pendaftaran_inap.id_pasien', $id);
+        $builder->where('status_inap !=', 'Belum Selesai');
+        return $builder->get();
+    }
+
     public function detail_data($id)
     {
         $db      = \Config\Database::connect();
@@ -44,6 +54,16 @@ class Model_rawatinap extends Model
         $builder->set($data);
         return $builder->update();
     }
+
+    public function update_status_kamar($data, $id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('kamar');
+        $builder->where('id_kamar', $id);
+        $builder->set($data);
+        return $builder->update();
+    }
+
 
     public function delete_data($id)
     {
@@ -112,5 +132,8 @@ class Model_rawatinap extends Model
         $builder->where('id_rekam_inap', $id);
         return $builder->delete();
     }
+
+
+
 
 }

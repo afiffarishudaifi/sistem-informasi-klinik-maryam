@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_rawatinap;
+use CodeIgniter\Model;
 
 class RawatInap extends BaseController
 {
@@ -43,6 +44,8 @@ class RawatInap extends BaseController
             $status = 'Selesai';
         } 
 
+        $id_pasien = $this->request->getPost('input_pasien');
+
         $data = array(
             'id_pasien'     => $this->request->getPost('input_pasien'),
             'id_kamar'     => $this->request->getPost('input_kamar'),
@@ -52,8 +55,21 @@ class RawatInap extends BaseController
             'total_tagihan_inap'     => $this->request->getPost('input_tagihan')
         );
 
+        $kamar = $this->request->getPost('input_kamar');
+        $ubah_kamar = array(
+            'status_kamar' => 'Terisi'
+        );
+
         $model = new Model_rawatinap();
+        $cek_pasien = $model->cek_pasien($id_pasien)->getRowArray();
+
+        if($cek_pasien['id_pasien'] != 1){
+            $session->setFlashdata('gagal', 'Pasien ini masih melakukan perawatan');
+            return redirect()->to(base_url('Admin/RawatInap'));
+        }
+        
         $model->add_data($data);
+        $model->update_status_kamar($ubah_kamar, $kamar);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Admin/RawatInap'));
     }
@@ -81,7 +97,13 @@ class RawatInap extends BaseController
             'updated_at' => date('Y-m-d H:i:s')
         );
 
+        $kamar = $this->request->getPost('edit_kamar');
+        $ubah_kamar = array(
+            'status_kamar' => 'Kosong'
+        );
         $model->update_data($data, $id);
+        $model->update_status_kamar($ubah_kamar, $kamar);
+
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         return redirect()->to(base_url('Admin/RawatInap'));
     }
@@ -124,7 +146,7 @@ class RawatInap extends BaseController
     public function data_pasien()
     {
         $request = service('request');
-        $postData = $request->getPost(); // OR $this->request->getPost();
+        $postData = $request->getPost(); 
 
         $response = array();
 
@@ -145,13 +167,13 @@ class RawatInap extends BaseController
             $query = $builder->get();
             $data = $query->getResult();
         } else {
-
+    
             // Fetch record
             $builder->select('id_pasien, nama_pasien');
             $query = $builder->get();
             $data = $query->getResult();
         }
-
+        
         foreach ($data as $country) {
             $pasien[] = array(
                 "id" => $country->id_pasien,
