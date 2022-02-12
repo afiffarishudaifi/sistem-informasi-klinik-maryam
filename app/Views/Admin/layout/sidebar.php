@@ -181,7 +181,10 @@ $session = session();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatJalan/resepJalan'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'RawatJalan' && $uri->getSegment(2) == 'resepJalan') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-sticky-note nav-icon"></i>
                                 <p>Resep Rawat Jalan</p>
                             </a>

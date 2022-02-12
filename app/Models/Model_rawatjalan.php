@@ -74,7 +74,7 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pendaftaran_rawat_jalan');
-        $builder->selectMax('id_pendaftaran');
+        $builder->selectMax('no_antrian');
         $builder->join('poliklinik','pendaftaran_rawat_jalan.id_poli = poliklinik.id_poli');
         $builder->join('jadwal_dokter','pendaftaran_rawat_jalan.id_jadwal = jadwal_dokter.id_jadwal');
         $builder->where('poliklinik.id_poli',$params['id_poli']);
@@ -136,4 +136,78 @@ class Model_rawatjalan extends Model
         $builder->where('id_pemeriksaan', $id);
         return $builder->delete();
     }
+
+    public function data_pendaftar()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis_jalan');
+        $builder->select('id_pendaftaran');
+        return $builder->get();
+    }
+
+    // resep
+    public function view_data_resep()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('resep_jalan');
+        $builder->select('resep_jalan.id_resep, rekam_medis_jalan.id_pemeriksaan, resep_jalan.tagihan_obat, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_jalan.created_at');
+        $builder->join('rekam_medis_jalan','rekam_medis_jalan.id_pemeriksaan = resep_jalan.id_pemeriksaan');
+        $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
+        $builder->join('jadwal_dokter','pendaftaran_rawat_jalan.id_jadwal = jadwal_dokter.id_jadwal');
+        $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
+        $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
+        $builder->join('poliklinik','pendaftaran_rawat_jalan.id_poli = poliklinik.id_poli');
+        $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+        return $builder->get();
+    }
+
+    public function add_data_resep($data)
+    {
+        $query = $this->db->table('resep_jalan')->insert($data);
+        return $query;
+    }
+
+    public function detail_data_resep($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('resep_jalan');
+        $builder->select('resep_jalan.id_resep, resep_jalan.tagihan_obat, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_jalan.id_pemeriksaan, rekam_medis_jalan.created_at');
+        $builder->join('rekam_medis_jalan','rekam_medis_jalan.id_pemeriksaan = resep_jalan.id_pemeriksaan');
+        $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
+        $builder->join('jadwal_dokter','pendaftaran_rawat_jalan.id_jadwal = jadwal_dokter.id_jadwal');
+        $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
+        $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
+        $builder->join('poliklinik','pendaftaran_rawat_jalan.id_poli = poliklinik.id_poli');
+        $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+        $builder->where('id_resep', $id);
+        return $builder->get();
+    }
+
+    public function update_data_resep($data, $id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('resep_jalan');
+        $builder->where('id_resep', $id);
+        $builder->set($data);
+        return $builder->update();
+    }
+
+    public function delete_data_resep($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('resep_jalan');
+        $builder->where('id_resep', $id);
+        return $builder->delete();
+    }
+
+    public function view_detail_resep($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_resep');
+        $builder->select('detail_resep.id_detail, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, detail_resep.total_biaya');
+        $builder->join('obat','detail_resep.id_obat = obat.id_obat');
+        $builder->where('detail_resep.id_resep', $id);
+        return $builder->get();
+    }
+
 }

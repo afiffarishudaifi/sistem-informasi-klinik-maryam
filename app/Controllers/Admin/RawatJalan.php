@@ -46,7 +46,7 @@ class RawatJalan extends BaseController
             'id_jadwal' => $jadwal,
             'tanggal_daftar' => $tanggal_daftar
         ];  
-        $max = $model->cek_max($params)->getRowArray()['id_pendaftaran'];
+        $max = $model->cek_max($params)->getRowArray()['no_antrian'];
         if ($max == null) {
             $max = 1;
         } else {
@@ -296,7 +296,16 @@ class RawatJalan extends BaseController
     }
 
     public function data_pendaftaran()
-    {
+    {   
+        $session = session();
+        $model = new Model_rawatjalan();
+        $id_pendaftar = array();
+
+        $pendaftar = $model->data_pendaftar()->getResultArray();
+        foreach ($pendaftar as $value) {
+            array_push($id_pendaftar, $value['id_pendaftaran']);
+        }
+
         $request = service('request');
         $postData = $request->getPost();
 
@@ -313,17 +322,21 @@ class RawatJalan extends BaseController
 
             $query = $postData['query'];
 
-            $builder->select('id_pendaftaran, pasien.nama_pasien, tanggal_daftar');
-            $builder->join('pasien','pasien.id_pasien = pasien.id_pasien');
-            $builder->orderBy('id_pendaftaran', 'DESC');
-            $builder->like('pasien.nama_pasien', $query, 'both');
+            $builder->select('pendaftaran_rawat_jalan.id_pendaftaran, pasien.nama_pasien, tanggal_daftar');
+            $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+            $builder->where('tanggal_daftar', date('Y-m-d'));
+            $builder->whereNotIn('pendaftaran_rawat_jalan.id_pendaftaran', $id_pendaftar);
+            $builder->like('tanggal_daftar', $query, 'both');
+            $builder->orderBy('pendaftaran_rawat_jalan.id_pendaftaran', 'DESC');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
-            $builder->select('id_pendaftaran, pasien.nama_pasien, tanggal_daftar');
-            $builder->join('pasien','pasien.id_pasien = pasien.id_pasien');
-            $builder->orderBy('id_pendaftaran', 'DESC');
+            $builder->select('pendaftaran_rawat_jalan.id_pendaftaran, pasien.nama_pasien, tanggal_daftar');
+            $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+            $builder->where('tanggal_daftar', date('Y-m-d'));
+            $builder->whereNotIn('pendaftaran_rawat_jalan.id_pendaftaran', $id_pendaftar);
+            $builder->orderBy('pendaftaran_rawat_jalan.id_pendaftaran', 'DESC');
             $query = $builder->get();
             $data = $query->getResult();
         }
@@ -362,12 +375,12 @@ class RawatJalan extends BaseController
         $session = session();
         $model = new Model_rawatjalan();
         
-        $id = $this->request->getPost('id_pendaftaran');
+        $id = $this->request->getPost('id_rekam');
         $data = array(
-            'id_pendaftaran'     => $this->request->getPost('input_pendaftaran'),
-            'hasil_pemeriksaan'     => $this->request->getPost('input_hasil'),
-            'saran_dokter'     => $this->request->getPost('input_saran'),
-            'tensi_darah'     => $this->request->getPost('input_tensi')
+            'id_pendaftaran'     => $this->request->getPost('edit_pendaftaran'),
+            'hasil_pemeriksaan'     => $this->request->getPost('edit_hasil'),
+            'saran_dokter'     => $this->request->getPost('edit_saran'),
+            'tensi_darah'     => $this->request->getPost('edit_tensi')
         );
 
         $model->update_data_rekam($data, $id);
@@ -404,6 +417,204 @@ class RawatJalan extends BaseController
             $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
             $isi['tensi_darah'] = $value['tensi_darah'];
             $isi['saran_dokter'] = $value['saran_dokter'];
+        endforeach;
+        echo json_encode($isi);
+    }
+
+    public function resepJalan()
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+        $data = $model->view_data_resep()->getResultArray();
+
+        $data = [
+            'judul' => 'Tabel Rekam Medis Rawat Jalan',
+            'data' => $data
+        ];
+        return view('Admin/viewResepJalan', $data);
+    }
+
+    public function data_pemeriksaan()
+    {
+        $request = service('request');
+        $postData = $request->getPost();
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("rekam_medis_jalan");
+
+        $pasien = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            $builder->select('id_pemeriksaan, pasien.nama_pasien, rekam_medis_jalan.created_at');
+            $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
+            $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+            $builder->orderBy('id_pemeriksaan', 'DESC');
+            $builder->like('date(rekam_medis_jalan.created_at)', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            $builder->select('id_pemeriksaan, pasien.nama_pasien, rekam_medis_jalan.created_at');
+            $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
+            $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+            $builder->orderBy('id_pemeriksaan', 'DESC');
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+
+        foreach ($data as $pendaftaran) {
+            $pasien[] = array(
+                "id" => $pendaftaran->id_pemeriksaan,
+                "text" => $pendaftaran->created_at . ' pasien ' . $pendaftaran->nama_pasien,
+            );
+        }
+
+        $response['data'] = $pasien;
+
+        return $this->response->setJSON($response);
+    }
+
+    public function add_resep()
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+
+        $data = array(
+            'id_pemeriksaan'     => $this->request->getPost('input_pemeriksaan')
+        );
+
+        $model->add_data_resep($data);
+        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
+        return redirect()->to(base_url('Admin/RawatJalan/resepJalan'));
+    }
+
+    public function update_resep()
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+        
+        $id = $this->request->getPost('id_resep');
+        $data = array(
+            'id_pemeriksaan'     => $this->request->getPost('input_pemeriksaan')
+        );
+
+        $model->update_data_resep($data, $id);
+        $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
+        return redirect()->to(base_url('Admin/RawatJalan/resepJalan'));
+    }
+
+    public function delete_resep()
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+        $id = $this->request->getPost('id');
+        // $foreign = $model->cek_foreign($id);
+        // if ($foreign == 0) {
+            $model->delete_data_resep($id);
+            session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
+        // } else {
+        //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
+        // }
+        return redirect()->to('/Admin/RawatJalan/resepJalan');
+    }
+
+    public function data_edit_resep($id_resep)
+    {
+        $model = new Model_rawatjalan();
+        $dataresep = $model->detail_data_resep($id_resep)->getResultArray();
+        $respon = json_decode(json_encode($dataresep), true);
+        $data['results'] = array();
+        foreach ($respon as $value) :
+            $isi['id_resep'] = $value['id_resep'];
+            $isi['id_pemeriksaan'] = $value['id_pemeriksaan'];
+            $isi['created_at'] = $value['created_at'];
+            $isi['nama_pasien'] = $value['nama_pasien'];
+        endforeach;
+        echo json_encode($isi);
+    }
+
+    // detail resep
+    public function detailResep($id)
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+        $data = $model->view_detail_resep($id)->getResultArray();
+
+        $data = [
+            'judul' => 'Tabel Detail Resep ' . $id,
+            'data' => $data,
+            'id_resep' => $id
+        ];
+        return view('Admin/viewDetailResepJalan', $data);
+    }
+
+    public function add_detail_resep()
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+
+        $id_resep = $this->request->getPost('id_resep');
+
+        $data = array(
+            'id_obat'     => $this->request->getPost('input_obat'),
+            'jumlah_obat' => $this->request->getPost('input_jumlah'),
+            'total_biaya' => $this->request->getPost('input_biaya'),
+            'id_resep'     => $id_resep
+        );
+
+        $model->add_detail_resep($data);
+        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
+        return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
+    }
+
+    public function update_detail_resep()
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+        
+        $id = $this->request->getPost('id_detail');
+        $id_resep = $this->request->getPost('edit_resep');
+        $data = array(
+            'id_obat'     => $this->request->getPost('edit_obat'),
+            'jumlah_obat' => $this->request->getPost('edit_jumlah'),
+            'total_biaya' => $this->request->getPost('edit_biaya')
+        );
+
+        $model->update_detail_resep($data, $id);
+        $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
+        return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
+    }
+
+    public function delete_detail_resep($id)
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+        $id = $this->request->getPost('id');
+        $id_resep = $this->request->getPost('id_resep');
+        $model->delete_detail_resep($id);
+        session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
+        return redirect()->to('/Admin/RawatJalan/detailResep' . '/' . $id_resep);
+    }
+
+    public function data_edit_detail($id_detail)
+    {
+        $model = new Model_rawatjalan();
+        $dataresep = $model->detail_data_detail_resep($id_detail)->getResultArray();
+        $respon = json_decode(json_encode($dataresep), true);
+        $data['results'] = array();
+        foreach ($respon as $value) :
+            $isi['id_detail'] = $value['id_detail'];
+            $isi['id_obat'] = $value['id_obat'];
+            $isi['nama_obat'] = $value['nama_obat'];
+            $isi['jumlah_obat'] = $value['jumlah_obat'];
+            $isi['total_biaya'] = $value['total_biaya'];
         endforeach;
         echo json_encode($isi);
     }
