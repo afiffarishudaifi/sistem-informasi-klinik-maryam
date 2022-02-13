@@ -434,6 +434,52 @@ class RawatJalan extends BaseController
         return view('Admin/viewResepJalan', $data);
     }
 
+    public function data_obat()
+    {
+        $this->db = db_connect();
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("obat");
+
+        $poli = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('id_obat, nama_obat');
+            $builder->like('nama_obat', $query, 'both');
+            $builder->where('stok_obat !=',0);
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_obat, nama_obat');
+            $builder->where('stok_obat !=',0);
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+
+        foreach ($data as $country) {
+            $poli[] = array(
+                "id" => $country->id_obat,
+                "text" => $country->nama_obat,
+            );
+        }
+
+        $response['data'] = $poli;
+
+        return $this->response->setJSON($response);
+    }
+
     public function data_pemeriksaan()
     {
         $request = service('request');
@@ -555,21 +601,46 @@ class RawatJalan extends BaseController
         return view('Admin/viewDetailResepJalan', $data);
     }
 
+    public function harga_obat($id)
+    {
+        $model = new Model_rawatjalan();
+        $harga = $model->harga_obat($id)->getRowArray();
+        $isi['harga_obat'] = $harga['harga_obat'];
+        echo json_encode($isi);
+    }
+
     public function add_detail_resep()
     {
         $session = session();
         $model = new Model_rawatjalan();
 
         $id_resep = $this->request->getPost('id_resep');
+        $id_obat = $this->request->getPost('input_obat');
+        $jumlah_obat = $this->request->getPost('input_jumlah');
+        $cek_stok = $model->cek_stok_obat($id_obat)->getRowArray();
+
+        if ($cek_stok['stok_obat'] < $jumlah_obat) {
+            $session->setFlashdata('gagal', 'Stok obat tidak mencukupi');
+            return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
+        }
+
+        $stok_baru = $cek_stok['stok_obat'] - $jumlah_obat;
 
         $data = array(
-            'id_obat'     => $this->request->getPost('input_obat'),
-            'jumlah_obat' => $this->request->getPost('input_jumlah'),
-            'total_biaya' => $this->request->getPost('input_biaya'),
+            'stok_obat' => $stok_baru
+        );
+
+        $model->update_stok_obat($data, $id_obat);
+
+        $data = array(
+            'id_obat'     => $id_obat,
+            'jumlah_obat' => $jumlah_obat,
+            'total_biaya' => $this->request->getPost('input_total'),
             'id_resep'     => $id_resep
         );
 
         $model->add_detail_resep($data);
+
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
     }
@@ -584,7 +655,7 @@ class RawatJalan extends BaseController
         $data = array(
             'id_obat'     => $this->request->getPost('edit_obat'),
             'jumlah_obat' => $this->request->getPost('edit_jumlah'),
-            'total_biaya' => $this->request->getPost('edit_biaya')
+            'total_biaya' => $this->request->getPost('edit_total')
         );
 
         $model->update_detail_resep($data, $id);
@@ -603,7 +674,7 @@ class RawatJalan extends BaseController
         return redirect()->to('/Admin/RawatJalan/detailResep' . '/' . $id_resep);
     }
 
-    public function data_edit_detail($id_detail)
+    public function data_edit_detail_resep($id_detail)
     {
         $model = new Model_rawatjalan();
         $dataresep = $model->detail_data_detail_resep($id_detail)->getResultArray();

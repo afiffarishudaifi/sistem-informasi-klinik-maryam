@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2022 at 01:49 PM
+-- Generation Time: Feb 13, 2022 at 07:16 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -46,10 +46,10 @@ INSERT INTO `admin` (`id_admin`, `username_admin`, `password_admin`, `nama_admin
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail resep`
+-- Table structure for table `detail_resep`
 --
 
-CREATE TABLE `detail resep` (
+CREATE TABLE `detail_resep` (
   `id_detail` int(11) NOT NULL,
   `id_resep` int(11) NOT NULL,
   `id_obat` int(11) NOT NULL,
@@ -58,6 +58,14 @@ CREATE TABLE `detail resep` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail_resep`
+--
+
+INSERT INTO `detail_resep` (`id_detail`, `id_resep`, `id_obat`, `jumlah_obat`, `total_biaya`, `created_at`, `updated_at`) VALUES
+(1, 2, 4, 2, 10000, '2022-02-13 11:32:51', NULL),
+(2, 2, 4, 2, 10000, '2022-02-13 12:43:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,7 +108,8 @@ CREATE TABLE `dokter` (
 INSERT INTO `dokter` (`id_dokter`, `id_poli`, `nama_dokter`, `alamat_dokter`, `no_telp_dokter`, `status_dokter`, `foto_dokter`, `created_at`, `updated_at`) VALUES
 (1, 4, 'faris', 'Kediri', '089654587589', 'Tidak Aktif', 'docs/img/img_dokter/noimage.jpg', '2022-01-29 22:56:14', '2022-01-31 20:26:31'),
 (2, 6, 'faris', 'klsadjfkl', '154646468416', 'Tidak Aktif', 'docs/img/img_dokter/noimage.jpg', '2022-01-29 22:56:51', NULL),
-(3, 4, 'afif', 'Kediri', '205456451', 'Aktif', 'docs/img/img_dokter/1643471883_8a42b57d371b6d85b368.png', '2022-01-29 22:58:03', '2022-01-31 22:54:10');
+(3, 4, 'afif', 'Kediri', '205456451', 'Aktif', 'docs/img/img_dokter/1643471883_8a42b57d371b6d85b368.png', '2022-01-29 22:58:03', '2022-01-31 22:54:10'),
+(4, 5, 'Afif Faris Hudaifi', 'Kediri', '0896985875', 'Aktif', 'docs/img/img_dokter/1644651784_d38e8689825ccc05129c.png', '2022-02-12 14:43:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -173,7 +182,8 @@ CREATE TABLE `jadwal_dokter` (
 
 INSERT INTO `jadwal_dokter` (`id_jadwal`, `id_hari`, `id_sesi`, `id_dokter`, `status_jadwal`, `created_at`, `updated_at`) VALUES
 (1, 2, 1, 3, 'Aktif', '2022-02-03 09:09:01', '2022-02-03 03:08:45'),
-(2, 2, 1, 1, 'Tidak Aktif', '2022-02-03 15:27:55', '2022-02-03 15:33:57');
+(2, 2, 1, 1, 'Tidak Aktif', '2022-02-03 15:27:55', '2022-02-03 15:33:57'),
+(3, 5, 1, 4, 'Aktif', '2022-02-12 14:44:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -250,7 +260,7 @@ CREATE TABLE `obat` (
 INSERT INTO `obat` (`id_obat`, `nama_obat`, `stok_obat`, `harga_obat`, `created_at`, `updated_at`) VALUES
 (2, 'Antimo Anak', 100, 6000, '2022-01-26 11:48:56', '2022-01-29 09:11:08'),
 (3, 'Vitamin A', 1000, 5000, '2022-02-02 20:30:11', NULL),
-(4, 'Vitamin B', 1000, 5000, '2022-02-02 20:30:24', NULL),
+(4, 'Vitamin B', 996, 5000, '2022-02-02 20:30:24', NULL),
 (5, 'Vitamin C', 1000, 5000, '2022-02-02 20:30:34', NULL);
 
 -- --------------------------------------------------------
@@ -292,12 +302,19 @@ CREATE TABLE `pendaftaran_inap` (
   `id_kamar` int(11) NOT NULL,
   `waktu_masuk` datetime NOT NULL,
   `waktu_keluar` date DEFAULT NULL,
-  `lama_hari` int(11) NOT NULL,
-  `total_tagihan_inap` varchar(20) NOT NULL,
+  `lama_hari` int(11) DEFAULT NULL,
+  `total_tagihan_inap` varchar(20) DEFAULT NULL,
   `status_inap` enum('Belum Selesai','Selesai') NOT NULL DEFAULT 'Belum Selesai',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pendaftaran_inap`
+--
+
+INSERT INTO `pendaftaran_inap` (`id_inap`, `id_pasien`, `id_kamar`, `waktu_masuk`, `waktu_keluar`, `lama_hari`, `total_tagihan_inap`, `status_inap`, `created_at`, `updated_at`) VALUES
+(1, 2, 2, '2022-02-12 13:25:00', '0000-00-00', NULL, NULL, 'Belum Selesai', '2022-02-12 13:25:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -325,7 +342,15 @@ CREATE TABLE `pendaftaran_rawat_jalan` (
 
 INSERT INTO `pendaftaran_rawat_jalan` (`id_pendaftaran`, `id_pasien`, `id_poli`, `id_jadwal`, `keluhan`, `umur`, `tanggal_daftar`, `no_antrian`, `status_antrian`, `created_at`, `updated_at`) VALUES
 (1, 2, 4, 1, 'sakit gigi saja', 20, '2022-02-03 00:00:00', 3, 'Menunggu', '2022-02-03 21:27:32', NULL),
-(3, 3, 5, 1, 'anak sakit kepala', 22, '2022-02-04 00:00:00', 1, 'Menunggu', '2022-02-03 21:31:11', NULL);
+(3, 3, 5, 1, 'anak sakit kepala', 22, '2022-02-04 00:00:00', 1, 'Menunggu', '2022-02-03 21:31:11', NULL),
+(4, 2, 4, 1, 'gigi geraham', 20, '2022-02-10 00:00:00', 1, 'Menunggu', '2022-02-10 21:19:38', NULL),
+(5, 3, 5, 1, 'dfas', 9, '2022-02-07 00:00:00', 1, 'Menunggu', '2022-02-10 21:28:06', NULL),
+(6, 4, 5, 1, 'sfslkjf', 7, '2022-02-07 00:00:00', 7, 'Menunggu', '2022-02-10 21:28:33', NULL),
+(7, 2, 4, 1, 'safd', 90, '2022-02-10 00:00:00', 2, 'Menunggu', '2022-02-10 21:40:53', NULL),
+(8, 2, 4, 1, 'gigi', 20, '2022-02-11 00:00:00', 1, 'Menunggu', '2022-02-11 20:39:14', NULL),
+(9, 3, 4, 1, 'gigi', 20, '2022-02-11 00:00:00', 2, 'Menunggu', '2022-02-11 20:39:30', NULL),
+(10, 4, 4, 1, 'gigi', 20, '2022-02-11 00:00:00', 3, 'Menunggu', '2022-02-11 20:40:06', NULL),
+(11, 4, 4, 3, 'gigi geraham sakit', 20, '2022-02-13 00:00:00', 1, 'Menunggu', '2022-02-12 14:47:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -368,6 +393,14 @@ CREATE TABLE `rekam_medis_inap` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `rekam_medis_inap`
+--
+
+INSERT INTO `rekam_medis_inap` (`id_rekam_inap`, `id_pasien`, `id_dokter`, `hasil_pemeriksaan`, `saran_dokter`, `tensi`, `waktu_rekam`, `created_at`, `updated_at`) VALUES
+(1, 2, 4, 'huhu', 'jkhkjh', 90, '2022-02-12 00:00:00', '2022-02-12 19:00:36', NULL),
+(2, 2, 3, 'uhuh', 'gyg', 90, '2022-02-12 00:00:00', '2022-02-12 19:00:54', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -383,6 +416,15 @@ CREATE TABLE `rekam_medis_jalan` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rekam_medis_jalan`
+--
+
+INSERT INTO `rekam_medis_jalan` (`id_pemeriksaan`, `id_pendaftaran`, `hasil_pemeriksaan`, `saran_dokter`, `tensi_darah`, `created_at`, `updated_at`) VALUES
+(2, 3, 'bagus', 'tidak perlu rawat inap', 90, '2022-02-10 20:35:05', NULL),
+(3, 9, 'bagus', 'tidak perlu rawat', 20, '2022-02-11 20:42:42', NULL),
+(4, 8, 'bagus', 'perlu rawat inap', 20, '2022-02-11 21:02:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -410,6 +452,14 @@ CREATE TABLE `resep_jalan` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `resep_jalan`
+--
+
+INSERT INTO `resep_jalan` (`id_resep`, `id_pemeriksaan`, `tagihan_obat`, `created_at`, `updated_at`) VALUES
+(2, 2, 0, '2022-02-10 21:10:56', NULL),
+(3, 2, 0, '2022-02-12 14:49:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -446,9 +496,9 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
--- Indexes for table `detail resep`
+-- Indexes for table `detail_resep`
 --
-ALTER TABLE `detail resep`
+ALTER TABLE `detail_resep`
   ADD PRIMARY KEY (`id_detail`),
   ADD KEY `id_resep` (`id_resep`),
   ADD KEY `id_obat` (`id_obat`);
@@ -583,10 +633,10 @@ ALTER TABLE `admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `detail resep`
+-- AUTO_INCREMENT for table `detail_resep`
 --
-ALTER TABLE `detail resep`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `detail_resep`
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `detail_resep_inap`
@@ -598,7 +648,7 @@ ALTER TABLE `detail_resep_inap`
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hari`
@@ -616,7 +666,7 @@ ALTER TABLE `jabatan`
 -- AUTO_INCREMENT for table `jadwal_dokter`
 --
 ALTER TABLE `jadwal_dokter`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kamar`
@@ -646,13 +696,13 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `pendaftaran_inap`
 --
 ALTER TABLE `pendaftaran_inap`
-  MODIFY `id_inap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_inap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_rawat_jalan`
 --
 ALTER TABLE `pendaftaran_rawat_jalan`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `poliklinik`
@@ -664,13 +714,13 @@ ALTER TABLE `poliklinik`
 -- AUTO_INCREMENT for table `rekam_medis_inap`
 --
 ALTER TABLE `rekam_medis_inap`
-  MODIFY `id_rekam_inap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rekam_inap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rekam_medis_jalan`
 --
 ALTER TABLE `rekam_medis_jalan`
-  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pemeriksaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `resep_inap`
@@ -682,7 +732,7 @@ ALTER TABLE `resep_inap`
 -- AUTO_INCREMENT for table `resep_jalan`
 --
 ALTER TABLE `resep_jalan`
-  MODIFY `id_resep` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_resep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sesi`
@@ -695,78 +745,78 @@ ALTER TABLE `sesi`
 --
 
 --
--- Constraints for table `detail resep`
+-- Constraints for table `detail_resep`
 --
-ALTER TABLE `detail resep`
-  ADD CONSTRAINT `detail resep_ibfk_1` FOREIGN KEY (`id_resep`) REFERENCES `resep_jalan` (`id_resep`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detail resep_ibfk_2` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `detail_resep`
+  ADD CONSTRAINT `detail_resep_ibfk_1` FOREIGN KEY (`id_resep`) REFERENCES `resep_jalan` (`id_resep`),
+  ADD CONSTRAINT `detail_resep_ibfk_2` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`);
 
 --
 -- Constraints for table `detail_resep_inap`
 --
 ALTER TABLE `detail_resep_inap`
-  ADD CONSTRAINT `detail_resep_inap_ibfk_1` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `detail_resep_inap_ibfk_2` FOREIGN KEY (`id_resep_inap`) REFERENCES `resep_inap` (`id_resep_inap`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detail_resep_inap_ibfk_1` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`),
+  ADD CONSTRAINT `detail_resep_inap_ibfk_2` FOREIGN KEY (`id_resep_inap`) REFERENCES `resep_inap` (`id_resep_inap`);
 
 --
 -- Constraints for table `dokter`
 --
 ALTER TABLE `dokter`
-  ADD CONSTRAINT `dokter_ibfk_1` FOREIGN KEY (`id_poli`) REFERENCES `poliklinik` (`id_poli`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dokter_ibfk_1` FOREIGN KEY (`id_poli`) REFERENCES `poliklinik` (`id_poli`);
 
 --
 -- Constraints for table `jadwal_dokter`
 --
 ALTER TABLE `jadwal_dokter`
-  ADD CONSTRAINT `jadwal_dokter_ibfk_1` FOREIGN KEY (`id_hari`) REFERENCES `hari` (`id_hari`),
-  ADD CONSTRAINT `jadwal_dokter_ibfk_2` FOREIGN KEY (`id_sesi`) REFERENCES `sesi` (`id_sesi`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `jadwal_dokter_ibfk_3` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `jadwal_dokter_ibfk_2` FOREIGN KEY (`id_sesi`) REFERENCES `sesi` (`id_sesi`),
+  ADD CONSTRAINT `jadwal_dokter_ibfk_3` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`),
+  ADD CONSTRAINT `jadwal_dokter_ibfk_4` FOREIGN KEY (`id_hari`) REFERENCES `hari` (`id_hari`);
 
 --
 -- Constraints for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  ADD CONSTRAINT `karyawan_ibfk_1` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `karyawan_ibfk_1` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`);
 
 --
 -- Constraints for table `pendaftaran_inap`
 --
 ALTER TABLE `pendaftaran_inap`
-  ADD CONSTRAINT `pendaftaran_inap_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pendaftaran_inap_ibfk_2` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pendaftaran_inap_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`),
+  ADD CONSTRAINT `pendaftaran_inap_ibfk_2` FOREIGN KEY (`id_kamar`) REFERENCES `kamar` (`id_kamar`);
 
 --
 -- Constraints for table `pendaftaran_rawat_jalan`
 --
 ALTER TABLE `pendaftaran_rawat_jalan`
-  ADD CONSTRAINT `pendaftaran_rawat_jalan_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pendaftaran_rawat_jalan_ibfk_2` FOREIGN KEY (`id_poli`) REFERENCES `poliklinik` (`id_poli`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pendaftaran_rawat_jalan_ibfk_3` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal_dokter` (`id_jadwal`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pendaftaran_rawat_jalan_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`),
+  ADD CONSTRAINT `pendaftaran_rawat_jalan_ibfk_2` FOREIGN KEY (`id_poli`) REFERENCES `poliklinik` (`id_poli`),
+  ADD CONSTRAINT `pendaftaran_rawat_jalan_ibfk_3` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal_dokter` (`id_jadwal`);
 
 --
 -- Constraints for table `rekam_medis_inap`
 --
 ALTER TABLE `rekam_medis_inap`
-  ADD CONSTRAINT `rekam_medis_inap_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rekam_medis_inap_ibfk_2` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rekam_medis_inap_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`),
+  ADD CONSTRAINT `rekam_medis_inap_ibfk_2` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`);
 
 --
 -- Constraints for table `rekam_medis_jalan`
 --
 ALTER TABLE `rekam_medis_jalan`
-  ADD CONSTRAINT `rekam_medis_jalan_ibfk_2` FOREIGN KEY (`id_pendaftaran`) REFERENCES `pendaftaran_rawat_jalan` (`id_pendaftaran`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rekam_medis_jalan_ibfk_2` FOREIGN KEY (`id_pendaftaran`) REFERENCES `pendaftaran_rawat_jalan` (`id_pendaftaran`);
 
 --
 -- Constraints for table `resep_inap`
 --
 ALTER TABLE `resep_inap`
-  ADD CONSTRAINT `resep_inap_ibfk_1` FOREIGN KEY (`id_rekam_inap`) REFERENCES `rekam_medis_inap` (`id_rekam_inap`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `resep_inap_ibfk_1` FOREIGN KEY (`id_rekam_inap`) REFERENCES `rekam_medis_inap` (`id_rekam_inap`);
 
 --
 -- Constraints for table `resep_jalan`
 --
 ALTER TABLE `resep_jalan`
-  ADD CONSTRAINT `resep_jalan_ibfk_1` FOREIGN KEY (`id_pemeriksaan`) REFERENCES `rekam_medis_jalan` (`id_pemeriksaan`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `resep_jalan_ibfk_1` FOREIGN KEY (`id_pemeriksaan`) REFERENCES `rekam_medis_jalan` (`id_pemeriksaan`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

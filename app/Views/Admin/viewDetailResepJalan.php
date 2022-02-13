@@ -62,7 +62,6 @@
                                                 <td><?= $item['nama_obat']; ?></td>
                                                 <td><?= $item['jumlah_obat']; ?></td>
                                                 <td><?= $item['total_biaya']; ?></td>
-                                                <td><?= $item['created_at']; ?></td>
                                                 <td>
                                                     <center>
                                                         <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
@@ -111,6 +110,24 @@
                                 </select>   
                             </div>
 
+                            <div class="form-group">
+                                <label>Harga Obat/Tablet</label>
+                                <input type="text" class="form-control" id="input_harga" name="input_harga"
+                                    data-parsley-required="true" readonly="">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jumlah Obat</label>
+                                <input type="number" class="form-control" id="input_jumlah" name="input_jumlah"
+                                    data-parsley-required="true" placeholder="Masukkan Jumlah Obat">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Total Tagihan</label>
+                                <input type="number" class="form-control" id="input_total" name="input_total"
+                                    data-parsley-required="true" readonly="">  
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_add"
@@ -139,11 +156,30 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_detail" id="id_detail">
+                            <input type="hidden" name="edit_resep" id="edit_resep">
 
                             <div class="form-group">
                                 <label>Obat</label>
                                 <select class="form-control select2" id="edit_obat" name="edit_obat">
                                 </select>   
+                            </div>
+
+                            <div class="form-group">
+                                <label>Harga Obat/Tablet</label>
+                                <input type="text" class="form-control" id="edit_harga" name="edit_harga"
+                                    data-parsley-required="true" readonly="">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jumlah Obat</label>
+                                <input type="number" class="form-control" id="edit_jumlah" name="edit_jumlah"
+                                    data-parsley-required="true" placeholder="Masukkan Jumlah Obat">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Total Tagihan</label>
+                                <input type="text" class="form-control" id="edit_total" name="edit_total"
+                                    data-parsley-required="true" readonly="">  
                             </div>
 
                         </div>
@@ -260,20 +296,57 @@
                 }
             });
 
+            $('#input_obat').on('change', function() {
+              $.getJSON('<?php echo base_url('Admin/RawatJalan/harga_obat'); ?>' + '/' + this.value, {},
+                function(json) {
+                    $('#input_harga').val(json.harga_obat);
+                    var hasil = $('#input_jumlah').val() * json.harga_obat;
+                    $('#input_total').val(hasil);
+                });
+            });
+
+            $('#edit_obat').on('change', function() {
+              $.getJSON('<?php echo base_url('Admin/RawatJalan/harga_obat'); ?>' + '/' + this.value, {},
+                function(json) {
+                    $('#edit_harga').val(json.harga_obat);
+                    var hasil = $('#edit_jumlah').val() * json.harga_obat;
+                    $('#edit_total').val(hasil);
+                });
+            });
+
+            $("#input_jumlah").keyup(function() {
+                var hasil = $('#input_harga').val() * this.value;
+                $('#input_total').val(hasil);
+            });
+
+            $("#edit_jumlah").keyup(function() {
+                var hasil = $('#edit_harga').val() * this.value;
+                $('#edit_total').val(hasil);
+            });
+
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_obat").val('');
+                $("#input_harga").val('');
+                $("#input_jumlah").val('');
+                $("#input_total").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_obat").val('');
+                $("#input_harga").val('');
+                $("#input_jumlah").val('');
+                $("#input_total").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_obat").val('');
+                $("#edit_harga").val('');
+                $("#edit_jumlah").val('');
+                $("#edit_total").val('');
             });
         })
 
@@ -281,8 +354,11 @@
             $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_detail_resep'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id_detail);
+                    $('#edit_harga').val(json.harga_obat);
+                    $('#edit_jumlah').val(json.jumlah_obat);
+                    $('#edit_total').val(json.total_biaya);
 
-                    $('#edit_obat').append('<option selected value="' + json.id_obat + '">' + json.nama_obat
+                    $('#edit_obat').append('<option selected value="' + json.id_obat + '">' + json.nama_obat +
                         '</option>');
                     $('#edit_obat').select2('data', {
                         id: json.id_obat,

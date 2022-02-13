@@ -64,7 +64,13 @@
                                                 <td><?= $item['id_pemeriksaan']; ?></td>
                                                 <td><?= $item['nama_pasien']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
-                                                <td><?= $item['tagihan_obat']; ?></td>
+                                                <td>
+                                                    <?php if($item['tagihan_obat'] != null) { 
+                                                        echo $item['tagihan_obat'];
+                                                    } else {
+                                                        echo "-";
+                                                    } ?>
+                                                </td>
                                                 <td><?= $item['created_at']; ?></td>
                                                 <td>
                                                     <center>

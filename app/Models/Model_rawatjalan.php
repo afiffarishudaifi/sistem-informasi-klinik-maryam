@@ -150,14 +150,14 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('resep_jalan');
-        $builder->select('resep_jalan.id_resep, rekam_medis_jalan.id_pemeriksaan, resep_jalan.tagihan_obat, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_jalan.created_at');
+        $builder->select('resep_jalan.id_resep, rekam_medis_jalan.id_pemeriksaan, sum(detail_resep.total_biaya) as tagihan_obat, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_jalan.created_at');
         $builder->join('rekam_medis_jalan','rekam_medis_jalan.id_pemeriksaan = resep_jalan.id_pemeriksaan');
         $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
         $builder->join('jadwal_dokter','pendaftaran_rawat_jalan.id_jadwal = jadwal_dokter.id_jadwal');
-        $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');
         $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
-        $builder->join('poliklinik','pendaftaran_rawat_jalan.id_poli = poliklinik.id_poli');
         $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
+        $builder->join('detail_resep', 'resep_jalan.id_resep = detail_resep.id_resep', 'left');
+        $builder->groupBy("resep_jalan.id_resep");
         return $builder->get();
     }
 
@@ -208,6 +208,66 @@ class Model_rawatjalan extends Model
         $builder->join('obat','detail_resep.id_obat = obat.id_obat');
         $builder->where('detail_resep.id_resep', $id);
         return $builder->get();
+    }
+
+    public function harga_obat($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('obat');
+        $builder->select('harga_obat, stok_obat');
+        $builder->where('id_obat', $id);
+        return $builder->get();
+    }
+
+    public function add_detail_resep($data)
+    {
+        $query = $this->db->table('detail_resep')->insert($data);
+        return $query;
+    }
+
+    public function detail_data_detail_resep($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_resep');
+        $builder->select('id_detail, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, total_biaya, id_resep');
+        $builder->join('obat','obat.id_obat = detail_resep.id_obat');
+        $builder->where('id_detail', $id);
+        return $builder->get();
+    }
+
+    public function update_detail_resep($data, $id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_resep');
+        $builder->where('id_detail', $id);
+        $builder->set($data);
+        return $builder->update();
+    }
+
+    public function delete_detail_resep($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_resep');
+        $builder->where('id_detail', $id);
+        return $builder->delete();
+    }
+
+    public function cek_stok_obat($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('obat');
+        $builder->select('stok_obat');
+        $builder->where('id_obat', $id);
+        return $builder->get();
+    }
+
+    public function update_stok_obat($data, $id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('obat');
+        $builder->where('id_obat', $id);
+        $builder->set($data);
+        return $builder->update();
     }
 
 }
