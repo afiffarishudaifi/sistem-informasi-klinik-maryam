@@ -269,5 +269,4 @@ class Model_rawatjalan extends Model
         $builder->set($data);
         return $builder->update();
     }
-
 }
