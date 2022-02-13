@@ -204,7 +204,7 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_resep');
-        $builder->select('detail_resep.id_detail, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, detail_resep.total_biaya');
+        $builder->select('detail_resep.id_detail, detail_resep.id_resep, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, detail_resep.total_biaya');
         $builder->join('obat','detail_resep.id_obat = obat.id_obat');
         $builder->where('detail_resep.id_resep', $id);
         return $builder->get();

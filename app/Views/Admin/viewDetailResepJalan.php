@@ -65,7 +65,7 @@
                                                 <td>
                                                     <center>
                                                         <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>)" data-toggle="modal"
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_resep']; ?>)" data-toggle="modal"
                                                             data-target="#deleteModal" data-id="<?= $item['id_detail']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
@@ -156,7 +156,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_detail" id="id_detail">
-                            <input type="hidden" name="edit_resep" id="edit_resep">
+                            <input type="hiddenhidden" name="edit_resep" id="edit_resep">
 
                             <div class="form-group">
                                 <label>Obat</label>
@@ -213,6 +213,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="id_resep" class="id_resep">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -236,8 +237,9 @@
     <?= $this->include("Admin/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id){
+        function Hapus(id, id_resep){
             $('.id').val(id);
+            $('.id_resep').val(id_resep);
             $('#deleteModal').modal('show');
         };
 
@@ -354,6 +356,7 @@
             $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_detail_resep'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id_detail);
+                    $('#edit_resep').val(json.id_resep);
                     $('#edit_harga').val(json.harga_obat);
                     $('#edit_jumlah').val(json.jumlah_obat);
                     $('#edit_total').val(json.total_biaya);

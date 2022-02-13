@@ -663,7 +663,7 @@ class RawatJalan extends BaseController
         return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
     }
 
-    public function delete_detail_resep($id)
+    public function delete_detail_resep()
     {
         $session = session();
         $model = new Model_rawatjalan();
@@ -682,6 +682,7 @@ class RawatJalan extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_detail'] = $value['id_detail'];
+            $isi['id_resep'] = $value['id_resep'];
             $isi['id_obat'] = $value['id_obat'];
             $isi['nama_obat'] = $value['nama_obat'];
             $isi['jumlah_obat'] = $value['jumlah_obat'];
