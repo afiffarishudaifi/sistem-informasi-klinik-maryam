@@ -24,4 +24,6 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <link rel="stylesheet" href="<?= base_url() ?>/docs/tambahan/assets/plugins/daterangepicker/daterangepicker.css">
 </head>
