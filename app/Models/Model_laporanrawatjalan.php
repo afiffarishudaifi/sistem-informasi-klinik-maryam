@@ -9,14 +9,6 @@ class Model_laporanrawatjalan extends Model
     protected $table = 'pendaftaran_rawat_jalan';
     protected $primaryKey = 'id_pendaftaran';
 
-    public function data_siswa()
-    {
-    	$db      = \Config\Database::connect();
-        $builder = $db->table('siswa');
-        $builder->select('id_pendaftaran, nama_siswa');
-        return $builder->get();
-    }
-
     public function filter($param)
     {
     	$db      = \Config\Database::connect();
