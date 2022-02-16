@@ -53,10 +53,21 @@
 				                                    <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
 				                                </div>
 				                			</div>
-			                                <div class="col-md-5">			                                	
-				                                <select class="form-control select2" id="input_poli" name="input_poli" onchange="ganti(this.value)">
-				                                </select>
-			                                </div>
+
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-pen"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select name="input_status" class="form-control float-right" id="input_status" onchange="ganti(this.value)">
+                                                        <option value="null" selected="">Pilih Status</option>
+                                                        <option value="Belum Selesai">Belum Selesai</option>
+                                                        <option value="Selesai">Selesai</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 				                            <div class="col-md-2">
 				                                <button class="btn btn-sm btn-success"><span class="fa fa-print"></span> Cetak</button>
 				                                <button type="button" id="btn_reset" class="btn btn-sm btn-danger"><span class="fa fa-undo"></span> Reset</button>
@@ -67,9 +78,10 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Pasien</th>
-                                                <th>Nama Poli</th>
-                                                <th>Keluhan</th>
-                                                <th>Tanggal Daftar</th>
+                                                <th>Waktu Masuk</th>
+                                                <th>Waktu Keluar</th>
+                                                <th>Total Tagiahn</th>
+                                                <th>Status Inap</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -101,8 +113,8 @@
     <?= $this->include("Admin/layout/js_tabel") ?>
 
     <script>
-        function ganti(poli) {
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatJalan/data/' + $('#tanggal').val() + '/' + poli).load();
+        function ganti(status) {
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatInap/data/' + $('#tanggal').val() + '/' + status).load();
         };
 
 	    $(function() {
@@ -112,58 +124,38 @@
 	            }
 	        });
 
-	        $('.select2').select2()
-
-            $("#input_poli").select2({
-                placeholder: "Pilih Poliklinik",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?= base_url('Admin/LaporanRawatJalan/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
 	        $('#tanggal').on('apply.daterangepicker', function(ev, picker) {
 	            var tanggal = picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY');
-	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatJalan/data/' + tanggal).load();
+	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatInap/data/' + tanggal + '/' + $('#input_status').val()).load();
 	        });
-	        $("#btn_reset").click(function (e) {
-	            $("#input_poli").val('').trigger('change')
-            	$('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatJalan/data/' + $('#tanggal').val() + '/' + $("#input_poli").val()).load();
-	        });
+
+            $("#btn_reset").click(function (e) {
+                document.getElementById("input_status").selectedIndex = 0;
+                $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatInap/data/' + $('#tanggal').val() + '/' + $('#input_status').val()).load();
+            });
 
 	        $(".table").DataTable({
 		        "responsive": true,
 		        "autoWidth": true,
 		        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "ajax": {
-                    "url": "<?= base_url() ?>/Admin/LaporanRawatJalan/data/" + $('#tanggal').val() + '/' + $('#input_poli').val(),
+                    "url": "<?= base_url() ?>/Admin/LaporanRawatInap/data/" + $('#tanggal').val() + '/' + $('#input_status').val(),
                     "dataSrc": ""
                 },
                 "columns": [{
                         "data": "nama_pasien"
                     },
                     {
-                        "data": "nama_poli"
+                        "data": "waktu_masuk"
                     },
                     {
-                        "data": "keluhan"
+                        "data": "waktu_keluar"
                     },
                     {
-                        "data": "tanggal_daftar"
+                        "data": "total_tagihan_inap"
+                    },
+                    {
+                        "data": "status_inap"
                     }
                 ]
 		        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

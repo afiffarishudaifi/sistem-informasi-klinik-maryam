@@ -53,10 +53,18 @@
 				                                    <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
 				                                </div>
 				                			</div>
-			                                <div class="col-md-5">			                                	
-				                                <select class="form-control select2" id="input_poli" name="input_poli" onchange="ganti(this.value)">
-				                                </select>
-			                                </div>
+
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fa fa-pen"></i>
+                                                        </span>
+                                                    </div>
+					                                <select class="form-control float-right select2" id="input_obat" name="input_obat" onchange="ganti(this.value)">
+					                                </select>
+                                                </div>
+                                            </div>
 				                            <div class="col-md-2">
 				                                <button class="btn btn-sm btn-success"><span class="fa fa-print"></span> Cetak</button>
 				                                <button type="button" id="btn_reset" class="btn btn-sm btn-danger"><span class="fa fa-undo"></span> Reset</button>
@@ -66,10 +74,10 @@
                                     <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Nama Poli</th>
-                                                <th>Keluhan</th>
-                                                <th>Tanggal Daftar</th>
+                                                <th>Nama Obat</th>
+                                                <th>Jumlah Obat</th>
+                                                <th>Total Biaya</th>
+                                                <th>Tanggal Penjualan</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -101,8 +109,8 @@
     <?= $this->include("Admin/layout/js_tabel") ?>
 
     <script>
-        function ganti(poli) {
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatJalan/data/' + $('#tanggal').val() + '/' + poli).load();
+        function ganti(obat) {
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObatJalan/data/' + $('#tanggal').val() + '/' + obat).load();
         };
 
 	    $(function() {
@@ -114,11 +122,11 @@
 
 	        $('.select2').select2()
 
-            $("#input_poli").select2({
-                placeholder: "Pilih Poliklinik",
+            $("#input_obat").select2({
+                placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?= base_url('Admin/LaporanRawatJalan/data_poli'); ?>',
+                    url: '<?php echo base_url('Admin/LaporanObatJalan/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -138,32 +146,33 @@
 
 	        $('#tanggal').on('apply.daterangepicker', function(ev, picker) {
 	            var tanggal = picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY');
-	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatJalan/data/' + tanggal).load();
+	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObatJalan/data/' + tanggal + '/' + $('#input_obat').val()).load();
 	        });
-	        $("#btn_reset").click(function (e) {
-	            $("#input_poli").val('').trigger('change')
-            	$('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRawatJalan/data/' + $('#tanggal').val() + '/' + $("#input_poli").val()).load();
-	        });
+
+            $("#btn_reset").click(function (e) {
+	            $("#input_obat").val('').trigger('change')
+                $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObatJalan/data/' + $('#tanggal').val() + '/' + $('#input_obat').val()).load();
+            });
 
 	        $(".table").DataTable({
 		        "responsive": true,
 		        "autoWidth": true,
 		        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "ajax": {
-                    "url": "<?= base_url() ?>/Admin/LaporanRawatJalan/data/" + $('#tanggal').val() + '/' + $('#input_poli').val(),
+                    "url": "<?= base_url() ?>/Admin/LaporanObatJalan/data/" + $('#tanggal').val() + '/' + $('#input_obat').val(),
                     "dataSrc": ""
                 },
                 "columns": [{
-                        "data": "nama_pasien"
+                        "data": "nama_obat"
                     },
                     {
-                        "data": "nama_poli"
+                        "data": "jumlah_obat"
                     },
                     {
-                        "data": "keluhan"
+                        "data": "total_biaya"
                     },
                     {
-                        "data": "tanggal_daftar"
+                        "data": "created_at"
                     }
                 ]
 		        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

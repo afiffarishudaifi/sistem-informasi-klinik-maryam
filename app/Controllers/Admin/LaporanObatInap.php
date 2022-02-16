@@ -3,21 +3,22 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\Model_laporanrawatinap;
+use App\Models\Model_laporanpenjualanobat;
 
-class LaporanRawatInap extends BaseController
+class LaporanObatInap extends BaseController
 {
 
-    protected $Model_laporanrawatinap;
+    protected $Model_laporanpenjualanobat;
     public function __construct()
     {
-        $this->Model_laporanrawatinap = new Model_laporanrawatinap();
+        $this->Model_laporanpenjualanobat = new Model_laporanpenjualanobat();
         helper(['form', 'url']);
         $this->db = db_connect();
     }
 
-    public function data_poli()
+    public function data_obat()
     {
+        $this->db = db_connect();
         $request = service('request');
         $postData = $request->getPost(); // OR $this->request->getPost();
 
@@ -26,7 +27,7 @@ class LaporanRawatInap extends BaseController
         $data = array();
 
         $db      = \Config\Database::connect();
-        $builder = $this->db->table("poliklinik");
+        $builder = $this->db->table("obat");
 
         $poli = [];
 
@@ -35,24 +36,24 @@ class LaporanRawatInap extends BaseController
             $query = $postData['query'];
 
             // Fetch record
-            $builder->select('id_poli, nama_poli');
-            $builder->like('nama_poli', $query, 'both');
-            $builder->where('status_poli','Aktif');
+            $builder->select('id_obat, nama_obat');
+            $builder->like('nama_obat', $query, 'both');
+            $builder->where('stok_obat !=',0);
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
             // Fetch record
-            $builder->select('id_poli, nama_poli');
-            $builder->where('status_poli','Aktif');
+            $builder->select('id_obat, nama_obat');
+            $builder->where('stok_obat !=',0);
             $query = $builder->get();
             $data = $query->getResult();
         }
 
         foreach ($data as $country) {
             $poli[] = array(
-                "id" => $country->id_poli,
-                "text" => $country->nama_poli,
+                "id" => $country->id_obat,
+                "text" => $country->nama_obat,
             );
         }
 
@@ -63,15 +64,15 @@ class LaporanRawatInap extends BaseController
 
     public function index()
     {
-        $model = new Model_laporanrawatinap();
+        $model = new Model_laporanpenjualanobat();
 
         $data = [
-            'judul' => 'Laporan Rawat Inap'
+            'judul' => 'Laporan Penjualan Obat Rawat Inap'
         ];
-        return view('Admin/viewLaporanRawatInap', $data);
+        return view('Admin/viewLaporanObatInap', $data);
     }
 
-    public function data($tanggal = null, $status = null)
+    public function data($tanggal = null, $obat = null)
     {
         $session = session();
 
@@ -79,26 +80,25 @@ class LaporanRawatInap extends BaseController
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
 
-        if ($status != 'null') {
-            $param['status_inap'] = $status;
+        if ($obat != 'null') {
+            $param['id_obat'] = $obat;
         } else {
-            $param['status_inap'] = null;
+            $param['id_obat'] = null;
         }
 
-        $model = new Model_laporanrawatinap();
-        $laporan = $model->filter($param)->getResultArray();
+        $model = new Model_laporanpenjualanobat();
+        $laporan = $model->filter_inap($param)->getResultArray();
 
         $respon = $laporan;
         $data = array();
 
         if ($respon) {
             foreach ($respon as $value) {
-                $isi['id_inap'] = $value['id_inap'];
-                $isi['nama_pasien'] = $value['nama_pasien'];
-                $isi['waktu_masuk'] = $value['waktu_masuk'];
-                $isi['waktu_keluar'] = $value['waktu_keluar'];
-                $isi['total_tagihan_inap'] = $value['total_tagihan_inap'];
-                $isi['status_inap'] = $value['status_inap'];
+                $isi['nama_obat'] = $value['nama_obat'];
+                $isi['jumlah_obat'] = $value['jumlah_obat'];
+                $isi['total_biaya'] = $value['total_biaya'];
+                $isi['stok_obat'] = $value['stok_obat'];
+                $isi['created_at'] = $value['created_at'];
                 array_push($data, $isi);
             }
         }
@@ -106,7 +106,7 @@ class LaporanRawatInap extends BaseController
         echo json_encode($data);
     }
 
-    public function data_cetak($tanggal = null, $status = null)
+    public function data_cetak($tanggal = null, $obat = null)
     {
         $session = session();
 
@@ -114,26 +114,25 @@ class LaporanRawatInap extends BaseController
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
 
-        if ($status != 'null') {
-            $param['status_inap'] = $status;
+        if ($obat != 'null') {
+            $param['id_obat'] = $obat;
         } else {
-            $param['status_inap'] = null;
+            $param['id_obat'] = null;
         }
 
-        $model = new Model_laporanrawatinap();
-        $laporan = $model->filter($param)->getResultArray();
+        $model = new Model_laporanpenjualanobat();
+        $laporan = $model->filter_inap($param)->getResultArray();
 
         $respon = $laporan;
         $data = array();
 
         if ($respon) {
             foreach ($respon as $value) {
-                $isi['id_inap'] = $value['id_inap'];
-                $isi['nama_pasien'] = $value['nama_pasien'];
-                $isi['waktu_masuk'] = $value['waktu_masuk'];
-                $isi['waktu_keluar'] = $value['waktu_keluar'];
-                $isi['total_tagihan_inap'] = $value['total_tagihan_inap'];
-                $isi['status_inap'] = $value['status_inap'];
+                $isi['nama_obat'] = $value['nama_obat'];
+                $isi['jumlah_obat'] = $value['jumlah_obat'];
+                $isi['total_biaya'] = $value['total_biaya'];
+                $isi['stok_obat'] = $value['stok_obat'];
+                $isi['created_at'] = $value['created_at'];
                 array_push($data, $isi);
             }
         }

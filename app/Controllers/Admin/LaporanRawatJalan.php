@@ -76,8 +76,8 @@ class LaporanRawatJalan extends BaseController
         $session = session();
 
         if ($tanggal) $tgl = explode(' - ', $tanggal);
-        if ($tanggal) $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0]));
-        if ($tanggal) $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1]));
+        if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
+        if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
 
         if ($poli != 'null') {
             $param['id_poli'] = $poli;
@@ -110,8 +110,8 @@ class LaporanRawatJalan extends BaseController
         $session = session();
 
         if ($tanggal) $tgl = explode(' - ', $tanggal);
-        if ($tanggal) $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0]));
-        if ($tanggal) $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1]));
+        if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
+        if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
 
         if ($poli != 'null') {
             $param['id_poli'] = $poli;

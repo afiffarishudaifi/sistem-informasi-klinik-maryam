@@ -222,7 +222,14 @@ $session = session();
                 </li>
                 <li class="nav-header">LAPORAN</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link <?php
+                            if (
+                                $uri->getSegment(2) == 'LaporanRawatJalan' ||
+                                $uri->getSegment(2) == 'LaporanRawatInap' || $uri->getSegment(2) == 'LaporanPenjualanObat' ||
+                                $uri->getSegment(2) == 'LaporanRekamMedis'
+                            ) {
+                                echo "active";
+                            } ?>">
                         <i class="nav-icon fa fa-database"></i>
                         <p>
                             Laporan
@@ -231,25 +238,52 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/LaporanRawatJalan') ?>" class="nav-link">
+                            <a href="<?= base_url('Admin/LaporanRawatJalan') ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'LaporanRawatJalan') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rawat Jalan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="<?= base_url('Admin/LaporanRawatInap') ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'LaporanRawatInap') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rawat Inap</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'LaporanObatInap' || $uri->getSegment(2) == 'LaporanObatJalan') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-sticky-note nav-icon"></i>
                                 <p>Penjualan Obat</p>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
+                            <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                <a href="<?= base_url('Admin/LaporanObatInap') ?>" class="nav-link">
+                                  <i class="far fa-dot-circle nav-icon"></i>
+                                  <p>Rawat Inap</p>
+                                </a>
+                              </li>
+                              <li class="nav-item">
+                                <a href="<?= base_url('Admin/LaporanObatJalan') ?>" class="nav-link">
+                                  <i class="far fa-dot-circle nav-icon"></i>
+                                  <p>Rawat Jalan</p>
+                                </a>
+                              </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="<?= base_url('Admin/LaporanRekamMedis') ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'LaporanRekamMedis') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-sticky-note nav-icon"></i>
                                 <p>Rekam Medis</p>
                             </a>
