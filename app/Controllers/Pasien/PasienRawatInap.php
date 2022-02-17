@@ -29,7 +29,7 @@ class PasienRawatInap extends BaseController
         $data = $model->cek_pasien($id)->getRowArray();
 
         $data = [
-            'judul' => 'Pendaftaran Rawat Jalan',
+            'judul' => 'Pendaftaran Rawat inap',
             'data' => $data['id_pasien']
         ];
         return view('Pasien/viewDaftarInap', $data);
