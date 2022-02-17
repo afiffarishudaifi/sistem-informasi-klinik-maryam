@@ -428,7 +428,7 @@ class RawatJalan extends BaseController
         $data = $model->view_data_resep()->getResultArray();
 
         $data = [
-            'judul' => 'Tabel Rekam Medis Rawat Jalan',
+            'judul' => 'Tabel Resep Rawat Jalan',
             'data' => $data
         ];
         return view('Admin/viewResepJalan', $data);

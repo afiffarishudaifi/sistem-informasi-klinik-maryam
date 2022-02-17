@@ -269,4 +269,25 @@ class Model_rawatjalan extends Model
         $builder->set($data);
         return $builder->update();
     }
+
+    // pasien
+    public function view_data_pasien($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pendaftaran_rawat_jalan');
+        $builder->select('id_pasien');
+        $builder->where('id_pasien', $id);
+        $builder->where('status_antrian =', 'Menunggu');
+        return $builder->get();
+    }
+
+    public function antrian($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pendaftaran_rawat_jalan');
+        $builder->select('no_antrian');
+        $builder->where('id_pasien', $id);
+        $builder->where('status_antrian =', 'Menunggu');
+        return $builder->get();
+    }
 }

@@ -41,13 +41,13 @@ $session = session();
                 </li>
                 <li class="nav-header">PERAWATAN</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?= base_url('Pasien/PasienRawatJalan') ?>" class="nav-link">
                         <i class="nav-icon fa fa-pen"></i>
                                 <p>Daftar Rawat Jalan</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?= base_url('Pasien/PasienRawatInap') ?>" class="nav-link">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>Daftar Rawat Inap</p>
                     </a>
@@ -64,21 +64,57 @@ $session = session();
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="" class="nav-link">
-                                <i class="fa fa-file nav-icon"></i>
-                                <p>Riwayat Pemeriksaan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
                                 <i class="fa fa-sticky-note nav-icon"></i>
                                 <p>Riwayat Rekam Medis</p>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
+                            <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                <a href="<?= base_url('Pasien/RekamMedisInap') ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'RekamMedisInap') {
+                                echo "active";
+                            } ?>">
+                                  <i class="far fa-dot-circle nav-icon"></i>
+                                  <p>Rawat Inap</p>
+                                </a>
+                              </li>
+                              <li class="nav-item">
+                                <a href="<?= base_url('Pasien/RekamMedisJalan') ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'RekamMedisJalan') {
+                                echo "active";
+                            } ?>">
+                                  <i class="far fa-dot-circle nav-icon"></i>
+                                  <p>Rawat Jalan</p>
+                                </a>
+                              </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="fa fa-sticky-note nav-icon"></i>
                                 <p>Riwayat Resep</p>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
+                            <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                <a href="<?= base_url('Pasien/ResepRawatInap') ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'ResepRawatInap') {
+                                echo "active";
+                            } ?>">
+                                  <i class="far fa-dot-circle nav-icon"></i>
+                                  <p>Rawat Inap</p>
+                                </a>
+                              </li>
+                              <li class="nav-item">
+                                <a href="<?= base_url('Pasien/ResepRawatJalan') ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'ResepRawatJalan') {
+                                echo "active";
+                            } ?>">
+                                  <i class="far fa-dot-circle nav-icon"></i>
+                                  <p>Rawat Jalan</p>
+                                </a>
+                              </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
