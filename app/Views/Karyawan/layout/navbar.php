@@ -16,12 +16,6 @@
           <li class="nav-item dropdown">
           </li>
           <!-- Notifications Dropdown Menu -->
-          <li class="nav-item dropdown">
-              <a class="nav-link" data-toggle="dropdown" href="#">
-                  <i class="far fa-bell"></i>
-                  <span class="badge badge-primary navbar-badge">15</span>
-              </a>
-          </li>
           <li class="nav-item">
               <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                   <i class="fas fa-expand-arrows-alt"></i>
