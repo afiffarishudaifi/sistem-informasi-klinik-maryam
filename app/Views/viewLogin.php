@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/dist/css/adminlte.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url() ?>/docs/adminlte/plugins/toastr/toastr.min.css">
-
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
