@@ -48,7 +48,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id Pemeriksaan</th>
+                                                <th>Id Rekam Inap</th>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Tagihan</th>
@@ -74,10 +74,10 @@
                                                 <td><?= $item['created_at']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Admin/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>)" data-toggle="modal"
-                                                            data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>">Hapus</a>
+                                                        <a href="<?= base_url('Admin/RawatInap/detailResep') . '/' . $item['id_resep_inap']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep_inap']; ?>)" data-toggle="modal"
+                                                            data-target="#deleteModal" data-id="<?= $item['id_resep_inap']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
                                             </tr>
@@ -99,7 +99,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/add_resep'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Admin/RawatInap/add_resep'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -107,7 +107,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Resep Inap </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -116,7 +116,7 @@
 
                             <div class="form-group">
                                 <label>Pemeriksaan</label>
-                                <select class="form-control select2" id="input_pemeriksaan" name="input_pemeriksaan">
+                                <select class="form-control select2" id="input_rekam_inap" name="input_rekam_inap">
                                 </select>   
                             </div>
 
@@ -133,7 +133,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/update_resep'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Admin/RawatInap/update_resep'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -141,7 +141,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Resep Inap </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -151,7 +151,7 @@
 
                             <div class="form-group">
                                 <label>Pemeriksaan</label>
-                                <select class="form-control select2" id="edit_pemeriksaan" name="edit_pemeriksaan">
+                                <select class="form-control select2" id="edit_rekam_inap" name="edit_rekam_inap">
                                 </select>   
                             </div>
 
@@ -225,11 +225,11 @@
         $(function() {
             $('.select2').select2()
 
-            $("#input_pemeriksaan").select2({
+            $("#input_rekam_inap").select2({
                 placeholder: "Pilih Pemeriksaan",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pemeriksaan'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_pemeriksaan'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -247,11 +247,11 @@
                 }
             });
 
-            $("#edit_pemeriksaan").select2({
+            $("#edit_rekam_inap").select2({
                 placeholder: "Pilih Pemeriksaan",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pemeriksaan'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_pemeriksaan'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -272,17 +272,17 @@
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_pemeriksaan").val('');
+                $("#input_rekam_inap").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_pemeriksaan").val('');
+                $("#input_rekam_inap").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_pemeriksaan").val('');
+                $("#edit_rekam_inap").val('');
             });
         })
 
@@ -291,13 +291,13 @@
                 function(json) {
                     $('#id_resep').val(json.id_resep);
 
-                    $('#edit_pemeriksaan').append('<option selected value="' + json.id_rekam + '">' + json.created_at + " pasien " + json.nama_pasien +
+                    $('#edit_rekam_inap').append('<option selected value="' + json.id_rekam + '">' + json.created_at + " pasien " + json.nama_pasien +
                         '</option>');
-                    $('#edit_pemeriksaan').select2('data', {
+                    $('#edit_rekam_inap').select2('data', {
                         id: json.id_rekam,
                         text: json.created_at
                     });
-                    $('#edit_pemeriksaan').trigger('change');
+                    $('#edit_rekam_inap').trigger('change');
                 });
         }
         

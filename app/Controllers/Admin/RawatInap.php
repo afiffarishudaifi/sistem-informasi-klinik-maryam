@@ -420,7 +420,7 @@ class RawatInap extends BaseController
         $session = session();
         $model = new Model_rawatinap();
         $data = $model->view_data_resep()->getResultArray();
-
+       
         $data = [
             'judul' => 'Tabel Rekam Medis Resep Rawat Inap',
             'data' => $data
@@ -484,7 +484,7 @@ class RawatInap extends BaseController
         $data = array();
 
         $db      = \Config\Database::connect();
-        $builder = $this->db->table("rekam_medis_jalan");
+        $builder = $this->db->table("rekam_medis_inap");
 
         $pasien = [];
 
@@ -492,26 +492,24 @@ class RawatInap extends BaseController
 
             $query = $postData['query'];
 
-            $builder->select('id_pemeriksaan, pasien.nama_pasien, rekam_medis_jalan.created_at');
-            $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
-            $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
-            $builder->orderBy('id_pemeriksaan', 'DESC');
-            $builder->like('date(rekam_medis_jalan.created_at)', $query, 'both');
+            $builder->select('id_rekam_inap, pasien.nama_pasien, rekam_medis_inap.created_at');
+            $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
+            $builder->orderBy('id_rekam_inap', 'DESC');
+            $builder->like('date(rekam_medis_inap.created_at)', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
-            $builder->select('id_pemeriksaan, pasien.nama_pasien, rekam_medis_jalan.created_at');
-            $builder->join('pendaftaran_rawat_jalan','pendaftaran_rawat_jalan.id_pendaftaran = rekam_medis_jalan.id_pendaftaran');
-            $builder->join('pasien','pendaftaran_rawat_jalan.id_pasien = pasien.id_pasien');
-            $builder->orderBy('id_pemeriksaan', 'DESC');
+            $builder->select('id_rekam_inap, pasien.nama_pasien, rekam_medis_inap.created_at');
+            $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
+            $builder->orderBy('id_rekam_inap', 'DESC');
             $query = $builder->get();
             $data = $query->getResult();
         }
 
         foreach ($data as $pendaftaran) {
             $pasien[] = array(
-                "id" => $pendaftaran->id_pemeriksaan,
+                "id" => $pendaftaran->id_rekam_inap,
                 "text" => $pendaftaran->created_at . ' pasien ' . $pendaftaran->nama_pasien,
             );
         }
@@ -527,12 +525,12 @@ class RawatInap extends BaseController
         $model = new Model_rawatinap();
 
         $data = array(
-            'id_pemeriksaan'     => $this->request->getPost('input_pemeriksaan')
+            'id_rekam_inap'     => $this->request->getPost('input_rekam_inap')
         );
 
         $model->add_data_resep($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/RawatJalan/resepJalan'));
+        return redirect()->to(base_url('Admin/RawatInap/resepInap'));
     }
 
     public function update_resep()
@@ -540,14 +538,14 @@ class RawatInap extends BaseController
         $session = session();
         $model = new Model_rawatinap();
         
-        $id = $this->request->getPost('id_resep');
+        $id = $this->request->getPost('id_resep_inap');
         $data = array(
-            'id_pemeriksaan'     => $this->request->getPost('input_pemeriksaan')
+            'id_rekam_inap'     => $this->request->getPost('edit_rekam_inap')
         );
 
         $model->update_data_resep($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/RawatJalan/resepJalan'));
+        return redirect()->to(base_url('Admin/RawatInap/resepInap'));
     }
 
     public function delete_resep()
@@ -562,7 +560,7 @@ class RawatInap extends BaseController
         // } else {
         //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         // }
-        return redirect()->to('/Admin/RawatJalan/resepJalan');
+        return redirect()->to('/Admin/RawatInap/resepInap');
     }
 
     public function data_edit_resep($id_resep)
@@ -572,8 +570,7 @@ class RawatInap extends BaseController
         $respon = json_decode(json_encode($dataresep), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id_resep'] = $value['id_resep'];
-            $isi['id_pemeriksaan'] = $value['id_pemeriksaan'];
+            $isi['id_resep_inap'] = $value['id_resep_inap'];
             $isi['created_at'] = $value['created_at'];
             $isi['nama_pasien'] = $value['nama_pasien'];
         endforeach;
@@ -608,14 +605,14 @@ class RawatInap extends BaseController
         $session = session();
         $model = new Model_rawatinap();
 
-        $id_resep = $this->request->getPost('id_resep');
+        $id_resep = $this->request->getPost('id_resep_inap');
         $id_obat = $this->request->getPost('input_obat');
         $jumlah_obat = $this->request->getPost('input_jumlah');
         $cek_stok = $model->cek_stok_obat($id_obat)->getRowArray();
 
         if ($cek_stok['stok_obat'] < $jumlah_obat) {
             $session->setFlashdata('gagal', 'Stok obat tidak mencukupi');
-            return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
+            return redirect()->to(base_url('Admin/RawatInap/detailResep' . '/' . $id_resep));
         }
 
         $stok_baru = $cek_stok['stok_obat'] - $jumlah_obat;
@@ -630,13 +627,13 @@ class RawatInap extends BaseController
             'id_obat'     => $id_obat,
             'jumlah_obat' => $jumlah_obat,
             'total_biaya' => $this->request->getPost('input_total'),
-            'id_resep'     => $id_resep
+            'id_resep_inap'     => $id_resep
         );
 
         $model->add_detail_resep($data);
 
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
+        return redirect()->to(base_url('Admin/RawatInap/detailResep' . '/' . $id_resep));
     }
 
     public function update_detail_resep()
@@ -662,7 +659,7 @@ class RawatInap extends BaseController
         $session = session();
         $model = new Model_rawatinap();
         $id = $this->request->getPost('id');
-        $id_resep = $this->request->getPost('id_resep');
+        $id_resep = $this->request->getPost('id_resep_inap');
         $model->delete_detail_resep($id);
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
         return redirect()->to('/Admin/RawatJalan/detailResep' . '/' . $id_resep);
@@ -676,7 +673,7 @@ class RawatInap extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_detail'] = $value['id_detail'];
-            $isi['id_resep'] = $value['id_resep'];
+            $isi['id_resep_inap'] = $value['id_resep_inap'];
             $isi['id_obat'] = $value['id_obat'];
             $isi['nama_obat'] = $value['nama_obat'];
             $isi['jumlah_obat'] = $value['jumlah_obat'];
