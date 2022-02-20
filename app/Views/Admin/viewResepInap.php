@@ -147,7 +147,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_resep" id="id_resep">
+                            <input type="hidden" name="id_resep_inap" id="id_resep_inap">
 
                             <div class="form-group">
                                 <label>Pemeriksaan</label>
@@ -168,7 +168,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatJalan/delete_resep'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/RawatInap/delete_resep'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -287,14 +287,14 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_resep'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit_resep'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_resep').val(json.id_resep);
+                    $('#id_resep_inap').val(json.id_resep);
 
-                    $('#edit_rekam_inap').append('<option selected value="' + json.id_rekam + '">' + json.created_at + " pasien " + json.nama_pasien +
+                    $('#edit_rekam_inap').append('<option selected value="' + json.id_rekam_inap + '">' + json.created_at + " pasien " + json.nama_pasien +
                         '</option>');
                     $('#edit_rekam_inap').select2('data', {
-                        id: json.id_rekam,
+                        id: json.id_rekam_inap,
                         text: json.created_at
                     });
                     $('#edit_rekam_inap').trigger('change');

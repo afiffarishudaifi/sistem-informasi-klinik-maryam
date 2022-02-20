@@ -492,21 +492,21 @@ class RawatInap extends BaseController
 
             $query = $postData['query'];
 
-            $builder->select('id_rekam_inap, pasien.nama_pasien, rekam_medis_inap.created_at');
+            $builder->select('rekam_medis_inap.id_rekam_inap, pasien.nama_pasien, rekam_medis_inap.created_at');
             $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
-            $builder->orderBy('id_rekam_inap', 'DESC');
+            $builder->orderBy('rekam_medis_inap.id_rekam_inap', 'DESC');
             $builder->like('date(rekam_medis_inap.created_at)', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
-            $builder->select('id_rekam_inap, pasien.nama_pasien, rekam_medis_inap.created_at');
+            $builder->select('rekam_medis_inap.id_rekam_inap, pasien.nama_pasien, rekam_medis_inap.created_at');
             $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
-            $builder->orderBy('id_rekam_inap', 'DESC');
+            $builder->orderBy('rekam_medis_inap.id_rekam_inap', 'DESC');
             $query = $builder->get();
             $data = $query->getResult();
         }
-
+        
         foreach ($data as $pendaftaran) {
             $pasien[] = array(
                 "id" => $pendaftaran->id_rekam_inap,
@@ -571,6 +571,7 @@ class RawatInap extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_resep_inap'] = $value['id_resep_inap'];
+            $isi['id_rekam_inap'] = $value['id_rekam_inap'];
             $isi['created_at'] = $value['created_at'];
             $isi['nama_pasien'] = $value['nama_pasien'];
         endforeach;

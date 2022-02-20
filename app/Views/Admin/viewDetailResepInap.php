@@ -88,7 +88,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/add_detail_resep'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Admin/RawatInap/add_detail_resep'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -103,7 +103,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <input type="hidden" name="id_resep" id="id_resep" value="<?= $id_resep; ?>">
+                            <input type="hidden" name="id_resep_inap" id="id_resep_inap" value="<?= $id_resep; ?>">
                             <div class="form-group">
                                 <label>Obat</label>
                                 <select class="form-control select2" id="input_obat" name="input_obat">
@@ -141,7 +141,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/update_detail_resep'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Admin/RawatInap/update_detail_resep'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -195,7 +195,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatJalan/delete_detail_resep'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/RawatInap/delete_detail_resep'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -258,7 +258,7 @@
                 placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_obat'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -280,7 +280,7 @@
                 placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_obat'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -299,7 +299,7 @@
             });
 
             $('#input_obat').on('change', function() {
-              $.getJSON('<?php echo base_url('Admin/RawatJalan/harga_obat'); ?>' + '/' + this.value, {},
+              $.getJSON('<?php echo base_url('Admin/RawatInap/harga_obat'); ?>' + '/' + this.value, {},
                 function(json) {
                     $('#input_harga').val(json.harga_obat);
                     var hasil = $('#input_jumlah').val() * json.harga_obat;
@@ -308,7 +308,7 @@
             });
 
             $('#edit_obat').on('change', function() {
-              $.getJSON('<?php echo base_url('Admin/RawatJalan/harga_obat'); ?>' + '/' + this.value, {},
+              $.getJSON('<?php echo base_url('Admin/RawatInap/harga_obat'); ?>' + '/' + this.value, {},
                 function(json) {
                     $('#edit_harga').val(json.harga_obat);
                     var hasil = $('#edit_jumlah').val() * json.harga_obat;
@@ -353,7 +353,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_detail_resep'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit_detail_resep'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id_detail);
                     $('#edit_resep').val(json.id_resep);
