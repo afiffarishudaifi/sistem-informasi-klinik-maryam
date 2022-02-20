@@ -65,7 +65,7 @@
                                                 <td>
                                                     <center>
                                                         <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_resep']; ?>)" data-toggle="modal"
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_resep_inap']; ?>)" data-toggle="modal"
                                                             data-target="#deleteModal" data-id="<?= $item['id_detail']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
@@ -213,7 +213,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
-                            <input type="hidden" name="id_resep" class="id_resep">
+                            <input type="hidden" name="id_resep_inap" class="id_resep_inap">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -239,7 +239,7 @@
     <script>
         function Hapus(id, id_resep){
             $('.id').val(id);
-            $('.id_resep').val(id_resep);
+            $('.id_resep_inap').val(id_resep);
             $('#deleteModal').modal('show');
         };
 
@@ -356,7 +356,7 @@
             $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit_detail_resep'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id_detail);
-                    $('#edit_resep').val(json.id_resep);
+                    $('#edit_resep').val(json.id_resep_inap);
                     $('#edit_harga').val(json.harga_obat);
                     $('#edit_jumlah').val(json.jumlah_obat);
                     $('#edit_total').val(json.total_biaya);

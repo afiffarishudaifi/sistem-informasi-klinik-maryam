@@ -663,7 +663,7 @@ class RawatInap extends BaseController
         $id_resep = $this->request->getPost('id_resep_inap');
         $model->delete_detail_resep($id);
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
-        return redirect()->to('/Admin/RawatJalan/detailResep' . '/' . $id_resep);
+        return redirect()->to('/Admin/RawatInap/detailResep' . '/' . $id_resep);
     }
 
     public function data_edit_detail_resep($id_detail)
