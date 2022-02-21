@@ -44,12 +44,12 @@
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
             <select name="status" required="" class="form-control" id="status">
                 <option value="Pasien" selected="">Pasien</option>
                 <option value="Karyawan">Karyawan</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="social-auth-links text-center mt-2 mb-3">
           <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-sign-in-alt"></i>    Sign In</button>
@@ -87,6 +87,8 @@
   $(document).ready(function() {
       if ('<?= $session->getFlashdata('msg'); ?>' != '') {
           toastr.error('<?= $session->getFlashdata('msg'); ?>')
+      } else if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
+          toastr.success('<?= $session->getFlashdata('sukses'); ?>') 
       }
   });
 </script>

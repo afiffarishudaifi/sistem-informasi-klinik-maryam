@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?= $this->include("Admin/layout/head_tabel") ?>
+<?= $this->include("Karyawan/layout/head_tabel") ?>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
-        <?= $this->include("Admin/layout/navbar") ?>
+        <?= $this->include("Karyawan/layout/navbar") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= $this->include("Admin/layout/sidebar") ?>
+        <?= $this->include("Karyawan/layout/sidebar") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -94,7 +94,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/RawatInap/add_pendaftaran'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Karyawan/RawatInap/add_pendaftaran'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -149,7 +149,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatInap/update_pendaftaran'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Karyawan/RawatInap/update_pendaftaran'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -213,7 +213,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatInap/delete_pendaftaran'); ?>" method="post">
+        <form action="<?php echo base_url('Karyawan/RawatInap/delete_pendaftaran'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -241,7 +241,7 @@
         <!-- End Modal Delete Class -->
 
         <!-- /.content-wrapper -->
-        <?= $this->include("Admin/layout/footer") ?>
+        <?= $this->include("Karyawan/layout/footer") ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -251,7 +251,7 @@
     </div>
     <!-- ./wrapper -->
     
-    <?= $this->include("Admin/layout/js_tabel") ?>
+    <?= $this->include("Karyawan/layout/js_tabel") ?>
 
     <script>
         function Hapus(id){
@@ -274,7 +274,7 @@
                 placeholder: "Pilih Pasien",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pasien'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_pasien'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -296,7 +296,7 @@
                 placeholder: "Pilih Pasien",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pasien'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_pasien'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -318,7 +318,7 @@
                 placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_kamar'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_kamar'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -340,7 +340,7 @@
                 placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInput/data_kamar'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInput/data_kamar'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -391,7 +391,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Karyawan/RawatInap/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_inap').val(json.id_inap);
                     $('#edit_masuk').val(json.waktu_masuk);

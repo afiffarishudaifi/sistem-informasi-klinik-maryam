@@ -160,7 +160,12 @@ $session = session();
                 </li>
                 <li class="nav-header">PERAWATAN</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link <?php
+                            if (
+                                $uri->getSegment(2) == 'RawatJalan' || $uri->getSegment(2) == 'rekamJalan' || $uri->getSegment(2) == 'resepJalan'
+                            ) {
+                                echo "active";
+                            } ?>">
                         <i class="nav-icon fa fa-pen"></i>
                         <p>
                             Rawat Jalan
@@ -169,20 +174,26 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/RawatJalan'); ?>" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatJalan'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'RawatJalan') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-plus-circle nav-icon"></i>
                                 <p>Daftar Rawat Jalan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/RawatJalan/rekamJalan'); ?>" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatJalan/rekamJalan'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'rekamJalan') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rekam Medis Rawat Jalan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('Admin/RawatJalan/resepJalan'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'RawatJalan' && $uri->getSegment(2) == 'resepJalan') {
+                            if ($uri->getSegment(2) == 'resepJalan') {
                                 echo "active";
                             } ?>">
                                 <i class="fa fa-sticky-note nav-icon"></i>
@@ -192,7 +203,12 @@ $session = session();
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link <?php
+                            if (
+                                $uri->getSegment(2) == 'RawatInap' || $uri->getSegment(2) == 'rekamInap' || $uri->getSegment(2) == 'resepInap'
+                            ) {
+                                echo "active";
+                            } ?>">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>
                             Rawat Inap
@@ -201,20 +217,26 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/RawatInap'); ?>" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatInap'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'RawatInap') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-plus-square nav-icon"></i>
                                 <p>Daftar Rawat Inap</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/RawatInap/rekamInap'); ?>" class="nav-link">
+                            <a href="<?= base_url('Admin/RawatInap/rekamInap'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'rekamInap') {
+                                echo "active";
+                            } ?>">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rekam Medis Rawat Inap</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url('Admin/RawatInap/resepInap'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'RawatInap' && $uri->getSegment(2) == 'resepInap') {
+                            if ($uri->getSegment(2) == 'resepInap') {
                                 echo "active";
                             } ?>">
                                 <i class="fa fa-sticky-note nav-icon"></i>

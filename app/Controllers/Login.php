@@ -84,11 +84,11 @@ class Login extends BaseController
         $model = new Model_login();
         $encrypter = \Config\Services::encrypter();
 
-        $status = $this->request->getPost('status');
+        // $status = $this->request->getPost('status');
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        if ($status == 'Pasien') {
+        // if ($status == 'Pasien') {
             $data = $model->loginPasien($username)->getRowArray();
 
             if ($data) {
@@ -111,10 +111,35 @@ class Login extends BaseController
                     return redirect()->to('/Login');
                 }
             } else {
-                $session->setFlashdata('msg', 'Username Tidak di Temukan');
-                return redirect()->to('/Login');
+                // $session->setFlashdata('msg', 'Username Tidak di Temukan');
+                // return redirect()->to('/Login');
+                $data = $model->loginKaryawan($username)->getRowArray();
+
+                if ($data) {
+                    $pass = $data['password_karyawan'];
+                    $status = 'Karyawan';
+                    $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                    if ($verify_pass == $password) {
+                        $ses_data = [
+                            'user_id' => $data['id_karyawan'],
+                            'nama_login' => $data['nama_karyawan'],
+                            'foto' => $data['foto_karyawan'],
+                            'status_login' => $status,
+                            'logged_in' => TRUE,
+                            'is_admin' => TRUE
+                        ];
+                        $session->set($ses_data);
+                        return redirect()->to('/Karyawan/Dashboard');
+                    } else {
+                        $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                        return redirect()->to('/Login');
+                    }
+                } else {
+                    $session->setFlashdata('msg', 'Username Tidak di Temukan');
+                    return redirect()->to('/Login');
+                }
             }
-        } else {
+        /*} else {
             $data = $model->loginKaryawan($username)->getRowArray();
 
             if ($data) {
@@ -140,7 +165,7 @@ class Login extends BaseController
                 $session->setFlashdata('msg', 'Username Tidak di Temukan');
                 return redirect()->to('/Login');
             }
-        }
+        }*/
     }
 
     public function registrasiPasien()

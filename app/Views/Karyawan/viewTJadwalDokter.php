@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?= $this->include("Admin/layout/head_tabel") ?>
+<?= $this->include("Karyawan/layout/head_tabel") ?>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
-        <?= $this->include("Admin/layout/navbar") ?>
+        <?= $this->include("Karyawan/layout/navbar") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= $this->include("Admin/layout/sidebar") ?>
+        <?= $this->include("Karyawan/layout/sidebar") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -48,34 +48,33 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Nomor Kamar</th>
-                                                <th>Waktu Masuk</th>
-                                                <th>Waktu Keluar</th>
-                                                <th>Total Tagihan Inap</th>
-                                                <th>Status Inap</th>
+                                                <th>No</th>
+                                                <th>Hari</th>
+                                                <th>Sesi</th>
+                                                <th>Nama Dokter</th>
+                                                <th>Status Jadwal</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
-                                                foreach ($data as $item) {
-                                            ?>
-                                            <tr>
-                                                <td><?= $item['nama_pasien']; ?></td>
-                                                <td><?= $item['no_kamar']; ?></td>
-                                                <td><?= $item['waktu_masuk']; ?></td>
-                                                <td><?= $item['waktu_keluar']; ?></td>
-                                                <td><?= $item['total_tagihan_inap']; ?></td>
-                                                <td><?= $item['status_inap']; ?></td>
-                                                <td>
+                                            <?php
+                                                $no = 1;
+                                                foreach ($jadwal as $item) {
+                                                ?>
+                                                <tr>
+                                                    <td width="1%"><?= $no++; ?></td>
+                                                    <td><?= $item['nama_hari']; ?></td>
+                                                    <td><?= $item['nama_sesi']; ?></td>
+                                                    <td><?= $item['nama_dokter']; ?></td>
+                                                    <td><?= $item['status_jadwal']; ?></td>
+                                                    <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_inap']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_inap']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_jadwal']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_jadwal']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_jadwal']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
-                                            </tr>
+                                                </tr>
                                             <?php } ?>
                                         </tbody>
                                     </table>
@@ -94,15 +93,15 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/RawatInap/add_pendaftaran'); ?>" method="post" id="form_add"
-            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
-            <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
+        <form action="<?php echo base_url('Karyawan/JadwalDokter/add_jadwal'); ?>" method="post" id="form_add"
+            data-parsley-validate="true" autocomplete="off">
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rawat Inap </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Jadwal </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -110,31 +109,30 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="input_pasien" name="input_pasien">
+                                <label>Hari</label>
+                                <select class="form-control select2" id="input_hari" name="input_hari">
                                 </select>   
                             </div>
                             <div class="form-group">
-                                <label>No Kamar</label>
-                                <select class="form-control select2" id="input_kamar" name="input_kamar">
+                                <label>Sesi</label>
+                                <select class="form-control select2" id="input_sesi" name="input_sesi">
                                 </select>   
                             </div>
                             <div class="form-group">
-                                <label>Waktu Masuk</label>
-                                <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk" data-parsley-required="true" autocomplete="off" />
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="input_dokter" name="input_dokter">
                                 </select>   
                             </div>
 
                             <div class="form-group">
-                                <label>Status Inap</label>
+                                <label>Status Jadwal</label>
                                 <div class="checkbox">
                                     <label for="example-checkbox1">
                                         <input type="checkbox" id="input_status" name="input_status"
-                                            value="Selesai"> &nbsp Selesai
+                                            value="Aktif"> &nbsp Aktif
                                     </label>
                                 </div>
                             </div>
-
 
                         </div>
                         <div class="modal-footer">
@@ -149,53 +147,44 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatInap/update_pendaftaran'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
-            <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
+        <form action="<?php echo base_url('Karyawan/JadwalDokter/update_jadwal'); ?>" method="post" id="form_edit"
+            data-parsley-validate="true" autocomplete="off">
+            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rawat Jalan </h5>
-                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Jadwal</h5>
+                                <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_inap" id="id_inap">
+                            <input type="hidden" name="id_jadwal" id="id_jadwal">
 
                             <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="edit_pasien" name="edit_pasien">
-                                </select>   
+                                <label>Hari</label>
+                                <select class="form-control select2" name="edit_hari" id="edit_hari">
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>No Kamar</label>
-                                <select class="form-control select2" id="edit_kamar" name="edit_kamar">
-                                </select>   
+                                <label>Sesi</label>
+                                <select class="form-control select2" name="edit_sesi" id="edit_sesi">
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>Waktu Masuk</label>
-                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk" data-parsley-required="true" autocomplete="off" />
-                            </div>
-                            <div class="form-group">
-                                <label>Waktu Keluar</label>
-                                <input type="date" class="form-control" id="edit_keluar" name="edit_keluar" data-parsley-required="true" autocomplete="off" />
+                                <label>Dokter</label>
+                                <select class="form-control select2" name="edit_dokter" id="edit_dokter">
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Total Biaya</label>
-                                <input type="number" class="form-control" id="edit_tagihan" name="edit_tagihan"
-                                    data-parsley-required="true" data-parsley-type="number" autofocus="on">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Status Inap</label>
+                                <label>Status Jadwal</label>
                                 <div class="checkbox">
                                     <label for="example-checkbox1">
                                         <input type="checkbox" id="edit_status" name="edit_status"
-                                            value="Selesai"> &nbsp Selesai
+                                            value="Aktif"> &nbsp Aktif
                                     </label>
                                 </div>
                             </div>
@@ -213,7 +202,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatInap/delete_pendaftaran'); ?>" method="post">
+        <form action="<?php echo base_url('Karyawan/JadwalDokter/delete_jadwal'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -226,7 +215,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus pendaftaran ini?</h4>
+                            <h4>Apakah Ingin menghapus jadwal ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -241,7 +230,7 @@
         <!-- End Modal Delete Class -->
 
         <!-- /.content-wrapper -->
-        <?= $this->include("Admin/layout/footer") ?>
+        <?= $this->include("Karyawan/layout/footer") ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -250,31 +239,28 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    
-    <?= $this->include("Admin/layout/js_tabel") ?>
+
+    <?= $this->include("Karyawan/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id){
+    $(function() {
+        function Hapus(id) {
             $('.id').val(id);
             $('#deleteModal').modal('show');
         };
 
-        $( document ).ready(function() {
-            if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
+         if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
                 toastr.success('<?= $session->getFlashdata('sukses'); ?>')
             } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
-        });
-
-        $(function() {
             $('.select2').select2()
 
-            $("#input_pasien").select2({
-                placeholder: "Pilih Pasien",
+            $("#input_hari").select2({
+                placeholder: "Pilih Hari",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pasien'); ?>',
+                    url: '<?php echo base_url('Karyawan/JadwalDokter/data_hari'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -292,11 +278,11 @@
                 }
             });
 
-            $("#edit_pasien").select2({
-                placeholder: "Pilih Pasien",
+            $("#edit_hari").select2({
+                placeholder: "Pilih Hari",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pasien'); ?>',
+                    url: '<?php echo base_url('Karyawan/JadwalDokter/data_hari'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -314,11 +300,12 @@
                 }
             });
 
-            $("#input_kamar").select2({
-                placeholder: "Pilih Kamar",
+            
+            $("#input_sesi").select2({
+                placeholder: "Pilih Sesi",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_kamar'); ?>',
+                    url: '<?php echo base_url('Karyawan/JadwalDokter/data_sesi'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -336,11 +323,11 @@
                 }
             });
 
-            $("#edit_kamar").select2({
-                placeholder: "Pilih Kamar",
+            $("#edit_sesi").select2({
+                placeholder: "Pilih Sesi",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInput/data_kamar'); ?>',
+                    url: '<?php echo base_url('Karyawan/JadwalDokter/data_sesi'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -357,78 +344,125 @@
                     cache: true
                 }
             });
+
+            $("#input_dokter").select2({
+                placeholder: "Pilih Dokter",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Karyawan/JadwalDokter/data_dokter'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_dokter").select2({
+                placeholder: "Pilih Dokter",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Karyawan/JadwalDokter/data_dokter'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_pasien").val('');
-                $("#input_kamar").val('');
-                $("#input_masuk").val('');
-                $("#input_keluar").val('');
+                $("#input_hari").val('');
+                $("#input_sesi").val('');
+                $("#input_dokter").val('');
                 $("#input_status").prop('checked',false);
-                $("#input_biaya").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_pasien").val('');
-                $("#input_kamar").val('');
-                $("#input_masuk").val('');
-                $("#input_keluar").val('');
+                $("#input_hari").val('');
+                $("#input_sesi").val('');
+                $("#input_dokter").val('');
                 $("#input_status").prop('checked',false);
-                $("#input_biaya").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_nama").val('');
-                $("#edit_kamar").val('');
-                $("#edit_masuk").val('');
-                $("#edit_keluar").val('');
+                $("#edit_hari").val('');
+                $("#edit_sesi").val('');
+                $("#edit_dokter").val('');
                 $("#edit_status").prop('checked',false);
-                $("#edit_biaya").val('');
             });
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Karyawan/JadwalDokter/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_inap').val(json.id_inap);
-                    $('#edit_masuk').val(json.waktu_masuk);
-                    $('#edit_keluar').val(json.waktu_keluar);
-                    $('#total_tagihan_inap').val(json.total_tagihan_inap);
+                    $('#id_jadwal').val(json.id_jadwal);
 
-                    if(json.status_inap=='Selesai'){
+                    if(json.status_dokter=='Aktif'){
                         $("#edit_status").prop('checked',true);
                     }else{
                         $("#edit_status").prop('checked',false);
                     }
 
-                    $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
+                    $('#edit_hari').append('<option selected value="' + json.id_hari + '">' + json.nama_hari +
                         '</option>');
-                    $('#edit_pasien').select2('data', {
-                        id: json.id_pasien,
-                        text: json.nama_pasien
+                    $('#edit_hari').select2('data', {
+                        id: json.id_hari,
+                        text: json.nama_hari
                     });
-                    $('#edit_pasien').trigger('change');
+                    $('#edit_hari').trigger('change');
 
-                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.no_kamar +
+                    $('#edit_sesi').append('<option selected value="' + json.id_sesi + '">' + json.nama_sesi +
                         '</option>');
-                    $('#edit_kamar').select2('data', {
-                        id: json.id_kamar,
-                        text: json.no_kamar
+                    $('#edit_sesi').select2('data', {
+                        id: json.id_sesi,
+                        text: json.nama_sesi
                     });
-                    $('#edit_kamar').trigger('change');
+                    $('#edit_sesi').trigger('change');
+
+                    $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter +
+                        '</option>');
+                    $('#edit_dokter').select2('data', {
+                        id: json.id_dokter,
+                        text: json.nama_dokter
+                    });
+                    $('#edit_dokter').trigger('change');
                 });
         }
-        
+    </script>
+
+    <script type="text/javascript">
     $(function() {
         $("#example1").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
         "paging": true,
         "lengthChange": false,

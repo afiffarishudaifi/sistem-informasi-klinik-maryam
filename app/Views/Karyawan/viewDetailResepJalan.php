@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?= $this->include("Admin/layout/head_tabel") ?>
+<?= $this->include("Karyawan/layout/head_tabel") ?>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
-        <?= $this->include("Admin/layout/navbar") ?>
+        <?= $this->include("Karyawan/layout/navbar") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= $this->include("Admin/layout/sidebar") ?>
+        <?= $this->include("Karyawan/layout/sidebar") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -48,12 +48,9 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Nomor Kamar</th>
-                                                <th>Waktu Masuk</th>
-                                                <th>Waktu Keluar</th>
-                                                <th>Total Tagihan Inap</th>
-                                                <th>Status Inap</th>
+                                                <th>Nama Obat</th>
+                                                <th>Jumlah Obat</th>
+                                                <th>Tagihan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -62,19 +59,16 @@
                                                 foreach ($data as $item) {
                                             ?>
                                             <tr>
-                                                <td><?= $item['nama_pasien']; ?></td>
-                                                <td><?= $item['no_kamar']; ?></td>
-                                                <td><?= $item['waktu_masuk']; ?></td>
-                                                <td><?= $item['waktu_keluar']; ?></td>
-                                                <td><?= $item['total_tagihan_inap']; ?></td>
-                                                <td><?= $item['status_inap']; ?></td>
+                                                <td><?= $item['nama_obat']; ?></td>
+                                                <td><?= $item['jumlah_obat']; ?></td>
+                                                <td><?= $item['total_biaya']; ?></td>
                                                 <td>
-                                                        <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_inap']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_inap']; ?>">Hapus</a>
-                                                        </center>
-                                                    </td>
+                                                    <center>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_resep']; ?>)" data-toggle="modal"
+                                                            data-target="#deleteModal" data-id="<?= $item['id_detail']; ?>">Hapus</a>
+                                                    </center>
+                                                </td>
                                             </tr>
                                             <?php } ?>
                                         </tbody>
@@ -94,7 +88,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/RawatInap/add_pendaftaran'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Karyawan/RawatJalan/add_detail_resep'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -102,39 +96,37 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rawat Inap </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rekam Medis </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
 
+                            <input type="hidden" name="id_resep" id="id_resep" value="<?= $id_resep; ?>">
                             <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="input_pasien" name="input_pasien">
-                                </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>No Kamar</label>
-                                <select class="form-control select2" id="input_kamar" name="input_kamar">
-                                </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Waktu Masuk</label>
-                                <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk" data-parsley-required="true" autocomplete="off" />
+                                <label>Obat</label>
+                                <select class="form-control select2" id="input_obat" name="input_obat">
                                 </select>   
                             </div>
 
                             <div class="form-group">
-                                <label>Status Inap</label>
-                                <div class="checkbox">
-                                    <label for="example-checkbox1">
-                                        <input type="checkbox" id="input_status" name="input_status"
-                                            value="Selesai"> &nbsp Selesai
-                                    </label>
-                                </div>
+                                <label>Harga Obat/Tablet</label>
+                                <input type="text" class="form-control" id="input_harga" name="input_harga"
+                                    data-parsley-required="true" readonly="">  
                             </div>
 
+                            <div class="form-group">
+                                <label>Jumlah Obat</label>
+                                <input type="number" class="form-control" id="input_jumlah" name="input_jumlah"
+                                    data-parsley-required="true" placeholder="Masukkan Jumlah Obat">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Total Tagihan</label>
+                                <input type="number" class="form-control" id="input_total" name="input_total"
+                                    data-parsley-required="true" readonly="">  
+                            </div>
 
                         </div>
                         <div class="modal-footer">
@@ -149,7 +141,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatInap/update_pendaftaran'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Karyawan/RawatJalan/update_detail_resep'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -157,47 +149,37 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rawat Jalan </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rekam Medis </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_inap" id="id_inap">
+                            <input type="hidden" name="id_detail" id="id_detail">
+                            <input type="hiddenhidden" name="edit_resep" id="edit_resep">
 
                             <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="edit_pasien" name="edit_pasien">
+                                <label>Obat</label>
+                                <select class="form-control select2" id="edit_obat" name="edit_obat">
                                 </select>   
                             </div>
+
                             <div class="form-group">
-                                <label>No Kamar</label>
-                                <select class="form-control select2" id="edit_kamar" name="edit_kamar">
-                                </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Waktu Masuk</label>
-                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk" data-parsley-required="true" autocomplete="off" />
-                            </div>
-                            <div class="form-group">
-                                <label>Waktu Keluar</label>
-                                <input type="date" class="form-control" id="edit_keluar" name="edit_keluar" data-parsley-required="true" autocomplete="off" />
+                                <label>Harga Obat/Tablet</label>
+                                <input type="text" class="form-control" id="edit_harga" name="edit_harga"
+                                    data-parsley-required="true" readonly="">  
                             </div>
 
                             <div class="form-group">
-                                <label>Total Biaya</label>
-                                <input type="number" class="form-control" id="edit_tagihan" name="edit_tagihan"
-                                    data-parsley-required="true" data-parsley-type="number" autofocus="on">
+                                <label>Jumlah Obat</label>
+                                <input type="number" class="form-control" id="edit_jumlah" name="edit_jumlah"
+                                    data-parsley-required="true" placeholder="Masukkan Jumlah Obat">  
                             </div>
 
                             <div class="form-group">
-                                <label>Status Inap</label>
-                                <div class="checkbox">
-                                    <label for="example-checkbox1">
-                                        <input type="checkbox" id="edit_status" name="edit_status"
-                                            value="Selesai"> &nbsp Selesai
-                                    </label>
-                                </div>
+                                <label>Total Tagihan</label>
+                                <input type="text" class="form-control" id="edit_total" name="edit_total"
+                                    data-parsley-required="true" readonly="">  
                             </div>
 
                         </div>
@@ -213,7 +195,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatInap/delete_pendaftaran'); ?>" method="post">
+        <form action="<?php echo base_url('Karyawan/RawatJalan/delete_detail_resep'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -226,11 +208,12 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus pendaftaran ini?</h4>
+                            <h4>Apakah Ingin menghapus detail resep ini?</h4>
 
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="id_resep" class="id_resep">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -241,7 +224,7 @@
         <!-- End Modal Delete Class -->
 
         <!-- /.content-wrapper -->
-        <?= $this->include("Admin/layout/footer") ?>
+        <?= $this->include("Karyawan/layout/footer") ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -251,11 +234,12 @@
     </div>
     <!-- ./wrapper -->
     
-    <?= $this->include("Admin/layout/js_tabel") ?>
+    <?= $this->include("Karyawan/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id){
+        function Hapus(id, id_resep){
             $('.id').val(id);
+            $('.id_resep').val(id_resep);
             $('#deleteModal').modal('show');
         };
 
@@ -270,11 +254,11 @@
         $(function() {
             $('.select2').select2()
 
-            $("#input_pasien").select2({
-                placeholder: "Pilih Pasien",
+            $("#input_obat").select2({
+                placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pasien'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatJalan/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -292,11 +276,11 @@
                 }
             });
 
-            $("#edit_pasien").select2({
-                placeholder: "Pilih Pasien",
+            $("#edit_obat").select2({
+                placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pasien'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatJalan/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -314,129 +298,94 @@
                 }
             });
 
-            $("#input_kamar").select2({
-                placeholder: "Pilih Kamar",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_kamar'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
+            $('#input_obat').on('change', function() {
+              $.getJSON('<?php echo base_url('Karyawan/RawatJalan/harga_obat'); ?>' + '/' + this.value, {},
+                function(json) {
+                    $('#input_harga').val(json.harga_obat);
+                    var hasil = $('#input_jumlah').val() * json.harga_obat;
+                    $('#input_total').val(hasil);
+                });
             });
 
-            $("#edit_kamar").select2({
-                placeholder: "Pilih Kamar",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/RawatInput/data_kamar'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
+            $('#edit_obat').on('change', function() {
+              $.getJSON('<?php echo base_url('Karyawan/RawatJalan/harga_obat'); ?>' + '/' + this.value, {},
+                function(json) {
+                    $('#edit_harga').val(json.harga_obat);
+                    var hasil = $('#edit_jumlah').val() * json.harga_obat;
+                    $('#edit_total').val(hasil);
+                });
+            });
+
+            $("#input_jumlah").keyup(function() {
+                var hasil = $('#input_harga').val() * this.value;
+                $('#input_total').val(hasil);
+            });
+
+            $("#edit_jumlah").keyup(function() {
+                var hasil = $('#edit_harga').val() * this.value;
+                $('#edit_total').val(hasil);
             });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_pasien").val('');
-                $("#input_kamar").val('');
-                $("#input_masuk").val('');
-                $("#input_keluar").val('');
-                $("#input_status").prop('checked',false);
-                $("#input_biaya").val('');
+                $("#input_obat").val('');
+                $("#input_harga").val('');
+                $("#input_jumlah").val('');
+                $("#input_total").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_pasien").val('');
-                $("#input_kamar").val('');
-                $("#input_masuk").val('');
-                $("#input_keluar").val('');
-                $("#input_status").prop('checked',false);
-                $("#input_biaya").val('');
+                $("#input_obat").val('');
+                $("#input_harga").val('');
+                $("#input_jumlah").val('');
+                $("#input_total").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_nama").val('');
-                $("#edit_kamar").val('');
-                $("#edit_masuk").val('');
-                $("#edit_keluar").val('');
-                $("#edit_status").prop('checked',false);
-                $("#edit_biaya").val('');
+                $("#edit_obat").val('');
+                $("#edit_harga").val('');
+                $("#edit_jumlah").val('');
+                $("#edit_total").val('');
             });
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Karyawan/RawatJalan/data_edit_detail_resep'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_inap').val(json.id_inap);
-                    $('#edit_masuk').val(json.waktu_masuk);
-                    $('#edit_keluar').val(json.waktu_keluar);
-                    $('#total_tagihan_inap').val(json.total_tagihan_inap);
+                    $('#id_detail').val(json.id_detail);
+                    $('#edit_resep').val(json.id_resep);
+                    $('#edit_harga').val(json.harga_obat);
+                    $('#edit_jumlah').val(json.jumlah_obat);
+                    $('#edit_total').val(json.total_biaya);
 
-                    if(json.status_inap=='Selesai'){
-                        $("#edit_status").prop('checked',true);
-                    }else{
-                        $("#edit_status").prop('checked',false);
-                    }
-
-                    $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
+                    $('#edit_obat').append('<option selected value="' + json.id_obat + '">' + json.nama_obat +
                         '</option>');
-                    $('#edit_pasien').select2('data', {
-                        id: json.id_pasien,
-                        text: json.nama_pasien
+                    $('#edit_obat').select2('data', {
+                        id: json.id_obat,
+                        text: json.nama_obat
                     });
-                    $('#edit_pasien').trigger('change');
-
-                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.no_kamar +
-                        '</option>');
-                    $('#edit_kamar').select2('data', {
-                        id: json.id_kamar,
-                        text: json.no_kamar
-                    });
-                    $('#edit_kamar').trigger('change');
+                    $('#edit_obat').trigger('change');
                 });
         }
         
     $(function() {
         $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+	        "responsive": true,
+	        "lengthChange": false,
+	        "autoWidth": false,
+	        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+	        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
+	        "paging": true,
+	        "lengthChange": false,
+	        "searching": false,
+	        "ordering": true,
+	        "info": true,
+	        "autoWidth": false,
+	        "responsive": true,
         });
     });
     </script>
