@@ -96,7 +96,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Obat </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -149,14 +149,15 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Obat </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_detail" id="id_detail">
-                            <input type="hiddenhidden" name="edit_resep" id="edit_resep">
+                            <input type="hidden" name="edit_resep" id="edit_resep">
+                            <input type="hidden" name="old_jumlah" id="old_jumlah">
 
                             <div class="form-group">
                                 <label>Obat</label>
@@ -359,6 +360,7 @@
                     $('#edit_resep').val(json.id_resep_inap);
                     $('#edit_harga').val(json.harga_obat);
                     $('#edit_jumlah').val(json.jumlah_obat);
+                    $('#old_jumlah').val(json.jumlah_obat);
                     $('#edit_total').val(json.total_biaya);
 
                     $('#edit_obat').append('<option selected value="' + json.id_obat + '">' + json.nama_obat +

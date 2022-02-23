@@ -38,11 +38,6 @@ class RawatInap extends BaseController
     public function add_pendaftaran()
     {
         $session = session(); 
-        if($this->request->getPost('input_status') == '') {
-            $status = 'Belum Selesai';
-        } else {
-            $status = 'Selesai';
-        } 
 
         $id_pasien = $this->request->getPost('input_pasien');
 
@@ -51,7 +46,7 @@ class RawatInap extends BaseController
             'id_kamar'     => $this->request->getPost('input_kamar'),
             'waktu_masuk'     => $this->request->getPost('input_masuk'),
             'waktu_keluar'     => $this->request->getPost('input_keluar'),
-            'status_inap'     => $status,
+            'status_inap'     => 'Belum Selesai',
             'total_tagihan_inap'     => $this->request->getPost('input_tagihan')
         );
 
@@ -63,7 +58,7 @@ class RawatInap extends BaseController
         $model = new Model_rawatinap();
         $cek_pasien = $model->cek_pasien($id_pasien)->getRowArray();
 
-        if($cek_pasien['id_pasien'] != 1){
+        if($cek_pasien['id_pasien'] != 0){
             $session->setFlashdata('gagal', 'Pasien ini masih melakukan perawatan');
             return redirect()->to(base_url('Admin/RawatInap'));
         }
@@ -88,21 +83,21 @@ class RawatInap extends BaseController
         $id = $this->request->getPost('id_inap');
 
         $data = array(
-            'id_pasien'     => $this->request->getPost('edit_pasien'),
-            'id_kamar'     => $this->request->getPost('edit_kamar'),
-            'waktu_masuk'     => $this->request->getPost('edit_masuk'),
             'waktu_keluar'     => $this->request->getPost('edit_keluar'),
             'total_tagihan_inap'     => $this->request->getPost('edit_tagihan'),
             'status_inap'     => $status,
             'updated_at' => date('Y-m-d H:i:s')
         );
 
-        $kamar = $this->request->getPost('edit_kamar');
-        $ubah_kamar = array(
-            'status_kamar' => 'Kosong'
-        );
+        $kamar = $this->request->getPost('old_kamar');
+                
+        if ($status == 'Selesai') {
+            $ubah_kamar = array(
+                'status_kamar' => 'Kosong'
+            );
+            $model->update_status_kamar($ubah_kamar, $kamar);
+        }
         $model->update_data($data, $id);
-        $model->update_status_kamar($ubah_kamar, $kamar);
 
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         return redirect()->to(base_url('Admin/RawatInap'));
@@ -113,10 +108,16 @@ class RawatInap extends BaseController
         $session = session();
         $model = new Model_rawatinap();
         $id = $this->request->getPost('id');
+        $id_kamar = $this->request->getPost('id_kamar');
         // $foreign = $model->cek_foreign($id);
         // if ($foreign == 0) {
             $model->delete_data($id);
             session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
+
+            $ubah_kamar = array(
+                'status_kamar' => 'Kosong'
+            );
+            $model->update_status_kamar($ubah_kamar, $id_kamar);
         // } else {
         //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         // }
@@ -135,6 +136,7 @@ class RawatInap extends BaseController
             $isi['nama_pasien'] = $value['nama_pasien'];
             $isi['id_kamar'] = $value['id_kamar'];
             $isi['no_kamar'] = $value['no_kamar'];
+            $isi['biaya_kamar'] = $value['biaya_kamar'];
             $isi['waktu_masuk'] = $value['waktu_masuk'];
             $isi['waktu_keluar'] = $value['waktu_keluar'];
             $isi['status_inap'] = $value['status_inap'];
@@ -186,6 +188,53 @@ class RawatInap extends BaseController
         return $this->response->setJSON($response);
     }
 
+    public function data_pasien_rekam()
+    {
+        $request = service('request');
+        $postData = $request->getPost(); 
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("pasien");
+
+        $pasien = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('pasien.id_pasien, nama_pasien');
+            $builder->join('pendaftaran_inap','pasien.id_pasien = pendaftaran_inap.id_pasien');
+            $builder->where('pendaftaran_inap.status_inap','Belum Selesai');
+            $builder->like('nama_pasien', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+    
+            // Fetch record
+            $builder->select('pasien.id_pasien, nama_pasien');
+            $builder->join('pendaftaran_inap','pasien.id_pasien = pendaftaran_inap.id_pasien');
+            $builder->where('pendaftaran_inap.status_inap','Belum Selesai');
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+        
+        foreach ($data as $country) {
+            $pasien[] = array(
+                "id" => $country->id_pasien,
+                "text" => $country->nama_pasien,
+            );
+        }
+
+        $response['data'] = $pasien;
+
+        return $this->response->setJSON($response);
+    }
+
     public function data_kamar()
     {
         $request = service('request');
@@ -206,6 +255,7 @@ class RawatInap extends BaseController
 
             // Fetch record
             $builder->select('id_kamar, no_kamar');
+            $builder->where('status_kamar','Kosong');
             $builder->like('no_kamar', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
@@ -213,6 +263,7 @@ class RawatInap extends BaseController
 
             // Fetch record
             $builder->select('id_kamar, no_kamar');
+            $builder->where('status_kamar','Kosong');
             $query = $builder->get();
             $data = $query->getResult();
         }
@@ -644,15 +695,39 @@ class RawatInap extends BaseController
         
         $id = $this->request->getPost('id_detail');
         $id_resep = $this->request->getPost('edit_resep');
+        $id_obat = $this->request->getPost('edit_obat');
+        $old_jumlah = $this->request->getPost('old_jumlah');
+        $new_jumlah = $this->request->getPost('edit_jumlah');
         $data = array(
-            'id_obat'     => $this->request->getPost('edit_obat'),
-            'jumlah_obat' => $this->request->getPost('edit_jumlah'),
+            'id_obat'     => $id_obat,
+            'jumlah_obat' => $new_jumlah,
             'total_biaya' => $this->request->getPost('edit_total')
         );
 
+        $cek_stok = $model->cek_stok_obat($id_obat)->getRowArray();
+
+        if ($cek_stok['stok_obat'] < $new_jumlah) {
+            $session->setFlashdata('gagal', 'Stok obat tidak mencukupi');
+            return redirect()->to(base_url('Admin/RawatInap/detailResep' . '/' . $id_resep));
+        }
+
+        if ($old_jumlah < $new_jumlah) {
+            $selisih = $new_jumlah - $old_jumlah;
+            $stok_baru = $cek_stok['stok_obat'] - $selisih;
+        } else {
+            $selisih = $old_jumlah - $new_jumlah;
+            $stok_baru = $cek_stok['stok_obat'] + $selisih;
+        }
+
+        $data_obat = array(
+            'stok_obat' => $stok_baru
+        );
+
+        $model->update_stok_obat($data_obat, $id_obat);
+
         $model->update_detail_resep($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
+        return redirect()->to(base_url('Admin/RawatInap/detailResep' . '/' . $id_resep));
     }
 
     public function delete_detail_resep()

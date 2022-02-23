@@ -156,7 +156,8 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_detail" id="id_detail">
-                            <input type="hiddenhidden" name="edit_resep" id="edit_resep">
+                            <input type="hidden" name="edit_resep" id="edit_resep">
+                            <input type="hidden" name="old_jumlah" id="old_jumlah">
 
                             <div class="form-group">
                                 <label>Obat</label>
@@ -359,6 +360,7 @@
                     $('#edit_resep').val(json.id_resep);
                     $('#edit_harga').val(json.harga_obat);
                     $('#edit_jumlah').val(json.jumlah_obat);
+                    $('#old_jumlah').val(json.jumlah_obat);
                     $('#edit_total').val(json.total_biaya);
 
                     $('#edit_obat').append('<option selected value="' + json.id_obat + '">' + json.nama_obat +

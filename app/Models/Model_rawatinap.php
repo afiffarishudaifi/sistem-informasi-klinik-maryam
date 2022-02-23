@@ -31,7 +31,7 @@ class Model_rawatinap extends Model
         $builder = $db->table('pendaftaran_inap');
         $builder->selectCount('pendaftaran_inap.id_pasien');
         $builder->where('pendaftaran_inap.id_pasien', $id);
-        $builder->where('status_inap !=', 'Belum Selesai');
+        $builder->where('status_inap', 'Belum Selesai');
         return $builder->get();
     }
 
@@ -39,7 +39,7 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pendaftaran_inap');
-        $builder->select('pendaftaran_inap.id_inap, pendaftaran_inap.id_kamar, pendaftaran_inap.id_pasien, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, pendaftaran_inap.waktu_masuk, pendaftaran_inap.waktu_keluar, pendaftaran_inap.total_tagihan_inap, pendaftaran_inap.status_inap');
+        $builder->select("pendaftaran_inap.id_inap, pendaftaran_inap.id_kamar, pendaftaran_inap.id_pasien, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, DATE_FORMAT(pendaftaran_inap.waktu_masuk, '%Y-%m-%dT%H:%i') as waktu_masuk, DATE_FORMAT(pendaftaran_inap.waktu_keluar, '%Y-%m-%dT%H:%i') as waktu_keluar, pendaftaran_inap.total_tagihan_inap, pendaftaran_inap.status_inap");
         $builder->join('kamar','pendaftaran_inap.id_kamar = kamar.id_kamar');
         $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
         $builder->where('id_inap', $id);
@@ -105,7 +105,7 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('rekam_medis_inap');
-        $builder->select('rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, rekam_medis_inap.waktu_rekam, pasien.nama_pasien, dokter.nama_dokter, poliklinik.nama_poli');
+        $builder->select("rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, DATE_FORMAT(rekam_medis_inap.waktu_rekam, '%Y-%m-%dT%H:%i') as waktu_rekam, pasien.nama_pasien, dokter.nama_dokter, poliklinik.nama_poli");
         $builder->join('dokter','dokter.id_dokter = rekam_medis_inap.id_dokter');
         $builder->join('jadwal_dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
         $builder->join('sesi','sesi.id_sesi = jadwal_dokter.id_sesi');

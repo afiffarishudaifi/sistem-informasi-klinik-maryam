@@ -652,11 +652,37 @@ class RawatJalan extends BaseController
         
         $id = $this->request->getPost('id_detail');
         $id_resep = $this->request->getPost('edit_resep');
+        $id_obat = $this->request->getPost('edit_obat');
+        $old_jumlah = $this->request->getPost('old_jumlah');
+        $new_jumlah = $this->request->getPost('edit_jumlah');
+
         $data = array(
-            'id_obat'     => $this->request->getPost('edit_obat'),
-            'jumlah_obat' => $this->request->getPost('edit_jumlah'),
+            'id_obat'     => $id_obat,
+            'jumlah_obat' => $new_jumlah,
             'total_biaya' => $this->request->getPost('edit_total')
         );
+
+        $cek_stok = $model->cek_stok_obat($id_obat)->getRowArray();
+        dd($cek_stok);
+
+        if ($cek_stok['stok_obat'] < $new_jumlah) {
+            $session->setFlashdata('gagal', 'Stok obat tidak mencukupi');
+            return redirect()->to(base_url('Admin/RawatJalan/detailResep' . '/' . $id_resep));
+        }
+
+        if ($old_jumlah < $new_jumlah) {
+            $selisih = $new_jumlah - $old_jumlah;
+            $stok_baru = $cek_stok['stok_obat'] - $selisih;
+        } else {
+            $selisih = $old_jumlah - $new_jumlah;
+            $stok_baru = $cek_stok['stok_obat'] + $selisih;
+        }
+
+        $data_obat = array(
+            'stok_obat' => $stok_baru
+        );
+
+        $model->update_stok_obat($data_obat, $id_obat);
 
         $model->update_detail_resep($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
