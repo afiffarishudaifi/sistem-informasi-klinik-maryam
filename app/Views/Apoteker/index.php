@@ -42,11 +42,11 @@
         </div>
 
         <!-- Navbar -->
-        <?= $this->include("Admin/layout/navbar") ?>
+        <?= $this->include("Apoteker/layout/navbar") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= $this->include("Admin/layout/sidebar") ?>
+        <?= $this->include("Apoteker/layout/sidebar") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -144,7 +144,7 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <?= $this->include("Admin/layout/footer") ?>
+        <?= $this->include("Apoteker/layout/footer") ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

@@ -189,7 +189,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Tanggal Rekam</label>
-                                <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
+                                <input type="datetime-local" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -262,10 +262,10 @@
             $('.select2').select2()
 
             $("#input_pasien").select2({
-                placeholder: "Pilih Pendaftaran",
+                placeholder: "Pilih Pasien",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_pendaftaran'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_pasien_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -284,10 +284,10 @@
             });
 
             $("#edit_pasien").select2({
-                placeholder: "Pilih Pendaftaran",
+                placeholder: "Pilih Pasien",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_pendaftaran'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_pasien_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -306,6 +306,28 @@
             });
 
             $("#input_dokter").select2({
+                placeholder: "Pilih Pendaftaran",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_dokter'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_dokter").select2({
                 placeholder: "Pilih Pendaftaran",
                 theme: 'bootstrap4',
                 ajax: {
@@ -364,6 +386,7 @@
                     $('#edit_saran').val(json.saran_dokter);
                     $('#edit_tensi').val(json.tensi);
                     $('#edit_hasil').val(json.hasil_pemeriksaan);
+                    $('#edit_tanggal').val(json.waktu_rekam);
 
                     $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
                         '</option>');

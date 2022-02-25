@@ -31,6 +31,18 @@ class Model_login extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
         $query = $builder->where('username_karyawan', $username);
+        $query = $builder->join('jabatan','jabatan.id_jabatan = karyawan.id_jabatan');
+        $query = $builder->where('jabatan.nama_jabatan !=', 'Apoteker');
+        return $query->get();
+    }
+
+    public function loginApoteker($username)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('karyawan');
+        $query = $builder->where('username_karyawan', $username);
+        $query = $builder->join('jabatan','jabatan.id_jabatan = karyawan.id_jabatan');
+        $query = $builder->where('jabatan.nama_jabatan =', 'Apoteker');
         return $query->get();
     }
 

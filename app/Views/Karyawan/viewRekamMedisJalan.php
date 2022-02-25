@@ -45,14 +45,14 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
+                                    <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th>Id Rekam Inap</th>
                                                 <th>Nama Pasien</th>
-                                                <th>Nama Poli</th>
                                                 <th>Nama Dokter</th>
-                                                <th>Hasil Pemeriksaan</th>
-                                                <th>Saran Dokter</th>
+                                                <th>Tagihan</th>
+                                                <th>Pemeriksaan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -61,18 +61,25 @@
                                                 foreach ($data as $item) {
                                             ?>
                                             <tr>
+                                                <td><?= $item['id_rekam_inap']; ?></td>
                                                 <td><?= $item['nama_pasien']; ?></td>
-                                                <td><?= $item['nama_poli']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
-                                                <td><?= $item['hasil_pemeriksaan']; ?></td>
-                                                <td><?= $item['saran_dokter']; ?></td>
                                                 <td>
-                                                        <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pemeriksaan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pemeriksaan']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_pemeriksaan']; ?>">Hapus</a>
-                                                        </center>
-                                                    </td>
+                                                    <?php if($item['tagihan_obat'] != null) { 
+                                                        echo $item['tagihan_obat'];
+                                                    } else {
+                                                        echo "-";
+                                                    } ?>
+                                                </td>
+                                                <td><?= $item['created_at']; ?></td>
+                                                <td>
+                                                    <center>
+                                                        <a href="<?= base_url('Karyawan/RawatInap/detailResep') . '/' . $item['id_resep_inap']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep_inap']; ?>)" data-toggle="modal"
+                                                            data-target="#deleteModal" data-id="<?= $item['id_resep_inap']; ?>">Hapus</a>
+                                                    </center>
+                                                </td>
                                             </tr>
                                             <?php } ?>
                                         </tbody>
@@ -92,7 +99,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Karyawan/RawatJalan/add_rekam'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Karyawan/RawatInap/add_resep'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -100,7 +107,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Resep Inap </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -108,22 +115,9 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Pendaftaran</label>
-                                <select class="form-control select2" id="input_pendaftaran" name="input_pendaftaran">
+                                <label>Pemeriksaan</label>
+                                <select class="form-control select2" id="input_rekam_inap" name="input_rekam_inap">
                                 </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Hasil Pemeriksaan</label>
-                                <textarea class="form-control" id="input_hasil" name="input_hasil" placeholder="Masukkan hasil pemeriksaan"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Saran Dokter</label>
-                                <textarea class="form-control" id="input_saran" name="input_saran" placeholder="Masukkan saran dokter"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Tensi Darah Pasien</label>
-                                <input type="number" class="form-control" id="input_tensi" name="input_tensi"
-                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
                             </div>
 
                         </div>
@@ -139,7 +133,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Karyawan/RawatJalan/update_rekam'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Karyawan/RawatInap/update_resep'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -147,31 +141,18 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Resep Inap </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pemeriksaan" id="id_pemeriksaan">
+                            <input type="hidden" name="id_resep_inap" id="id_resep_inap">
 
                             <div class="form-group">
-                                <label>Pendaftaran</label>
-                                <select class="form-control select2" id="edit_pendaftaran" name="edit_pendaftaran">
+                                <label>Pemeriksaan</label>
+                                <select class="form-control select2" id="edit_rekam_inap" name="edit_rekam_inap">
                                 </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Hasil Pemeriksaan</label>
-                                <textarea class="form-control" id="edit_hasil" name="edit_hasil" placeholder="Masukkan hasil pemeriksaan"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Saran Dokter</label>
-                                <textarea class="form-control" id="edit_saran" name="edit_saran" placeholder="Masukkan saran dokter"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Tensi Darah Pasien</label>
-                                <input type="number" class="form-control" id="edit_tensi" name="edit_tensi"
-                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
                             </div>
 
                         </div>
@@ -187,7 +168,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Karyawan/RawatJalan/delete_rekam'); ?>" method="post">
+        <form action="<?php echo base_url('Karyawan/RawatInap/delete_resep'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -200,7 +181,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus rekam medis ini?</h4>
+                            <h4>Apakah Ingin menghapus resep ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -241,15 +222,18 @@
             }
         });
 
-        $("#input_pendaftaran").select2({
-            placeholder: "Pilih Pendaftaran",
-            theme: 'bootstrap4',
-            ajax: {
-                url: '<?php echo base_url('Karyawan/RawatJalan/data_pendaftaran'); ?>',
-                type: "post",
-                delay: 250,
-                dataType: 'json',
-                data: function(params) {
+        $(function() {
+            $('.select2').select2()
+
+            $("#input_rekam_inap").select2({
+                placeholder: "Pilih Pemeriksaan",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_pemeriksaan'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
                         return {
                             query: params.term, // search term
                         };
@@ -261,16 +245,17 @@
                     },
                     cache: true
                 }
-        });
-        $("#edit_pendaftaran").select2({
-            placeholder: "Pilih Pendaftaran",
-            theme: 'bootstrap4',
-            ajax: {
-                url: '<?php echo base_url('Karyawan/RawatJalan/data_pendaftaran'); ?>',
-                type: "post",
-                delay: 250,
-                dataType: 'json',
-                data: function(params) {
+            });
+
+            $("#edit_rekam_inap").select2({
+                placeholder: "Pilih Pemeriksaan",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_pemeriksaan'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
                         return {
                             query: params.term, // search term
                         };
@@ -282,50 +267,37 @@
                     },
                     cache: true
                 }
-        });
+            });
 
-        $('#batal').on('click', function() {
-            $('#form_add')[0].reset();
-            $('#form_edit')[0].reset();
-            $("#input_saran").val('');
-            $("#input_pendaftaran").val('');
-            $("#input_tensi").val('');
-            $("#input_saran").val('');
-        });
+            $('#batal').on('click', function() {
+                $('#form_add')[0].reset();
+                $('#form_edit')[0].reset();
+                $("#input_rekam_inap").val('');
+            });
 
-        $('#batal_add').on('click', function() {
-            $('#form_add')[0].reset();
-            $("#input_saran").val('');
-            $("#input_pendaftaran").val('');
-            $("#input_tensi").val('');
-            $("#input_saran").val('');
-        });
+            $('#batal_add').on('click', function() {
+                $('#form_add')[0].reset();
+                $("#input_rekam_inap").val('');
+            });
 
-        $('#batal_up').on('click', function() {
-            $('#form_edit')[0].reset();
-            $("#edit_saran").val('');
-            $("#edit_pendaftaran").val('');
-            $("#edit_tensi").val('');
-            $("#edit_saran").val('');
-        });
+            $('#batal_up').on('click', function() {
+                $('#form_edit')[0].reset();
+                $("#edit_rekam_inap").val('');
+            });
+        })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Karyawan/RawatJalan/data_edit_rekam'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Karyawan/RawatInap/data_edit_resep'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pemeriksaan').val(json.id_pemeriksaan);
+                    $('#id_resep_inap').val(json.id_resep);
 
-                    $('#edit_saran').val(json.saran_dokter);
-                    $('#edit_pendaftaran').val(json.no_telp_dokter);
-                    $('#edit_tensi').val(json.tensi_darah);
-                    $('#edit_hasil').val(json.hasil_pemeriksaan);
-
-                    $('#edit_pendaftaran').append('<option selected value="' + json.id_pendaftaran + '">' + json.tanggal_daftar + " pasien " + json.nama_pasien +
+                    $('#edit_rekam_inap').append('<option selected value="' + json.id_rekam_inap + '">' + json.created_at + " pasien " + json.nama_pasien +
                         '</option>');
-                    $('#edit_pendaftaran').select2('data', {
-                        id: json.id_pendaftaran,
-                        text: json.tanggal_daftar
+                    $('#edit_rekam_inap').select2('data', {
+                        id: json.id_rekam_inap,
+                        text: json.created_at
                     });
-                    $('#edit_pendaftaran').trigger('change');
+                    $('#edit_rekam_inap').trigger('change');
                 });
         }
         
@@ -344,7 +316,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
-            });
+        });
     });
     </script>
 </body>

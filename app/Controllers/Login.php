@@ -135,8 +135,33 @@ class Login extends BaseController
                         return redirect()->to('/Login');
                     }
                 } else {
-                    $session->setFlashdata('msg', 'Username Tidak di Temukan');
-                    return redirect()->to('/Login');
+                    // $session->setFlashdata('msg', 'Username Tidak di Temukan');
+                    // return redirect()->to('/Login');
+                    $data = $model->loginApoteker($username)->getRowArray();
+
+                    if ($data) {
+                        $pass = $data['password_karyawan'];
+                        $status = 'Apoteker';
+                        $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                        if ($verify_pass == $password) {
+                            $ses_data = [
+                                'user_id' => $data['id_karyawan'],
+                                'nama_login' => $data['nama_karyawan'],
+                                'foto' => $data['foto_karyawan'],
+                                'status_login' => $status,
+                                'logged_in' => TRUE,
+                                'is_admin' => TRUE
+                            ];
+                            $session->set($ses_data);
+                            return redirect()->to('/Apoteker/Dashboard');
+                        } else {
+                            $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                            return redirect()->to('/Login');
+                        }
+                    } else {
+                        $session->setFlashdata('msg', 'Username Tidak di Temukan');
+                        return redirect()->to('/Login');
+                    }
                 }
             }
         /*} else {

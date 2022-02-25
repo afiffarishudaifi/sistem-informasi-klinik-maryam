@@ -71,7 +71,7 @@
                                                 <td>
                                                         <center>
                                                             <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_inap']; ?>)" data-toggle="modal"
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_inap']; ?>,<?= $item['id_kamar']; ?>)" data-toggle="modal"
                                                                 data-target="#deleteModal" data-id="<?= $item['id_inap']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
@@ -124,18 +124,6 @@
                                 <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk" data-parsley-required="true" autocomplete="off" />
                                 </select>   
                             </div>
-
-                            <div class="form-group">
-                                <label>Status Inap</label>
-                                <div class="checkbox">
-                                    <label for="example-checkbox1">
-                                        <input type="checkbox" id="input_status" name="input_status"
-                                            value="Selesai"> &nbsp Selesai
-                                    </label>
-                                </div>
-                            </div>
-
-
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_add"
@@ -164,30 +152,31 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_inap" id="id_inap">
+                            <input type="hidden" name="old_kamar" id="old_kamar">
 
                             <div class="form-group">
                                 <label>Pasien</label>
-                                <select class="form-control select2" id="edit_pasien" name="edit_pasien">
+                                <select class="form-control select2" id="edit_pasien" name="edit_pasien" disabled="true">
                                 </select>   
                             </div>
                             <div class="form-group">
                                 <label>No Kamar</label>
-                                <select class="form-control select2" id="edit_kamar" name="edit_kamar">
+                                <select class="form-control select2" id="edit_kamar" name="edit_kamar" disabled="true">
                                 </select>   
                             </div>
                             <div class="form-group">
                                 <label>Waktu Masuk</label>
-                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk" data-parsley-required="true" autocomplete="off" />
+                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk" data-parsley-required="true" autocomplete="off" onchange="get_result_edit(this.value, $('#edit_keluar').val())" readonly="" />
                             </div>
                             <div class="form-group">
                                 <label>Waktu Keluar</label>
-                                <input type="date" class="form-control" id="edit_keluar" name="edit_keluar" data-parsley-required="true" autocomplete="off" />
+                                <input type="date" class="form-control" id="edit_keluar" name="edit_keluar" data-parsley-required="true" autocomplete="off" onchange="get_result_edit($('#edit_masuk').val(),this.value)"/>
                             </div>
-
+                            <input type="hidden" name="biaya_kamar" id="biaya_kamar">
                             <div class="form-group">
                                 <label>Total Biaya</label>
-                                <input type="number" class="form-control" id="edit_tagihan" name="edit_tagihan"
-                                    data-parsley-required="true" data-parsley-type="number" autofocus="on">
+                                <input type="text" class="form-control" id="edit_tagihan" name="edit_tagihan"
+                                    data-parsley-required="true" data-parsley-type="number" autofocus="on" readonly="">
                             </div>
 
                             <div class="form-group">
@@ -231,6 +220,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="id_kamar" class="id_kamar">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -254,8 +244,9 @@
     <?= $this->include("Karyawan/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id){
+        function Hapus(id, id_kamar){
             $('.id').val(id);
+            $('.id_kamar').val(id_kamar);
             $('#deleteModal').modal('show');
         };
 
@@ -266,6 +257,26 @@
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
         });
+
+        function get_result_edit(masuk, akhir) {
+            var tanggal_masuk = new Date(masuk);
+            var tanggal_akhir = new Date(akhir);
+            var timeDiff=0
+            if (tanggal_akhir) {
+                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
+            }
+
+            var selisih = Math.floor(timeDiff/(86400))
+            var biaya = $('#biaya_kamar').val()
+
+            var total_biaya = parseInt(selisih) * parseInt(biaya);
+
+            if (isNaN(total_biaya)) {
+                $('#edit_tagihan').val('0')
+            } else {
+                $('#edit_tagihan').val(total_biaya)
+            }
+        }
 
         $(function() {
             $('.select2').select2()
@@ -394,9 +405,11 @@
             $.getJSON('<?php echo base_url('Karyawan/RawatInap/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_inap').val(json.id_inap);
+                    $('#old_kamar').val(json.id_kamar);
                     $('#edit_masuk').val(json.waktu_masuk);
                     $('#edit_keluar').val(json.waktu_keluar);
-                    $('#total_tagihan_inap').val(json.total_tagihan_inap);
+                    $('#biaya_kamar').val(json.biaya_kamar);
+                    $('#total_tagihan_inap').val('0');
 
                     if(json.status_inap=='Selesai'){
                         $("#edit_status").prop('checked',true);
@@ -424,19 +437,19 @@
         
     $(function() {
         $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
         });
     });
     </script>
