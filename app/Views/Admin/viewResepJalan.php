@@ -48,7 +48,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id Pemeriksaan</th>
+                                                <th>Id Pendaftaran</th>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Tagihan</th>
@@ -61,7 +61,7 @@
                                                 foreach ($data as $item) {
                                             ?>
                                             <tr>
-                                                <td><?= $item['id_pemeriksaan']; ?></td>
+                                                <td><?= $item['id_pendaftaran']; ?></td>
                                                 <td><?= $item['nama_pasien']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
                                                 <td>
@@ -74,10 +74,10 @@
                                                 <td><?= $item['created_at']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Admin/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>)" data-toggle="modal"
-                                                            data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>">Hapus</a>
+                                                        <a href="<?= base_url('Admin/RawatJalan/detailResep') . '/' . $item['id_pendaftaran']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pendaftaran']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pendaftaran']; ?>)" data-toggle="modal"
+                                                            data-target="#deleteModal" data-id="<?= $item['id_pendaftaran']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
                                             </tr>

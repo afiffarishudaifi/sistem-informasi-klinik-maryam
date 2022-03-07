@@ -144,6 +144,26 @@
                                     data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
                             </div>
 
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="input_kelamin" name="input_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Agama</label>
+                                <input type="text" class="form-control" id="input_agama" name="input_agama"
+                                    data-parsley-required="true" placeholder="Masukkan Agama" autofocus="on">
+                                <span class="text-danger" id="error_username"></span>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_add"
@@ -172,6 +192,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_pasien" id="id_pasien">
+                            <input type="hidden" name="id_user" id="id_user">
 
                             <div class="form-group">
                                 <label>Nama Pasien</label>
@@ -209,6 +230,26 @@
                                 <label>No Telp Pasien</label>
                                 <input type="number" class="form-control" id="edit_no_telp" name="edit_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="edit_kelamin" name="edit_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Agama</label>
+                                <input type="text" class="form-control" id="edit_agama" name="edit_agama"
+                                    data-parsley-required="true" placeholder="Masukkan Agama" autofocus="on">
+                                <span class="text-danger" id="error_username"></span>
                             </div>
 
                         </div>
@@ -385,6 +426,9 @@
                 $("#input_password_konfirmasi").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
+                $("#input_tanggal").val('');
+                $("#input_kelamin").val('');
+                $("#input_agama").val('');
             });
 
             $('#batal_add').on('click', function() {
@@ -396,6 +440,9 @@
                 $("#input_password_konfirmasi").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
+                $("#input_tanggal").val('');
+                $("#input_kelamin").val('');
+                $("#input_agama").val('');
             });
 
             $('#batal_up').on('click', function() {
@@ -407,6 +454,9 @@
                 $("#edit_password_konfirmasi").val('');
                 $("#edit_alamat").val('');
                 $("#edit_no_telp").val('');
+                $("#edit_tanggal").val('');
+                $("#edit_kelamin").val('');
+                $("#edit_agama").val('');
             });
         })
 
@@ -414,11 +464,20 @@
             $.getJSON('<?php echo base_url('Admin/Pasien/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_pasien').val(json.id_pasien);
+                    $('#id_user').val(json.id_user);
                     $('#edit_nama').val(json.nama_pasien);
                     $('#edit_nik').val(json.nik);
-                    $('#edit_username').val(json.username_pasien);
+                    $('#edit_username').val(json.username);
                     $('#edit_alamat').val(json.alamat_pasien);
                     $('#edit_no_telp').val(json.no_telp_pasien);
+                    $('#edit_tanggal').val(json.tgl_lahir);
+                    // $('#edit_kelamin').val(json.jenis_kelamin);
+                    $('#edit_agama').val(json.agama);
+                    if(json.jenis_kelamin == 'Perempuan'){
+                        document.getElementById("edit_kelamin").selectedIndex = 1;
+                    }else{
+                        document.getElementById("edit_kelamin").selectedIndex = 0;
+                    }
                 });
         }
     </script>

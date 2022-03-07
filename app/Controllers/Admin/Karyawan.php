@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_karyawan;
+use App\Models\Model_user;
 
 class Karyawan extends BaseController
 {
@@ -39,6 +40,16 @@ class Karyawan extends BaseController
         $session = session();
         $encrypter = \Config\Services::encrypter();
 
+        $data = array(
+            'username'     => $this->request->getPost('input_username'),
+            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
+            'level'     => 'Karyawan'
+        );
+
+        $modeluser = new Model_user();
+        $modeluser->add_data($data);
+        $max_id = $modeluser->max_id()->getRowArray(); 
+
         if($this->request->getPost('input_status') == '') {
             $status = 'Tidak Aktif';
         } else {
@@ -54,8 +65,10 @@ class Karyawan extends BaseController
         }
 
         $data = array(
-            'username'     => $this->request->getPost('input_username'),
-            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
+            'id_user' => $max_id['id_user'],
+            'nik'     => $this->request->getPost('input_nik'),
+            'jenis_kelamin'     => $this->request->getPost('input_kelamin'),
+            'tgl_lahir'     => $this->request->getPost('input_tanggal'),
             'nama_karyawan'     => $this->request->getPost('input_nama'),
             'no_telp_karyawan'     => $this->request->getPost('input_no_telp'),
             'alamat_karyawan'     => $this->request->getPost('input_alamat'),
@@ -83,6 +96,9 @@ class Karyawan extends BaseController
         }
 
         $id = $this->request->getPost('id_karyawan');
+        $id_user = $this->request->getPost('id_user');
+        $password = $this->request->getPost('edit_password');
+
         $avatar      = $this->request->getFile('edit_foto');
         if ($avatar != '') {
             $namabaru     = $avatar->getRandomName();
@@ -90,8 +106,9 @@ class Karyawan extends BaseController
 
             if($this->request->getPost('edit_password') != '') {
                 $data = array(
-                    'username'  => $this->request->getPost('edit_username'),
-                    'password'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                    'nik'     => $this->request->getPost('edit_nik'),
+                    'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
+                    'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -101,7 +118,9 @@ class Karyawan extends BaseController
                 );
             } else {
                 $data = array(
-                    'username'  => $this->request->getPost('edit_username'),
+                    'nik'     => $this->request->getPost('edit_nik'),
+                    'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
+                    'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -124,8 +143,9 @@ class Karyawan extends BaseController
 
             if($this->request->getPost('edit_password') != '') {
                 $data = array(
-                    'username'  => $this->request->getPost('edit_username'),
-                    'password'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                    'nik'     => $this->request->getPost('edit_nik'),
+                    'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
+                    'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -134,7 +154,9 @@ class Karyawan extends BaseController
                 );
             } else {
                 $data = array(
-                    'username'  => $this->request->getPost('edit_username'),
+                    'nik'     => $this->request->getPost('edit_nik'),
+                    'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
+                    'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -147,6 +169,21 @@ class Karyawan extends BaseController
         }
 
         $model->update_data($data, $id);
+
+        $modeluser = new Model_user();
+        if ($password != '') {
+            $data = array(
+                'username'     => $this->request->getPost('edit_username'),
+                'password'     => base64_encode($encrypter->encrypt($this->request->getPost('edit_password')))
+            );
+        } else {
+            $data = array(
+                'username'     => $this->request->getPost('edit_username')
+            );
+        }
+        
+        $modeluser->update_data($data, $id_user);
+
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         return redirect()->to(base_url('Admin/Karyawan'));
     }
@@ -182,6 +219,7 @@ class Karyawan extends BaseController
         $respon = json_decode(json_encode($datakaryawan), true);
         $data['results'] = array();
         foreach ($respon as $value) :
+            $isi['id_user'] = $value['id_user'];
             $isi['id_karyawan'] = $value['id_karyawan'];
             $isi['username'] = $value['username'];
             $isi['nama_karyawan'] = $value['nama_karyawan'];
@@ -189,6 +227,9 @@ class Karyawan extends BaseController
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];
             $isi['status_karyawan'] = $value['status_karyawan'];
             $isi['foto_karyawan'] = $value['foto_karyawan'];
+            $isi['nik'] = $value['nik'];
+            $isi['jenis_kelamin'] = $value['jenis_kelamin'];
+            $isi['tgl_lahir'] = $value['tgl_lahir'];
         endforeach;
         echo json_encode($isi);
     }
@@ -202,46 +243,4 @@ class Karyawan extends BaseController
         echo json_encode($data);
     }
 
-     public function data_jabatan()
-    {
-        $request = service('request');
-        $postData = $request->getPost(); // OR $this->request->getPost();
-
-        $response = array();
-
-        $data = array();
-
-        $db      = \Config\Database::connect();
-        $builder = $this->db->table("jabatan");
-
-        $jabatan = [];
-
-        if (isset($postData['query'])) {
-
-            $query = $postData['query'];
-
-            // Fetch record
-            $builder->select('id_jabatan, nama_jabatan');
-            $builder->like('nama_jabatan', $query, 'both');
-            $query = $builder->get();
-            $data = $query->getResult();
-        } else {
-
-            // Fetch record
-            $builder->select('id_jabatan, nama_jabatan');
-            $query = $builder->get();
-            $data = $query->getResult();
-        }
-
-        foreach ($data as $country) {
-            $jabatan[] = array(
-                "id" => $country->id_jabatan,
-                "text" => $country->nama_jabatan,
-            );
-        }
-
-        $response['data'] = $jabatan;
-
-        return $this->response->setJSON($response);
-    }
 }

@@ -306,7 +306,7 @@
             });
 
             $("#input_dokter").select2({
-                placeholder: "Pilih Pendaftaran",
+                placeholder: "Pilih Dokter",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/RawatInap/data_dokter'); ?>',
@@ -328,7 +328,7 @@
             });
 
             $("#edit_dokter").select2({
-                placeholder: "Pilih Pendaftaran",
+                placeholder: "Pilih Dokter",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/RawatInap/data_dokter'); ?>',

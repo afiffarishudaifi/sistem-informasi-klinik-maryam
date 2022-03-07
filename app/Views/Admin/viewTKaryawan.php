@@ -51,7 +51,7 @@
                                                 <th>No</th>
                                                 <th>Nama Karyawan</th>
                                                 <th>No Telp</th>
-                                                <th>Status Karyawan</th>
+                                                <th>Alamat Karyawan</th>
                                                 <th>Status Karyawan</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -65,7 +65,7 @@
                                                     <td width="1%"><?= $no++; ?></td>
                                                     <td><?= $item['nama_karyawan']; ?></td>
                                                     <td><?= $item['no_telp_karyawan']; ?></td>
-                                                    <td><?= $item['status_karyawan']; ?></td>
+                                                    <td><?= $item['alamat_karyawan']; ?></td>
                                                     <td><?= $item['status_karyawan']; ?></td>
                                                     <td>
                                                         <center>
@@ -115,6 +115,14 @@
                             </div>
 
                             <div class="form-group">
+                                <label>NIK Karyawan</label>
+                                <input type="number" class="form-control" id="input_nik" name="input_nik"
+                                    data-parsley-required="true" placeholder="Masukkan NIK Karyawan" minlength="16" maxlength="16" autofocus="on">
+                                <span class="text-danger" id="error_nik"></span>
+                                <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Username Karyawan</label>
                                 <input type="text" class="form-control" id="input_username" name="input_username"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
@@ -135,16 +143,29 @@
 
                             <div class="form-group">
                                 <label>No Telepon Karyawan</label>
-                                <input type="text" class="form-control" id="input_no_telp" name="input_no_telp"
+                                <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
                                     data-parsley-type="number" placeholder="Masukkan Telp Karyawan" autofocus="on">
                             </div>
 
                             <div class="form-group">
                                 <label>Alamat Karyawan</label>
-                                <input type="text" class="form-control" id="input_alamat" name="input_alamat"
-                                    placeholder="Masukkan Alamat Karyawan" autofocus="on">
+                                <textarea class="form-control" id="input_alamat" name="input_alamat"
+                                    placeholder="Masukkan Alamat Karyawan"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="input_kelamin" name="input_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
                             </div>
                             
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
+                            </div>
+
                             <div class="form-group">
                                 <label>Status Karyawan</label>
                                 <div class="checkbox">
@@ -190,11 +211,20 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_karyawan" id="id_karyawan">
+                            <input type="hidden" name="id_user" id="id_user">
 
                             <div class="form-group">
                                 <label>Nama Karyawan</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>NIK Karyawan</label>
+                                <input type="number" class="form-control" id="edit_nik" name="edit_nik"
+                                    data-parsley-required="true" placeholder="Masukkan NIK Karyawan" minlength="16" maxlength="16" autofocus="on">
+                                <span class="text-danger" id="error_nik"></span>
+                                <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
                             </div>
 
                             <div class="form-group">
@@ -220,8 +250,21 @@
                             </div>
                             <div class="form-group">
                                 <label>Alamat Karyawan</label>
-                                <input type="text" class="form-control" id="edit_alamat" name="edit_alamat"
-                                    placeholder="Masukkan Alamat Karyawan" autofocus="on">
+                                <textarea class="form-control" id="edit_alamat" name="edit_alamat"
+                                    placeholder="Masukkan Alamat Karyawan"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="edit_kelamin" name="edit_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
                             </div>
 
                             <div class="form-group">
@@ -307,7 +350,54 @@
             }
         });
 
-         $(function() {
+        function detail_edit(isi) {
+            $.getJSON('<?php echo base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
+                function(json) {
+                    $('#edit_nama').val(json.nama_karyawan);
+                    $('#id_karyawan').val(json.id_karyawan);
+                    $('#id_user').val(json.id_user);
+                    
+                    if(json.status_karyawan=='Aktif'){
+                        $("#edit_status").prop('checked',true);
+                    }else{
+                        $("#edit_status").prop('checked',false);
+                    }
+
+                    $('#edit_username').val(json.username);
+                    $('#edit_nik').val(json.nik);
+                    $('#edit_no_telp').val(json.no_telp_karyawan);
+                    $('#edit_alamat').val(json.alamat_karyawan);
+                    $('#edit_foto').val(json.foto_karyawan);
+                    $('#edit_tanggal').val(json.tgl_lahir);
+
+                    if(json.jenis_kelamin == 'Perempuan'){
+                        document.getElementById("edit_kelamin").selectedIndex = 1;
+                    }else{
+                        document.getElementById("edit_kelamin").selectedIndex = 0;
+                    }
+                });
+        }
+    </script>
+
+    
+    <script type="text/javascript">
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+
             $("#input_username").keyup(function(){
 
                 var username = $(this).val().trim();
@@ -359,10 +449,12 @@
 
             $('.select2').select2()
 
-
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
+                $("#input_nik").val('');
+                $("#input_tanggal").val('');
+                $("#input_kelamin").val('');
                 $("#input_nama").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
@@ -375,6 +467,9 @@
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
+                $("#input_nik").val('');
+                $("#input_tanggal").val('');
+                $("#input_kelamin").val('');
                 $("#input_nama").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
@@ -387,6 +482,9 @@
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
+                $("#edit_nik").val('');
+                $("#edit_tanggal").val('');
+                $("#edit_kelamin").val('');
                 $("#edit_nama").val('');
                 $("#edit_username").val('');
                 $("#edit_password").val('');
@@ -396,48 +494,7 @@
                 $("#edit_status").prop('checked',false);
                 $("#edit_foto").val('');
             });
-        })
 
-        function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
-                function(json) {
-
-                    $('#edit_nama').val(json.nama_karyawan);
-                    $('#id_karyawan').val(json.id_karyawan);
-                    
-                    if(json.status_karyawan=='Aktif'){
-                        $("#edit_status").prop('checked',true);
-                    }else{
-                        $("#edit_status").prop('checked',false);
-                    }
-
-                    $('#edit_username').val(json.username_karyawan);
-                    $('#edit_no_telp').val(json.no_telp_karyawan);
-                    $('#edit_alamat').val(json.alamat_karyawan);
-                    $('#edit_foto').val(json.foto_karyawan);
-
-                });
-        }
-    </script>
-
-    
-    <script type="text/javascript">
-        $(function() {
-        $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        });
         });
     </script>
 </body>

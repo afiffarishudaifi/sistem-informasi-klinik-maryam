@@ -464,11 +464,11 @@
                     });
                     $('#edit_pasien').trigger('change');
 
-                    $('#edit_jadwal').append('<option selected value="' + json.id_jadwal + '">' + json.nama_hari + ', ' + json.nama_sesi +
+                    $('#edit_jadwal').append('<option selected value="' + json.id_jadwal + '">' + json.nama_hari +
                         '</option>');
                     $('#edit_jadwal').select2('data', {
                         id: json.id_jadwal,
-                        text: json.nama_hari + ', ' + json.nama_sesi
+                        text: json.nama_hari
                     });
                     $('#edit_jadwal').trigger('change');
                 });

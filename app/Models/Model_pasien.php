@@ -27,6 +27,7 @@ class Model_pasien extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
         $builder->where('id_pasien', $id);
+        $builder->join('user','user.id_user = pasien.id_user');
         return $builder->get();
     }
 
@@ -50,9 +51,9 @@ class Model_pasien extends Model
     public function cek_username($username)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pasien');
-        $builder->select('id_pasien');
-        $builder->where('username_pasien', $username);
+        $builder = $db->table('user');
+        $builder->select('id_user');
+        $builder->where('username', $username);
         return $builder->get();
     }
 

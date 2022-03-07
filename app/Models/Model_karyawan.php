@@ -13,7 +13,7 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select('karyawan.id_karyawan, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan');
+        $builder->select('id_karyawan, nama_karyawan, alamat_karyawan, no_telp_karyawan, status_karyawan');
         return $builder->get();
     }
 
@@ -27,7 +27,8 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select('karyawan.id_karyawan, karyawan.username_karyawan, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan');
+        $builder->select("karyawan.id_karyawan, user.id_user, username, nik, jenis_kelamin, tgl_lahir, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan");
+        $builder->join('user','user.id_user = karyawan.id_user');
         $builder->where('id_karyawan', $id);
         return $builder->get();
     }

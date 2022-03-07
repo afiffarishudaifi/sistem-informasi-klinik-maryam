@@ -13,9 +13,9 @@ class Model_laporanrawatjalan extends Model
     {
     	$db      = \Config\Database::connect();
         $builder = $db->table('pendaftaran_rawat_jalan');
-		$builder->select('id_pendaftaran, pasien.nama_pasien, poliklinik.nama_poli, tanggal_daftar, keluhan');
+		$builder->select('id_pendaftaran, pasien.nama_pasien, poli.nama_poli, tanggal_daftar, keluhan');
 		$builder->join('pasien','pasien.id_pasien = pendaftaran_rawat_jalan.id_pasien');
-		$builder->join('poliklinik','poliklinik.id_poli = pendaftaran_rawat_jalan.id_poli');
+		$builder->join('poli','poli.id_poli = pendaftaran_rawat_jalan.id_poli');
         if ($param['cek_waktu1']) $builder->where('tanggal_daftar >= ', $param['cek_waktu1']);
         if ($param['cek_waktu2']) $builder->where('tanggal_daftar <= ', $param['cek_waktu2']);
 

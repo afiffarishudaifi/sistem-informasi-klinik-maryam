@@ -440,16 +440,16 @@ class RawatInap extends BaseController
             $query = $postData['query'];
 
             // Fetch record
-            $builder->select('dokter.id_dokter, dokter.nama_dokter, dokter.id_poli, poliklinik.nama_poli');
-            $builder->join('poliklinik','poliklinik.id_poli = dokter.id_poli');
+            $builder->select('dokter.id_dokter, dokter.nama_dokter, dokter.id_poli, poli.nama_poli');
+            $builder->join('poli','poli.id_poli = dokter.id_poli');
             $builder->like('nama_dokter', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
             // Fetch record
-            $builder->select('dokter.id_dokter, dokter.nama_dokter, dokter.id_poli, poliklinik.nama_poli');
-            $builder->join('poliklinik','poliklinik.id_poli = dokter.id_poli');
+            $builder->select('dokter.id_dokter, dokter.nama_dokter, dokter.id_poli, poli.nama_poli');
+            $builder->join('poli','poli.id_poli = dokter.id_poli');
             $query = $builder->get();
             $data = $query->getResult();
         }
@@ -457,7 +457,7 @@ class RawatInap extends BaseController
         foreach ($data as $country) {
             $dokter[] = array(
                 "id" => $country->id_dokter,
-                "text" => $country->nama_dokter. ', poli ' . $country->nama_poli,
+                "text" => $country->nama_dokter. ' ' . $country->nama_poli,
             );
         }
 

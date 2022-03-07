@@ -24,10 +24,10 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
+                                <!-- <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
-                                </li>
+                                </li> -->
                             </ol>
                         </div>
                     </div>
@@ -68,9 +68,7 @@
                                                 <td><?= $item['saran_dokter']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pemeriksaan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pemeriksaan']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_pemeriksaan']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pendaftaran']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
                                                         </center>
                                                     </td>
                                             </tr>
@@ -153,13 +151,13 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pemeriksaan" id="id_pemeriksaan">
+                            <input type="hidden" name="id_pendaftaran" id="id_pendaftaran">
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Pendaftaran</label>
                                 <select class="form-control select2" id="edit_pendaftaran" name="edit_pendaftaran">
                                 </select>   
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>Hasil Pemeriksaan</label>
                                 <textarea class="form-control" id="edit_hasil" name="edit_hasil" placeholder="Masukkan hasil pemeriksaan"></textarea>
@@ -312,7 +310,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_rekam'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pemeriksaan').val(json.id_pemeriksaan);
+                    $('#id_pendaftaran').val(json.id_pendaftaran);
 
                     $('#edit_saran').val(json.saran_dokter);
                     $('#edit_pendaftaran').val(json.no_telp_dokter);
