@@ -165,6 +165,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_admin" id="id_admin">
+                            <input type="hidden" name="id_user" id="id_user">
 
                             <div class="form-group">
                                 <label>Nama Admin</label>
@@ -348,9 +349,10 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/Admin/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
+                    $('#id_user').val(json.id_user);
                     $('#id_admin').val(json.id_admin);
                     $('#edit_nama').val(json.nama_admin);
-                    $('#edit_username').val(json.username_admin);
+                    $('#edit_username').val(json.username);
                     $('#edit_alamat').val(json.alamat_admin);
                     $('#edit_no_telp').val(json.no_telp_admin);
                 });

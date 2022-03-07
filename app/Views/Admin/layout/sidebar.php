@@ -44,9 +44,8 @@ $session = session();
                     <a href="#" class="nav-link <?php
                             if (
                                 $uri->getSegment(2) == 'Admin' ||
-                                $uri->getSegment(2) == 'Dokter' || $uri->getSegment(2) == 'Hari' ||
-                                $uri->getSegment(2) == 'Jabatan' || $uri->getSegment(2) == 'JadwalDokter' ||
-                                $uri->getSegment(2) == 'Kamar' || $uri->getSegment(2) == 'Karyawan' || $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien' || $uri->getSegment(2) == 'Poliklinik' || $uri->getSegment(2) == 'Sesi'
+                                $uri->getSegment(2) == 'Dokter' || $uri->getSegment(2) == 'Hari' || $uri->getSegment(2) == 'JadwalDokter' ||
+                                $uri->getSegment(2) == 'Kamar' || $uri->getSegment(2) == 'Karyawan' || $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien' || $uri->getSegment(2) == 'Poliklinik'
                             ) {
                                 echo "active";
                             } ?>">
@@ -82,15 +81,6 @@ $session = session();
                             } ?>">
                                 <i class="fa fa-calendar nav-icon"></i>
                                 <p>Hari</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('Admin/Jabatan'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Jabatan') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-address-card nav-icon"></i>
-                                <p>Jabatan</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -145,15 +135,6 @@ $session = session();
                             } ?>">
                                 <i class="fa fa-medkit nav-icon"></i>
                                 <p>Poliklinik</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('Admin/Sesi'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Sesi') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-window-restore nav-icon"></i>
-                                <p>Sesi</p>
                             </a>
                         </li>
                     </ul>

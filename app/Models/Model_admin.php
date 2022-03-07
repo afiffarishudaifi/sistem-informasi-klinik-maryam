@@ -26,6 +26,8 @@ class Model_admin extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('admin');
+        $builder->select('id_admin, admin.id_user, nama_admin, alamat_admin, no_telp_admin, username');
+        $builder->join('user','user.id_user = admin.id_user');
         $builder->where('id_admin', $id);
         return $builder->get();
     }

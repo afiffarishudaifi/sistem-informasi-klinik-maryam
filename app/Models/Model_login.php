@@ -13,36 +13,37 @@ class Model_login extends Model
     public function loginAdmin($username)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('admin');
-        $query = $builder->where('username_admin', $username);
+        $builder = $db->table('user');
+        $query = $builder->join('admin', 'admin.id_user = user.id_user');
+        $query = $builder->where('username', $username);
+        $query = $builder->where('level', 'Admin');
         return $query->get();
     }
 
     public function loginPasien($username)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pasien');
-        $query = $builder->where('username_pasien', $username);
+        $builder = $db->table('user');
+        $query = $builder->where('username', $username);
+        $query = $builder->where('level', 'Pasien');
         return $query->get();
     }
 
     public function loginKaryawan($username)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('karyawan');
-        $query = $builder->where('username_karyawan', $username);
-        $query = $builder->join('jabatan','jabatan.id_jabatan = karyawan.id_jabatan');
-        $query = $builder->where('jabatan.nama_jabatan !=', 'Apoteker');
+        $builder = $db->table('user');
+        $query = $builder->where('username', $username);
+        $query = $builder->where('level', 'karyawan');
         return $query->get();
     }
 
     public function loginApoteker($username)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('karyawan');
-        $query = $builder->where('username_karyawan', $username);
-        $query = $builder->join('jabatan','jabatan.id_jabatan = karyawan.id_jabatan');
-        $query = $builder->where('jabatan.nama_jabatan =', 'Apoteker');
+        $builder = $db->table('user');
+        $query = $builder->where('username', $username);
+        $query = $builder->where('level', 'Apoteker');
         return $query->get();
     }
 

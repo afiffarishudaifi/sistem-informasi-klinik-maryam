@@ -186,7 +186,7 @@ class Dokter extends BaseController
         $data = array();
 
         $db      = \Config\Database::connect();
-        $builder = $this->db->table("poliklinik");
+        $builder = $this->db->table("poli");
 
         $poli = [];
 

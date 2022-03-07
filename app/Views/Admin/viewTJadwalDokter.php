@@ -50,7 +50,6 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Hari</th>
-                                                <th>Sesi</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Status Jadwal</th>
                                                 <th>Aksi</th>
@@ -64,7 +63,6 @@
                                                 <tr>
                                                     <td width="1%"><?= $no++; ?></td>
                                                     <td><?= $item['nama_hari']; ?></td>
-                                                    <td><?= $item['nama_sesi']; ?></td>
                                                     <td><?= $item['nama_dokter']; ?></td>
                                                     <td><?= $item['status_jadwal']; ?></td>
                                                     <td>
@@ -111,11 +109,6 @@
                             <div class="form-group">
                                 <label>Hari</label>
                                 <select class="form-control select2" id="input_hari" name="input_hari">
-                                </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Sesi</label>
-                                <select class="form-control select2" id="input_sesi" name="input_sesi">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -166,11 +159,6 @@
                             <div class="form-group">
                                 <label>Hari</label>
                                 <select class="form-control select2" name="edit_hari" id="edit_hari">
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Sesi</label>
-                                <select class="form-control select2" name="edit_sesi" id="edit_sesi">
                                 </select>
                             </div>
                             <div class="form-group">
@@ -301,49 +289,6 @@
             });
 
             
-            $("#input_sesi").select2({
-                placeholder: "Pilih Sesi",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/JadwalDokter/data_sesi'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#edit_sesi").select2({
-                placeholder: "Pilih Sesi",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/JadwalDokter/data_sesi'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
 
             $("#input_dokter").select2({
                 placeholder: "Pilih Dokter",
@@ -395,7 +340,6 @@
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_hari").val('');
-                $("#input_sesi").val('');
                 $("#input_dokter").val('');
                 $("#input_status").prop('checked',false);
             });
@@ -403,7 +347,6 @@
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_hari").val('');
-                $("#input_sesi").val('');
                 $("#input_dokter").val('');
                 $("#input_status").prop('checked',false);
             });
@@ -411,7 +354,6 @@
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_hari").val('');
-                $("#edit_sesi").val('');
                 $("#edit_dokter").val('');
                 $("#edit_status").prop('checked',false);
             });
@@ -435,14 +377,6 @@
                         text: json.nama_hari
                     });
                     $('#edit_hari').trigger('change');
-
-                    $('#edit_sesi').append('<option selected value="' + json.id_sesi + '">' + json.nama_sesi +
-                        '</option>');
-                    $('#edit_sesi').select2('data', {
-                        id: json.id_sesi,
-                        text: json.nama_sesi
-                    });
-                    $('#edit_sesi').trigger('change');
 
                     $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter +
                         '</option>');

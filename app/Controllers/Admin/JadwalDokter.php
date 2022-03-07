@@ -38,7 +38,6 @@ class JadwalDokter extends BaseController
         
         $data = array(
             'id_hari'     => $this->request->getPost('input_hari'),
-            'id_sesi'     => $this->request->getPost('input_sesi'),
             'id_dokter' => $this->request->getPost('input_dokter'),
             'status_jadwal' => $this->request->getPost('input_status')
         );
@@ -64,7 +63,6 @@ class JadwalDokter extends BaseController
         $id = $this->request->getPost('id_jadwal');
         $data = array(
             'id_hari'     => $this->request->getPost('edit_hari'),
-            'id_sesi'     => $this->request->getPost('edit_sesi'),
             'id_dokter'     => $this->request->getPost('edit_dokter'),
             'status_jadwal'     => $status,
             'updated_at' => date('Y-m-d H:i:s')
@@ -99,10 +97,6 @@ class JadwalDokter extends BaseController
         foreach ($respon as $value) :
             $isi['id_jadwal'] = $value['id_jadwal'];
             $isi['id_hari'] = $value['id_hari'];
-            $isi['id_sesi'] = $value['id_sesi'];
-            $isi['nama_sesi'] = $value['nama_sesi'];
-            $isi['nama_sesi'] = $value['nama_sesi'];
-            $isi['nama_sesi'] = $value['nama_sesi'];
             $isi['id_dokter'] = $value['id_dokter'];
             $isi['nama_hari'] = $value['nama_hari'];
             $isi['nama_dokter'] = $value['nama_dokter'];

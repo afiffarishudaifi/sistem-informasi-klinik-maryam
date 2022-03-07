@@ -54,9 +54,8 @@ class Karyawan extends BaseController
         }
 
         $data = array(
-            'id_jabatan'     => $this->request->getPost('input_jabatan'),
-            'username_karyawan'     => $this->request->getPost('input_username'),
-            'password_karyawan'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
+            'username'     => $this->request->getPost('input_username'),
+            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
             'nama_karyawan'     => $this->request->getPost('input_nama'),
             'no_telp_karyawan'     => $this->request->getPost('input_no_telp'),
             'alamat_karyawan'     => $this->request->getPost('input_alamat'),
@@ -91,9 +90,8 @@ class Karyawan extends BaseController
 
             if($this->request->getPost('edit_password') != '') {
                 $data = array(
-                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
-                    'username_karyawan'  => $this->request->getPost('edit_username'),
-                    'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                    'username'  => $this->request->getPost('edit_username'),
+                    'password'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -103,8 +101,7 @@ class Karyawan extends BaseController
                 );
             } else {
                 $data = array(
-                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
-                    'username_karyawan'  => $this->request->getPost('edit_username'),
+                    'username'  => $this->request->getPost('edit_username'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -127,9 +124,8 @@ class Karyawan extends BaseController
 
             if($this->request->getPost('edit_password') != '') {
                 $data = array(
-                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
-                    'username_karyawan'  => $this->request->getPost('edit_username'),
-                    'password_karyawan'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                    'username'  => $this->request->getPost('edit_username'),
+                    'password'   => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -138,8 +134,7 @@ class Karyawan extends BaseController
                 );
             } else {
                 $data = array(
-                    'id_jabatan'     => $this->request->getPost('edit_jabatan'),
-                    'username_karyawan'  => $this->request->getPost('edit_username'),
+                    'username'  => $this->request->getPost('edit_username'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
@@ -188,9 +183,7 @@ class Karyawan extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_karyawan'] = $value['id_karyawan'];
-            $isi['id_jabatan'] = $value['id_jabatan'];
-            $isi['nama_jabatan'] = $value['nama_jabatan'];
-            $isi['username_karyawan'] = $value['username_karyawan'];
+            $isi['username'] = $value['username'];
             $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];

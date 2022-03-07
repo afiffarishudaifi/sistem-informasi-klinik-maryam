@@ -13,14 +13,14 @@ class Model_dokter extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('dokter');
-        $builder->join('poliklinik', 'poliklinik.id_poli = dokter.id_poli');
+        $builder->join('poli', 'poli.id_poli = dokter.id_poli');
         return $builder->get();
     }
     
     public function view_poli()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('poliklinik');
+        $builder = $db->table('poli');
         return $builder->get();
     }
 
@@ -34,8 +34,8 @@ class Model_dokter extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('dokter');
-        $builder->select('dokter.id_dokter, dokter.id_poli, dokter.nama_dokter, dokter.alamat_dokter, dokter.no_telp_dokter, dokter.status_dokter, dokter.foto_dokter, poliklinik.nama_poli');
-        $builder->join('poliklinik', 'poliklinik.id_poli = dokter.id_poli');
+        $builder->select('dokter.id_dokter, dokter.id_poli, dokter.nama_dokter, dokter.alamat_dokter, dokter.no_telp_dokter, dokter.status_dokter, dokter.foto_dokter, poli.nama_poli');
+        $builder->join('poli', 'poli.id_poli = dokter.id_poli');
         $builder->where('id_dokter', $id);
         return $builder->get();
     }

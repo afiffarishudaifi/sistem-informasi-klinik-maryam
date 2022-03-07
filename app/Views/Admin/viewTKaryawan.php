@@ -50,7 +50,6 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Karyawan</th>
-                                                <th>Jabatan Karyawan</th>
                                                 <th>No Telp</th>
                                                 <th>Status Karyawan</th>
                                                 <th>Status Karyawan</th>
@@ -65,7 +64,6 @@
                                                 <tr>
                                                     <td width="1%"><?= $no++; ?></td>
                                                     <td><?= $item['nama_karyawan']; ?></td>
-                                                    <td><?= $item['nama_jabatan']; ?></td>
                                                     <td><?= $item['no_telp_karyawan']; ?></td>
                                                     <td><?= $item['status_karyawan']; ?></td>
                                                     <td><?= $item['status_karyawan']; ?></td>
@@ -114,12 +112,6 @@
                                 <label>Nama Karyawan</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Jabatan</label>
-                                <select class="form-control select2" id="input_jabatan" name="input_jabatan">
-                                </select>   
                             </div>
 
                             <div class="form-group">
@@ -203,12 +195,6 @@
                                 <label>Nama Karyawan</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Jabatan</label>
-                                <select class="form-control select2" name="edit_jabatan" id="edit_jabatan">
-                                </select>
                             </div>
 
                             <div class="form-group">
@@ -373,55 +359,11 @@
 
             $('.select2').select2()
 
-            $("#input_jabatan").select2({
-                placeholder: "Pilih Jabatan",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/Karyawan/data_jabatan'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#edit_jabatan").select2({
-                placeholder: "Pilih Jabatan",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/Karyawan/data_jabatan'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nama").val('');
-                $("#input_jabatan").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
@@ -434,7 +376,6 @@
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nama").val('');
-                $("#input_jabatan").val('');
                 $("#input_username").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
@@ -447,7 +388,6 @@
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nama").val('');
-                $("#edit_jabatan").val('');
                 $("#edit_username").val('');
                 $("#edit_password").val('');
                 $("#edit_password_konfirmasi").val('');
@@ -463,13 +403,6 @@
                 function(json) {
 
                     $('#edit_nama').val(json.nama_karyawan);
-                    $('#edit_jabatan').append('<option selected value="' + json.id_jabatan + '">' + json.nama_jabatan +
-                        '</option>');
-                    $('#edit_jabatan').select2('data', {
-                        id: json.id_jabatan,
-                        text: json.nama_jabatan
-                    });
-                    $('#edit_jabatan').trigger('change');
                     $('#id_karyawan').val(json.id_karyawan);
                     
                     if(json.status_karyawan=='Aktif'){
@@ -478,15 +411,11 @@
                         $("#edit_status").prop('checked',false);
                     }
 
-                   
                     $('#edit_username').val(json.username_karyawan);
                     $('#edit_no_telp').val(json.no_telp_karyawan);
                     $('#edit_alamat').val(json.alamat_karyawan);
                     $('#edit_foto').val(json.foto_karyawan);
 
-                    
-                   
-                    
                 });
         }
     </script>
