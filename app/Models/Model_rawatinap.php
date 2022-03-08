@@ -104,11 +104,11 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('rekam_medis_inap');
-        $builder->select("rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, DATE_FORMAT(rekam_medis_inap.waktu_rekam, '%Y-%m-%dT%H:%i') as waktu_rekam, pasien.nama_pasien, dokter.nama_dokter, poliklinik.nama_poli");
+        $builder->select("rekam_medis_inap.id_rekam_inap, rekam_medis_inap.hasil_pemeriksaan, rekam_medis_inap.saran_dokter, rekam_medis_inap.tensi, rekam_medis_inap.id_pasien, rekam_medis_inap.id_dokter, DATE_FORMAT(rekam_medis_inap.waktu_rekam, '%Y-%m-%dT%H:%i') as waktu_rekam, pasien.nama_pasien, dokter.nama_dokter, poli.nama_poli");
         $builder->join('dokter','dokter.id_dokter = rekam_medis_inap.id_dokter');
         $builder->join('jadwal_dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
         $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
-        $builder->join('poliklinik','poliklinik.id_poli = dokter.id_poli');
+        $builder->join('poli','poli.id_poli = dokter.id_poli');
         $builder->where('id_rekam_inap', $id);
         return $builder->get();
     }
@@ -135,13 +135,12 @@ class Model_rawatinap extends Model
     public function view_data_resep()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('resep_inap');
-        $builder->select('resep_inap.id_resep_inap, rekam_medis_inap.id_pasien, resep_inap.id_rekam_inap, rekam_medis_inap.id_dokter, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_inap.created_at, sum(detail_resep_inap.total_biaya) as tagihan_obat');
-        $builder->join('rekam_medis_inap','rekam_medis_inap.id_rekam_inap =resep_inap.id_rekam_inap');
+        $builder = $db->table('rekam_medis_inap');
+        $builder->select('rekam_medis_inap.id_rekam_inap, rekam_medis_inap.id_pasien, rekam_medis_inap.id_rekam_inap, rekam_medis_inap.id_dokter, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_inap.created_at, sum(detail_resep_inap.total_biaya) as tagihan_obat');
         $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
         $builder->join('dokter','rekam_medis_inap.id_dokter = dokter.id_dokter');
-        $builder->join('detail_resep_inap', 'resep_inap.id_resep_inap = detail_resep_inap.id_resep_inap','left');
-        $builder->groupBy("resep_inap.id_resep_inap");
+        $builder->join('detail_resep_inap', 'rekam_medis_inap.id_rekam_inap = detail_resep_inap.id_rekam_inap','left');
+        $builder->groupBy("rekam_medis_inap.id_rekam_inap");
         return $builder->get();
     }
 
@@ -155,12 +154,12 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('resep_inap');
-        $builder->select('resep_inap.id_resep_inap, rekam_medis_inap.id_pasien, resep_inap.id_rekam_inap, rekam_medis_inap.id_dokter, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_inap.created_at');
+        $builder->select('resep_inap.id_rekam_inap, rekam_medis_inap.id_pasien, resep_inap.id_rekam_inap, rekam_medis_inap.id_dokter, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_inap.created_at');
         $builder->join('rekam_medis_inap','rekam_medis_inap.id_rekam_inap =resep_inap.id_rekam_inap');
         $builder->join('pasien','rekam_medis_inap.id_pasien = pasien.id_pasien');
         $builder->join('dokter','rekam_medis_inap.id_dokter = dokter.id_dokter');
-        $builder->join('poliklinik','dokter.id_poli = poliklinik.id_poli');
-        $builder->where('id_resep_inap', $id);
+        $builder->join('poli','dokter.id_poli = poli.id_poli');
+        $builder->where('id_rekam_inap', $id);
         return $builder->get();
     }
 
@@ -168,7 +167,7 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('resep_inap');
-        $builder->where('id_resep_inap', $id);
+        $builder->where('id_rekam_inap', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -177,7 +176,7 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('resep_inap');
-        $builder->where('id_resep_inap', $id);
+        $builder->where('id_rekam_inap', $id);
         return $builder->delete();
     }
 
@@ -185,9 +184,9 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_resep_inap');
-        $builder->select('detail_resep_inap.id_detail, detail_resep_inap.id_resep_inap, detail_resep_inap.id_obat, obat.nama_obat, detail_resep_inap.jumlah_obat, detail_resep_inap.total_biaya');
+        $builder->select('detail_resep_inap.id_detail, detail_resep_inap.id_rekam_inap, detail_resep_inap.id_obat, obat.nama_obat, detail_resep_inap.jumlah_obat, detail_resep_inap.total_biaya');
         $builder->join('obat','detail_resep_inap.id_obat = obat.id_obat');
-        $builder->where('detail_resep_inap.id_resep_inap', $id);
+        $builder->where('detail_resep_inap.id_rekam_inap', $id);
         return $builder->get();
     }
 
@@ -210,7 +209,7 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_resep_inap');
-        $builder->select('id_detail, detail_resep_inap.id_obat, obat.nama_obat, detail_resep_inap.jumlah_obat, total_biaya, id_resep_inap');
+        $builder->select('id_detail, detail_resep_inap.id_obat, obat.nama_obat, detail_resep_inap.jumlah_obat, total_biaya, id_rekam_inap');
         $builder->join('obat','obat.id_obat = detail_resep_inap.id_obat');
         $builder->where('id_detail', $id);
         return $builder->get();

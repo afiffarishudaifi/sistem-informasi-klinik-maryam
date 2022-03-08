@@ -109,10 +109,10 @@ class LaporanRekamInap extends BaseController
         $data = [
             'judul' => 'Laporan Rekam Medis Rawat Inap'
         ];
-        return view('Admin/viewRekamMedisInap', $data);
+        return view('Admin/viewLaporanRekamInap', $data);
     }
 
-    public function data($tanggal = null, $pasien = null, $dokter = null)
+    public function data($tanggal = null, $pasien = null)
     {
         $session = session();
 
@@ -124,12 +124,6 @@ class LaporanRekamInap extends BaseController
             $param['id_pasien'] = $pasien;
         } else {
             $param['id_pasien'] = null;
-        }
-
-        if ($dokter != 'null') {
-            $param['id_dokter'] = $dokter;
-        } else {
-            $param['id_dokter'] = null;
         }
 
         $model = new Model_laporanrekammedis();

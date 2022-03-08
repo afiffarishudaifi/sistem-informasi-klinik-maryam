@@ -65,7 +65,7 @@
                                                 <td>
                                                     <center>
                                                         <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_resep_inap']; ?>)" data-toggle="modal"
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_rekam_inap']; ?>)" data-toggle="modal"
                                                             data-target="#deleteModal" data-id="<?= $item['id_detail']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <input type="hidden" name="id_resep_inap" id="id_resep_inap" value="<?= $id_resep; ?>">
+                            <input type="hidden" name="id_rekam_inap" id="id_rekam_inap" value="<?= $id_rekam_inap; ?>">
                             <div class="form-group">
                                 <label>Obat</label>
                                 <select class="form-control select2" id="input_obat" name="input_obat">
@@ -214,7 +214,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
-                            <input type="hidden" name="id_resep_inap" class="id_resep_inap">
+                            <input type="hidden" name="id_rekam_inap" class="id_rekam_inap">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -238,9 +238,9 @@
     <?= $this->include("Admin/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id, id_resep){
+        function Hapus(id, id_rekam_inap){
             $('.id').val(id);
-            $('.id_resep_inap').val(id_resep);
+            $('.id_rekam_inap').val(id_rekam_inap);
             $('#deleteModal').modal('show');
         };
 
@@ -357,7 +357,7 @@
             $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit_detail_resep'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id_detail);
-                    $('#edit_resep').val(json.id_resep_inap);
+                    $('#edit_resep').val(json.id_rekam_inap);
                     $('#edit_harga').val(json.harga_obat);
                     $('#edit_jumlah').val(json.jumlah_obat);
                     $('#old_jumlah').val(json.jumlah_obat);

@@ -66,10 +66,10 @@ class LaporanRekamJalan extends BaseController
         $data = [
             'judul' => 'Laporan Rekam Medis Rawat Jalan'
         ];
-        return view('Admin/viewRekamMedisJalan', $data);
+        return view('Admin/viewLaporanRekamJalan', $data);
     }
 
-    public function data($tanggal = null, $pasien = null, $dokter = null)
+    public function data($tanggal = null, $pasien = null)
     {
         $session = session();
 
@@ -81,12 +81,6 @@ class LaporanRekamJalan extends BaseController
             $param['id_pasien'] = $pasien;
         } else {
             $param['id_pasien'] = null;
-        }
-
-        if ($dokter != 'null') {
-            $param['id_dokter'] = $dokter;
-        } else {
-            $param['id_dokter'] = null;
         }
 
         $model = new Model_laporanrekammedis();

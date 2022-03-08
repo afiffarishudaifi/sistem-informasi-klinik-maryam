@@ -24,10 +24,10 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
+                               <!--  <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
-                                </li>
+                                </li> -->
                             </ol>
                         </div>
                     </div>
@@ -74,10 +74,10 @@
                                                 <td><?= $item['created_at']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Admin/RawatInap/detailResep') . '/' . $item['id_resep_inap']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep_inap']; ?>)" data-toggle="modal"
-                                                            data-target="#deleteModal" data-id="<?= $item['id_resep_inap']; ?>">Hapus</a>
+                                                        <a href="<?= base_url('Admin/RawatInap/detailResep') . '/' . $item['id_rekam_inap']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_rekam_inap']; ?>)" data-toggle="modal"
+                                                            data-target="#deleteModal" data-id="<?= $item['id_rekam_inap']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
                                             </tr>
@@ -147,7 +147,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_resep_inap" id="id_resep_inap">
+                            <input type="hidden" name="id_rekam_inap" id="id_rekam_inap">
 
                             <div class="form-group">
                                 <label>Pemeriksaan</label>
@@ -289,7 +289,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit_resep'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_resep_inap').val(json.id_resep);
+                    $('#id_rekam_inap').val(json.id_rekam_inap);
 
                     $('#edit_rekam_inap').append('<option selected value="' + json.id_rekam_inap + '">' + json.created_at + " pasien " + json.nama_pasien +
                         '</option>');

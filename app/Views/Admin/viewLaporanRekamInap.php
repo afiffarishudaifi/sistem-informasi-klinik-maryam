@@ -103,7 +103,7 @@
 
     <script>
         function ganti(poli) {
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRekamJalan/data/' + $('#tanggal').val() + '/' + poli).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRekamInap/data/' + $('#tanggal').val() + '/' + poli).load();
         };
 
 	    $(function() {
@@ -119,7 +119,7 @@
                 placeholder: "Pilih Pasien",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?= base_url('Admin/LaporanRekamJalan/data_pasien'); ?>',
+                    url: '<?= base_url('Admin/LaporanRekamInap/data_pasien'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -139,11 +139,11 @@
 
 	        $('#tanggal').on('apply.daterangepicker', function(ev, picker) {
 	            var tanggal = picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY');
-	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRekamJalan/data/' + tanggal).load();
+	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRekamInap/data/' + tanggal).load();
 	        });
 	        $("#btn_reset").click(function (e) {
 	            $("#input_pasien").val('').trigger('change')
-            	$('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRekamJalan/data/' + $('#tanggal').val() + '/' + $("#input_pasien").val()).load();
+            	$('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanRekamInap/data/' + $('#tanggal').val() + '/' + $("#input_pasien").val()).load();
 	        });
 
 	        $(".table").DataTable({
@@ -151,7 +151,7 @@
 		        "autoWidth": true,
 		        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "ajax": {
-                    "url": "<?= base_url() ?>/Admin/LaporanRekamJalan/data/" + $('#tanggal').val() + '/' + $('#input_pasien').val(),
+                    "url": "<?= base_url() ?>/Admin/LaporanRekamInap/data/" + $('#tanggal').val() + '/' + $('#input_pasien').val(),
                     "dataSrc": ""
                 },
                 "columns": [{
