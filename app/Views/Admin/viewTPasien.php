@@ -92,7 +92,7 @@
 
         <!-- Start Modal Add Class-->
         <form action="<?php echo base_url('Admin/Pasien/add_pasien'); ?>" method="post" id="form_add"
-            data-parsley-validate="true" autocomplete="off">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -178,7 +178,7 @@
 
         <!-- Modal Edit Class-->
         <form action="<?php echo base_url('Admin/Pasien/update_pasien'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true" autocomplete="off">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -471,7 +471,6 @@
                     $('#edit_alamat').val(json.alamat_pasien);
                     $('#edit_no_telp').val(json.no_telp_pasien);
                     $('#edit_tanggal').val(json.tgl_lahir);
-                    // $('#edit_kelamin').val(json.jenis_kelamin);
                     $('#edit_agama').val(json.agama);
                     if(json.jenis_kelamin == 'Perempuan'){
                         document.getElementById("edit_kelamin").selectedIndex = 1;

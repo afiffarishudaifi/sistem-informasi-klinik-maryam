@@ -42,6 +42,7 @@ class Karyawan extends BaseController
 
         $data = array(
             'username'     => $this->request->getPost('input_username'),
+            'level'     => $this->request->getPost('input_level'),
             'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
             'level'     => 'Karyawan'
         );
@@ -174,11 +175,13 @@ class Karyawan extends BaseController
         if ($password != '') {
             $data = array(
                 'username'     => $this->request->getPost('edit_username'),
+                'level'     => $this->request->getPost('edit_level'),
                 'password'     => base64_encode($encrypter->encrypt($this->request->getPost('edit_password')))
             );
         } else {
             $data = array(
-                'username'     => $this->request->getPost('edit_username')
+                'username'     => $this->request->getPost('edit_username'),
+                'level'     => $this->request->getPost('edit_level')
             );
         }
         
@@ -193,6 +196,7 @@ class Karyawan extends BaseController
         $session = session();
         $model = new Model_karyawan();
         $id = $this->request->getPost('id');
+        $id_user = $this->request->getPost('id_user');
         // $foreign = $model->cek_foreign($id);
         // if ($foreign == 0) {
             $data_foto = $model->detail_data($id)->getRowArray();
@@ -205,6 +209,9 @@ class Karyawan extends BaseController
                 }
             }
             $model->delete_data($id);
+            
+            $modeluser = new Model_user();
+            $modeluser->delete_data($id_user);
             session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
         // } else {
         //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
@@ -230,6 +237,7 @@ class Karyawan extends BaseController
             $isi['nik'] = $value['nik'];
             $isi['jenis_kelamin'] = $value['jenis_kelamin'];
             $isi['tgl_lahir'] = $value['tgl_lahir'];
+            $isi['level'] = $value['level'];
         endforeach;
         echo json_encode($isi);
     }

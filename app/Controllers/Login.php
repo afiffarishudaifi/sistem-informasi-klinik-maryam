@@ -140,7 +140,7 @@ class Login extends BaseController
                     $data = $model->loginApoteker($username)->getRowArray();
 
                     if ($data) {
-                        $pass = $data['password_karyawan'];
+                        $pass = $data['password'];
                         $status = 'Apoteker';
                         $verify_pass =  $encrypter->decrypt(base64_decode($pass));
                         if ($verify_pass == $password) {
@@ -168,7 +168,7 @@ class Login extends BaseController
             $data = $model->loginKaryawan($username)->getRowArray();
 
             if ($data) {
-                $pass = $data['password_karyawan'];
+                $pass = $data['password'];
                 $status = 'Karyawan';
                 $verify_pass =  $encrypter->decrypt(base64_decode($pass));
                 if ($verify_pass == $password) {

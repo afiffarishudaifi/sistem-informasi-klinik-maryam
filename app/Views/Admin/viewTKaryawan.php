@@ -70,7 +70,7 @@
                                                     <td>
                                                         <center>
                                                             <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_karyawan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_karyawan']; ?>)" data-toggle="modal"
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_karyawan']; ?>,<?= $item['id_user']; ?>)" data-toggle="modal"
                                                                 data-target="#deleteModal" data-id="<?= $item['id_karyawan']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
@@ -94,7 +94,7 @@
 
         <!-- Start Modal Add Class-->
         <form action="<?php echo base_url('Admin/Karyawan/add_karyawan'); ?>" method="post" id="form_add"
-            data-parsley-validate="true" autocomplete="off">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -160,6 +160,14 @@
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label>Level</label>
+                                <select class="form-control" id="input_level" name="input_level">
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Apoteker">Apoteker</option>
+                                </select>
+                            </div>
                             
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
@@ -197,7 +205,7 @@
 
         <!-- Modal Edit Class-->
         <form action="<?php echo base_url('Admin/Karyawan/update_karyawan'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true" autocomplete="off">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -261,6 +269,14 @@
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label>Level</label>
+                                <select class="form-control" id="edit_level" name="edit_level">
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Apoteker">Apoteker</option>
+                                </select>
+                            </div>
                             
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
@@ -274,6 +290,14 @@
                                         <input type="checkbox" id="edit_status" name="edit_status"
                                             value="Aktif"> &nbsp Aktif
                                     </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <center>
+                                        <img id="foto_lama" style="width: 120px; height: 160px;" src="">
+                                    </center>
                                 </div>
                             </div>
 
@@ -314,6 +338,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="id_user" class="id_user">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -337,8 +362,9 @@
     <?= $this->include("Admin/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id){
+        function Hapus(id, id_user){
             $('.id').val(id);
+            $('.id_user').val(id_user);
             $('#deleteModal').modal('show');
         };
         
@@ -356,6 +382,19 @@
                     $('#edit_nama').val(json.nama_karyawan);
                     $('#id_karyawan').val(json.id_karyawan);
                     $('#id_user').val(json.id_user);
+                    $('#edit_tanggal').val(json.tgl_lahir);
+
+                    if(json.jenis_kelamin == 'Perempuan'){
+                        document.getElementById("edit_kelamin").selectedIndex = 1;
+                    }else{
+                        document.getElementById("edit_kelamin").selectedIndex = 0;
+                    }
+
+                    if(json.level == 'Apoteker'){
+                        document.getElementById("edit_level").selectedIndex = 1;
+                    }else{
+                        document.getElementById("edit_level").selectedIndex = 0;
+                    }
                     
                     if(json.status_karyawan=='Aktif'){
                         $("#edit_status").prop('checked',true);
@@ -366,15 +405,13 @@
                     $('#edit_username').val(json.username);
                     $('#edit_nik').val(json.nik);
                     $('#edit_no_telp').val(json.no_telp_karyawan);
-                    $('#edit_alamat').val(json.alamat_karyawan);
-                    $('#edit_foto').val(json.foto_karyawan);
-                    $('#edit_tanggal').val(json.tgl_lahir);
-
-                    if(json.jenis_kelamin == 'Perempuan'){
-                        document.getElementById("edit_kelamin").selectedIndex = 1;
-                    }else{
-                        document.getElementById("edit_kelamin").selectedIndex = 0;
+                    $('#edit_alamat').val(json.alamat_karyawan);                    
+                    if (json.foto_karyawan != 'n') {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + json.foto_karyawan);
+                    } else {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "/docs/img/img_karyawan/noimage.jpg");
                     }
+                    
                 });
         }
     </script>

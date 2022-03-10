@@ -42,6 +42,8 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
+        $query = $builder->select('id_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, username');
+        $query = $builder->join('karyawan', 'karyawan.id_user = user.id_user');
         $query = $builder->where('username', $username);
         $query = $builder->where('level', 'Apoteker');
         return $query->get();

@@ -209,6 +209,14 @@
                             </div>
 
                             <div class="form-group">
+                                <div class="col-md-12">
+                                    <center>
+                                        <img id="foto_lama" style="width: 120px; height: 160px;" src="">
+                                    </center>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Foto Dokter</label>
                                 <br>
                                 <input type="file" id="input_foto" class="dropify-event" name="input_foto" accept="image/png, image/gif, image/jpeg"/>
@@ -384,6 +392,12 @@
                         text: json.nama_poli
                     });
                     $('#edit_poli').trigger('change');
+
+                    if (json.foto_dokter != 'n') {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + json.foto_dokter);
+                    } else {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "/docs/img/img_karyawan/noimage.jpg");
+                    }
                 });
         }
         
