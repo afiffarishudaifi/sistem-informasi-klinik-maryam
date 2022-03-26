@@ -4,37 +4,37 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Model_hari extends Model
+class Model_kategori extends Model
 {
-    protected $table = 'hari';
-    protected $primaryKey = 'id_hari';
+    protected $table = 'kategori_obat';
+    protected $primaryKey = 'id_kategori';
 
     public function view_data()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('hari');
+        $builder = $db->table('kategori_obat');
         return $builder->get();
     }
 
     public function add_data($data)
     {
-        $query = $this->db->table('hari')->insert($data);
+        $query = $this->db->table('kategori_obat')->insert($data);
         return $query;
     }
 
     public function detail_data($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('hari');
-        $builder->where('id_hari', $id);
+        $builder = $db->table('kategori_obat');
+        $builder->where('id_kategori', $id);
         return $builder->get();
     }
 
     public function update_data($data, $id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('hari');
-        $builder->where('id_hari', $id);
+        $builder = $db->table('kategori_obat');
+        $builder->where('id_kategori', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -42,26 +42,26 @@ class Model_hari extends Model
     public function delete_data($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('hari');
-        $builder->where('id_hari', $id);
+        $builder = $db->table('kategori_obat');
+        $builder->where('id_kategori', $id);
         return $builder->delete();
     }
 
     public function cek_nama($nama)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('hari');
-        $builder->select('id_hari');
-        $builder->where('nama_hari', $nama);
+        $builder = $db->table('kategori_obat');
+        $builder->select('id_kategori');
+        $builder->where('nama_kategori', $nama);
         return $builder->get();
     }
 
     public function cek_foreign($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('hari');
-        $builder->join('jadwal_dokter', 'jadwal_dokter.id_hari = hari.id_hari');
-        $builder->where('hari.id_hari', $id);
+        $builder = $db->table('kategori_obat');
+        $builder->join('obat', 'obat.id_kategori = kategori_obat.id_kategori');
+        $builder->where('kategori_obat.id_kategori', $id);
         return $builder->countAllResults();
     }
 }

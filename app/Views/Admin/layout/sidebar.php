@@ -43,9 +43,8 @@ $session = session();
                 <li class="nav-item">
                     <a href="#" class="nav-link <?php
                             if (
-                                $uri->getSegment(2) == 'Admin' ||
-                                $uri->getSegment(2) == 'Dokter' || $uri->getSegment(2) == 'Hari' || $uri->getSegment(2) == 'JadwalDokter' ||
-                                $uri->getSegment(2) == 'Kamar' || $uri->getSegment(2) == 'Karyawan' || $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien' || $uri->getSegment(2) == 'Poliklinik'
+                                $uri->getSegment(2) == 'Admin' || $uri->getSegment(2) == 'Kategori' || $uri->getSegment(2) == 'Penyakit' ||
+                                $uri->getSegment(2) == 'Dokter' || $uri->getSegment(2) == 'Kamar' || $uri->getSegment(2) == 'Karyawan' || $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien' || $uri->getSegment(2) == 'Poliklinik'
                             ) {
                                 echo "active";
                             } ?>">
@@ -75,24 +74,6 @@ $session = session();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Hari'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Hari') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-calendar nav-icon"></i>
-                                <p>Hari</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('Admin/JadwalDokter'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'JadwalDokter') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-clock nav-icon"></i>
-                                <p>Jadwal Dokter</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?= base_url('Admin/Kamar'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Kamar') {
                                 echo "active";
@@ -108,6 +89,15 @@ $session = session();
                             } ?>">
                                 <i class="fa fa-users nav-icon"></i>
                                 <p>Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Admin/Kategori'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Kategori') {
+                                echo "active";
+                            } ?>">
+                                <i class="fa fa-asterisk nav-icon"></i>
+                                <p>Kategori Obat</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -135,6 +125,15 @@ $session = session();
                             } ?>">
                                 <i class="fa fa-medkit nav-icon"></i>
                                 <p>Poliklinik</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Admin/Penyakit'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Penyakit') {
+                                echo "active";
+                            } ?>">
+                                <i class="fa fa-medkit nav-icon"></i>
+                                <p>Penyakit</p>
                             </a>
                         </li>
                     </ul>

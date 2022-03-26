@@ -47,12 +47,12 @@ class Model_kamar extends Model
         return $builder->delete();
     }
 
-    public function cek_nomor($nomor)
+    public function cek_nama($nama)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
         $builder->select('id_kamar');
-        $builder->where('no_kamar', $nomor);
+        $builder->where('nama_kamar', $nama);
         return $builder->get();
     }
 
@@ -60,7 +60,7 @@ class Model_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->join('pendaftaran_inap', 'pendaftaran_inap.id_kamar = kamar.id_kamar');
+        $builder->join('rawat_inap', 'rawat_inap.id_kamar = kamar.id_kamar');
         $builder->where('kamar.id_kamar', $id);
         return $builder->countAllResults();
     }

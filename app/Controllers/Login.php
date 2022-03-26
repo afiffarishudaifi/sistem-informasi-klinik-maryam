@@ -3,9 +3,91 @@
 namespace App\Controllers;
 use App\Models\Model_login;
 use App\Models\Model_pasien;
+use App\Models\Model_user;
 
 class Login extends BaseController
 {
+    // start google
+
+    private $loginModel=NULL;
+	private $googleClient=NULL;
+	function __construct(){
+		require_once APPPATH. "libraries/vendor/autoload.php";
+		$this->loginModel = new Model_login();
+		$this->googleClient = new \Google_Client();
+		$this->googleClient->setClientId("913013352146-6d8ktufmiaobgjj56pcrqrn9m9v871lc.apps.googleusercontent.com");
+		$this->googleClient->setClientSecret("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");
+		$this->googleClient->setRedirectUri("http://localhost:8080/sistem-informasi-klinik-maryam/Login/loginWithGoogle");
+		$this->googleClient->addScope("email");
+		$this->googleClient->addScope("profile");
+
+    }
+
+	public function loginWithGoogle()
+	{
+        $session = session();
+        $model = new Model_login();
+        $max = $model->cek_max()->getRowArray()['id_user'];
+        $max = $max + 1;
+
+		$token = $this->googleClient->fetchAccessTokenWithAuthCode($this->request->getVar('code'));
+		if(!isset($token['error'])){
+			$this->googleClient->setAccessToken($token['access_token']);
+			session()->set("AccessToken", $token['access_token']);
+
+			$googleService = new \Google_Service_Oauth2($this->googleClient);
+			$data = $googleService->userinfo->get();
+			$currentDateTime = date("Y-m-d H:i:s");
+			$userdata=array();
+			if($this->loginModel->isAlreadyRegister($data['id'])){
+				//User ALready Login and want to Login Again
+				$userdata = [
+                    'oauth_id'=>$data['id'],
+					'email'=>$data['email']
+				];
+				$this->loginModel->updateUserData($userdata, $data['id']);
+			}else{
+                //new User want to Login
+				$userdata = [
+                    'id_user'=>$max,
+                    'oauth_id'=>$data['id'],
+					'email'=>$data['email'] , 
+                    'Level' => 'Pasien'
+                ];
+				$this->loginModel->insertUserData($userdata);
+
+                $data_pasien = array(
+                    'id_user' => $max,
+                    'nama_pasien'     => $data['name']
+                );
+
+                $model = new Model_pasien();
+                $model->add_data($data_pasien);
+            }
+
+            $max_login = $model->cek_max_login($data['id'])->getRowArray()['id_user'];
+            $max_login = $max_login + 1;
+            $ses_data = [
+                'nik' => rand(10, 50),
+                'user_id' => $max_login,
+                'nama_login' => $data['name'],
+                'foto' => 'no_image.png',
+                'status_login' => 'Pasien',
+                'logged_in' => TRUE,
+                'is_admin' => TRUE
+            ];
+			$session->set("LoggedUserData", $ses_data);
+			$session->set($ses_data);
+
+            return redirect()->to('/Pasien/Dashboard');
+
+		}else{
+			$session->setFlashData("Error", "Something went Wrong");
+			return redirect()->to(base_url());
+		}
+	}
+    
+    // end google
     public function index()
     {
         $session = session();
@@ -17,7 +99,9 @@ class Login extends BaseController
         }
 
         helper(['form']);
-        return view('viewLogin');
+
+        $data['googleButton'] = $this->googleClient->createAuthUrl();
+        return view('viewLogin', $data);
     }
 
     public function loginAdmin()
@@ -40,10 +124,10 @@ class Login extends BaseController
         $encrypter = \Config\Services::encrypter();
 
         $status = $this->request->getPost('status');
-        $username = $this->request->getPost('username');
+        $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $data = $model->loginAdmin($username)->getRowArray();
+        $data = $model->loginAdmin($email)->getRowArray();
 
         if ($data) {
             $pass = $data['password'];
@@ -65,7 +149,7 @@ class Login extends BaseController
                 return redirect()->to('/Login/loginAdmin');
             }
         } else {
-            $session->setFlashdata('msg', 'Username Tidak di Temukan');
+            $session->setFlashdata('msg', 'Email Tidak di Temukan');
             return redirect()->to('/Login/loginAdmin');
         }
     }
@@ -85,11 +169,11 @@ class Login extends BaseController
         $encrypter = \Config\Services::encrypter();
 
         // $status = $this->request->getPost('status');
-        $username = $this->request->getPost('username');
+        $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
         // if ($status == 'Pasien') {
-            $data = $model->loginPasien($username)->getRowArray();
+            $data = $model->loginPasien($email)->getRowArray();
 
             if ($data) {
                 $pass = $data['password'];
@@ -111,9 +195,9 @@ class Login extends BaseController
                     return redirect()->to('/Login');
                 }
             } else {
-                // $session->setFlashdata('msg', 'Username Tidak di Temukan');
+                // $session->setFlashdata('msg', 'Email Tidak di Temukan');
                 // return redirect()->to('/Login');
-                $data = $model->loginKaryawan($username)->getRowArray();
+                $data = $model->loginKaryawan($email)->getRowArray();
 
                 if ($data) {
                     $pass = $data['password'];
@@ -135,9 +219,9 @@ class Login extends BaseController
                         return redirect()->to('/Login');
                     }
                 } else {
-                    // $session->setFlashdata('msg', 'Username Tidak di Temukan');
+                    // $session->setFlashdata('msg', 'Email Tidak di Temukan');
                     // return redirect()->to('/Login');
-                    $data = $model->loginApoteker($username)->getRowArray();
+                    $data = $model->loginApoteker($email)->getRowArray();
 
                     if ($data) {
                         $pass = $data['password'];
@@ -159,7 +243,7 @@ class Login extends BaseController
                             return redirect()->to('/Login');
                         }
                     } else {
-                        $session->setFlashdata('msg', 'Username Tidak di Temukan');
+                        $session->setFlashdata('msg', 'Email Tidak di Temukan');
                         return redirect()->to('/Login');
                     }
                 }
@@ -193,37 +277,13 @@ class Login extends BaseController
         }*/
     }
 
-    public function registrasiPasien()
-    {
-        $session = session();
-        $model = new Model_login();
-        return view('viewRegistrasi');
-    }
-
-    public function simpanPasien()
-    {
-        $session = session();
-        $encrypter = \Config\Services::encrypter();
-
-        $data = array(
-            'nik'     => $this->request->getPost('input_nik'),
-            'username_pasien'     => $this->request->getPost('input_username'),
-            'password_pasien'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
-            'nama_pasien'     => $this->request->getPost('input_nama'),
-            'alamat_pasien'     => $this->request->getPost('input_alamat'),
-            'no_telp_pasien'     => $this->request->getPost('input_no_telp')
-        );
-
-        $model = new Model_pasien();
-        $model->add_data($data);
-        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Login/registrasiPasien'));
-    }
-
     public function logout()
     {
         $session = session();
         $session->destroy();
+        
+		session()->remove('LoggedUserData');
+		session()->remove('AccessToken');
         return redirect()->to('/Login');
     }
 }

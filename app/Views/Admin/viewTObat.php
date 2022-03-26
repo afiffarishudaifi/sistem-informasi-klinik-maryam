@@ -114,6 +114,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Kategori Obat</label>
+                                <select class="form-control select2" id="input_kategori" name="input_kategori">
+                                </select>   
+                            </div>
+
+                            <div class="form-group">
                                 <label>Stok Obat</label>
                                 <input type="number" class="form-control" id="input_stok" name="input_stok"
                                     data-parsley-required="true" placeholder="Masukkan Stok Obat" autofocus="on">
@@ -159,6 +165,12 @@
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Obat" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kategori Obat</label>
+                                <select class="form-control select2" id="edit_kategori" name="edit_kategori">
+                                </select>   
                             </div>
 
                             <div class="form-group">
@@ -241,10 +253,54 @@
         });
 
         $(function() {
-            $("#input_nama").keyup(function(){
+            $('.select2').select2()
 
+            $("#input_kategori").select2({
+                placeholder: "Pilih Kategori",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Obat/data_kategori'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_kategori").select2({
+                placeholder: "Pilih Kategori",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Obat/data_kategori'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#input_nama").keyup(function(){
                 var nama = $(this).val().trim();
-          
                 if(nama != ''){
                     $.ajax({
                         type: 'GET',
@@ -265,30 +321,6 @@
                 }
           
               });
-            $("#edit_nama").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != '' && nama != $('#edit_nama_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Obat/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
-                                $("#edit_nama").val('');
-                            }else{
-                                $("#error_edit_nama").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
@@ -320,6 +352,14 @@
                     $('#edit_nama').val(json.nama_obat);
                     $('#edit_stok').val(json.stok_obat);
                     $('#edit_harga').val(json.harga_obat);
+
+                    $('#edit_kategori').append('<option selected value="' + json.id_kategori + '">' + json.nama_kategori +
+                        '</option>');
+                    $('#edit_kategori').select2('data', {
+                        id: json.id_kategori,
+                        text: json.nama_kategori
+                    });
+                    $('#edit_kategori').trigger('change');
                 });
         }
     </script>

@@ -23,14 +23,15 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>E-Klinik Maryam</b></a>
+      <a href="#" class="h1"><b>E-Klinik Maryam</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Login untuk dapat akses ke sistem</p>
+      <?= $session->get('nama_login'); ?>
 
       <form action="<?= base_url('Login/loginSistemAdmin'); ?>" method="POST" autocomplete="off">
         <div class="input-group mb-3">
-          <input type="text" required=""  name="username" id="username" class="form-control" placeholder="Username">
+          <input type="email" required=""  name="email" id="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa fa-user"></span>

@@ -18,6 +18,7 @@ class Obat extends BaseController
 
         $this->Model_obat = new Model_obat();
         helper(['form', 'url']);
+        $this->db = db_connect();
     }
 
     public function index()
@@ -37,6 +38,7 @@ class Obat extends BaseController
     {
         $session = session();
         $data = array(
+            'id_kategori' => $this->request->getPost('input_kategori'),
             'nama_obat'     => $this->request->getPost('input_nama'),
             'stok_obat'     => $this->request->getPost('input_stok'),
             'harga_obat'     => $this->request->getPost('input_harga')
@@ -55,11 +57,11 @@ class Obat extends BaseController
         
         $id = $this->request->getPost('id_obat');
         $data = array(
+            'id_kategori' => $this->request->getPost('edit_kategori'),
             'nama_obat'     => $this->request->getPost('edit_nama'),
             'stok_obat'     => $this->request->getPost('edit_stok'),
             'harga_obat'     => $this->request->getPost('edit_harga'),
-            'id_obat'     => $this->request->getPost('id_obat'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'id_obat'     => $this->request->getPost('id_obat')
         );
 
         $model->update_data($data, $id);
@@ -102,8 +104,51 @@ class Obat extends BaseController
             $isi['nama_obat'] = $value['nama_obat'];
             $isi['stok_obat'] = $value['stok_obat'];
             $isi['harga_obat'] = $value['harga_obat'];
+            $isi['id_kategori'] = $value['id_kategori'];
+            $isi['nama_kategori'] = $value['nama_kategori'];
         endforeach;
         echo json_encode($isi);
+    }
+
+    public function data_kategori()
+    {
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("kategori_obat");
+
+        $kategori = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            $builder->select('id_kategori, nama_kategori');
+            $builder->like('nama_kategori', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            $builder->select('id_kategori, nama_kategori');
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+
+        foreach ($data as $data_kategori) {
+            $kategori[] = array(
+                "id" => $data_kategori->id_kategori,
+                "text" => $data_kategori->nama_kategori,
+            );
+        }
+
+        $response['data'] = $kategori;
+
+        return $this->response->setJSON($response);
     }
 
 }

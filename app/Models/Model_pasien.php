@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Model_pasien extends Model
 {
     protected $table = 'pasien';
-    protected $primaryKey = 'id_pasien';
+    protected $primaryKey = 'nik';
 
     public function view_data()
     {
@@ -26,7 +26,7 @@ class Model_pasien extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
-        $builder->where('id_pasien', $id);
+        $builder->where('nik', $id);
         $builder->join('user','user.id_user = pasien.id_user');
         return $builder->get();
     }
@@ -35,7 +35,7 @@ class Model_pasien extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
-        $builder->where('id_pasien', $id);
+        $builder->where('nik', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -44,16 +44,16 @@ class Model_pasien extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
-        $builder->where('id_pasien', $id);
+        $builder->where('nik', $id);
         return $builder->delete();
     }
 
-    public function cek_username($username)
+    public function cek_email($email)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
         $builder->select('id_user');
-        $builder->where('username', $username);
+        $builder->where('email', $email);
         return $builder->get();
     }
 
@@ -61,8 +61,17 @@ class Model_pasien extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
-        $builder->select('id_pasien');
+        $builder->select('nik');
         $builder->where('nik', $nik);
+        return $builder->get();
+    }
+
+    public function cek_max_login($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('user');
+        $builder->select('id_user');
+        $builder->where('oauth_id',$id);
         return $builder->get();
     }
 }

@@ -48,7 +48,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nomor Kamar</th>
+                                                <th>Nama Kamar</th>
                                                 <th>Biaya Kamar</th>
                                                 <th>Status Kamar</th>
                                                 <th>Aksi</th>
@@ -60,7 +60,7 @@
                                             ?>
                                             <tr>
             
-                                                <td><?= sprintf("%03s", $item['no_kamar']) ; ?></td>
+                                                <td><?= sprintf("%03s", $item['nama_kamar']) ; ?></td>
                                                 <td><?= $item['biaya_kamar']; ?></td>
                                                 <td><?= $item['status_kamar']; ?></td>
                                                 <td><a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kamar']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
@@ -101,10 +101,10 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Nomor Kamar</label>
-                                <input type="text" class="form-control" id="input_nomor" name="input_nomor"
-                                    data-parsley-required="true" placeholder="Masukkan Nomor Kamar" autofocus="on">
-                                <span class="text-danger" id="error_nomor"></span>
+                                <label>Nama Kamar</label>
+                                <input type="text" class="form-control" id="input_nama" name="input_nama"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Kamar" autofocus="on">
+                                <span class="text-danger" id="error_nama"></span>
                             </div>
                             <div class="form-group">
                                 <label>Biaya Kamar</label>
@@ -149,10 +149,10 @@
                             <input type="hidden" name="id_kamar" id="id_kamar">
 
                             <div class="form-group">
-                                <label>Nomor Kamar</label>
-                                <input type="text" class="form-control" id="edit_nomor" name="edit_nomor"
-                                    data-parsley-required="true" data-parsley-type="number" placeholder="Masukkan Nomor Kamar" autofocus="on">
-                                <span class="text-danger" id="error_edit_nomor"></span>
+                                <label>Nama Kamar</label>
+                                <input type="text" class="form-control" id="edit_nama" name="edit_nama"
+                                    data-parsley-required="true" placeholder="Masukkan Nama Kamar" autofocus="on">
+                                <span class="text-danger" id="error_edit_nama"></span>
                             </div>
                             <div class="form-group">
                                 <label>Biaya Kamar</label>
@@ -234,21 +234,21 @@
         });
 
         $(function() {
-            $("#input_nomor").keyup(function(){
+            $("#input_nama").keyup(function(){
 
-                var nomor = $(this).val().trim();
+                var nama = $(this).val().trim();
           
-                if(nomor != ''){
+                if(nama != ''){
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Kamar/cek_nomor'); ?>' + '/' + nomor,
+                        url: '<?php echo base_url('Admin/Kamar/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_nomor").html('Nomor telah dipakai,coba yang lain');
-                                $("#input_nomor").val('');
+                                $("#error_nama").html('Nama telah dipakai,coba yang lain');
+                                $("#input_nama").val('');
                             }else{
-                                $("#error_nomor").html('');
+                                $("#error_nama").html('');
                             }
                         }, error: function () {
             
@@ -258,49 +258,25 @@
                 }
           
               });
-            $("#edit_nomor").keyup(function(){
-
-                var nomor = $(this).val().trim();
-          
-                if(nomor != '' && nomor != $('#edit_nomor_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Kamar/cek_nomor'); ?>' + '/' + nomor,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nomor").html('Nomor telah dipakai,coba yang lain');
-                                $("#edit_nomor").val('');
-                            }else{
-                                $("#error_edit_nomor").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_nomor").val('');
+                $("#input_nama").val('');
                 $("#input_biaya").val('');
                 $("#input_status").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_nomor").val('');
+                $("#input_nama").val('');
                 $("#input_biaya").val('');
                 $("#input_status").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_nomor").val('');
+                $("#edit_nama").val('');
                 $("#edit_biaya").val('');
                 $("#edit_status").val('');
             });
@@ -310,7 +286,7 @@
             $.getJSON('<?php echo base_url('Admin/Kamar/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_kamar').val(json.id_kamar);
-                    $('#edit_nomor').val(json.no_kamar);
+                    $('#edit_nama').val(json.nama_kamar);
                     $('#edit_biaya').val(json.biaya_kamar);
                     if (json.status_kamar == 'Terisi') {
                         document.getElementById("edit_status").selectedIndex = 1;

@@ -67,7 +67,7 @@ class Karyawan extends BaseController
 
         $data = array(
             'id_user' => $max_id['id_user'],
-            'nik'     => $this->request->getPost('input_nik'),
+            'nik_karyawan'     => $this->request->getPost('input_nik'),
             'jenis_kelamin'     => $this->request->getPost('input_kelamin'),
             'tgl_lahir'     => $this->request->getPost('input_tanggal'),
             'nama_karyawan'     => $this->request->getPost('input_nama'),
@@ -96,7 +96,7 @@ class Karyawan extends BaseController
             $status = 'Aktif';
         }
 
-        $id = $this->request->getPost('id_karyawan');
+        $id = $this->request->getPost('edit_nik');
         $id_user = $this->request->getPost('id_user');
         $password = $this->request->getPost('edit_password');
 
@@ -107,27 +107,25 @@ class Karyawan extends BaseController
 
             if($this->request->getPost('edit_password') != '') {
                 $data = array(
-                    'nik'     => $this->request->getPost('edit_nik'),
+                    'nik_karyawan'     => $this->request->getPost('edit_nik'),
                     'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
                     'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
                     'status_karyawan'  => $status,
-                    'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru,
-                    'updated_at' => date('Y-m-d H:i:s')
+                    'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru
                 );
             } else {
                 $data = array(
-                    'nik'     => $this->request->getPost('edit_nik'),
+                    'nik_karyawan'     => $this->request->getPost('edit_nik'),
                     'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
                     'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
                     'status_karyawan'  => $status,
-                    'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru,
-                    'updated_at' => date('Y-m-d H:i:s')
+                    'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru
                 );
             }
 
@@ -144,25 +142,23 @@ class Karyawan extends BaseController
 
             if($this->request->getPost('edit_password') != '') {
                 $data = array(
-                    'nik'     => $this->request->getPost('edit_nik'),
+                    'nik_karyawan'     => $this->request->getPost('edit_nik'),
                     'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
                     'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
-                    'status_karyawan'  => $status,
-                    'updated_at' => date('Y-m-d H:i:s')
+                    'status_karyawan'  => $status
                 );
             } else {
                 $data = array(
-                    'nik'     => $this->request->getPost('edit_nik'),
+                    'nik_karyawan'     => $this->request->getPost('edit_nik'),
                     'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
                     'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
-                    'status_karyawan'  => $status,
-                    'updated_at' => date('Y-m-d H:i:s')
+                    'status_karyawan'  => $status
                 );
             }
 
@@ -219,22 +215,21 @@ class Karyawan extends BaseController
         return redirect()->to('/Admin/Karyawan');
     }
 
-    public function data_edit($id_karyawan)
+    public function data_edit($nik_karyawan)
     {
         $model = new Model_karyawan();
-        $datakaryawan = $model->detail_data($id_karyawan)->getResultArray();
+        $datakaryawan = $model->detail_data($nik_karyawan)->getResultArray();
         $respon = json_decode(json_encode($datakaryawan), true);
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_user'] = $value['id_user'];
-            $isi['id_karyawan'] = $value['id_karyawan'];
             $isi['username'] = $value['username'];
             $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];
             $isi['status_karyawan'] = $value['status_karyawan'];
             $isi['foto_karyawan'] = $value['foto_karyawan'];
-            $isi['nik'] = $value['nik'];
+            $isi['nik_karyawan'] = $value['nik_karyawan'];
             $isi['jenis_kelamin'] = $value['jenis_kelamin'];
             $isi['tgl_lahir'] = $value['tgl_lahir'];
             $isi['level'] = $value['level'];

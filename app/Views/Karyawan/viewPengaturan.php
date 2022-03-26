@@ -83,7 +83,7 @@
 
 			                            <div class="form-group">
 			                            	<center>
-					                            <button type="reset" class="btn btn-secondary">Batal</button>
+                                                <a href="<?= base_url('Karyawan/Dashboard'); ?>" class="btn btn-secondary">Batal</a>
 					                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
 			                            	</center>
 			                            </div>

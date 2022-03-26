@@ -69,9 +69,9 @@
                                                     <td><?= $item['status_karyawan']; ?></td>
                                                     <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_karyawan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_karyawan']; ?>,<?= $item['id_user']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_karyawan']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['nik_karyawan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['nik_karyawan']; ?>,<?= $item['id_user']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['nik_karyawan']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
                                                 </tr>
@@ -116,7 +116,7 @@
 
                             <div class="form-group">
                                 <label>NIK Karyawan</label>
-                                <input type="number" class="form-control" id="input_nik" name="input_nik"
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="input_nik" name="input_nik"
                                     data-parsley-required="true" placeholder="Masukkan NIK Karyawan" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
@@ -143,8 +143,7 @@
 
                             <div class="form-group">
                                 <label>No Telepon Karyawan</label>
-                                <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
-                                    data-parsley-type="number" placeholder="Masukkan Telp Karyawan" autofocus="on">
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="input_no_telp" name="input_no_telp" placeholder="Masukkan Telp Karyawan" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -218,7 +217,7 @@
                                 </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_karyawan" id="id_karyawan">
+                            <input type="hidden" name="nik_karyawan" id="nik_karyawan">
                             <input type="hidden" name="id_user" id="id_user">
 
                             <div class="form-group">
@@ -229,7 +228,7 @@
 
                             <div class="form-group">
                                 <label>NIK Karyawan</label>
-                                <input type="number" class="form-control" id="edit_nik" name="edit_nik"
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="edit_nik" name="edit_nik"
                                     data-parsley-required="true" placeholder="Masukkan NIK Karyawan" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
@@ -253,8 +252,7 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telepon Karyawan</label>
-                                <input type="text" class="form-control" id="edit_no_telp" name="edit_no_telp"
-                                    data-parsley-type="number" placeholder="Masukkan Telp Karyawan" autofocus="on">
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="edit_no_telp" name="edit_no_telp" placeholder="Masukkan Telp Karyawan" autofocus="on">
                             </div>
                             <div class="form-group">
                                 <label>Alamat Karyawan</label>
@@ -380,7 +378,8 @@
             $.getJSON('<?php echo base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#edit_nama').val(json.nama_karyawan);
-                    $('#id_karyawan').val(json.id_karyawan);
+                    $('#nik_karyawan').val(json.nik_karyawan);
+                    $('#edit_nik').val(json.nik_karyawan);
                     $('#id_user').val(json.id_user);
                     $('#edit_tanggal').val(json.tgl_lahir);
 
@@ -403,7 +402,6 @@
                     }
 
                     $('#edit_username').val(json.username);
-                    $('#edit_nik').val(json.nik);
                     $('#edit_no_telp').val(json.no_telp_karyawan);
                     $('#edit_alamat').val(json.alamat_karyawan);                    
                     if (json.foto_karyawan != 'n') {
@@ -459,30 +457,6 @@
                 }
           
               });
-
-            $("#edit_username").keyup(function(){
-
-                var username = $(this).val().trim();
-          
-                if(username != '' && username != $('#edit_username_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Karyawan/cek_username'); ?>' + '/' + username,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_username").html('Username telah dipakai,coba yang lain');
-                                $("#edit_username").val('');
-                            }else{
-                                $("#error_edit_username").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-            });
 
             $('.select2').select2()
 

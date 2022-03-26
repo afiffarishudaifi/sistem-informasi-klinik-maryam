@@ -4,39 +4,37 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Model_obat extends Model
+class Model_penyakit extends Model
 {
-    protected $table = 'obat';
-    protected $primaryKey = 'id_obat';
+    protected $table = 'penyakit';
+    protected $primaryKey = 'id_penyakit';
 
     public function view_data()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('obat');
+        $builder = $db->table('penyakit');
         return $builder->get();
     }
 
     public function add_data($data)
     {
-        $query = $this->db->table('obat')->insert($data);
+        $query = $this->db->table('penyakit')->insert($data);
         return $query;
     }
 
     public function detail_data($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('obat');
-        $builder->select('id_obat, nama_obat, stok_obat, harga_obat, obat.id_kategori, nama_kategori');
-        $builder->where('id_obat', $id);
-        $builder->join('kategori_obat','kategori_obat.id_kategori = obat.id_kategori');
+        $builder = $db->table('penyakit');
+        $builder->where('id_penyakit', $id);
         return $builder->get();
     }
 
     public function update_data($data, $id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('obat');
-        $builder->where('id_obat', $id);
+        $builder = $db->table('penyakit');
+        $builder->where('id_penyakit', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -44,17 +42,17 @@ class Model_obat extends Model
     public function delete_data($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('obat');
-        $builder->where('id_obat', $id);
+        $builder = $db->table('penyakit');
+        $builder->where('id_penyakit', $id);
         return $builder->delete();
     }
 
     public function cek_nama($nama)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('obat');
-        $builder->select('id_obat');
-        $builder->where('nama_obat', $nama);
+        $builder = $db->table('penyakit');
+        $builder->select('id_penyakit');
+        $builder->where('nama_penyakit', $nama);
         return $builder->get();
     }
 }

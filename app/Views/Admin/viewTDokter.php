@@ -49,7 +49,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Dokter</th>
-                                                <th>Poli</th>
                                                 <th>Alamat</th>
                                                 <th>No Telepon</th>
                                                 <th>Status</th>
@@ -62,15 +61,14 @@
                                             ?>
                                             <tr>
                                                 <td><?= $item['nama_dokter']; ?></td>
-                                                <td><?= $item['nama_poli']; ?></td>
                                                 <td><?= $item['alamat_dokter']; ?></td>
                                                 <td><?= $item['no_telp_dokter']; ?></td>
                                                 <td><?= $item['status_dokter']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_dokter']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_dokter']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_dokter']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['nik_dokter']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['nik_dokter']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['nik_dokter']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
                                             </tr>
@@ -108,15 +106,20 @@
                         <div class="modal-body">
 
                             <div class="form-group">
+                                <label>NIK Dokter</label>
+                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="input_nik" name="input_nik" placeholder="Masukkan NIK Dokter" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
                                 <label>Nama Dokter</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">  
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Poli</label>
                                 <select class="form-control select2" id="input_poli" name="input_poli">
                                 </select>   
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>Alamat Dokter</label>
                                 <input type="text" class="form-control" id="input_alamat" name="input_alamat"
@@ -124,8 +127,7 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telp Dokter</label>
-                                <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
-                                    data-parsley-type="number" placeholder="Masukkan No Telp Dokter" autofocus="on">
+                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="input_no_telp" name="input_no_telp" placeholder="Masukkan No Telp Dokter" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -136,6 +138,19 @@
                                             value="Aktif"> &nbsp Aktif
                                     </label>
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="input_kelamin" name="input_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="input_tanggal" name="input_tanggal" placeholder="Masukkan Tanggal Lahir" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -172,7 +187,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_dokter" id="id_dokter">
+                            <div class="form-group">
+                                <label>NIK Dokter</label>
+                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="edit_nik" name="edit_nik" placeholder="Masukkan NIK Dokter" autofocus="on">
+                            </div>
 
                             <div class="form-group">
                                 <label>Nama Dokter</label>
@@ -180,11 +198,11 @@
                                     data-parsley-required="true" placeholder="Masukkan Nama Dokter" autofocus="on">  
                             </div>
 
-                             <div class="form-group">
+                             <!-- <div class="form-group">
                                 <label>Poli</label>
                                 <select class="form-control select2" name="edit_poli" id="edit_poli">
                                 </select>
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label>Alamat Dokter</label>
@@ -194,8 +212,7 @@
 
                             <div class="form-group">
                                 <label>No Telp Dokter</label>
-                                <input type="number" class="form-control" id="edit_no_telp" name="edit_no_telp"
-                                    data-parsley-type="number" placeholder="Masukkan Nama Dokter" autofocus="on">   
+                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="edit_no_telp" name="edit_no_telp" placeholder="Masukkan Nama Dokter" autofocus="on">   
                             </div>
 
                             <div class="form-group">
@@ -206,6 +223,19 @@
                                             value="Aktif"> &nbsp Aktif
                                     </label>
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="edit_kelamin" name="edit_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="edit_tanggal" name="edit_tanggal" placeholder="Masukkan Tanggal Lahir" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -291,80 +321,44 @@
         });
 
         $(function() {
-            $('.select2').select2()
-
-            $("#input_poli").select2({
-                placeholder: "Pilih Poliklinik",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/Dokter/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#edit_poli").select2({
-                placeholder: "Pilih Poliklinik",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/Dokter/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
+                $("#input_nik").val('');
                 $("#input_nama").val('');
-                $("#input_poli").val('');
+                // $("#input_poli").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
                 $("#input_status").prop('checked',false);
+                $("#input_kelamin").val('');
+                $("#input_tanggal").val('');
                 $("#input_foto").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
+                $("#input_nik").val('');
                 $("#input_nama").val('');
-                $("#input_poli").val('');
+                // $("#input_poli").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
                 $("#input_status").prop('checked',false);
+                $("#input_kelamin").val('');
+                $("#input_tanggal").val('');
                 $("#input_foto").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
+                $("#edit_nik").val('');
                 $("#edit_nama").val('');
-                $("#edit_poli").val('');
+                // $("#edit_poli").val('');
                 $("#edit_alamat").val('');
                 $("#edit_no_telp").val('');
                 $("#edit_status").prop('checked',false);
+                $("#edit_kelamin").val('');
+                $("#edit_tanggal").val('');
                 $("#edit_foto").val('');
             });
         })
@@ -372,7 +366,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/Dokter/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_dokter').val(json.id_dokter);
+                    $('#edit_nik').val(json.nik_dokter);
                     $('#edit_nama').val(json.nama_dokter);
 
                     $('#edit_alamat').val(json.alamat_dokter);
@@ -384,14 +378,12 @@
                         $("#edit_status").prop('checked',false);
                     }
                     $('#edit_foto').val(json.foto_dokter);
-
-                    $('#edit_poli').append('<option selected value="' + json.id_poli + '">' + json.nama_poli +
-                        '</option>');
-                    $('#edit_poli').select2('data', {
-                        id: json.id_poli,
-                        text: json.nama_poli
-                    });
-                    $('#edit_poli').trigger('change');
+                    $('#edit_tanggal').val(json.tanggal_lahir);
+                    if(json.jenis_kelamin == 'Perempuan'){
+                        document.getElementById("edit_kelamin").selectedIndex = 1;
+                    }else{
+                        document.getElementById("edit_kelamin").selectedIndex = 0;
+                    };
 
                     if (json.foto_dokter != 'n') {
                         $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + json.foto_dokter);
@@ -403,19 +395,19 @@
         
     $(function() {
         $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
         });
     });
     </script>

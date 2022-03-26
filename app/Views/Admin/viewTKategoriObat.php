@@ -48,27 +48,21 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Nama Hari</th>
+                                                <th>Nama Kategori</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                                $no = 1;
-                                                foreach ($hari as $item) {
-                                                ?>
-                                                <tr>
-                                                    <td width="1%"><?= $no++; ?></td>
-                                                    <td><?= $item['nama_hari']; ?></td>
-                                                    <td>
-                                                        <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_hari']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_hari']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_hari']; ?>">Hapus</a>
-                                                        </center>
-                                                    </td>
-                                                </tr>
+                                            <?php 
+                                                foreach ($kategori as $item) {
+                                            ?>
+                                            <tr>
+            
+                                                <td><?= sprintf("%03s", $item['nama_kategori']) ; ?></td>
+                                                <td><a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kategori']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                    <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_kategori']; ?>)" data-toggle="modal"
+                                                       data-target="#deleteModal" data-id="<?= $item['id_kategori']; ?>">Hapus</a></td>
+                                            </tr>
                                             <?php } ?>
                                         </tbody>
                                     </table>
@@ -87,7 +81,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/Hari/add_hari'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Admin/Kategori/add_kategori'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -95,7 +89,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Hari </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Kategori </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -103,9 +97,9 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Nama Hari</label>
+                                <label>Nama Kategori</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Hari" autofocus="">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Kategori" autofocus="on">
                                 <span class="text-danger" id="error_nama"></span>
                             </div>
 
@@ -122,7 +116,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/Hari/update_hari'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Admin/Kategori/update_kategori'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -130,18 +124,18 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Hari</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Kategori</h5>
                                 <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_hari" id="id_hari">
+                            <input type="hidden" name="id_kategori" id="id_kategori">
 
                             <div class="form-group">
-                                <label>Nama Hari</label>
+                                <label>Nama Kategori</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Hari" autofocus="">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Kategori" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
                             </div>
                         </div>
@@ -157,7 +151,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/Hari/delete_hari'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Kategori/delete_kategori'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -170,7 +164,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus hari?</h4>
+                            <h4>Apakah Ingin menghapus kategori ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -197,8 +191,6 @@
 
     <?= $this->include("Admin/layout/js_tabel") ?>
 
-    
-    <!-- Page specific script -->
     <script>
         function Hapus(id){
             $('.id').val(id);
@@ -222,7 +214,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Hari/cek_nama'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Kategori/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_nama").html('Nama telah dipakai,coba yang lain');
@@ -238,61 +230,39 @@
                 }
           
               });
-            $("#edit_nama").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != '' && nama != $('#edit_nama_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Hari/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
-                                $("#edit_nama").val('');
-                            }else{
-                                $("#error_edit_nama").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nama").val('');
-                $("#input_deskripsi").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nama").val('');
-                $("#input_deskripsi").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nama").val('');
-                $("#edit_deskripsi").val('');
             });
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/Hari/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Kategori/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_hari').val(json.id_hari);
-                    $('#edit_nama').val(json.nama_hari);
+                    $('#id_kategori').val(json.id_kategori);
+                    $('#edit_nama').val(json.nama_kategori);
+                    if (json.status_kategori == 'Terisi') {
+                        document.getElementById("edit_status").selectedIndex = 1;
+                    } else {
+                        document.getElementById("edit_status").selectedIndex = 0;
+                    }
                 });
         }
     </script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     $(function() {
         $("#example1").DataTable({
         "responsive": true,
@@ -300,8 +270,7 @@
         "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-        $('#example2').DataTable({
+    $('#example2').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": false,

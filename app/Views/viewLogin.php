@@ -30,7 +30,7 @@
 
       <form action="<?= base_url('Login/loginSistem'); ?>" method="POST" autocomplete="off" data-parsley-validate="true">
         <div class="input-group mb-3">
-          <input type="text" required=""  name="username" id="username" class="form-control" placeholder="Username">
+          <input type="email" required=""  name="email" id="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa fa-user"></span>
@@ -56,12 +56,18 @@
           <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-sign-in-alt"></i>    Sign In</button>
         </div>
       </form>
+      
       <!-- /.social-auth-links -->
 
       <div class="social-auth-links text-center">
-        <a href="<?= base_url('Login/registrasiPasien') ?>" class="btn btn-block btn-info">
+        <a href="<?= base_url('Registrasi') ?>" class="btn btn-block btn-info">
           <i class="fa fa-user-plus mr-2"></i>
           Registrasi Pasien
+        </a>
+        <a href="<?php 
+          echo $googleButton;
+        ?>" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
         </a>
       </div>
 

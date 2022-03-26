@@ -56,9 +56,12 @@ class Dokter extends BaseController
         }
 
         $data = array(
-            'id_poli'     => $this->request->getPost('input_poli'),
+            // 'id_poli'     => $this->request->getPost('input_poli'),
+            'nik_dokter'     => $this->request->getPost('input_nik'),
             'nama_dokter'     => $this->request->getPost('input_nama'),
             'alamat_dokter' => $this->request->getPost('input_alamat'),
+            'jenis_kelamin' => $this->request->getPost('input_kelamin'),
+            'tanggal_lahir' => $this->request->getPost('input_tanggal'),
             'no_telp_dokter' => $this->request->getPost('input_no_telp'),
             'status_dokter' => $status,
             'foto_dokter'     => "docs/img/img_dokter/" . $namabaru
@@ -87,16 +90,18 @@ class Dokter extends BaseController
             $status = 'Aktif';
         }
         
-        $id = $this->request->getPost('id_dokter');
+        $id = $this->request->getPost('edit_nik');
 
             $data = array(
-                'id_poli'     => $this->request->getPost('edit_poli'),
+                // 'id_poli'     => $this->request->getPost('edit_poli'),
+                'nik_dokter'     => $this->request->getPost('edit_nik'),
                 'nama_dokter'  => $this->request->getPost('edit_nama'),
                 'alamat_dokter'   => $this->request->getPost('edit_alamat'),
                 'no_telp_dokter'  => $this->request->getPost('edit_no_telp'),
+                'jenis_kelamin' => $this->request->getPost('edit_kelamin'),
+                'tanggal_lahir' => $this->request->getPost('edit_tanggal'),
                 'status_dokter'   => $status,
-                'foto_dokter'     => "docs/img/img_dokter/" . $namabaru,
-                'updated_at' => date('Y-m-d H:i:s')
+                'foto_dokter'     => "docs/img/img_dokter/" . $namabaru
             );
 
             $data_foto = $model->detail_data($id)->getRowArray();
@@ -115,15 +120,17 @@ class Dokter extends BaseController
                 $status = 'Aktif';
             }
 
-            $id = $this->request->getPost('id_dokter');
+            $id = $this->request->getPost('edit_nik');
 
             $data = array(
-                'id_poli'     => $this->request->getPost('edit_poli'),
+                // 'id_poli'     => $this->request->getPost('edit_poli'),
+                'nik_dokter'     => $this->request->getPost('edit_nik'),
                 'nama_dokter'  => $this->request->getPost('edit_nama'),
                 'alamat_dokter'   => $this->request->getPost('edit_alamat'),
                 'no_telp_dokter'  => $this->request->getPost('edit_no_telp'),
-                'status_dokter'   => $status,
-                'updated_at' => date('Y-m-d H:i:s')
+                'jenis_kelamin' => $this->request->getPost('edit_kelamin'),
+                'tanggal_lahir' => $this->request->getPost('edit_tanggal'),
+                'status_dokter'   => $status
             );
         }
 
@@ -137,40 +144,36 @@ class Dokter extends BaseController
         $session = session();
         $model = new Model_dokter();
         $id = $this->request->getPost('id');
-        $session = session();
-        $foreign = $model->cek_foreign($id);
-        if ($foreign == 0) {
-            $data_foto = $model->detail_data($id)->getRowArray();
+        $data_foto = $model->detail_data($id)->getRowArray();
 
-            if ($data_foto != null) {
-                if ($data_foto['foto_dokter'] != 'docs/img/img_dokter/noimage.jpg') {
-                    if (file_exists($data_foto['foto_dokter'])) {
-                        unlink($data_foto['foto_dokter']);
-                    }
+        if ($data_foto != null) {
+            if ($data_foto['foto_dokter'] != 'docs/img/img_dokter/noimage.jpg') {
+                if (file_exists($data_foto['foto_dokter'])) {
+                    unlink($data_foto['foto_dokter']);
                 }
             }
-            $model->delete_data($id);
-            session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
-        } else {
-            session()->setFlashdata('sukses', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         }
+        $model->delete_data($id);
+        session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
         return redirect()->to('/Admin/Dokter');
     }
 
-    public function data_edit($id_dokter)
+    public function data_edit($nik_dokter)
     {
         $model = new Model_dokter();
-        $datadokter = $model->detail_data($id_dokter)->getResultArray();
+        $datadokter = $model->detail_data($nik_dokter)->getResultArray();
         $respon = json_decode(json_encode($datadokter), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id_dokter'] = $value['id_dokter'];
+            $isi['nik_dokter'] = $value['nik_dokter'];
             $isi['nama_dokter'] = $value['nama_dokter'];
-            $isi['nama_poli'] = $value['nama_poli'];
-            $isi['id_poli'] = $value['id_poli'];
+            // $isi['nama_poli'] = $value['nama_poli'];
+            // $isi['id_poli'] = $value['id_poli'];
             $isi['alamat_dokter'] = $value['alamat_dokter'];
             $isi['no_telp_dokter'] = $value['no_telp_dokter'];
             $isi['status_dokter'] = $value['status_dokter'];
+            $isi['jenis_kelamin'] = $value['jenis_kelamin'];
+            $isi['tanggal_lahir'] = $value['tanggal_lahir'];
             $isi['foto_dokter'] = $value['foto_dokter'];
         endforeach;
         echo json_encode($isi);

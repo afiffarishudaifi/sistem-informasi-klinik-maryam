@@ -27,7 +27,7 @@
     <div class="card-body">
       <p class="login-box-msg">Calon Pasien Baru</p>
 
-      <form action="<?= base_url('Login/simpanPasien'); ?>" method="post" data-parsley-validate="true" autocomplete="off">
+      <form action="<?= base_url('Registrasi/simpanPasien'); ?>" method="post" data-parsley-validate="true" autocomplete="off">
         <div class="form-group">
             <label>Nama Pasien</label>
             <input type="text" class="form-control" id="input_nama" name="input_nama"
@@ -41,10 +41,10 @@
             <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
         </div>
         <div class="form-group">
-            <label>Username Pasien</label>
-            <input type="text" class="form-control" id="input_username" name="input_username"
-                data-parsley-required="true" placeholder="Masukkan Username Pasien" autofocus="on">
-            <span class="text-danger" id="error_username"></span>
+            <label>Email Pasien</label>
+            <input type="email" class="form-control" id="input_email" name="input_email"
+                data-parsley-required="true" placeholder="Masukkan Email Pasien" autofocus="on">
+            <span class="text-danger" id="error_email"></span>
         </div>
         <div class="form-group">
             <label>Password Pasien</label>
@@ -64,6 +64,25 @@
             <label>No Telp Pasien</label>
             <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
                 data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
+        </div>
+        <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <select class="form-control" id="input_kelamin" name="input_kelamin">
+                <option value="Laki - Laki">Laki - Laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+            <label>Agama</label>
+            <input type="text" class="form-control" id="input_agama" name="input_agama"
+                data-parsley-required="true" placeholder="Masukkan Agama" autofocus="on">
+            <span class="text-danger" id="error_email"></span>
         </div>
         <div class="social-auth-links text-center">
           <button type="submit" name="tambah" class="btn btn-primary"><i class="fas fa-user-plus"></i>
@@ -88,7 +107,7 @@
 <script src="<?= base_url() ?>/docs/tambahan/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
 
 <script type="text/javascript">
-  $("#input_username").keyup(function(){
+  $("#input_email").keyup(function(){
 
     var nama = $(this).val().trim();
 
@@ -96,13 +115,13 @@
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '<?php echo base_url('Admin/Pasien/cek_username'); ?>' + '/' + nama,
+            url: '<?php echo base_url('Admin/Pasien/cek_email'); ?>' + '/' + nama,
             success: function (data) {
                 if(data['results']>0){
-                    $("#error_username").html('Username telah dipakai,coba yang lain');
-                    $("#input_username").val('');
+                    $("#error_email").html('Email telah dipakai,coba yang lain');
+                    $("#input_email").val('');
                 }else{
-                    $("#error_username").html('');
+                    $("#error_email").html('');
                 }
             }, error: function () {
 

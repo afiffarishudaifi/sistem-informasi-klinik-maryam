@@ -31,13 +31,13 @@ class Kamar extends BaseController
     {
         $session = session();
         $data = array(
-            'no_kamar'     => $this->request->getPost('input_nomor'),
+            'nama_kamar'     => $this->request->getPost('input_nama'),
             'biaya_kamar'     => $this->request->getPost('input_biaya'),
             'status_kamar' => $this->request->getPost('input_status')
         );
         $validation =  \Config\Services::validation();
         $validation->setRules([
-            'input_nomor' => 'required|numeric',
+            'input_nama' => 'required|numeric',
             'biaya_kamar' => 'required|numeric',
             'status_kamar' => 'required',
         ]);
@@ -56,7 +56,7 @@ class Kamar extends BaseController
         $id = $this->request->getPost('id_kamar');
         $data = array(
             'id_kamar'     => $this->request->getPost('id_kamar'),
-            'no_kamar'     => $this->request->getPost('edit_nomor'),
+            'nama_kamar'     => $this->request->getPost('edit_nama'),
             'biaya_kamar'  => $this->request->getPost('edit_biaya'),
             'status_kamar'     => $this->request->getPost('edit_status'),
         );
@@ -82,11 +82,11 @@ class Kamar extends BaseController
         return redirect()->to('/Admin/Kamar');
     }
 
-    public function cek_nomor($nomor)
+    public function cek_nama($nama)
     {
         $model = new Model_kamar();
-        $cek_nomor = $model->cek_nomor($nomor)->getResultArray();
-        $respon = json_decode(json_encode($cek_nomor), true);
+        $cek_nama = $model->cek_nama($nama)->getResultArray();
+        $respon = json_decode(json_encode($cek_nama), true);
         $data['results'] = count($respon);
         echo json_encode($data);
     }
@@ -99,7 +99,7 @@ class Kamar extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_kamar'] = $value['id_kamar'];
-            $isi['no_kamar'] = $value['no_kamar'];
+            $isi['nama_kamar'] = $value['nama_kamar'];
             $isi['biaya_kamar'] = $value['biaya_kamar'];
             $isi['status_kamar'] = $value['status_kamar'];
         endforeach;

@@ -50,7 +50,6 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Poli</th>
-                                                <th>Status Poli</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -62,7 +61,6 @@
                                                 <tr>
                                                     <td width="1%"><?= $no++; ?></td>
                                                     <td><?= $item['nama_poli']; ?></td>
-                                                    <td><?= $item['status_poli']; ?></td>
                                                     <td>
                                                         <center>
                                                             <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_poli']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
@@ -111,16 +109,6 @@
                                 <span class="text-danger" id="error_nama"></span>
                             </div>
 
-                            <div class="form-group">
-                                <label>Status Poliklinik</label>
-                                <div class="checkbox">
-                                    <label for="example-checkbox1">
-                                        <input type="checkbox" id="input_status" name="input_status"
-                                            value="Aktif"> &nbsp Aktif
-                                    </label>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_add"
@@ -155,16 +143,6 @@
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
                                     data-parsley-required="true" placeholder="Masukkan Nama Poliklinik" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Status Poliklinik</label>
-                                <div class="checkbox">
-                                    <label for="example-checkbox1">
-                                        <input type="checkbox" id="edit_status" name="edit_status"
-                                            value="Aktif"> &nbsp Aktif
-                                    </label>
-                                </div>
                             </div>
 
                         </div>
@@ -259,48 +237,20 @@
                 }
           
               });
-            $("#edit_nama").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != '' && nama != $('#edit_nama_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Poliklinik/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
-                                $("#edit_nama").val('');
-                            }else{
-                                $("#error_edit_nama").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
-
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nama").val('');
-                $("#input_status").prop('checked',false);
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nama").val('');
-                $("#input_status").prop('checked',false);
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nama").val('');
-                $("#edit_status").prop('checked',false);
             });
         })
 
@@ -309,11 +259,6 @@
                 function(json) {
                     $('#id_poli').val(json.id_poli);
                     $('#edit_nama').val(json.nama_poli);
-                    if(json.status_poli=='Aktif'){
-                        $("#edit_status").prop('checked',true);
-                    }else{
-                        $("#edit_status").prop('checked',false);
-                    }
                 });
         }
     </script>
@@ -321,19 +266,19 @@
     <script type="text/javascript">
     $(function() {
         $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
         });
     });
     </script>
