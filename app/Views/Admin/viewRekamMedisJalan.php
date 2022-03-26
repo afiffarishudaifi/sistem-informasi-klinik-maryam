@@ -24,10 +24,10 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
+                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
-                                </li> -->
+                                </li>
                             </ol>
                         </div>
                     </div>
@@ -49,8 +49,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Pasien</th>
-                                                <th>Nama Poli</th>
                                                 <th>Nama Dokter</th>
+                                                <th>Nama Penyakit</th>
                                                 <th>Hasil Pemeriksaan</th>
                                                 <th>Saran Dokter</th>
                                                 <th>Aksi</th>
@@ -62,13 +62,14 @@
                                             ?>
                                             <tr>
                                                 <td><?= $item['nama_pasien']; ?></td>
-                                                <td><?= $item['nama_poli']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
+                                                <td><?= $item['nama_penyakit']; ?></td>
                                                 <td><?= $item['hasil_pemeriksaan']; ?></td>
                                                 <td><?= $item['saran_dokter']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pendaftaran']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="<?= base_url('Admin/RawatJalan/resepJalan'); ?>" class="btn btn-sm btn-edit btn-info">Resep</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
                                                         </center>
                                                     </td>
                                             </tr>
@@ -106,10 +107,23 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Pendaftaran</label>
-                                <select class="form-control select2" id="input_pendaftaran" name="input_pendaftaran">
+                                <label>Pasien</label>
+                                <select class="form-control select2" id="input_pasien" name="input_pasien">
                                 </select>   
                             </div>
+
+                            <div class="form-group">
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="input_dokter" name="input_dokter">
+                                </select>   
+                            </div>
+
+                            <div class="form-group">
+                                <label>Penyakit</label>
+                                <select class="form-control select2" id="input_penyakit" name="input_penyakit">
+                                </select>   
+                            </div>
+
                             <div class="form-group">
                                 <label>Hasil Pemeriksaan</label>
                                 <textarea class="form-control" id="input_hasil" name="input_hasil" placeholder="Masukkan hasil pemeriksaan"></textarea>
@@ -151,13 +165,27 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pendaftaran" id="id_pendaftaran">
+                            <input type="hidden" name="id_rekam" id="id_rekam">
 
-                            <!-- <div class="form-group">
-                                <label>Pendaftaran</label>
-                                <select class="form-control select2" id="edit_pendaftaran" name="edit_pendaftaran">
+                            
+                            <div class="form-group">
+                                <label>Pasien</label>
+                                <select class="form-control select2" id="edit_pasien" name="edit_pasien">
                                 </select>   
-                            </div> -->
+                            </div>
+
+                            <div class="form-group">
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="edit_dokter" name="edit_dokter">
+                                </select>   
+                            </div>
+
+                            <div class="form-group">
+                                <label>Penyakit</label>
+                                <select class="form-control select2" id="edit_penyakit" name="edit_penyakit">
+                                </select>   
+                            </div>
+
                             <div class="form-group">
                                 <label>Hasil Pemeriksaan</label>
                                 <textarea class="form-control" id="edit_hasil" name="edit_hasil" placeholder="Masukkan hasil pemeriksaan"></textarea>
@@ -239,11 +267,11 @@
             }
         });
 
-        $("#input_pendaftaran").select2({
-            placeholder: "Pilih Pendaftaran",
+        $("#input_pasien").select2({
+            placeholder: "Pilih Pasien",
             theme: 'bootstrap4',
             ajax: {
-                url: '<?php echo base_url('Admin/RawatJalan/data_pendaftaran'); ?>',
+                url: '<?php echo base_url('Admin/RawatJalan/data_pasien'); ?>',
                 type: "post",
                 delay: 250,
                 dataType: 'json',
@@ -260,11 +288,97 @@
                     cache: true
                 }
         });
-        $("#edit_pendaftaran").select2({
-            placeholder: "Pilih Pendaftaran",
+        $("#edit_pasien").select2({
+            placeholder: "Pilih Pasien",
             theme: 'bootstrap4',
             ajax: {
-                url: '<?php echo base_url('Admin/RawatJalan/data_pendaftaran'); ?>',
+                url: '<?php echo base_url('Admin/RawatJalan/data_pasien'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
+
+        $("#input_dokter").select2({
+            placeholder: "Pilih Dokter",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Admin/RawatJalan/data_dokter'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
+        $("#edit_dokter").select2({
+            placeholder: "Pilih Dokter",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Admin/RawatJalan/data_dokter'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
+
+        $("#input_penyakit").select2({
+            placeholder: "Pilih Penyakit",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Admin/RawatJalan/data_penyakit'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
+        $("#edit_penyakit").select2({
+            placeholder: "Pilih Penyakit",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Admin/RawatJalan/data_penyakit'); ?>',
                 type: "post",
                 delay: 250,
                 dataType: 'json',
@@ -286,7 +400,9 @@
             $('#form_add')[0].reset();
             $('#form_edit')[0].reset();
             $("#input_saran").val('');
-            $("#input_pendaftaran").val('');
+            $("#input_pasien").val('');
+            $("#input_dokter").val('');
+            $("#input_penyakit").val('');
             $("#input_tensi").val('');
             $("#input_saran").val('');
         });
@@ -294,7 +410,9 @@
         $('#batal_add').on('click', function() {
             $('#form_add')[0].reset();
             $("#input_saran").val('');
-            $("#input_pendaftaran").val('');
+            $("#input_pasien").val('');
+            $("#input_dokter").val('');
+            $("#input_penyakit").val('');
             $("#input_tensi").val('');
             $("#input_saran").val('');
         });
@@ -302,7 +420,9 @@
         $('#batal_up').on('click', function() {
             $('#form_edit')[0].reset();
             $("#edit_saran").val('');
-            $("#edit_pendaftaran").val('');
+            $("#edit_pasien").val('');
+            $("#edit_dokter").val('');
+            $("#edit_penyakit").val('');
             $("#edit_tensi").val('');
             $("#edit_saran").val('');
         });
@@ -310,20 +430,35 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_rekam'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pendaftaran').val(json.id_pendaftaran);
+                    $('#id_rekam').val(json.id_rekam);
 
                     $('#edit_saran').val(json.saran_dokter);
-                    $('#edit_pendaftaran').val(json.no_telp_dokter);
                     $('#edit_tensi').val(json.tensi_darah);
                     $('#edit_hasil').val(json.hasil_pemeriksaan);
 
-                    $('#edit_pendaftaran').append('<option selected value="' + json.id_pendaftaran + '">' + json.tanggal_daftar + " pasien " + json.nama_pasien +
+                    $('#edit_pasien').append('<option selected value="' + json.nik + '">' + json.nama_pasien +
                         '</option>');
-                    $('#edit_pendaftaran').select2('data', {
-                        id: json.id_pendaftaran,
-                        text: json.tanggal_daftar
+                    $('#edit_pasien').select2('data', {
+                        id: json.nik,
+                        text: json.nama_pasien
                     });
-                    $('#edit_pendaftaran').trigger('change');
+                    $('#edit_pasien').trigger('change');
+
+                    $('#edit_dokter').append('<option selected value="' + json.nik_dokter + '">' + json.nama_dokter +
+                        '</option>');
+                    $('#edit_dokter').select2('data', {
+                        id: json.nik_dokter,
+                        text: json.nama_dokter
+                    });
+                    $('#edit_dokter').trigger('change');
+
+                    $('#edit_penyakit').append('<option selected value="' + json.id_penyakit + '">' + json.nama_penyakit +
+                        '</option>');
+                    $('#edit_penyakit').select2('data', {
+                        id: json.id_penyakit,
+                        text: json.nama_penyakit
+                    });
+                    $('#edit_penyakit').trigger('change');
                 });
         }
         

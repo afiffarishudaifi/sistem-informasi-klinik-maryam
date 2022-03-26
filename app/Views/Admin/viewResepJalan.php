@@ -48,7 +48,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id Pendaftaran</th>
+                                                <th>Id Resep</th>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Tagihan</th>
@@ -61,7 +61,7 @@
                                                 foreach ($data as $item) {
                                             ?>
                                             <tr>
-                                                <td><?= $item['id_pendaftaran']; ?></td>
+                                                <td><?= $item['id_resep']; ?></td>
                                                 <td><?= $item['nama_pasien']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
                                                 <td>
@@ -74,10 +74,10 @@
                                                 <td><?= $item['created_at']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Admin/RawatJalan/detailResep') . '/' . $item['id_pendaftaran']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pendaftaran']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pendaftaran']; ?>)" data-toggle="modal"
-                                                            data-target="#deleteModal" data-id="<?= $item['id_pendaftaran']; ?>">Hapus</a>
+                                                        <a href="<?= base_url('Admin/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>)" data-toggle="modal"
+                                                            data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
                                             </tr>
@@ -107,7 +107,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Resep</h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -115,8 +115,8 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Pemeriksaan</label>
-                                <select class="form-control select2" id="input_pemeriksaan" name="input_pemeriksaan">
+                                <label>Rekam Medis</label>
+                                <select class="form-control select2" id="input_rekam" name="input_rekam">
                                 </select>   
                             </div>
 
@@ -141,7 +141,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rekam Medis </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Resep</h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -150,8 +150,8 @@
                             <input type="hidden" name="id_resep" id="id_resep">
 
                             <div class="form-group">
-                                <label>Pemeriksaan</label>
-                                <select class="form-control select2" id="edit_pemeriksaan" name="edit_pemeriksaan">
+                                <label>Rekam Medis</label>
+                                <select class="form-control select2" id="edit_rekam" name="edit_rekam">
                                 </select>   
                             </div>
 
@@ -225,7 +225,7 @@
         $(function() {
             $('.select2').select2()
 
-            $("#input_pemeriksaan").select2({
+            $("#input_rekam").select2({
                 placeholder: "Pilih Pemeriksaan",
                 theme: 'bootstrap4',
                 ajax: {
@@ -247,7 +247,7 @@
                 }
             });
 
-            $("#edit_pemeriksaan").select2({
+            $("#edit_rekam").select2({
                 placeholder: "Pilih Pemeriksaan",
                 theme: 'bootstrap4',
                 ajax: {
@@ -272,17 +272,17 @@
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_pemeriksaan").val('');
+                $("#input_rekam").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_pemeriksaan").val('');
+                $("#input_rekam").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_pemeriksaan").val('');
+                $("#edit_rekam").val('');
             });
         })
 
@@ -291,13 +291,13 @@
                 function(json) {
                     $('#id_resep').val(json.id_resep);
 
-                    $('#edit_pemeriksaan').append('<option selected value="' + json.id_rekam + '">' + json.created_at + " pasien " + json.nama_pasien +
+                    $('#edit_rekam').append('<option selected value="' + json.id_rekam + '">' + json.nama_pasien +
                         '</option>');
-                    $('#edit_pemeriksaan').select2('data', {
+                    $('#edit_rekam').select2('data', {
                         id: json.id_rekam,
                         text: json.created_at
                     });
-                    $('#edit_pemeriksaan').trigger('change');
+                    $('#edit_rekam').trigger('change');
                 });
         }
         
