@@ -110,7 +110,7 @@
 
     <script>
         function ganti(obat) {
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObatInap/data/' + $('#tanggal').val() + '/' + obat).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObat/data/' + $('#tanggal').val() + '/' + obat).load();
         };
 
 	    $(function() {
@@ -126,7 +126,7 @@
                 placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/LaporanObatInap/data_obat'); ?>',
+                    url: '<?php echo base_url('Admin/LaporanObat/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -146,12 +146,12 @@
 
 	        $('#tanggal').on('apply.daterangepicker', function(ev, picker) {
 	            var tanggal = picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY');
-	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObatInap/data/' + tanggal + '/' + $('#input_obat').val()).load();
+	            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObat/data/' + tanggal + '/' + $('#input_obat').val()).load();
 	        });
 
             $("#btn_reset").click(function (e) {
 	            $("#input_obat").val('').trigger('change')
-                $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObatInap/data/' + $('#tanggal').val() + '/' + $('#input_obat').val()).load();
+                $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanObat/data/' + $('#tanggal').val() + '/' + $('#input_obat').val()).load();
             });
 
 	        $(".table").DataTable({
@@ -159,7 +159,7 @@
 		        "autoWidth": true,
 		        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "ajax": {
-                    "url": "<?= base_url() ?>/Admin/LaporanObatInap/data/" + $('#tanggal').val() + '/' + $('#input_obat').val(),
+                    "url": "<?= base_url() ?>/Admin/LaporanObat/data/" + $('#tanggal').val() + '/' + $('#input_obat').val(),
                     "dataSrc": ""
                 },
                 "columns": [{
@@ -172,7 +172,7 @@
                         "data": "total_biaya"
                     },
                     {
-                        "data": "created_at"
+                        "data": "tanggal_resep"
                     }
                 ]
 		        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

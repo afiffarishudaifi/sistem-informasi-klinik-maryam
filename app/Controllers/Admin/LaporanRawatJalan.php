@@ -37,14 +37,12 @@ class LaporanRawatJalan extends BaseController
             // Fetch record
             $builder->select('id_poli, nama_poli');
             $builder->like('nama_poli', $query, 'both');
-            $builder->where('status_poli','Aktif');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
             // Fetch record
             $builder->select('id_poli, nama_poli');
-            $builder->where('status_poli','Aktif');
             $query = $builder->get();
             $data = $query->getResult();
         }
@@ -93,7 +91,7 @@ class LaporanRawatJalan extends BaseController
 
         if ($respon) {
             foreach ($respon as $value) {
-                $isi['id_pendaftaran'] = $value['id_pendaftaran'];
+                $isi['id_antrian'] = $value['id_antrian'];
                 $isi['nama_pasien'] = $value['nama_pasien'];
                 $isi['nama_poli'] = $value['nama_poli'];
                 $isi['tanggal_daftar'] = $value['tanggal_daftar'];
@@ -127,7 +125,7 @@ class LaporanRawatJalan extends BaseController
 
         if ($respon) {
             foreach ($respon as $value) {
-                $isi['id_pendaftaran'] = $value['id_pendaftaran'];
+                $isi['id_antrian'] = $value['id_antrian'];
                 $isi['nama_pasien'] = $value['nama_pasien'];
                 $isi['nama_poli'] = $value['nama_poli'];
                 $isi['tanggal_daftar'] = $value['tanggal_daftar'];

@@ -6,31 +6,53 @@ use CodeIgniter\Model;
 
 class Model_laporanrekammedis extends Model
 {
-    protected $table = 'rekam_medis_inap';
-    protected $primaryKey = 'id_rekam_inap';
+    protected $table = 'rekam_medis';
+    protected $primaryKey = 'id_rekam';
 
    	public function filter_jalan($param)
     {
-    	$db      = \Config\Database::connect();
-        $builder = $db->table('pendaftaran_rawat_jalan');
-		$builder->select('pasien.nama_pasien, dokter.nama_dokter, hasil_pemeriksaan, saran_dokter, tensi_darah, DATE_FORMAT(pendaftaran_rawat_jalan.created_at,"%d %M %Y") as created_at');
-		$builder->join('jadwal_dokter','jadwal_dokter.id_jadwal = pendaftaran_rawat_jalan.id_jadwal');
-		$builder->join('pasien','pasien.id_pasien = pendaftaran_rawat_jalan.id_pasien');
-		$builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
-        if ($param['cek_waktu1']) $builder->where('pendaftaran_rawat_jalan.created_at >= ', $param['cek_waktu1']);
-        if ($param['id_pasien']) $builder->where('pendaftaran_rawat_jalan.id_pasien', $param['id_pasien']);
+  //   	$db      = \Config\Database::connect();
+  //       $builder = $db->table('rekam_medis');
+		// $builder->select('pasien.nama_pasien, dokter.nama_dokter, hasil_pemeriksaan, saran_dokter, tensi_darah, DATE_FORMAT(rekam_medis.tanggal_rekam,"%d %M %Y") as tanggal_rekam');
+		// $builder->join('pasien','pasien.nik = rekam_medis.nik');
+		// $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
+  //       if ($param['cek_waktu1']) $builder->where('rekam_medis.tanggal_rekam >= ', $param['cek_waktu1']);
+  //       if ($param['nik']) $builder->where('rekam_medis.nik', $param['nik']);
+  //       return $builder->get();
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis');
+        $builder->select('pasien.nama_pasien, dokter.nama_dokter, hasil_pemeriksaan, saran_dokter, tensi_darah, DATE_FORMAT(rekam_medis.tanggal_rekam,"%d %M %Y") as tanggal_rekam');
+        $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
+        $builder->join('pasien','rekam_medis.nik = pasien.nik');
+        $builder->join('penyakit','rekam_medis.id_penyakit = penyakit.id_penyakit');
+        $builder->where('rekam_medis.status','Jalan');
+        if ($param['cek_waktu1']) $builder->where('rekam_medis.tanggal_rekam >= ', $param['cek_waktu1']);
+        if ($param['nik']) $builder->where('rekam_medis.nik', $param['nik']);
         return $builder->get();
     }
 
     public function filter_inap($param)
     {
-    	$db      = \Config\Database::connect();
-        $builder = $db->table('rekam_medis_inap');
-		$builder->select('pasien.nama_pasien, dokter.nama_dokter, hasil_pemeriksaan, saran_dokter, DATE_FORMAT(rekam_medis_inap.created_at,"%d %M %Y") as created_at');
-		$builder->join('pasien','pasien.id_pasien = rekam_medis_inap.id_pasien');
-		$builder->join('dokter','dokter.id_dokter = rekam_medis_inap.id_dokter');
-        if ($param['cek_waktu1']) $builder->where('rekam_medis_inap.created_at >= ', $param['cek_waktu1']);
-        if ($param['id_pasien']) $builder->where('rekam_medis_inap.id_pasien', $param['id_pasien']);
+  //   	$db      = \Config\Database::connect();
+  //       $builder = $db->table('rekam_medis');
+		// $builder->select('pasien.nama_pasien, dokter.nama_dokter, hasil_pemeriksaan, saran_dokter, DATE_FORMAT(rekam_medis.tanggal_rekam,"%d %M %Y") as tanggal_rekam');
+  //       $builder->join('rawat_inap','rawat_inap.id_inap = rekam_medis.id_inap');
+		// $builder->join('pasien','rawat_inap.nik = rekam_medis.nik');
+		// $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
+  //       $builder->where('rekam_medis.status','Inap');
+  //       if ($param['cek_waktu1']) $builder->where('rekam_medis.tanggal_rekam >= ', $param['cek_waktu1']);
+  //       if ($param['nik']) $builder->where('rawat_inap.nik', $param['nik']);
+  //       return $builder->get();
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis');
+        $builder->select('nama_pasien, nama_dokter, hasil_pemeriksaan, saran_dokter, DATE_FORMAT(rekam_medis.tanggal_rekam,"%d %M %Y") as tanggal_rekam');
+        $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
+        $builder->join('rawat_inap','rawat_inap.id_inap = rekam_medis.id_inap');
+        $builder->join('pasien','rawat_inap.nik = pasien.nik');
+        $builder->join('penyakit','rekam_medis.id_penyakit = penyakit.id_penyakit');
+        $builder->where('rekam_medis.status','Inap');
+        if ($param['cek_waktu1']) $builder->where('rekam_medis.tanggal_rekam >= ', $param['cek_waktu1']);
+        if ($param['nik']) $builder->where('rawat_inap.nik', $param['nik']);
         return $builder->get();
     }
 }

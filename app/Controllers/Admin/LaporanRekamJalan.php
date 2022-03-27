@@ -35,21 +35,21 @@ class LaporanRekamJalan extends BaseController
             $query = $postData['query'];
 
             // Fetch record
-            $builder->select('id_pasien, nama_pasien');
+            $builder->select('nik, nama_pasien');
             $builder->like('nama_pasien', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
             // Fetch record
-            $builder->select('id_pasien, nama_pasien');
+            $builder->select('nik, nama_pasien');
             $query = $builder->get();
             $data = $query->getResult();
         }
 
         foreach ($data as $country) {
             $pasien[] = array(
-                "id" => $country->id_pasien,
+                "id" => $country->nik,
                 "text" => $country->nama_pasien,
             );
         }
@@ -78,9 +78,9 @@ class LaporanRekamJalan extends BaseController
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
 
         if ($pasien != 'null') {
-            $param['id_pasien'] = $pasien;
+            $param['nik'] = $pasien;
         } else {
-            $param['id_pasien'] = null;
+            $param['nik'] = null;
         }
 
         $model = new Model_laporanrekammedis();
@@ -95,7 +95,7 @@ class LaporanRekamJalan extends BaseController
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
                 $isi['saran_dokter'] = $value['saran_dokter'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal_rekam'] = $value['tanggal_rekam'];
                 array_push($data, $isi);
             }
         }
@@ -122,21 +122,21 @@ class LaporanRekamJalan extends BaseController
             $query = $postData['query'];
 
             // Fetch record
-            $builder->select('dokter.id_dokter, dokter.nama_dokter');
+            $builder->select('dokter.nik_dokter, dokter.nama_dokter');
             $builder->like('nama_dokter', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
             // Fetch record
-            $builder->select('dokter.id_dokter, dokter.nama_dokter');
+            $builder->select('dokter.nik_dokter, dokter.nama_dokter');
             $query = $builder->get();
             $data = $query->getResult();
         }
 
         foreach ($data as $country) {
             $dokter[] = array(
-                "id" => $country->id_dokter,
+                "id" => $country->nik_dokter,
                 "text" => $country->nama_dokter,
             );
         }
@@ -155,15 +155,15 @@ class LaporanRekamJalan extends BaseController
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
 
         if ($pasien != 'null') {
-            $param['id_pasien'] = $pasien;
+            $param['nik'] = $pasien;
         } else {
-            $param['id_pasien'] = null;
+            $param['nik'] = null;
         }
 
         if ($dokter != 'null') {
-            $param['id_dokter'] = $dokter;
+            $param['nik_dokter'] = $dokter;
         } else {
-            $param['id_dokter'] = null;
+            $param['nik_dokter'] = null;
         }
 
         $model = new Model_laporanrekammedis();
@@ -178,7 +178,7 @@ class LaporanRekamJalan extends BaseController
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
                 $isi['saran_dokter'] = $value['saran_dokter'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal_rekam'] = $value['tanggal_rekam'];
                 array_push($data, $isi);
             }
         }

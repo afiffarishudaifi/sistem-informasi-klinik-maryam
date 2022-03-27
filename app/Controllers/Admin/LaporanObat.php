@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\Model_laporanpenjualanobat;
 
-class LaporanObatInap extends BaseController
+class LaporanObat extends BaseController
 {
 
     protected $Model_laporanpenjualanobat;
@@ -67,9 +67,9 @@ class LaporanObatInap extends BaseController
         $model = new Model_laporanpenjualanobat();
 
         $data = [
-            'judul' => 'Laporan Penjualan Obat Rawat Inap'
+            'judul' => 'Laporan Penjualan Obat'
         ];
-        return view('Admin/viewLaporanObatInap', $data);
+        return view('Admin/viewLaporanObat', $data);
     }
 
     public function data($tanggal = null, $obat = null)
@@ -87,7 +87,7 @@ class LaporanObatInap extends BaseController
         }
 
         $model = new Model_laporanpenjualanobat();
-        $laporan = $model->filter_inap($param)->getResultArray();
+        $laporan = $model->filter($param)->getResultArray();
 
         $respon = $laporan;
         $data = array();
@@ -98,7 +98,7 @@ class LaporanObatInap extends BaseController
                 $isi['jumlah_obat'] = $value['jumlah_obat'];
                 $isi['total_biaya'] = $value['total_biaya'];
                 $isi['stok_obat'] = $value['stok_obat'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal_resep'] = $value['tanggal_resep'];
                 array_push($data, $isi);
             }
         }
@@ -121,7 +121,7 @@ class LaporanObatInap extends BaseController
         }
 
         $model = new Model_laporanpenjualanobat();
-        $laporan = $model->filter_inap($param)->getResultArray();
+        $laporan = $model->filter($param)->getResultArray();
 
         $respon = $laporan;
         $data = array();
@@ -132,7 +132,7 @@ class LaporanObatInap extends BaseController
                 $isi['jumlah_obat'] = $value['jumlah_obat'];
                 $isi['total_biaya'] = $value['total_biaya'];
                 $isi['stok_obat'] = $value['stok_obat'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal_resep'] = $value['tanggal_resep'];
                 array_push($data, $isi);
             }
         }
