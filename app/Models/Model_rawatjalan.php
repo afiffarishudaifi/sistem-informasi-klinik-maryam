@@ -57,7 +57,7 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('antrian');
-        $builder->join('resep_jalan', 'resep_jalan.id_antrian = antrian.id_antrian');
+        $builder->join('resep', 'resep.id_antrian = antrian.id_antrian');
         $builder->where('antrian.id_antrian', $id);
         return $builder->countAllResults();
     }
@@ -126,7 +126,7 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('resep');
-        $builder->select('resep.id_resep, sum(detail_resep.total_biaya) as tagihan_obat, pasien.nama_pasien, dokter.nama_dokter');
+        $builder->select('resep.id_resep, sum(detail_resep.total_biaya) as tagihan_obat, pasien.nama_pasien, dokter.nama_dokter, tanggal');
         $builder->join('rekam_medis','rekam_medis.id_rekam = rekam_medis.id_rekam');
         $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
         $builder->join('pasien','rekam_medis.nik = pasien.nik');
@@ -135,17 +135,20 @@ class Model_rawatjalan extends Model
         return $builder->get();
     }
 
+    public function add_data_resep($data)
+    {
+        $query = $this->db->table('resep')->insert($data);
+        return $query;
+    }
+
     public function detail_data_resep($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('resep_jalan');
-        $builder->select('resep_jalan.id_resep, resep_jalan.tagihan_obat, pasien.nama_pasien, dokter.nama_dokter, rekam_medis_jalan.id_pemeriksaan, rekam_medis_jalan.created_at');
-        $builder->join('rekam_medis_jalan','rekam_medis_jalan.id_pemeriksaan = resep_jalan.id_pemeriksaan');
-        $builder->join('antrian','antrian.id_antrian = rekam_medis_jalan.id_antrian');
-        $builder->join('jadwal_dokter','antrian.id_jadwal = jadwal_dokter.id_jadwal');
-        $builder->join('dokter','dokter.id_dokter = jadwal_dokter.id_dokter');
-        $builder->join('poli','antrian.id_poli = poli.id_poli');
-        $builder->join('pasien','antrian.id_pasien = pasien.id_pasien');
+        $builder = $db->table('resep');
+        $builder->select("resep.id_resep, resep.tagihan_obat, pasien.nama_pasien, dokter.nama_dokter, rekam_medis.id_rekam, rekam_medis.tanggal_rekam, DATE_FORMAT(resep.tanggal, '%Y-%m-%d') as tanggal, status_bayar");
+        $builder->join('rekam_medis','rekam_medis.id_rekam = resep.id_rekam');
+        $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
+        $builder->join('pasien','rekam_medis.nik = pasien.nik');
         $builder->where('id_resep', $id);
         return $builder->get();
     }
@@ -153,7 +156,7 @@ class Model_rawatjalan extends Model
     public function update_data_resep($data, $id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('resep_jalan');
+        $builder = $db->table('resep');
         $builder->where('id_resep', $id);
         $builder->set($data);
         return $builder->update();
@@ -162,7 +165,7 @@ class Model_rawatjalan extends Model
     public function delete_data_resep($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('resep_jalan');
+        $builder = $db->table('resep');
         $builder->where('id_resep', $id);
         return $builder->delete();
     }
@@ -171,9 +174,9 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_resep');
-        $builder->select('detail_resep.id_detail, detail_resep.id_antrian, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, detail_resep.total_biaya');
+        $builder->select('detail_resep.id_detail, detail_resep.id_resep, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, detail_resep.total_biaya');
         $builder->join('obat','detail_resep.id_obat = obat.id_obat');
-        $builder->where('detail_resep.id_antrian', $id);
+        $builder->where('detail_resep.id_resep', $id);
         return $builder->get();
     }
 
@@ -196,7 +199,7 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_resep');
-        $builder->select('id_detail, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, total_biaya, id_antrian');
+        $builder->select('id_detail, detail_resep.id_obat, obat.nama_obat, detail_resep.jumlah_obat, total_biaya, id_resep');
         $builder->join('obat','obat.id_obat = detail_resep.id_obat');
         $builder->where('id_detail', $id);
         return $builder->get();

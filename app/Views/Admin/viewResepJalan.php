@@ -68,10 +68,10 @@
                                                     <?php if($item['tagihan_obat'] != null) { 
                                                         echo $item['tagihan_obat'];
                                                     } else {
-                                                        echo "-";
+                                                        echo "0";
                                                     } ?>
                                                 </td>
-                                                <td><?= $item['created_at']; ?></td>
+                                                <td><?= $item['tanggal']; ?></td>
                                                 <td>
                                                     <center>
                                                         <a href="<?= base_url('Admin/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
@@ -120,6 +120,22 @@
                                 </select>   
                             </div>
 
+                            <div class="form-group">
+                                <label>Tanggal Pemberian Resep</label>
+                                <input type="date" class="form-control" id="input_tanggal" name="input_tanggal"
+                                    data-parsley-required="true" autofocus="on">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Pembayaran</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="input_status" name="input_status"
+                                            value="Lunas"> &nbsp Lunas
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_add"
@@ -153,6 +169,22 @@
                                 <label>Rekam Medis</label>
                                 <select class="form-control select2" id="edit_rekam" name="edit_rekam">
                                 </select>   
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Pemberian Resep</label>
+                                <input type="date" class="form-control" id="edit_tanggal" name="edit_tanggal"
+                                    data-parsley-required="true" autofocus="on">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Pembayaran</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="edit_status" name="edit_status"
+                                            value="Lunas"> &nbsp Lunas
+                                    </label>
+                                </div>
                             </div>
 
                         </div>
@@ -226,10 +258,10 @@
             $('.select2').select2()
 
             $("#input_rekam").select2({
-                placeholder: "Pilih Pemeriksaan",
+                placeholder: "Pilih Rekam Medis",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pemeriksaan'); ?>',
+                    url: '<?php echo base_url('Admin/RawatJalan/data_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -248,10 +280,10 @@
             });
 
             $("#edit_rekam").select2({
-                placeholder: "Pilih Pemeriksaan",
+                placeholder: "Pilih  Rekam Medis",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pemeriksaan'); ?>',
+                    url: '<?php echo base_url('Admin/RawatJalan/data_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -273,16 +305,22 @@
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_rekam").val('');
+                $("#input_tanggal").val('');
+                $("#input_status").prop('checked',false);
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_rekam").val('');
+                $("#input_tanggal").val('');
+                $("#input_status").prop('checked',false);
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_rekam").val('');
+                $("#edit_tanggal").val('');
+                $("#edit_status").prop('checked',false);
             });
         })
 
@@ -290,6 +328,7 @@
             $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit_resep'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_resep').val(json.id_resep);
+                    $('#edit_tanggal').val(json.tanggal);
 
                     $('#edit_rekam').append('<option selected value="' + json.id_rekam + '">' + json.nama_pasien +
                         '</option>');
@@ -298,6 +337,12 @@
                         text: json.created_at
                     });
                     $('#edit_rekam').trigger('change');
+
+                    if(json.status_bayar=='Lunas'){
+                        $("#edit_status").prop('checked',true);
+                    }else{
+                        $("#edit_status").prop('checked',false);
+                    }
                 });
         }
         
@@ -307,7 +352,7 @@
 	        "lengthChange": false,
 	        "autoWidth": false,
 	        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-	        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+	    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
 	        "paging": true,
 	        "lengthChange": false,
