@@ -83,6 +83,7 @@ class Model_rawatjalan extends Model
         $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
         $builder->join('pasien','rekam_medis.nik = pasien.nik');
         $builder->join('penyakit','rekam_medis.id_penyakit = penyakit.id_penyakit');
+        $builder->where('rekam_medis.status','Jalan');
         return $builder->get();
     }
 
@@ -96,7 +97,7 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('rekam_medis');
-        $builder->select("rekam_medis.id_rekam, rekam_medis.hasil_pemeriksaan, rekam_medis.saran_dokter, rekam_medis.tensi_darah, rekam_medis.id_rekam, pasien.nama_pasien, rekam_medis.tanggal_rekam, dokter.nama_dokter, penyakit.nama_penyakit, pasien.nik, dokter.nik_dokter, penyakit.id_penyakit");
+        $builder->select("rekam_medis.id_rekam, rekam_medis.hasil_pemeriksaan, rekam_medis.saran_dokter, rekam_medis.tensi_darah, rekam_medis.id_rekam, pasien.nama_pasien, rekam_medis.tanggal_rekam, dokter.nama_dokter, penyakit.nama_penyakit, pasien.nik, dokter.nik_dokter, penyakit.id_penyakit, nama_penyakit");
         $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
         $builder->join('penyakit','rekam_medis.id_penyakit = penyakit.id_penyakit');
         $builder->join('pasien','rekam_medis.nik = pasien.nik');
@@ -132,6 +133,7 @@ class Model_rawatjalan extends Model
         $builder->join('pasien','rekam_medis.nik = pasien.nik');
         $builder->join('detail_resep', 'resep.id_resep = detail_resep.id_resep', 'left');
         $builder->groupBy("resep.id_resep");
+        $builder->where('resep.status','Jalan');
         return $builder->get();
     }
 

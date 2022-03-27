@@ -447,6 +447,7 @@ class RawatJalan extends BaseController
 
             $builder->select('id_rekam, pasien.nama_pasien, rekam_medis.tanggal_rekam');
             $builder->join('pasien','rekam_medis.nik = pasien.nik');
+            $builder->where('rekam_medis.status','Jalan');
             $builder->orderBy('id_rekam', 'DESC');
             $builder->like('date(rekam_medis.tanggal_rekam)', $query, 'both');
             $query = $builder->get();
@@ -455,6 +456,7 @@ class RawatJalan extends BaseController
 
             $builder->select('id_rekam, pasien.nama_pasien, rekam_medis.tanggal_rekam');
             $builder->join('pasien','rekam_medis.nik = pasien.nik');
+            $builder->where('rekam_medis.status','Jalan');
             $builder->orderBy('id_rekam', 'DESC');
             $query = $builder->get();
             $data = $query->getResult();

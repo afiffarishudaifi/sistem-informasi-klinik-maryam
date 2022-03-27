@@ -24,10 +24,10 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                               <!--  <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
+                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
-                                </li> -->
+                                </li>
                             </ol>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id Rekam Inap</th>
+                                                <th>Id Resep</th>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Tagihan</th>
@@ -61,23 +61,23 @@
                                                 foreach ($data as $item) {
                                             ?>
                                             <tr>
-                                                <td><?= $item['id_rekam_inap']; ?></td>
+                                                <td><?= $item['id_resep']; ?></td>
                                                 <td><?= $item['nama_pasien']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
                                                 <td>
                                                     <?php if($item['tagihan_obat'] != null) { 
                                                         echo $item['tagihan_obat'];
                                                     } else {
-                                                        echo "-";
+                                                        echo "0";
                                                     } ?>
                                                 </td>
-                                                <td><?= $item['created_at']; ?></td>
+                                                <td><?= $item['tanggal']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Admin/RawatInap/detailResep') . '/' . $item['id_rekam_inap']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_rekam_inap']; ?>)" data-toggle="modal"
-                                                            data-target="#deleteModal" data-id="<?= $item['id_rekam_inap']; ?>">Hapus</a>
+                                                        <a href="<?= base_url('Admin/RawatInap/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>)" data-toggle="modal"
+                                                            data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
                                             </tr>
@@ -107,7 +107,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Resep Inap </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Resep</h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -115,9 +115,25 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Pemeriksaan</label>
-                                <select class="form-control select2" id="input_rekam_inap" name="input_rekam_inap">
+                                <label>Rekam Medis</label>
+                                <select class="form-control select2" id="input_rekam" name="input_rekam">
                                 </select>   
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Pemberian Resep</label>
+                                <input type="date" class="form-control" id="input_tanggal" name="input_tanggal"
+                                    data-parsley-required="true" autofocus="on">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Pembayaran</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="input_status" name="input_status"
+                                            value="Lunas"> &nbsp Lunas
+                                    </label>
+                                </div>
                             </div>
 
                         </div>
@@ -141,18 +157,34 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Resep Inap </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Resep</h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_rekam_inap" id="id_rekam_inap">
+                            <input type="hidden" name="id_resep" id="id_resep">
 
                             <div class="form-group">
-                                <label>Pemeriksaan</label>
-                                <select class="form-control select2" id="edit_rekam_inap" name="edit_rekam_inap">
+                                <label>Rekam Medis</label>
+                                <select class="form-control select2" id="edit_rekam" name="edit_rekam">
                                 </select>   
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Pemberian Resep</label>
+                                <input type="date" class="form-control" id="edit_tanggal" name="edit_tanggal"
+                                    data-parsley-required="true" autofocus="on">  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Pembayaran</label>
+                                <div class="checkbox">
+                                    <label for="example-checkbox1">
+                                        <input type="checkbox" id="edit_status" name="edit_status"
+                                            value="Lunas"> &nbsp Lunas
+                                    </label>
+                                </div>
                             </div>
 
                         </div>
@@ -225,11 +257,11 @@
         $(function() {
             $('.select2').select2()
 
-            $("#input_rekam_inap").select2({
-                placeholder: "Pilih Pemeriksaan",
+            $("#input_rekam").select2({
+                placeholder: "Pilih Rekam Medis",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pemeriksaan'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -247,11 +279,11 @@
                 }
             });
 
-            $("#edit_rekam_inap").select2({
-                placeholder: "Pilih Pemeriksaan",
+            $("#edit_rekam").select2({
+                placeholder: "Pilih  Rekam Medis",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/RawatInap/data_pemeriksaan'); ?>',
+                    url: '<?php echo base_url('Admin/RawatInap/data_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -272,50 +304,63 @@
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_rekam_inap").val('');
+                $("#input_rekam").val('');
+                $("#input_tanggal").val('');
+                $("#input_status").prop('checked',false);
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_rekam_inap").val('');
+                $("#input_rekam").val('');
+                $("#input_tanggal").val('');
+                $("#input_status").prop('checked',false);
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_rekam_inap").val('');
+                $("#edit_rekam").val('');
+                $("#edit_tanggal").val('');
+                $("#edit_status").prop('checked',false);
             });
         })
 
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/RawatInap/data_edit_resep'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_rekam_inap').val(json.id_rekam_inap);
+                    $('#id_resep').val(json.id_resep);
+                    $('#edit_tanggal').val(json.tanggal);
 
-                    $('#edit_rekam_inap').append('<option selected value="' + json.id_rekam_inap + '">' + json.created_at + " pasien " + json.nama_pasien +
+                    $('#edit_rekam').append('<option selected value="' + json.id_rekam + '">' + json.nama_pasien +
                         '</option>');
-                    $('#edit_rekam_inap').select2('data', {
-                        id: json.id_rekam_inap,
+                    $('#edit_rekam').select2('data', {
+                        id: json.id_rekam,
                         text: json.created_at
                     });
-                    $('#edit_rekam_inap').trigger('change');
+                    $('#edit_rekam').trigger('change');
+
+                    if(json.status_bayar=='Lunas'){
+                        $("#edit_status").prop('checked',true);
+                    }else{
+                        $("#edit_status").prop('checked',false);
+                    }
                 });
         }
         
     $(function() {
         $("#example1").DataTable({
-	        "responsive": true,
-	        "lengthChange": false,
-	        "autoWidth": false,
-	        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-	        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
-	        "paging": true,
-	        "lengthChange": false,
-	        "searching": false,
-	        "ordering": true,
-	        "info": true,
-	        "autoWidth": false,
-	        "responsive": true,
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
         });
     });
     </script>
