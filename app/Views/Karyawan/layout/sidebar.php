@@ -43,7 +43,7 @@ $session = session();
                 <li class="nav-item">
                     <a href="#" class="nav-link <?php
                             if (
-                                $uri->getSegment(2) == 'JadwalDokter' || $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien'
+                                $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien'
                             ) {
                                 echo "active";
                             } ?>">
@@ -54,15 +54,6 @@ $session = session();
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/JadwalDokter'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'JadwalDokter') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-clock nav-icon"></i>
-                                <p>Jadwal Dokter</p>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a href="<?= base_url('Karyawan/Obat'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Obat') {
@@ -99,28 +90,19 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/RawatJalan'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'RawatJalan') {
-                                echo "active";
-                            } ?>">
+                            <a href="<?= base_url('Karyawan/RawatJalan'); ?>" class="nav-link">
                                 <i class="fa fa-plus-circle nav-icon"></i>
                                 <p>Daftar Rawat Jalan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'rekamJalan') {
-                                echo "active";
-                            } ?>">
+                            <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rekam Medis Rawat Jalan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/RawatJalan/resepJalan'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'resepJalan') {
-                                echo "active";
-                            } ?>">
+                            <a href="<?= base_url('Karyawan/RawatJalan/resepJalan'); ?>" class="nav-link">
                                 <i class="fa fa-sticky-note nav-icon"></i>
                                 <p>Resep Rawat Jalan</p>
                             </a>
@@ -142,28 +124,19 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/RawatInap'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'RawatInap') {
-                                echo "active";
-                            } ?>">
+                            <a href="<?= base_url('Karyawan/RawatInap'); ?>" class="nav-link">
                                 <i class="fa fa-plus-square nav-icon"></i>
                                 <p>Daftar Rawat Inap</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/RawatInap/rekamInap'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'rekamInap') {
-                                echo "active";
-                            } ?>">
+                            <a href="<?= base_url('Karyawan/RawatInap/rekamInap'); ?>" class="nav-link">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rekam Medis Rawat Inap</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/RawatInap/resepInap'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'resepInap') {
-                                echo "active";
-                            } ?>">
+                            <a href="<?= base_url('Karyawan/RawatInap/resepInap'); ?>" class="nav-link">
                                 <i class="fa fa-sticky-note nav-icon"></i>
                                 <p>Resep Rawat Inap</p>
                             </a>

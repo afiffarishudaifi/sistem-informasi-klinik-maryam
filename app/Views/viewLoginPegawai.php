@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>E-Klinik Maryam</title>
-  
+
   <link rel="shortcut icon" href="<?= base_url() ?>/docs/adminlte/dist/img/AdminLTELogo.png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,12 +23,13 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>E-Klinik Maryam</b></a>
+      <a href="#" class="h1"><b>E-Klinik Maryam</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Login untuk dapat akses ke sistem</p>
+      <?= $session->get('nama_login'); ?>
 
-      <form action="<?= base_url('Login/loginSistem'); ?>" method="POST" autocomplete="off" data-parsley-validate="true">
+      <form action="<?= base_url('Login/loginSistemPegawai'); ?>" method="POST" autocomplete="off">
         <div class="input-group mb-3">
           <input type="email" required=""  name="email" id="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -47,26 +48,13 @@
         </div>
 
         <div class="social-auth-links text-center mt-2 mb-3">
-          <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-sign-in-alt"></i>    Sign In</button>
+          <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-sign-in-alt"></i> Sign In</button>
         </div>
       </form>
-      
       <!-- /.social-auth-links -->
 
-      <div class="social-auth-links text-center">
-        <a href="<?= base_url('Registrasi') ?>" class="btn btn-block btn-info">
-          <i class="fa fa-user-plus mr-2"></i>
-          Registrasi Pasien
-        </a>
-        <a href="<?php 
-          echo $googleButton;
-        ?>" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>
-
       <p class="mb-1">
-        Lupa password ? <a href="<?= base_url('Login/resetPasien') ?>"> klik </a>untuk resert password
+        Lupa password ? <a href="<?= base_url('Login/resetPasien') ?>"> klik </a>untuk reset password
       </p>
     </div>
     <!-- /.card-body -->
@@ -88,8 +76,6 @@
   $(document).ready(function() {
       if ('<?= $session->getFlashdata('msg'); ?>' != '') {
           toastr.error('<?= $session->getFlashdata('msg'); ?>')
-      } else if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
-          toastr.success('<?= $session->getFlashdata('sukses'); ?>') 
       }
   });
 </script>

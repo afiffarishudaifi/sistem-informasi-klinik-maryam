@@ -123,10 +123,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Username Karyawan</label>
-                                <input type="text" class="form-control" id="input_username" name="input_username"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
-                                <span class="text-danger" id="error_username"></span>
+                                <label>Email Karyawan</label>
+                                <input type="email" class="form-control" id="input_email" name="input_email"
+                                    data-parsley-required="true" placeholder="Masukkan Email Karyawan" autofocus="on">
+                                <span class="text-danger" id="error_email"></span>
                             </div>
 
                             <div class="form-group">
@@ -218,6 +218,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="nik_karyawan" id="nik_karyawan">
+                            <input type="hidden" name="email_lama" id="email_lama">
                             <input type="hidden" name="id_user" id="id_user">
 
                             <div class="form-group">
@@ -235,10 +236,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Username Karyawan</label>
-                                <input type="text" class="form-control" id="edit_username" name="edit_username"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Karyawan" autofocus="on">
-                                <span class="text-danger" id="error_edit_username"></span>
+                                <label>Email Karyawan</label>
+                                <input type="text" class="form-control" id="edit_email" name="edit_email"
+                                    data-parsley-required="true" placeholder="Masukkan Email Karyawan" autofocus="on">
+                                <span class="text-danger" id="error_edit_email"></span>
                             </div>
                             <div class="form-group">
                                 <label>Password Karyawan</label>
@@ -401,7 +402,8 @@
                         $("#edit_status").prop('checked',false);
                     }
 
-                    $('#edit_username').val(json.username);
+                    $('#edit_email').val(json.email);
+                    $('#email_lama').val(json.email);
                     $('#edit_no_telp').val(json.no_telp_karyawan);
                     $('#edit_alamat').val(json.alamat_karyawan);                    
                     if (json.foto_karyawan != 'n') {
@@ -433,7 +435,7 @@
                 "responsive": true,
             });
 
-            $("#input_username").keyup(function(){
+            $("#input_email").keyup(function(){
 
                 var username = $(this).val().trim();
           
@@ -441,13 +443,38 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Karyawan/cek_username'); ?>' + '/' + username,
+                        url: '<?php echo base_url('Admin/Karyawan/cek_email'); ?>' + '/' + username,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_username").html('Username telah dipakai,coba yang lain');
-                                $("#input_username").val('');
+                                $("#error_email").html('Username telah dipakai,coba yang lain');
+                                $("#input_email").val('');
                             }else{
-                                $("#error_username").html('');
+                                $("#error_email").html('');
+                            }
+                        }, error: function () {
+            
+                            alert('error');
+                        }
+                    });
+                }
+          
+              });
+
+            $("#edit_email").keyup(function(){
+
+                var email = $(this).val().trim();
+          
+                if(email != '' && $('#email_lama').val()){
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'json',
+                        url: '<?php echo base_url('Admin/Karyawan/cek_email'); ?>' + '/' + email,
+                        success: function (data) {
+                            if(data['results']>0){
+                                $("#error_email").html('Email telah dipakai,coba yang lain');
+                                $("#edit_email").val('');
+                            }else{
+                                $("#error_email").html('');
                             }
                         }, error: function () {
             
@@ -467,7 +494,7 @@
                 $("#input_tanggal").val('');
                 $("#input_kelamin").val('');
                 $("#input_nama").val('');
-                $("#input_username").val('');
+                $("#input_email").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
                 $("#input_no_telp").val('');
@@ -482,7 +509,7 @@
                 $("#input_tanggal").val('');
                 $("#input_kelamin").val('');
                 $("#input_nama").val('');
-                $("#input_username").val('');
+                $("#input_email").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
                 $("#input_no_telp").val('');
@@ -497,7 +524,7 @@
                 $("#edit_tanggal").val('');
                 $("#edit_kelamin").val('');
                 $("#edit_nama").val('');
-                $("#edit_username").val('');
+                $("#edit_email").val('');
                 $("#edit_password").val('');
                 $("#edit_password_konfirmasi").val('');
                 $("#edit_no_telp").val('');

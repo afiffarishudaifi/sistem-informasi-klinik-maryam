@@ -14,7 +14,7 @@ class Dashboard extends BaseController
         if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
             return redirect()->to('Login');
         } else if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
-            return redirect()->to('Login');
+            return redirect()->to('Login/loginPegawai');
         }
 
         helper(['form', 'url']);
@@ -30,15 +30,4 @@ class Dashboard extends BaseController
         return view('Karyawan/index', $data);
     }
 
-    public function add_admin()
-    {
-    }
-
-    public function update_admin()
-    {
-    }
-
-    public function delete_admin()
-    {
-    }
 }

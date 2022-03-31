@@ -168,51 +168,89 @@ class Login extends BaseController
         $model = new Model_login();
         $encrypter = \Config\Services::encrypter();
 
+        // $status = $this->request->getPost('status');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $data = $model->loginPasien($email)->getRowArray();
+        // if ($status == 'Pasien') {
+            $data = $model->loginPasien($email)->getRowArray();
 
-        if ($data) {
-            $pass = $data['password'];
-            $status = 'Pasien';
-            $verify_pass =  $encrypter->decrypt(base64_decode($pass));
-            if ($verify_pass == $password) {
-                $ses_data = [
-                    'user_id' => $data['id_pasien'],
-                    'nama_login' => $data['nama_pasien'],
-                    'foto' => 'no_image.png',
-                    'status_login' => $status,
-                    'logged_in' => TRUE,
-                    'is_admin' => TRUE
-                ];
-                $session->set($ses_data);
-                return redirect()->to('/Pasien/Dashboard');
+            if ($data) {
+                $pass = $data['password'];
+                $status = 'Pasien';
+                $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                if ($verify_pass == $password) {
+                    $ses_data = [
+                        'user_id' => $data['id_pasien'],
+                        'nama_login' => $data['nama_pasien'],
+                        'foto' => 'no_image.png',
+                        'status_login' => $status,
+                        'logged_in' => TRUE,
+                        'is_admin' => TRUE
+                    ];
+                    $session->set($ses_data);
+                    return redirect()->to('/Pasien/Dashboard');
+                } else {
+                    $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                    return redirect()->to('/Login');
+                }
             } else {
-                $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                return redirect()->to('/Login');
+                // $session->setFlashdata('msg', 'Email Tidak di Temukan');
+                // return redirect()->to('/Login');
+                $data = $model->loginKaryawan($email)->getRowArray();
+
+                if ($data) {
+                    $pass = $data['password'];
+                    $status = 'Karyawan';
+                    $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                    if ($verify_pass == $password) {
+                        $ses_data = [
+                            'user_id' => $data['id_karyawan'],
+                            'nama_login' => $data['nama_karyawan'],
+                            'foto' => $data['foto_karyawan'],
+                            'status_login' => $status,
+                            'logged_in' => TRUE,
+                            'is_admin' => TRUE
+                        ];
+                        $session->set($ses_data);
+                        return redirect()->to('/Karyawan/Dashboard');
+                    } else {
+                        $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                        return redirect()->to('/Login');
+                    }
+                } else {
+                    // $session->setFlashdata('msg', 'Email Tidak di Temukan');
+                    // return redirect()->to('/Login');
+                    $data = $model->loginApoteker($email)->getRowArray();
+
+                    if ($data) {
+                        $pass = $data['password'];
+                        $status = 'Apoteker';
+                        $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                        if ($verify_pass == $password) {
+                            $ses_data = [
+                                'user_id' => $data['id_karyawan'],
+                                'nama_login' => $data['nama_karyawan'],
+                                'foto' => $data['foto_karyawan'],
+                                'status_login' => $status,
+                                'logged_in' => TRUE,
+                                'is_admin' => TRUE
+                            ];
+                            $session->set($ses_data);
+                            return redirect()->to('/Apoteker/Dashboard');
+                        } else {
+                            $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                            return redirect()->to('/Login');
+                        }
+                    } else {
+                        $session->setFlashdata('msg', 'Email Tidak di Temukan');
+                        return redirect()->to('/Login');
+                    }
+                }
             }
-        } else {
-            $session->setFlashdata('msg', 'Email Tidak di Temukan');
-            return redirect()->to('/Login');
-        }
     }
 
-    public function loginPegawai()
-    {
-        $session = session();
-
-        if ($session->get('nama_login') || $session->get('status_login') == 'Pasien') {
-            return redirect()->to('Pasien/Dashboard');
-        } else if ($session->get('nama_login') || $session->get('status_login') == 'Karyawan') {
-            return redirect()->to('Karyawan/Dashboard');
-        }
-
-        helper(['form']);
-        return view('viewLoginPegawai');
-    }
-
-    public function loginSistemPegawai()
+    public function loginSistemKaryawan()
     {
         $session = session();
 
@@ -225,57 +263,86 @@ class Login extends BaseController
         $model = new Model_login();
         $encrypter = \Config\Services::encrypter();
 
+        // $status = $this->request->getPost('status');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $data = $model->loginKaryawan($email)->getRowArray();
-
-        if ($data) {
-            $pass = $data['password'];
-            $status = 'Karyawan';
-            $verify_pass =  $encrypter->decrypt(base64_decode($pass));
-            if ($verify_pass == $password) {
-                $ses_data = [
-                    'user_id' => $data['nik_karyawan'],
-                    'nama_login' => $data['nama_karyawan'],
-                    'foto' => $data['foto_karyawan'],
-                    'status_login' => $status,
-                    'logged_in' => TRUE,
-                    'is_admin' => TRUE
-                ];
-                $session->set($ses_data);
-                return redirect()->to('/Karyawan/Dashboard');
-            } else {
-                $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                return redirect()->to('/Login');
-            }
-        } else {
-            $data = $model->loginApoteker($email)->getRowArray();
+        // if ($status == 'Pasien') {
+            $data = $model->loginPasien($email)->getRowArray();
 
             if ($data) {
                 $pass = $data['password'];
-                $status = 'Apoteker';
+                $status = 'Pasien';
                 $verify_pass =  $encrypter->decrypt(base64_decode($pass));
                 if ($verify_pass == $password) {
                     $ses_data = [
-                        'user_id' => $data['nik_karyawan'],
-                        'nama_login' => $data['nama_karyawan'],
-                        'foto' => $data['foto_karyawan'],
+                        'user_id' => $data['id_pasien'],
+                        'nama_login' => $data['nama_pasien'],
+                        'foto' => 'no_image.png',
                         'status_login' => $status,
                         'logged_in' => TRUE,
                         'is_admin' => TRUE
                     ];
                     $session->set($ses_data);
-                    return redirect()->to('/Apoteker/Dashboard');
+                    return redirect()->to('/Pasien/Dashboard');
                 } else {
                     $session->setFlashdata('msg', 'Password Tidak Sesuai');
                     return redirect()->to('/Login');
                 }
             } else {
-                $session->setFlashdata('msg', 'Email Tidak di Temukan');
-                return redirect()->to('/Login');
+                // $session->setFlashdata('msg', 'Email Tidak di Temukan');
+                // return redirect()->to('/Login');
+                $data = $model->loginKaryawan($email)->getRowArray();
+
+                if ($data) {
+                    $pass = $data['password'];
+                    $status = 'Karyawan';
+                    $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                    if ($verify_pass == $password) {
+                        $ses_data = [
+                            'user_id' => $data['id_karyawan'],
+                            'nama_login' => $data['nama_karyawan'],
+                            'foto' => $data['foto_karyawan'],
+                            'status_login' => $status,
+                            'logged_in' => TRUE,
+                            'is_admin' => TRUE
+                        ];
+                        $session->set($ses_data);
+                        return redirect()->to('/Karyawan/Dashboard');
+                    } else {
+                        $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                        return redirect()->to('/Login');
+                    }
+                } else {
+                    // $session->setFlashdata('msg', 'Email Tidak di Temukan');
+                    // return redirect()->to('/Login');
+                    $data = $model->loginApoteker($email)->getRowArray();
+
+                    if ($data) {
+                        $pass = $data['password'];
+                        $status = 'Apoteker';
+                        $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                        if ($verify_pass == $password) {
+                            $ses_data = [
+                                'user_id' => $data['id_karyawan'],
+                                'nama_login' => $data['nama_karyawan'],
+                                'foto' => $data['foto_karyawan'],
+                                'status_login' => $status,
+                                'logged_in' => TRUE,
+                                'is_admin' => TRUE
+                            ];
+                            $session->set($ses_data);
+                            return redirect()->to('/Apoteker/Dashboard');
+                        } else {
+                            $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                            return redirect()->to('/Login');
+                        }
+                    } else {
+                        $session->setFlashdata('msg', 'Email Tidak di Temukan');
+                        return redirect()->to('/Login');
+                    }
+                }
             }
-        }
     }
 
     public function logout()

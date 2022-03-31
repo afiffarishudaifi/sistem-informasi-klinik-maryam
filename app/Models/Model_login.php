@@ -35,6 +35,8 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
+        $query = $builder->select('nik_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, email');
+        $query = $builder->join('karyawan', 'karyawan.id_user = user.id_user');
         $query = $builder->where('email', $email);
         $query = $builder->where('level', 'karyawan');
         return $query->get();
@@ -44,7 +46,7 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
-        $query = $builder->select('id_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, email');
+        $query = $builder->select('nik_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, email');
         $query = $builder->join('karyawan', 'karyawan.id_user = user.id_user');
         $query = $builder->where('email', $email);
         $query = $builder->where('level', 'Apoteker');

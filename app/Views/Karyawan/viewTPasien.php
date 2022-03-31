@@ -67,9 +67,9 @@
                                                     <td><?= $item['no_telp_pasien']; ?></td>
                                                     <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pasien']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</i></a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pasien']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_pasien']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['nik']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</i></a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['nik']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['nik']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
                                                 </tr>
@@ -92,7 +92,7 @@
 
         <!-- Start Modal Add Class-->
         <form action="<?php echo base_url('Karyawan/Pasien/add_pasien'); ?>" method="post" id="form_add"
-            data-parsley-validate="true" autocomplete="off">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -113,16 +113,16 @@
                             </div>
                             <div class="form-group">
                                 <label>NIK Pasien</label>
-                                <input type="number" class="form-control" id="input_nik" name="input_nik"
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="input_nik" name="input_nik"
                                     data-parsley-required="true" placeholder="Masukkan NIK Pasien" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
                             </div>
                             <div class="form-group">
-                                <label>Username Pasien</label>
-                                <input type="text" class="form-control" id="input_username" name="input_username"
-                                    data-parsley-required="true" placeholder="Masukkan Username Pasien" autofocus="on">
-                                <span class="text-danger" id="error_username"></span>
+                                <label>Email Pasien</label>
+                                <input type="email" class="form-control" id="input_email" name="input_email"
+                                    data-parsley-required="true" placeholder="Masukkan Email Pasien" autofocus="on">
+                                <span class="text-danger" id="error_email"></span>
                             </div>
                             <div class="form-group">
                                 <label>Password Pasien</label>
@@ -131,8 +131,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Ulangi Password</label>
-                                <input type="Password" class="form-control" id="input_password_konfirmasi" name="input_password_konfirmasi"
-                                    data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#input_password">
+                                <input type="Password" class="form-control" id="input_password_konfirmasi" name="input_password_konfirmasi" data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#input_password">
                             </div>
                             <div class="form-group">
                                 <label>Alamat Pasien</label>
@@ -140,8 +139,28 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telp Pasien</label>
-                                <input type="number" class="form-control" id="input_no_telp" name="input_no_telp"
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="input_no_telp" name="input_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="input_kelamin" name="input_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Agama</label>
+                                <input type="text" class="form-control" id="input_agama" name="input_agama"
+                                    data-parsley-required="true" placeholder="Masukkan Agama" autofocus="on">
+                                <span class="text-danger" id="error_email"></span>
                             </div>
 
                         </div>
@@ -158,12 +177,13 @@
 
         <!-- Modal Edit Class-->
         <form action="<?php echo base_url('Karyawan/Pasien/update_pasien'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true" autocomplete="off">
+            data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                        <input type="hidden" name="nik" id="nik" style="display: none;">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Ubah Data Pasien</h5>
                                 <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
@@ -171,7 +191,7 @@
                                 </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pasien" id="id_pasien">
+                            <input type="hidden" name="id_user" id="id_user">
 
                             <div class="form-group">
                                 <label>Nama Pasien</label>
@@ -180,16 +200,16 @@
                             </div>
                             <div class="form-group">
                                 <label>NIK Pasien</label>
-                                <input type="number" class="form-control" id="edit_nik" name="edit_nik"
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="edit_nik" name="edit_nik"
                                     data-parsley-required="true" placeholder="Masukkan NIK Pasien" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik_edit"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
                             </div>
                             <div class="form-group">
-                                <label>Username Pasien</label>
-                                <input type="text" class="form-control" id="edit_username" name="edit_username"
-                                    data-parsley-required="true" placeholder="Masukkan Username Pasien" autofocus="on">
-                                <span class="text-danger" id="error_edit_username"></span>
+                                <label>Email Pasien</label>
+                                <input type="email" class="form-control" id="edit_email" name="edit_email"
+                                    data-parsley-required="true" placeholder="Masukkan Email Pasien" autofocus="on">
+                                <span class="text-danger" id="error_edit_email"></span>
                             </div>
                             <div class="form-group">
                                 <label>Password Pasien</label>
@@ -207,8 +227,28 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telp Pasien</label>
-                                <input type="number" class="form-control" id="edit_no_telp" name="edit_no_telp"
+                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="edit_no_telp" name="edit_no_telp"
                                     data-parsley-required="true" placeholder="Masukkan No Telp Pasien" autofocus="on">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control" id="edit_kelamin" name="edit_kelamin">
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Agama</label>
+                                <input type="text" class="form-control" id="edit_agama" name="edit_agama"
+                                    data-parsley-required="true" placeholder="Masukkan Agama" autofocus="on">
+                                <span class="text-danger" id="error_email"></span>
                             </div>
 
                         </div>
@@ -279,7 +319,7 @@
         });
 
         $(function() {
-            $("#input_username").keyup(function(){
+            $("#input_email").keyup(function(){
 
                 var nama = $(this).val().trim();
           
@@ -287,13 +327,13 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Karyawan/Pasien/cek_username'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Karyawan/Pasien/cek_email'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_username").html('Username telah dipakai,coba yang lain');
-                                $("#input_username").val('');
+                                $("#error_email").html('Email telah dipakai,coba yang lain');
+                                $("#input_email").val('');
                             }else{
-                                $("#error_username").html('');
+                                $("#error_email").html('');
                             }
                         }, error: function () {
             
@@ -303,29 +343,6 @@
                 }
           
               });
-            $("#edit_username").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != '' && nama != $('#edit_username_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Karyawan/Pasien/cek_username'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_username").html('Username telah dipakai,coba yang lain');
-                                $("#edit_username").val('');
-                            }else{
-                                $("#error_edit_username").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-            });
 
             $("#input_nik").keyup(function(){
 
@@ -351,74 +368,68 @@
                 }
           
               });
-            $("#edit_nik").keyup(function(){
-
-                var nik = $(this).val().trim();
-          
-                if(nik != '' && nik != $('#edit_username_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Karyawan/Pasien/cek_nik'); ?>' + '/' + nik,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nik").html('NIK telah dipakai,coba yang lain');
-                                $("#edit_nik").val('');
-                            }else{
-                                $("#error_edit_nik").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-            });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nama").val('');
                 $("#input_nik").val('');
-                $("#input_username").val('');
+                $("#input_email").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
+                $("#input_tanggal").val('');
+                $("#input_kelamin").val('');
+                $("#input_agama").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nama").val('');
                 $("#input_nik").val('');
-                $("#input_username").val('');
+                $("#input_email").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
                 $("#input_alamat").val('');
                 $("#input_no_telp").val('');
+                $("#input_tanggal").val('');
+                $("#input_kelamin").val('');
+                $("#input_agama").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nama").val('');
                 $("#edit_nik").val('');
-                $("#edit_username").val('');
+                $("#edit_email").val('');
                 $("#edit_password").val('');
                 $("#edit_password_konfirmasi").val('');
                 $("#edit_alamat").val('');
                 $("#edit_no_telp").val('');
+                $("#edit_tanggal").val('');
+                $("#edit_kelamin").val('');
+                $("#edit_agama").val('');
             });
         })
 
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Karyawan/Pasien/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pasien').val(json.id_pasien);
+                    $('#nik').val(json.nik);
+                    $('#id_user').val(json.id_user);
                     $('#edit_nama').val(json.nama_pasien);
                     $('#edit_nik').val(json.nik);
-                    $('#edit_username').val(json.username_pasien);
+                    $('#edit_email').val(json.email);
                     $('#edit_alamat').val(json.alamat_pasien);
                     $('#edit_no_telp').val(json.no_telp_pasien);
+                    $('#edit_tanggal').val(json.tgl_lahir);
+                    $('#edit_agama').val(json.agama);
+                    if(json.jenis_kelamin == 'Perempuan'){
+                        document.getElementById("edit_kelamin").selectedIndex = 1;
+                    }else{
+                        document.getElementById("edit_kelamin").selectedIndex = 0;
+                    }
                 });
         }
     </script>

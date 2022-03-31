@@ -41,7 +41,7 @@ class Karyawan extends BaseController
         $encrypter = \Config\Services::encrypter();
 
         $data = array(
-            'username'     => $this->request->getPost('input_username'),
+            'email'     => $this->request->getPost('input_email'),
             'level'     => $this->request->getPost('input_level'),
             'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
             'level'     => 'Karyawan'
@@ -170,13 +170,13 @@ class Karyawan extends BaseController
         $modeluser = new Model_user();
         if ($password != '') {
             $data = array(
-                'username'     => $this->request->getPost('edit_username'),
+                'email'     => $this->request->getPost('edit_email'),
                 'level'     => $this->request->getPost('edit_level'),
                 'password'     => base64_encode($encrypter->encrypt($this->request->getPost('edit_password')))
             );
         } else {
             $data = array(
-                'username'     => $this->request->getPost('edit_username'),
+                'email'     => $this->request->getPost('edit_email'),
                 'level'     => $this->request->getPost('edit_level')
             );
         }
@@ -223,7 +223,6 @@ class Karyawan extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_user'] = $value['id_user'];
-            $isi['username'] = $value['username'];
             $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];
@@ -237,11 +236,11 @@ class Karyawan extends BaseController
         echo json_encode($isi);
     }
 
-    public function cek_username($username)
+    public function cek_email($email)
     {
         $model = new Model_karyawan();
-        $cek_username = $model->cek_username($username)->getResultArray();
-        $respon = json_decode(json_encode($cek_username), true);
+        $cek_email = $model->cek_email($email)->getResultArray();
+        $respon = json_decode(json_encode($cek_email), true);
         $data['results'] = count($respon);
         echo json_encode($data);
     }

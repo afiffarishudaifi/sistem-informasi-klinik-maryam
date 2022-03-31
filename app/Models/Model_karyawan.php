@@ -27,7 +27,7 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select("karyawan.nik_karyawan, user.id_user, level, username, jenis_kelamin, tgl_lahir, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan");
+        $builder->select("karyawan.nik_karyawan, user.id_user, level, email, jenis_kelamin, tgl_lahir, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan");
         $builder->join('user','user.id_user = karyawan.id_user');
         $builder->where('nik_karyawan', $id);
         return $builder->get();
@@ -50,12 +50,12 @@ class Model_karyawan extends Model
         return $builder->delete();
     }
 
-    public function cek_username($username)
+    public function cek_email($email)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
         $builder->select('id_user');
-        $builder->where('username', $username);
+        $builder->where('email', $email);
         return $builder->get();
     }
 }

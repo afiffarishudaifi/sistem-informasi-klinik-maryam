@@ -26,7 +26,7 @@ class LaporanRawatInap extends BaseController
         $data = array();
 
         $db      = \Config\Database::connect();
-        $builder = $this->db->table("poliklinik");
+        $builder = $this->db->table("poli");
 
         $poli = [];
 
@@ -63,6 +63,11 @@ class LaporanRawatInap extends BaseController
 
     public function index()
     {
+        $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+
         $model = new Model_laporanrawatinap();
 
         $data = [

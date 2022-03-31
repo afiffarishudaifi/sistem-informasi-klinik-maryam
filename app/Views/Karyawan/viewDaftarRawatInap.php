@@ -63,10 +63,10 @@
                                             ?>
                                             <tr>
                                                 <td><?= $item['nama_pasien']; ?></td>
-                                                <td><?= $item['no_kamar']; ?></td>
+                                                <td><?= $item['nama_kamar']; ?></td>
                                                 <td><?= $item['waktu_masuk']; ?></td>
                                                 <td><?= $item['waktu_keluar']; ?></td>
-                                                <td><?= $item['total_tagihan_inap']; ?></td>
+                                                <td><?php if($item['total_tagihan_inap'] == null) {echo "0";} else {echo $item['total_tagihan_inap'];}; ?></td>
                                                 <td><?= $item['status_inap']; ?></td>
                                                 <td>
                                                         <center>
@@ -215,7 +215,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus pendaftaran ini?</h4>
+                            <h4>Apakah Ingin menghapus rawat inap ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -417,19 +417,19 @@
                         $("#edit_status").prop('checked',false);
                     }
 
-                    $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
+                    $('#edit_pasien').append('<option selected value="' + json.nik + '">' + json.nama_pasien +
                         '</option>');
                     $('#edit_pasien').select2('data', {
-                        id: json.id_pasien,
+                        id: json.nik,
                         text: json.nama_pasien
                     });
                     $('#edit_pasien').trigger('change');
 
-                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.no_kamar +
+                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.nama_kamar +
                         '</option>');
                     $('#edit_kamar').select2('data', {
                         id: json.id_kamar,
-                        text: json.no_kamar
+                        text: json.nama_kamar
                     });
                     $('#edit_kamar').trigger('change');
                 });

@@ -64,6 +64,11 @@ class LaporanObat extends BaseController
 
     public function index()
     {
+        $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Admin') {
+            return redirect()->to('Login/loginAdmin');
+        }
         $model = new Model_laporanpenjualanobat();
 
         $data = [

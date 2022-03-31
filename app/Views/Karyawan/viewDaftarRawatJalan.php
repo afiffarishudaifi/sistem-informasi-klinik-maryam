@@ -50,7 +50,6 @@
                                             <tr>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Poli</th>
-                                                <th>Nama Dokter</th>
                                                 <th>Antrian</th>
                                                 <th>Status Antrian</th>
                                                 <th>Aksi</th>
@@ -63,14 +62,13 @@
                                             <tr>
                                                 <td><?= $item['nama_pasien']; ?></td>
                                                 <td><?= $item['nama_poli']; ?></td>
-                                                <td><?= $item['nama_dokter']; ?></td>
                                                 <td><?= $item['no_antrian']; ?></td>
                                                 <td><?= $item['status_antrian']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pendaftaran']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_pendaftaran']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_pendaftaran']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_antrian']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_antrian']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_antrian']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
                                             </tr>
@@ -118,11 +116,6 @@
                                 </select>   
                             </div>
                             <div class="form-group">
-                                <label>Jadwal</label>
-                                <select class="form-control select2" id="input_jadwal" name="input_jadwal">
-                                </select>   
-                            </div>
-                            <div class="form-group">
                                 <label>Keluhan</label>
                                 <input type="text" class="form-control" id="input_keluhan" name="input_keluhan"
                                     data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
@@ -164,7 +157,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pendaftaran" id="id_pendaftaran">
+                            <input type="hidden" name="id_antrian" id="id_antrian">
 
                             <div class="form-group">
                                 <label>Pasien</label>
@@ -174,11 +167,6 @@
                             <div class="form-group">
                                 <label>Poli</label>
                                 <select class="form-control select2" id="edit_poli" name="edit_poli">
-                                </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Jadwal</label>
-                                <select class="form-control select2" id="edit_jadwal" name="edit_jadwal">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -354,50 +342,6 @@
                 }
             });
 
-            $("#input_jadwal").select2({
-                placeholder: "Pilih Jadwal",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatJalan/data_jadwal'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#edit_jadwal").select2({
-                placeholder: "Pilih Jadwal",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatJalan/data_jadwal'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
@@ -433,7 +377,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Karyawan/RawatJalan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pendaftaran').val(json.id_pendaftaran);
+                    $('#id_antrian').val(json.id_antrian);
 
                     $('#edit_alamat').val(json.alamat_dokter);
                     $('#edit_no_telp').val(json.no_telp_dokter);
@@ -464,11 +408,11 @@
                     });
                     $('#edit_pasien').trigger('change');
 
-                    $('#edit_jadwal').append('<option selected value="' + json.id_jadwal + '">' + json.nama_hari + ', ' + json.nama_sesi +
+                    $('#edit_jadwal').append('<option selected value="' + json.id_jadwal + '">' + json.nama_hari +
                         '</option>');
                     $('#edit_jadwal').select2('data', {
                         id: json.id_jadwal,
-                        text: json.nama_hari + ', ' + json.nama_sesi
+                        text: json.nama_hari
                     });
                     $('#edit_jadwal').trigger('change');
                 });

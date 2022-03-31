@@ -50,6 +50,7 @@
                                             <tr>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Dokter</th>
+                                                <th>Nama Penyakit</th>
                                                 <th>Hasil Pemeriksaan</th>
                                                 <th>Saran Dokter</th>
                                                 <th>Waktu Rekam</th>
@@ -63,14 +64,15 @@
                                             <tr>
                                                 <td><?= $item['nama_pasien']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
+                                                <td><?= $item['nama_penyakit']; ?></td>
                                                 <td><?= $item['hasil_pemeriksaan']; ?></td>
                                                 <td><?= $item['saran_dokter']; ?></td>
-                                                <td><?= $item['waktu_rekam']; ?></td>
+                                                <td><?= $item['tanggal_rekam']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam_inap']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_rekam_inap']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_rekam_inap']; ?>">Hapus</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_rekam']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_rekam']; ?>">Hapus</a>
                                                         </center>
                                                     </td>
                                             </tr>
@@ -108,13 +110,18 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="input_pasien" name="input_pasien">
+                                <label>Kamar</label>
+                                <select class="form-control select2" id="input_kamar" name="input_kamar">
                                 </select>   
                             </div>
                             <div class="form-group">
                                 <label>Dokter</label>
                                 <select class="form-control select2" id="input_dokter" name="input_dokter">
+                                </select>   
+                            </div>
+                            <div class="form-group">
+                                <label>Penyakit</label>
+                                <select class="form-control select2" id="input_penyakit" name="input_penyakit">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -162,16 +169,21 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_rekam_inap" id="id_rekam_inap">
+                            <input type="hidden" name="id_rekam" id="id_rekam">
 
                             <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="edit_pasien" name="edit_pasien">
+                                <label>Kamar</label>
+                                <select class="form-control select2" id="edit_kamar" name="edit_kamar">
                                 </select>   
                             </div>
                             <div class="form-group">
                                 <label>Dokter</label>
                                 <select class="form-control select2" id="edit_dokter" name="edit_dokter">
+                                </select>   
+                            </div>
+                            <div class="form-group">
+                                <label>Penyakit</label>
+                                <select class="form-control select2" id="edit_penyakit" name="edit_penyakit">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -261,11 +273,11 @@
         $(function() {
             $('.select2').select2()
 
-            $("#input_pasien").select2({
-                placeholder: "Pilih Pasien",
+            $("#input_kamar").select2({
+                placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_pasien_rekam'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_kamar_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -283,11 +295,11 @@
                 }
             });
 
-            $("#edit_pasien").select2({
-                placeholder: "Pilih Pasien",
+            $("#edit_kamar").select2({
+                placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_pasien_rekam'); ?>',
+                    url: '<?php echo base_url('Karyawan/RawatInap/data_kamar_rekam'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -306,7 +318,7 @@
             });
 
             $("#input_dokter").select2({
-                placeholder: "Pilih Pendaftaran",
+                placeholder: "Pilih Dokter",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Karyawan/RawatInap/data_dokter'); ?>',
@@ -328,7 +340,7 @@
             });
 
             $("#edit_dokter").select2({
-                placeholder: "Pilih Pendaftaran",
+                placeholder: "Pilih Dokter",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Karyawan/RawatInap/data_dokter'); ?>',
@@ -349,11 +361,55 @@
                 }
             });
 
+            $("#input_penyakit").select2({
+            placeholder: "Pilih Penyakit",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatInap/data_penyakit'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
+        $("#edit_penyakit").select2({
+            placeholder: "Pilih Penyakit",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatInap/data_penyakit'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
+
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_pasien").val('');
+                $("#input_kamar").val('');
                 $("#input_dokter").val('');
+                $("#input_penyakit").val('');
                 $("#input_hasil").val('');
                 $("#input_tensi").val('');
                 $("#input_saran").val('');
@@ -361,8 +417,9 @@
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_pasien").val('');
+                $("#input_kamar").val('');
                 $("#input_dokter").val('');
+                $("#input_penyakit").val('');
                 $("#input_hasil").val('');
                 $("#input_tensi").val('');
                 $("#input_saran").val('');
@@ -370,8 +427,9 @@
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_pasien").val('');
+                $("#edit_kamar").val('');
                 $("#edit_dokter").val('');
+                $("#edit_penyakit").val('');
                 $("#edit_hasil").val('');
                 $("#edit_tensi").val('');
                 $("#edit_saran").val('');
@@ -381,28 +439,36 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Karyawan/RawatInap/data_edit_rekam'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_rekam_inap').val(json.id_rekam_inap);
+                    $('#id_rekam').val(json.id_rekam);
 
                     $('#edit_saran').val(json.saran_dokter);
-                    $('#edit_tensi').val(json.tensi);
+                    $('#edit_tensi').val(json.tensi_darah);
                     $('#edit_hasil').val(json.hasil_pemeriksaan);
-                    $('#edit_tanggal').val(json.waktu_rekam);
+                    $('#edit_tanggal').val(json.tanggal_rekam);
 
-                    $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
+                    $('#edit_kamar').append('<option selected value="' + json.id_inap + '">' + json.nama_kamar +
                         '</option>');
-                    $('#edit_pasien').select2('data', {
-                        id: json.id_pasien,
-                        text: json.nama_pasien
+                    $('#edit_kamar').select2('data', {
+                        id: json.id_inap,
+                        text: json.nama_kamar
                     });
-                    $('#edit_pasien').trigger('change');
+                    $('#edit_kamar').trigger('change');
 
-                    $('#edit_dokter').append('<option selected value="' + json.id_dokter + '">' + json.nama_dokter + ", poli " + json.nama_poli +
+                    $('#edit_dokter').append('<option selected value="' + json.nik_dokter + '">' + json.nama_dokter +
                         '</option>');
                     $('#edit_dokter').select2('data', {
-                        id: json.id_dokter,
+                        id: json.nik_dokter,
                         text: json.nama_dokter
                     });
                     $('#edit_dokter').trigger('change');
+
+                    $('#edit_penyakit').append('<option selected value="' + json.id_penyakit + '">' + json.nama_penyakit +
+                        '</option>');
+                    $('#edit_penyakit').select2('data', {
+                        id: json.id_penyakit,
+                        text: json.nama_penyakit
+                    });
+                    $('#edit_penyakit').trigger('change');
                 });
         }
         
