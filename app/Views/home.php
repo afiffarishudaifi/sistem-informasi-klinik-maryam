@@ -43,20 +43,20 @@ use App\Controllers\LandingPage;
       <header>
          <div class="header-top wow fadeIn">
             <div class="container">
-               <a class="navbar-brand" href="index.html"><img src="<?= base_url() ?>/docs/assets/images/logo.png" alt="image"></a>
+              <span href="<?=base_url("LandingPage")?>"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" width="50" height="50" alt="image"></span>
                <div class="right-header">
                   <div class="header-info">
                      <div class="info-inner">
                         <span class="icontop"><img src="images/phone-icon.png" alt="#"></span>
-                        <span class="iconcont"><a href="tel:085 607 937 322">085 607 937 322</a></span>	
+                        <span class="iconcont"><a href="#">085677931455</a></span>	
                      </div>
                      <div class="info-inner">
                         <span class="icontop"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                        <span class="iconcont"><a data-scroll href="mailto:klinikmaryam@gmail.com">klinikmaryam@gmail.com</a></span>	
+                        <span class="iconcont"><a data-scroll href="#">klinikmaryam@gmail.com</a></span>	
                      </div>
                      <div class="info-inner">
                         <span class="icontop"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="iconcont"><a data-scroll href="#">Setiap Hari: 7:00 WIB - 21:00 WIB</a></span>	
+                        <span class="iconcont"><a data-scroll href="#">7:00 - 20:00 WIB</a></span>	
                      </div>
                   </div>
                </div>
@@ -71,11 +71,10 @@ use App\Controllers\LandingPage;
 				  
                   <div id="navbar" class="navbar-collapse collapse">
                      <ul class="nav navbar-nav">
-                        <li><a class="active" href="index.html">Beranda</a></li>
+                        <li><a class="active" href="<?=base_url("LandingPage")?>">Beranda</a></li>
                         <li><a data-scroll href="#about">Tentang Kita</a></li>
                         <li><a data-scroll href="#service">Pelayanan</a></li>
                         <li><a data-scroll href="#doctors">Dokter</a></li>
-                        <li><a data-scroll href="#getintouch">Kontak</a></li>
                      </ul>
                   </div>
                </nav>
@@ -100,7 +99,7 @@ use App\Controllers\LandingPage;
                <div class="col-md-12 col-sm-12">
                   <div class="text-contant">
                      <h2>
-                        <span class="center"><span class="icon"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" alt="#" /></span></span>
+                        <span class="center"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" width="70" height="70" alt="#" /></span>
                         <a href="" class="typewrite" data-period="2000" data-type='[ "Selamat Datang!", "Semoga Lekas Sembuh" ]'>
                         <span class="wrap"></span>
                         </a>
@@ -119,8 +118,8 @@ use App\Controllers\LandingPage;
                <div class="row">
                   <div class="service-time one" style="background:#2895f1;">
                      <span class="info-icon"><i class="fa fa-ambulance" aria-hidden="true"></i></span>
-                     <h3>Unit Gawat Darurat</h3>
-                     <p>Dignissimos ducimus qui blanditii sentium volta tum deleniti atque cori as quos dolores et quas mole.</p>
+                     <h3>Laboratorium</h3>
+                     <p>Melayani tes laboratorium untuk mendapat informasi kesehatan Anda lebih mudah.</p>
                   </div>
                </div>
             </div>
@@ -160,11 +159,11 @@ use App\Controllers\LandingPage;
             <div class="row">
                <div class="col-md-6">
                   <div class="message-box">
-                     <h4>What We Do</h4>
-                     <h2>Clinic Service</h2>
-                     <p class="lead">Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus. Sed a tellus quis mi rhoncus dignissim.</p>
-                     <p> Integer rutrum ligula eu dignissim laoreet. Pellentesque venenatis nibh sed tellus faucibus bibendum. Sed fermentum est vitae rhoncus molestie. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.  </p>
-                     <a href="#services" data-scroll class="btn btn-light btn-radius btn-brd grd1 effect-1">Login</a>
+                     <h4>Bagaimana cara daftar?</h4>
+                     <h2>Klinik Service</h2>
+                     <p class="lead">Anda bisa mendaftar menjadi pasien Klinik Maryam dengan cara klik tombol Daftar di bawah ini.</p>
+                     <p>Jika Anda kesulitan silahkan tanyakan melalui kontak kami atau datang langsung ke tempat.</p>
+                     <a href="<?=base_url("Registrasi")?>" data-scroll class="btn btn-light btn-radius btn-brd grd1 effect-1">Daftar</a>
                   </div>
                   <!-- end messagebox -->
                </div>
@@ -187,7 +186,7 @@ use App\Controllers\LandingPage;
                         <a href="<?= base_url() ?>/docs/assets/images/clinic_01.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
                         <img src="<?= base_url() ?>/docs/assets/images/clinic_01.jpg" alt="" class="img-responsive">
                      </div>
-                     <h3>Unit Gawat Darurat</h3>
+                     <h3>Laboratorium</h3>
                   </div>
                   <!-- end service -->
                </div>
@@ -234,112 +233,44 @@ use App\Controllers\LandingPage;
                      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="serv">
                            <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon1.png" alt="#" /></span>
-                           <h4>PREMIUM FACILITIES</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                           <h4>PELAYANAN RAMAH</h4>
+                           <p>Kami akan melayani Anda dengan sepenuh hati.</p>
                         </div>
                      </div>
                      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="serv">
                            <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon2.png" alt="#" /></span>
-                           <h4>LARGE LABORATORY</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                           <h4>LABORATORIUM TERPERCAYA</h4>
+                           <p>Memperkerjakan ahli dan alat yang mendukung.</p>
                         </div>
                      </div>
                      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="serv">
                            <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon3.png" alt="#" /></span>
-                           <h4>DETAILED SPECIALIST</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                           <h4>DOKTER ANDALAN</h4>
+                           <p>Dokter kami akan memberikan pelayanan terbaik.</p>
                         </div>
                      </div>
                      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="serv">
                            <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon4.png" alt="#" /></span>
-                           <h4>CHILDREN CARE CENTER</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                           <h4>RUANG RAMAH ANAK</h4>
+                           <p>Kami menyediakan ruang tunggu ramah anak.</p>
                         </div>
                      </div>
                      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="serv">
                            <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon5.png" alt="#" /></span>
-                           <h4>FINE INFRASTRUCTURE</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                           <h4>BERSIH DAN NYAMAN</h4>
+                           <p>Kebersihan klinik terjaga untuk kenyamanan Anda.</p>
                         </div>
                      </div>
                      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <div class="serv">
                            <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon6.png" alt="#" /></span>
-                           <h4>ANYTIME BLOOD BANK</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing.</p>
+                           <h4>LAYANAN CUSTOMER ONLINE</h4>
+                           <p>Anda bisa menghubungi kami melalui kontak untuk mendapat informasi.</p>
                         </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                  <div class="appointment-form">
-                     <h3><span>+</span> Book Appointment</h3>
-                     <div class="form">
-                        <form action="<?= base_url('LandingPage'); ?>">
-                           <fieldset>
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                 <div class="row">
-                                    <div class="form-group">
-                                       <input type="text" id="name" placeholder="Your Name"  />
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                 <div class="row">
-                                    <div class="form-group">
-                                       <input type="email" placeholder="Email Address" id="email" />
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 select-section">
-                                 <div class="row">
-                                    <div class="form-group">
-                                       <select class="form-control">
-                                          <option>Day</option>
-                                          <option>Sunday</option>
-                                          <option>Monday</option>
-                                       </select>
-                                    </div>
-                                    <div class="form-group">
-                                       <select class="form-control">
-                                          <option>Time</option>
-                                          <option>AM</option>
-                                          <option>PM</option>
-                                       </select>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                 <div class="row">
-                                    <div class="form-group">
-                                       <select class="form-control">
-                                          <option>Doctor Name</option>
-                                          <option>Mr.XYZ</option>
-                                          <option>Mr.ABC</option>
-                                       </select>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                 <div class="row">
-                                    <div class="form-group">
-                                       <textarea rows="4" id="textarea_message" class="form-control" placeholder="Your Message..."></textarea>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                 <div class="row">
-                                    <div class="form-group">
-                                       <div class="center"><button type="submit">Submit</button></div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </fieldset>
-                        </form>
                      </div>
                   </div>
                </div>
@@ -367,14 +298,14 @@ use App\Controllers\LandingPage;
                             <small>Dokter Anak</small>
                         </div>
                         <!-- end title -->
-                        <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
+                        <!-- <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
 
                         <div class="footer-social">
                             <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
-                        </div>
+                        </div> -->
                     </div><!--widget -->
                 </div><!-- end col -->
 
@@ -386,14 +317,14 @@ use App\Controllers\LandingPage;
                             <small>Dokter Umum</small>
                         </div>
                         <!-- end title -->
-                        <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
+                        <!-- <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
 
                         <div class="footer-social">
                             <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
-                        </div>
+                        </div> -->
                     </div><!--widget -->
                 </div><!-- end col -->
 
@@ -405,14 +336,14 @@ use App\Controllers\LandingPage;
                             <small>Dokter Gigi</small>
                         </div>
                         <!-- end title -->
-                        <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
+                        <!-- <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
 
                         <div class="footer-social">
                             <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
                             <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
-                        </div>
+                        </div> -->
                     </div><!--widget -->
                 </div><!-- end col -->
 
@@ -420,7 +351,7 @@ use App\Controllers\LandingPage;
         </div><!-- end container -->
     </div>
 	  
-      <div id="getintouch" class="section wb wow fadeIn" style="padding-bottom:0;">
+      <!-- <div id="getintouch" class="section wb wow fadeIn" style="padding-bottom:0;">
          <div class="container">
             <div class="heading">
                <span class="icon-logo"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" alt="#"></span>
@@ -464,14 +395,14 @@ use App\Controllers\LandingPage;
             </div>
             <div id="googleMap" style="width:100%;height:450px;"></div>
          </div>
-      </div>
+      </div> -->
       <footer id="footer" class="footer-area wow fadeIn">
          <div class="container">
             <div class="row">
                <div class="col-md-4">
-                  <div class="logo padding">
-                     <a href=""><img src="<?= base_url() ?>/docs/assets/images/logo.png" alt=""></a>
-                     <p>Locavore pork belly scen ester pine est chill wave microdosing pop uple itarian cliche artisan.</p>
+                  <div class="subcriber-info">
+                     <h3>Klinik Maryam</h3>
+                     <p>Klinik Maryam salah satu klinik terpercaya di Kabupaten Madiun. Sudah berdiri sejak 2012.</p>
                   </div>
                </div>
                <div class="col-md-4">
@@ -484,8 +415,8 @@ use App\Controllers\LandingPage;
                </div>
                <div class="col-md-4">
                   <div class="subcriber-info">
-                     <h3>SUBSCRIBE</h3>
-                     <p>Get healthy news, tip and solutions to your problems from our experts.</p>
+                     <h3>Saran & Kritik</h3>
+                     <p>Sampaikan saran dan kritik anda melalui e-mail kami.</p>
                      <div class="subcriber-box">
                         <form id="mc-form" class="mc-form">
                            <div class="newsletter-form">
@@ -518,7 +449,7 @@ use App\Controllers\LandingPage;
                      <p>© 2018. Distributed by <a id="tw" href="https://themewagon.com/" target="_blank">ThemeWagon</a></p>
                   </div>
                </div>
-               <div class="col-md-4">
+               <!-- <div class="col-md-4">
                   <div class="social">
                      <ul class="social-links">
                         <li><a href=""><i class="fa fa-rss"></i></a></li>
@@ -529,7 +460,7 @@ use App\Controllers\LandingPage;
                         <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                      </ul>
                   </div>
-               </div>
+               </div> -->
             </div>
          </div>
       </div>
