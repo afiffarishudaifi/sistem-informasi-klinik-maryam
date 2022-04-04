@@ -18,6 +18,11 @@ class RekamMedisJalan extends BaseController
 
     public function index()
     {
+        $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
+            return redirect()->to('Login');
+        }
         $model = new Model_laporanrekammedis();
 
         $data = [

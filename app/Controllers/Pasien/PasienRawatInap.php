@@ -13,7 +13,7 @@ class PasienRawatInap extends BaseController
         $session = session();
 
         if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
-            return redirect()->to('Login/loginAdmin');
+            return redirect()->to('Login');
         }
 
         $this->Model_rawatinappasien = new Model_rawatinappasien();

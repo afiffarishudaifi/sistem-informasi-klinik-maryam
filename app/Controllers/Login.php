@@ -179,7 +179,7 @@ class Login extends BaseController
             $verify_pass =  $encrypter->decrypt(base64_decode($pass));
             if ($verify_pass == $password) {
                 $ses_data = [
-                    'user_id' => $data['id_pasien'],
+                    'user_id' => $data['nik'],
                     'nama_login' => $data['nama_pasien'],
                     'foto' => 'no_image.png',
                     'status_login' => $status,

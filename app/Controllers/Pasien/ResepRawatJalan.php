@@ -12,8 +12,8 @@ class ResepRawatJalan extends BaseController
     {
         $session = session();
 
-        if (!$session->get('nama_login') || $session->get('status_login') != 'Admin') {
-            return redirect()->to('Login/loginAdmin');
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
+            return redirect()->to('Login');
         }
 
         $this->Model_reseppasien = new Model_reseppasien();
@@ -24,6 +24,11 @@ class ResepRawatJalan extends BaseController
     public function index()
     {
         $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
+            return redirect()->to('Login');
+        }
+        
         $model = new Model_reseppasien();
 
         $data = [

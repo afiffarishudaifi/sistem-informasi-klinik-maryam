@@ -12,9 +12,7 @@ class RawatJalan extends BaseController
     {
         $session = session();
 
-        if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
-            return redirect()->to('Login');
-        } else if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
             return redirect()->to('Login/loginPegawai');
         }
 

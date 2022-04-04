@@ -56,12 +56,7 @@
 							            <?= csrf_field(); ?>
 			                            <div class="form-group">
 			                                <label>Poli</label>
-			                                <select class="form-control select2" id="input_poli" name="input_poli">
-			                                </select>   
-			                            </div>
-			                            <div class="form-group">
-			                                <label>Jadwal</label>
-			                                <select class="form-control select2" id="input_jadwal" name="input_jadwal">
+			                                <select class="form-control select2" id="input_poli" name="input_poli" required>
 			                                </select>   
 			                            </div>
 			                            <div class="form-group">
@@ -130,28 +125,6 @@
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Pasien/PasienRawatJalan/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#input_jadwal").select2({
-                placeholder: "Pilih Jadwal",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Pasien/PasienRawatJalan/data_jadwal'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
