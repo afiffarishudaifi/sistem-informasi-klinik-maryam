@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Model_login extends Model
 {
     protected $table= 'pasien';
-    protected $primaryKey ='id_pasien';
+    protected $primaryKey ='nik';
     protected $useTimestamps = true;
 
     public function loginAdmin($email)
@@ -24,7 +24,7 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
-        $query = $builder->select('id_pasien, user.id_user, nama_pasien, password, email');
+        $query = $builder->select('nik, user.id_user, nama_pasien, password, email');
         $query = $builder->join('pasien', 'pasien.id_user = user.id_user');
         $query = $builder->where('email', $email);
         $query = $builder->where('level', 'Pasien');
