@@ -13,7 +13,7 @@ class Pengaturan extends BaseController
         $session = session();
 
         if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
-            return redirect()->to('Login');
+            return redirect()->to('Login/loginPegawai');
         }
 
         $this->Model_karyawan = new Model_karyawan();

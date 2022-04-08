@@ -24,10 +24,6 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <!-- <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
-                                        data-target="#addModal"><i class="fa fa-plus"></i>
-                                        Tambah Data</button>
-                                </li> -->
                             </ol>
                         </div>
                     </div>
@@ -52,7 +48,6 @@
                                                 <th>Nama</th>
                                                 <th>Stok</th>
                                                 <th>Harga</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,11 +60,6 @@
                                                     <td><?= $item['nama_obat']; ?></td>
                                                     <td><?= $item['stok_obat']; ?></td>
                                                     <td><?= $item['harga_obat']; ?></td>
-                                                    <td>
-                                                        <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_obat']; ?>)" class="btn btn-sm btn-edit btn-warning">Detail</a>
-                                                        </center>
-                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -88,53 +78,6 @@
             <!-- /.content -->
         </div>
 
-        <!-- Modal Edit Class-->
-        <form action="" method="post" id="form_edit"
-            data-parsley-validate="true" autocomplete="off">
-            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <?= csrf_field(); ?>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Obat</h5>
-                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="id_obat" id="id_obat">
-
-                            <div class="form-group">
-                                <label>Nama Obat</label>
-                                <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Obat" autofocus="on" disabled>
-                                <span class="text-danger" id="error_edit_nama"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Stok Obat</label>
-                                <input type="number" class="form-control" id="edit_stok" name="edit_stok"
-                                    data-parsley-required="true" placeholder="Masukkan Stok Obat" autofocus="on" disabled>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Harga Obat</label>
-                                <input type="number" class="form-control" id="edit_harga" name="edit_harga"
-                                    data-parsley-required="true" placeholder="Masukkan Harga Obat" autofocus="on" disabled>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" id="batal_up"
-                                data-dismiss="modal">Batal</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Edit Class-->
-
         <!-- /.content-wrapper -->
         <?= $this->include("Apoteker/layout/footer") ?>
 
@@ -149,10 +92,6 @@
     <?= $this->include("Apoteker/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id){
-            $('.id').val(id);
-            $('#deleteModal').modal('show');
-        };
 
         $( document ).ready(function() {
             if ('<?= $session->getFlashdata('sukses'); ?>' != '') {
@@ -161,89 +100,7 @@
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
         });
-
-        $(function() {
-            $("#input_nama").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Apoteker/Obat/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_nama").html('Nama telah dipakai,coba yang lain');
-                                $("#input_nama").val('');
-                            }else{
-                                $("#error_nama").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-              });
-            $("#edit_nama").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != '' && nama != $('#edit_nama_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Apoteker/Obat/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
-                                $("#edit_nama").val('');
-                            }else{
-                                $("#error_edit_nama").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
-
-            $('#batal').on('click', function() {
-                $('#form_add')[0].reset();
-                $('#form_edit')[0].reset();
-                $("#input_nama").val('');
-                $("#input_stok").val('');
-                $("#input_harga").val('');
-            });
-
-            $('#batal_add').on('click', function() {
-                $('#form_add')[0].reset();
-                $("#input_nama").val('');
-                $("#input_stok").val('');
-                $("#input_harga").val('');
-            });
-
-            $('#batal_up').on('click', function() {
-                $('#form_edit')[0].reset();
-                $("#edit_nama").val('');
-                $("#edit_stok").val('');
-                $("#edit_harga").val('');
-            });
-        })
-
-        function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Apoteker/Obat/data_edit'); ?>' + '/' + isi, {},
-                function(json) {
-                    $('#id_obat').val(json.id_obat);
-                    $('#edit_nama').val(json.nama_obat);
-                    $('#edit_stok').val(json.stok_obat);
-                    $('#edit_harga').val(json.harga_obat);
-                });
-        }
+        
     </script>
 
     <script type="text/javascript">

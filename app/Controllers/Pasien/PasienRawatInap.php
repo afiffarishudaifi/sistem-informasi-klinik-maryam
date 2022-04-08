@@ -30,7 +30,7 @@ class PasienRawatInap extends BaseController
 
         $data = [
             'judul' => 'Pendaftaran Rawat inap',
-            'data' => $data['id_pasien']
+            'data' => $data['nik']
         ];
         return view('Pasien/viewDaftarInap', $data);
     }
@@ -44,10 +44,10 @@ class PasienRawatInap extends BaseController
             $status = 'Selesai';
         } 
 
-        $id_pasien = $session->get('user_id');
+        $nik = $session->get('user_id');
 
         $data = array(
-            'id_pasien'     => $id_pasien,
+            'nik'     => $nik,
             'id_kamar'     => $this->request->getPost('input_kamar'),
             'waktu_masuk'     => $this->request->getPost('input_masuk'),
             'waktu_keluar'     => null,
@@ -61,7 +61,7 @@ class PasienRawatInap extends BaseController
         );
 
         $model = new Model_rawatinappasien();
-        $cek_pasien = $model->cek_pasien($id_pasien)->getRowArray();
+        $cek_pasien = $model->cek_pasien($nik)->getRowArray();
         
         $model->add_data($data);
         $model->update_status_kamar($ubah_kamar, $kamar);

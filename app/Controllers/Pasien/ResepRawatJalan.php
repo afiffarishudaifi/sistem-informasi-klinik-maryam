@@ -44,7 +44,7 @@ class ResepRawatJalan extends BaseController
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
-        $param['id_pasien'] = $session->get('user_id');
+        $param['nik_pasien'] = $session->get('user_id');
 
         $model = new Model_reseppasien();
         $laporan = $model->filter_jalan($param)->getResultArray();
@@ -84,7 +84,7 @@ class ResepRawatJalan extends BaseController
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
-        $param['id_pasien'] = $session->get('user_id');
+        $param['nik_pasien'] = $session->get('user_id');
 
         $model = new Model_reseppasien();
         $laporan = $model->filter_jalan($param)->getResultArray();
