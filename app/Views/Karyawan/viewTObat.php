@@ -24,10 +24,6 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
-                                        data-target="#addModal"><i class="fa fa-plus"></i>
-                                        Tambah Data</button>
-                                </li>
                             </ol>
                         </div>
                     </div>
@@ -52,7 +48,6 @@
                                                 <th>Nama</th>
                                                 <th>Stok</th>
                                                 <th>Harga</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,13 +60,6 @@
                                                     <td><?= $item['nama_obat']; ?></td>
                                                     <td><?= $item['stok_obat']; ?></td>
                                                     <td><?= $item['harga_obat']; ?></td>
-                                                    <td>
-                                                        <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_obat']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_obat']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_obat']; ?>">Hapus</a>
-                                                        </center>
-                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -89,141 +77,6 @@
             </section>
             <!-- /.content -->
         </div>
-
-        <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Karyawan/Obat/add_obat'); ?>" method="post" id="form_add"
-            data-parsley-validate="true" autocomplete="off">
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <?= csrf_field(); ?>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Obat </h5>
-                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="form-group">
-                                <label>Nama Obat</label>
-                                <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Obat" autofocus="on">
-                                <span class="text-danger" id="error_nama"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Kategori Obat</label>
-                                <select class="form-control select2" id="input_kategori" name="input_kategori">
-                                </select>   
-                            </div>
-
-                            <div class="form-group">
-                                <label>Stok Obat</label>
-                                <input type="number" class="form-control" id="input_stok" name="input_stok"
-                                    data-parsley-required="true" placeholder="Masukkan Stok Obat" autofocus="on">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Harga Obat</label>
-                                <input type="number" class="form-control" id="input_harga" name="input_harga"
-                                    data-parsley-required="true" placeholder="Masukkan Harga Obat" autofocus="on">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" id="batal_add"
-                                data-dismiss="modal">Batal</button>
-                            <button type="submit" name="tambah" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Add Class-->
-
-        <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Karyawan/Obat/update_obat'); ?>" method="post" id="form_edit"
-            data-parsley-validate="true" autocomplete="off">
-            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <?= csrf_field(); ?>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Obat</h5>
-                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="id_obat" id="id_obat">
-
-                            <div class="form-group">
-                                <label>Nama Obat</label>
-                                <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Obat" autofocus="on">
-                                <span class="text-danger" id="error_edit_nama"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Kategori Obat</label>
-                                <select class="form-control select2" id="edit_kategori" name="edit_kategori">
-                                </select>   
-                            </div>
-
-                            <div class="form-group">
-                                <label>Stok Obat</label>
-                                <input type="number" class="form-control" id="edit_stok" name="edit_stok"
-                                    data-parsley-required="true" placeholder="Masukkan Stok Obat" autofocus="on">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Harga Obat</label>
-                                <input type="number" class="form-control" id="edit_harga" name="edit_harga"
-                                    data-parsley-required="true" placeholder="Masukkan Harga Obat" autofocus="on">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" id="batal_up"
-                                data-dismiss="modal">Batal</button>
-                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Edit Class-->
-
-        <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Karyawan/Obat/delete_obat'); ?>" method="post">
-            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <h4>Apakah Ingin menghapus Obat ini?</h4>
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" name="id" class="id">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Hapus</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Delete Class -->
 
         <!-- /.content-wrapper -->
         <?= $this->include("Karyawan/layout/footer") ?>
