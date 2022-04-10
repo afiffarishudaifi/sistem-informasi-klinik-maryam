@@ -127,7 +127,7 @@
                         "data": "tagihan_obat"
                     },
                     {
-                        "data": "created_at"
+                        "data": "tanggal"
                     },
                     {
                         "data": "aksi"

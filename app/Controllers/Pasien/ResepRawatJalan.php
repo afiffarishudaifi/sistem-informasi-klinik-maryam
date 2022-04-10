@@ -44,7 +44,7 @@ class ResepRawatJalan extends BaseController
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
-        $param['nik_pasien'] = $session->get('user_id');
+        $param['nik'] = $session->get('user_id');
 
         $model = new Model_reseppasien();
         $laporan = $model->filter_jalan($param)->getResultArray();
@@ -64,7 +64,7 @@ class ResepRawatJalan extends BaseController
                 $isi['nama_pasien'] = $value['nama_pasien'];
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['tagihan_obat'] = $value['tagihan_obat'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal'] = $value['tanggal'];
                 if ($value['id_resep'] != null) {
                 	$isi['aksi'] = $href . base_url('Pasien/ResepRawatJalan/detailResep/' . $value['id_resep']) . 'name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>';
                 } else {
@@ -84,7 +84,7 @@ class ResepRawatJalan extends BaseController
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
-        $param['nik_pasien'] = $session->get('user_id');
+        $param['nik'] = $session->get('user_id');
 
         $model = new Model_reseppasien();
         $laporan = $model->filter_jalan($param)->getResultArray();
@@ -104,7 +104,7 @@ class ResepRawatJalan extends BaseController
                 $isi['nama_pasien'] = $value['nama_pasien'];
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['tagihan_obat'] = $value['tagihan_obat'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal'] = $value['tanggal'];
                 array_push($data, $isi);
             }
         }

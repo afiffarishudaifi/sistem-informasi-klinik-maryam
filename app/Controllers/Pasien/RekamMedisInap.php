@@ -87,7 +87,7 @@ class RekamMedisInap extends BaseController
         } else {
             $param['nik_dokter'] = null;
         }
-        $param['id_pasien'] = $session->get('user_id');
+        $param['nik'] = $session->get('user_id');
 
         $model = new Model_rekammedispasien();
         $laporan = $model->filter_inap($param)->getResultArray();
@@ -101,7 +101,7 @@ class RekamMedisInap extends BaseController
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
                 $isi['saran_dokter'] = $value['saran_dokter'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal_rekam'] = $value['tanggal_rekam'];
                 array_push($data, $isi);
             }
         }
@@ -123,7 +123,7 @@ class RekamMedisInap extends BaseController
             $param['nik_dokter'] = null;
         }
 
-        $param['id_pasien'] = $session->get('user_id');
+        $param['nik'] = $session->get('user_id');
 
         $model = new Model_rekammedispasien();
         $laporan = $model->filter_inap($param)->getResultArray();
@@ -137,7 +137,7 @@ class RekamMedisInap extends BaseController
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
                 $isi['saran_dokter'] = $value['saran_dokter'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal_rekam'] = $value['tanggal_rekam'];
                 array_push($data, $isi);
             }
         }

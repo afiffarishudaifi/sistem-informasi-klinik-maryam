@@ -6,31 +6,31 @@ use CodeIgniter\Model;
 
 class Model_rawatinappasien extends Model
 {
-    protected $table = 'pendaftaran_inap';
+    protected $table = 'rawat_inap';
     protected $primaryKey = 'id_inap';
 
     public function view_data()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pendaftaran_inap');
-        $builder->select('pendaftaran_inap.id_inap, pendaftaran_inap.id_kamar, pendaftaran_inap.id_pasien, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, pendaftaran_inap.waktu_masuk, pendaftaran_inap.waktu_keluar, pendaftaran_inap.total_tagihan_inap, pendaftaran_inap.status_inap');
-        $builder->join('kamar','pendaftaran_inap.id_kamar = kamar.id_kamar');
-        $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
+        $builder = $db->table('rawat_inap');
+        $builder->select('rawat_inap.id_inap, rawat_inap.id_kamar, rawat_inap.nik, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, rawat_inap.waktu_masuk, rawat_inap.waktu_keluar, rawat_inap.total_tagihan_inap, rawat_inap.status_inap');
+        $builder->join('kamar','rawat_inap.id_kamar = kamar.id_kamar');
+        $builder->join('pasien','rawat_inap.nik = pasien.nik');
         return $builder->get();
     }
 
     public function add_data($data)
     {
-        $query = $this->db->table('pendaftaran_inap')->insert($data);
+        $query = $this->db->table('rawat_inap')->insert($data);
         return $query;
     }
 
     public function cek_pasien($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pendaftaran_inap');
-        $builder->selectCount('pendaftaran_inap.id_pasien');
-        $builder->where('pendaftaran_inap.id_pasien', $id);
+        $builder = $db->table('rawat_inap');
+        $builder->selectCount('rawat_inap.nik');
+        $builder->where('rawat_inap.nik', $id);
         $builder->where('status_inap', 'Belum Selesai');
         return $builder->get();
     }
@@ -38,10 +38,10 @@ class Model_rawatinappasien extends Model
     public function detail_data($id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pendaftaran_inap');
-        $builder->select('pendaftaran_inap.id_inap, pendaftaran_inap.id_kamar, pendaftaran_inap.id_pasien, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, pendaftaran_inap.waktu_masuk, pendaftaran_inap.waktu_keluar, pendaftaran_inap.total_tagihan_inap, pendaftaran_inap.status_inap');
-        $builder->join('kamar','pendaftaran_inap.id_kamar = kamar.id_kamar');
-        $builder->join('pasien','pendaftaran_inap.id_pasien = pasien.id_pasien');
+        $builder = $db->table('rawat_inap');
+        $builder->select('rawat_inap.id_inap, rawat_inap.id_kamar, rawat_inap.nik, pasien.nama_pasien, kamar.no_kamar, kamar.biaya_kamar, rawat_inap.waktu_masuk, rawat_inap.waktu_keluar, rawat_inap.total_tagihan_inap, rawat_inap.status_inap');
+        $builder->join('kamar','rawat_inap.id_kamar = kamar.id_kamar');
+        $builder->join('pasien','rawat_inap.nik = pasien.nik');
         $builder->where('id_inap', $id);
         return $builder->get();
     }
@@ -49,7 +49,7 @@ class Model_rawatinappasien extends Model
     public function update_data($data, $id)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pendaftaran_inap');
+        $builder = $db->table('rawat_inap');
         $builder->where('id_inap', $id);
         $builder->set($data);
         return $builder->update();

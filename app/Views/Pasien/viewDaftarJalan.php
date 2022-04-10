@@ -56,21 +56,21 @@
 							            <?= csrf_field(); ?>
 			                            <div class="form-group">
 			                                <label>Poli</label>
-			                                <select class="form-control select2" id="input_poli" name="input_poli" required>
+			                                <select class="form-control select2" id="input_poli" name="input_poli" required autofocus="on">
 			                                </select>   
 			                            </div>
 			                            <div class="form-group">
 			                                <label>Keluhan</label>
 			                                <input type="text" class="form-control" id="input_keluhan" name="input_keluhan"
-			                                    data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
+			                                    data-parsley-required="true" placeholder="Masukkan Keluhan" >
 			                            </div>
 			                            <div class="form-group">
 			                                <label>Umur Pasien</label>
 			                                <input type="number" class="form-control" id="input_umur" name="input_umur"
-			                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
+			                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien">
 			                            </div>
 			                            <div class="form-group">
-			                                <label>Tanggal Pemeriksaan</label>
+			                                <label>Tanggal Daftar</label>
 			                                <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
 			                            </div>
 			                            <div class="form-group">

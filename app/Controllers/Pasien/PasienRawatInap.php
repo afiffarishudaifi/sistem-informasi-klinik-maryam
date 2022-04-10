@@ -88,24 +88,24 @@ class PasienRawatInap extends BaseController
             $query = $postData['query'];
 
             // Fetch record
-            $builder->select('id_kamar, no_kamar');
+            $builder->select('id_kamar, nama_kamar');
             $builder->where('status_kamar','Kosong');
-            $builder->like('no_kamar', $query, 'both');
+            $builder->like('nama_kamar', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
         } else {
 
             // Fetch record
-            $builder->select('id_kamar, no_kamar');
+            $builder->select('id_kamar, nama_kamar');
             $builder->where('status_kamar','Kosong');
             $query = $builder->get();
             $data = $query->getResult();
         }
 
-        foreach ($data as $country) {
+        foreach ($data as $data_kamar) {
             $kamar[] = array(
-                "id" => $country->id_kamar,
-                "text" => $country->no_kamar,
+                "id" => $data_kamar->id_kamar,
+                "text" => $data_kamar->nama_kamar,
             );
         }
 

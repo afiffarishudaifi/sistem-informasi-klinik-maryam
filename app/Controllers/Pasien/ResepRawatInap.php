@@ -64,9 +64,9 @@ class ResepRawatInap extends BaseController
                 $isi['nama_pasien'] = $value['nama_pasien'];
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['tagihan_obat'] = $value['tagihan_obat'];
-                $isi['created_at'] = $value['created_at'];
-                if ($value['id_resep_inap'] != null) {
-                	$isi['aksi'] = $href . base_url('Pasien/ResepRawatInap/detailResep/' . $value['id_resep_inap']) . 'name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>';
+                $isi['tanggal'] = $value['tanggal'];
+                if ($value['id_resep'] != null) {
+                	$isi['aksi'] = $href . base_url('Pasien/ResepRawatInap/detailResep/' . $value['id_resep']) . 'name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>';
                 } else {
                 	$isi['aksi'] = null;
                 }
@@ -104,7 +104,7 @@ class ResepRawatInap extends BaseController
                 $isi['nama_pasien'] = $value['nama_pasien'];
                 $isi['nama_dokter'] = $value['nama_dokter'];
                 $isi['tagihan_obat'] = $value['tagihan_obat'];
-                $isi['created_at'] = $value['created_at'];
+                $isi['tanggal'] = $value['tanggal'];
                 array_push($data, $isi);
             }
         }

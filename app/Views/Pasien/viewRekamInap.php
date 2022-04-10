@@ -198,7 +198,7 @@
                         "data": "saran_dokter"
                     },
                     {
-                        "data": "created_at"
+                        "data": "tanggal_rekam"
                     }
                 ]
                 }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
