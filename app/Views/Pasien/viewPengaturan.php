@@ -45,7 +45,7 @@
 							        <form action="<?php echo base_url('Pasien/Pengaturan/update_pasien'); ?>" method="post" data-parsley-validate="true" autocomplete="off">
 							            
 							            <?= csrf_field(); ?>
-							            <input type="hidden" name="id_pasien" id="id_pasien" value="<?= $session->get('user_id'); ?>">
+							            <input type="hidden" name="nik" id="nik" value="<?= $session->get('user_id'); ?>">
 			                            <input type="hidden" name="id_user" id="id_user">
 
 			                            <div class="form-group">
@@ -78,7 +78,7 @@
 			                            </div>
 			                            <div class="form-group">
 			                                <label>Alamat Pasien</label>
-			                                <textarea class="form-control" id="edit_alamat" name="edit_alamat" placeholder="Masukkan alamat"></textarea>
+			                                <textarea class="form-control" id="edit_alamat" name="edit_alamat" placeholder="Masukkan alamat" data-parsley-required="true"></textarea>
 			                            </div>
 			                            <div class="form-group">
 			                                <label>No Telp Pasien</label>
@@ -96,7 +96,8 @@
 			                            
 			                            <div class="form-group">
 			                                <label>Tanggal Lahir</label>
-			                                <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
+			                                <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="edit_tanggal" name="edit_tanggal" 
+                                            data-parsley-required="true" autocomplete="off" />
 			                            </div>
 
 			                            <div class="form-group">
@@ -151,9 +152,9 @@
         });
 
         $(function() {
-            $.getJSON('<?php echo base_url('Pasien/Pengaturan/data_edit'); ?>' + '/' + <?= $session->get('user_id'); ?>, {},
+            $.getJSON('<?php echo base_url('Pasien/Pengaturan/data_edit'); ?>' + '/' + <?= $session->get('nik'); ?>, {},
                 function(json) {
-                    $('#id_pasien').val(json.id_pasien);
+                    $('#nik').val(json.nik);
                     $('#id_user').val(json.id_user);
                     $('#edit_nama').val(json.nama_pasien);
                     $('#edit_nik').val(json.nik);

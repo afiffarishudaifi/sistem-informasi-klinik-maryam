@@ -70,6 +70,7 @@ class Model_login extends Model
         $builder->selectMax('id_user');
         return $builder->get();
     }
+
     public function cek_max_login($id)
     {
         $db      = \Config\Database::connect();
@@ -78,12 +79,25 @@ class Model_login extends Model
         $builder->where('oauth_id',$id);
         return $builder->get();
     }
+
+    public function cek_nik($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('user');
+        $builder->select('nik, pasien.id_user');
+        $builder->where('oauth_id',$id);
+        $builder->join('pasien','pasien.id_user = user.id_user');
+        return $builder->get();
+    }
+
     public function isAlreadyRegister($authid){
         return $this->db->table('user')->getWhere(['oauth_id'=>$authid])->getRowArray()>0?true:false;
-	}
+    }
+    
 	public function updateUserData($userdata, $authid){
 		$this->db->table("user")->where(['oauth_id'=>$authid])->update($userdata);
-	}
+    }
+    
 	public function insertUserData($userdata){
 		$this->db->table("user")->insert($userdata);
 	}

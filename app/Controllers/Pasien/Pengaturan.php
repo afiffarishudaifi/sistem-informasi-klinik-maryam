@@ -40,7 +40,7 @@ class Pengaturan extends BaseController
         $model = new Model_pasien();
         date_default_timezone_set('Asia/Jakarta');
         
-        $id = $this->request->getPost('id_pasien');
+        $id = $this->request->getPost('nik');
         $id_user = $this->request->getPost('id_user');
         $password = $this->request->getPost('edit_password');
 
@@ -50,11 +50,9 @@ class Pengaturan extends BaseController
                 'nama_pasien'     => $this->request->getPost('edit_nama'),
                 'alamat_pasien'     => $this->request->getPost('edit_alamat'),
                 'no_telp_pasien'     => $this->request->getPost('edit_no_telp'),
-                'id_pasien'     => $this->request->getPost('id_pasien'),
                 'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
                 'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
-                'agama'     => $this->request->getPost('edit_agama'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'agama'     => $this->request->getPost('edit_agama')
             );
         } else {
             $data = array(
@@ -62,11 +60,9 @@ class Pengaturan extends BaseController
                 'nama_pasien'     => $this->request->getPost('edit_nama'),
                 'alamat_pasien'     => $this->request->getPost('edit_alamat'),
                 'no_telp_pasien'     => $this->request->getPost('edit_no_telp'),
-                'id_pasien'     => $this->request->getPost('id_pasien'),
                 'jenis_kelamin'     => $this->request->getPost('edit_kelamin'),
                 'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
-                'agama'     => $this->request->getPost('edit_agama'),
-                'updated_at' => date('Y-m-d H:i:s')
+                'agama'     => $this->request->getPost('edit_agama')
             );
         }
 
@@ -89,16 +85,16 @@ class Pengaturan extends BaseController
         return redirect()->to(base_url('Login/logout'));
     }
 
-    public function data_edit($id_pasien)
+    public function data_edit($nik)
     {
         $model = new Model_pasien();
         $encrypter = \Config\Services::encrypter();
 
-        $data_pengguna = $model->detail_data($id_pasien)->getResultArray();
+        $data_pengguna = $model->detail_data($nik)->getResultArray();
         $respon = json_decode(json_encode($data_pengguna), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id_pasien'] = $value['id_pasien'];
+            $isi['nik'] = $value['nik'];
             $isi['id_user'] = $value['id_user'];
             $isi['nik'] = $value['nik'];
             $isi['email'] = $value['email'];

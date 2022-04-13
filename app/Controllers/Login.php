@@ -45,7 +45,19 @@ class Login extends BaseController
                     'oauth_id'=>$data['id'],
 					'email'=>$data['email']
 				];
-				$this->loginModel->updateUserData($userdata, $data['id']);
+                $this->loginModel->updateUserData($userdata, $data['id']);
+                
+                $cek_nik = $model->cek_nik($data['id'])->getRowArray();
+                
+                $ses_data = [
+                    'nik' => $cek_nik['nik'],
+                    'user_id' => $cek_nik['id_user'],
+                    'nama_login' => $data['name'],
+                    'foto' => 'no_image.png',
+                    'status_login' => 'Pasien',
+                    'logged_in' => TRUE,
+                    'is_admin' => TRUE
+                ];
 			}else{
                 //new User want to Login
 				$userdata = [
@@ -57,25 +69,29 @@ class Login extends BaseController
 				$this->loginModel->insertUserData($userdata);
 
                 $data_pasien = array(
+                    'nik' => $max,
                     'id_user' => $max,
                     'nama_pasien'     => $data['name']
                 );
 
                 $model = new Model_pasien();
                 $model->add_data($data_pasien);
-            }
 
-            $max_login = $model->cek_max_login($data['id'])->getRowArray()['id_user'];
-            $max_login = $max_login + 1;
-            $ses_data = [
-                'nik' => rand(10, 50),
-                'user_id' => $max_login,
-                'nama_login' => $data['name'],
-                'foto' => 'no_image.png',
-                'status_login' => 'Pasien',
-                'logged_in' => TRUE,
-                'is_admin' => TRUE
-            ];
+                $max_login = $model->cek_max_login($data['id'])->getRowArray()['id_user'];
+                $max_login = $max_login + 1;
+                $ses_data = [
+                    'nik' => $max,
+                    'user_id' => $max_login,
+                    'nama_login' => $data['name'],
+                    'foto' => 'no_image.png',
+                    'status_login' => 'Pasien',
+                    'logged_in' => TRUE,
+                    'is_admin' => TRUE
+                ];
+            }
+            // dd($ses_data);
+
+            
 			$session->set("LoggedUserData", $ses_data);
 			$session->set($ses_data);
 

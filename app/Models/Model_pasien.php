@@ -27,7 +27,7 @@ class Model_pasien extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
         $builder->where('nik', $id);
-        $builder->join('user','user.id_user = pasien.id_user');
+        $builder->join('user','user.id_user = pasien.id_user','right');
         return $builder->get();
     }
 
@@ -72,6 +72,15 @@ class Model_pasien extends Model
         $builder = $db->table('user');
         $builder->select('id_user');
         $builder->where('oauth_id',$id);
+        return $builder->get();
+    }
+
+    public function cek_data($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pasien');
+        $builder->where('pasien.id_user', $id);
+        $builder->join('user','user.id_user = pasien.id_user');
         return $builder->get();
     }
 }

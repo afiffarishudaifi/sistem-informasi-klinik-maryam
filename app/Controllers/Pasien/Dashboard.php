@@ -3,6 +3,7 @@
 namespace App\Controllers\Pasien;
 
 use App\Controllers\BaseController;
+use App\Models\Model_pasien;
 
 class Dashboard extends BaseController
 {
@@ -20,7 +21,18 @@ class Dashboard extends BaseController
 
     public function index()
     {
-    	$session = session();
+        $session = session();
+        $model = new Model_pasien();
+        $id = $session->get('nik');
+
+        $cek_data =  $model->cek_data($id)->getRowArray();
+
+        if($cek_data != null) {
+            if($cek_data['alamat_pasien'] == '' || $cek_data['no_telp_pasien'] == '' || $cek_data['agama'] == '' || $cek_data['tgl_lahir'] == null || $cek_data != null) {
+                return redirect()->to(base_url('Pasien/Pengaturan'));
+            } 
+        }
+
         $data = [
             'judul' => 'Tabel Pasien'
         ];
