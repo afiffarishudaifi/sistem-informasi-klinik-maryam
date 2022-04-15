@@ -48,7 +48,6 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id Pendaftaran</th>
                                                 <th>Nama Pasien</th>
                                                 <th>Nama Dokter</th>
                                                 <th>Tagihan</th>
@@ -61,7 +60,6 @@
                                                 foreach ($data as $item) {
                                             ?>
                                             <tr>
-                                                <td><?= $item['id_pendaftaran']; ?></td>
                                                 <td><?= $item['nama_pasien']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
                                                 <td>
@@ -71,10 +69,10 @@
                                                         echo "-";
                                                     } ?>
                                                 </td>
-                                                <td><?= $item['created_at']; ?></td>
+                                                <td><?= $item['tanggal']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Apoteker/RawatJalan/detailResep') . '/' . $item['id_pendaftaran']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
+                                                        <a href="<?= base_url('Apoteker/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
                                                     </center>
                                                 </td>
                                             </tr>

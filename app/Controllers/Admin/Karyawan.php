@@ -44,7 +44,7 @@ class Karyawan extends BaseController
             'email'     => $this->request->getPost('input_email'),
             'level'     => $this->request->getPost('input_level'),
             'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
-            'level'     => 'Karyawan'
+            'level'     => $this->request->getPost('input_level')
         );
 
         $modeluser = new Model_user();

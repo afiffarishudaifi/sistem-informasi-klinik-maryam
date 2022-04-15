@@ -118,51 +118,17 @@ $session = session();
                 </li>
                 <li class="nav-header">LAPORAN</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link <?php
+                    <a href="<?= base_url('Apoteker/LaporanObat'); ?>" class="nav-link <?php
                             if (
-                                $uri->getSegment(2) == 'LaporanObatInap' ||
-                                $uri->getSegment(2) == 'LaporanObatJalan'
+                                $uri->getSegment(2) == 'LaporanObat'
                             ) {
                                 echo "active";
                             } ?>">
                         <i class="nav-icon fa fa-database"></i>
                         <p>
-                            Laporan
-                            <i class="right fas fa-angle-left"></i>
+                            Laporan Obat
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'LaporanObatInap' || $uri->getSegment(2) == 'LaporanObatJalan') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-sticky-note nav-icon"></i>
-                                <p>Penjualan Obat</p>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                <a href="<?= base_url('Apoteker/LaporanObatInap') ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'LaporanObatInap') {
-                                echo "active";
-                            } ?>">
-                                  <i class="far fa-dot-circle nav-icon"></i>
-                                  <p>Rawat Inap</p>
-                                </a>
-                              </li>
-                              <li class="nav-item">
-                                <a href="<?= base_url('Apoteker/LaporanObatJalan') ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'LaporanObatJalan') {
-                                echo "active";
-                            } ?>">
-                                  <i class="far fa-dot-circle nav-icon"></i>
-                                  <p>Rawat Jalan</p>
-                                </a>
-                              </li>
-                            </ul>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </nav>
