@@ -39,19 +39,6 @@ $session = session();
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">PERAWATAN</li>
-                <li class="nav-item">
-                    <a href="<?= base_url('Pasien/PasienRawatJalan') ?>" class="nav-link">
-                        <i class="nav-icon fa fa-pen"></i>
-                                <p>Daftar Rawat Jalan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('Pasien/PasienRawatInap') ?>" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>Daftar Rawat Inap</p>
-                    </a>
-                </li>
                 <li class="nav-header">LAPORAN</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">

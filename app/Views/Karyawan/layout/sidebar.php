@@ -43,7 +43,7 @@ $session = session();
                 <li class="nav-item">
                     <a href="#" class="nav-link <?php
                             if (
-                                $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien'
+                                $uri->getSegment(2) == 'Obat' || $uri->getSegment(2) == 'Pasien' || $uri->getSegment(2) == 'Kamar'
                             ) {
                                 echo "active";
                             } ?>">
@@ -54,6 +54,15 @@ $session = session();
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('Karyawan/Kamar'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Kamar') {
+                                echo "active";
+                            } ?>">
+                                <i class="fas fa-bed nav-icon"></i>
+                                <p>Kamar</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="<?= base_url('Karyawan/Obat'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Obat') {

@@ -46,7 +46,7 @@
 							            
 							            <?= csrf_field(); ?>
 							                
-			                            <input type="hidden" name="id_karyawan" id="id_karyawan" value="<?= $session->get('user_id'); ?>">
+			                            <input type="hidden" name="nik_karyawan" id="nik_karyawan" value="<?= $session->get('user_id'); ?>">
 
 			                            <div class="form-group">
 			                                <label>Nama Karyawan</label>
@@ -129,7 +129,7 @@
             $.getJSON('<?php echo base_url('Karyawan/Pengaturan/data_edit'); ?>' + '/' + <?= $session->get('user_id'); ?>, {},
                 function(json) {
                     $('#edit_nama').val(json.nama_karyawan);
-                    $('#id_karyawan').val(json.id_karyawan);
+                    $('#nik_karyawan').val(json.nik_karyawan);
                     $('#edit_no_telp').val(json.no_telp_karyawan);
                     $('#edit_alamat').val(json.alamat_karyawan);
                     $('#edit_foto').val(json.foto_karyawan);

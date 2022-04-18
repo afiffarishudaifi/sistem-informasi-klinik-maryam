@@ -39,7 +39,7 @@ class Pengaturan extends BaseController
         $model = new Model_karyawan();
         date_default_timezone_set('Asia/Jakarta');
 
-        $id = $this->request->getPost('id_karyawan');
+        $id = $this->request->getPost('nik_karyawan');
         $avatar      = $this->request->getFile('edit_foto');
         if ($avatar != '') {
             $namabaru     = $avatar->getRandomName();
@@ -98,14 +98,14 @@ class Pengaturan extends BaseController
         return redirect()->to(base_url('Login/logout'));
     }
 
-    public function data_edit($id_karyawan)
+    public function data_edit($nik_karyawan)
     {
         $model = new Model_karyawan();
-        $datakaryawan = $model->detail_data($id_karyawan)->getResultArray();
+        $datakaryawan = $model->detail_data($nik_karyawan)->getResultArray();
         $respon = json_decode(json_encode($datakaryawan), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id_karyawan'] = $value['id_karyawan'];            
+            $isi['nik_karyawan'] = $value['nik_karyawan'];            
             $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];
