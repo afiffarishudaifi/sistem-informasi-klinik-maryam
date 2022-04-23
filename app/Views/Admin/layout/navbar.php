@@ -27,9 +27,9 @@
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
+                  <!-- <a href="#" class="dropdown-item">
                       <i class="fa fa-cogs mr-2"></i> Pengaturan Akun
-                  </a>
+                  </a> -->
                   <div class="dropdown-divider"></div>
                   <a href="#" data-toggle="modal" data-target="#logoutModal" class="dropdown-item">
                       <i class="fa fa-arrow-right mr-2"></i> Keluar

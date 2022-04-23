@@ -138,7 +138,7 @@ $session = session();
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">PERAWATAN</li>
+                <!-- <li class="nav-header">PERAWATAN</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link <?php
                             if (
@@ -206,7 +206,7 @@ $session = session();
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="nav-header">LAPORAN</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link <?php

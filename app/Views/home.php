@@ -1,476 +1,424 @@
-<?php
-
-use App\Controllers\LandingPage;
-?>
 <!DOCTYPE html>
 <html lang="en">
-   <!-- Basic -->
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- Mobile Metas -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-   <!-- Site Metas -->
-   <title>Klinik Maryam</title>
-   <meta name="keywords" content="">
-   <meta name="description" content="">
-   <meta name="author" content="">
-   <!-- Site Icons -->
-   <link rel="shortcut icon" href="<?= base_url() ?>/docs/assets/images/fevicon.ico.png" type="image/x-icon" />
-   <link rel="apple-touch-icon" href="<?= base_url() ?>docs/assets/images/apple-touch-icon.png">
-   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="<?= base_url() ?>/docs/assets/css/bootstrap.min.css">
-   <!-- Site CSS -->
-   <link rel="stylesheet" href="<?= base_url() ?>/docs/assets/style.css">
-   <!-- Colors CSS -->
-   <link rel="stylesheet" href="<?= base_url() ?>/docs/assets/css/colors.css">
-   <!-- ALL VERSION CSS -->
-   <link rel="stylesheet" href="<?= base_url() ?>/docs/assets/css/versions.css">
-   <!-- Responsive CSS -->
-   <link rel="stylesheet" href="<?= base_url() ?>/docs/assets/css/responsive.css">
-   <!-- Custom CSS -->
-   <link rel="stylesheet" href="<?= base_url() ?>/docs/assets/css/custom.css">
-   <!-- Modernizer for Portfolio -->
-   <script src="<?= base_url() ?>/docs/assets/js/modernizer.js"></script>
-   <!-- [if lt IE 9] -->
-   </head>
-   <body class="clinic_version">
-      <!-- LOADER -->
-      <div id="preloader">
-         <img class="preloader" src="<?= base_url() ?>/docs/assets/images/loaders/heart-loading2.gif" alt="">
-      </div>
-      <!-- END LOADER -->
-      <header>
-         <div class="header-top wow fadeIn">
-            <div class="container">
-              <span href="<?=base_url("LandingPage")?>"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" width="50" height="50" alt="image"></span>
-               <div class="right-header">
-                  <div class="header-info">
-                     <div class="info-inner">
-                        <span class="icontop"><img src="images/phone-icon.png" alt="#"></span>
-                        <span class="iconcont"><a href="#">085677931455</a></span>	
-                     </div>
-                     <div class="info-inner">
-                        <span class="icontop"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                        <span class="iconcont"><a data-scroll href="#">klinikmaryam@gmail.com</a></span>	
-                     </div>
-                     <div class="info-inner">
-                        <span class="icontop"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                        <span class="iconcont"><a data-scroll href="#">7:00 - 20:00 WIB</a></span>	
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="header-bottom wow fadeIn">
-            <div class="container">
-               <nav class="main-menu">
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="fa fa-bars" aria-hidden="true"></i></button>
-                  </div>
-				  
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav">
-                        <li><a class="active" href="<?=base_url("LandingPage")?>">Beranda</a></li>
-                        <li><a data-scroll href="#about">Tentang Kita</a></li>
-                        <li><a data-scroll href="#service">Pelayanan</a></li>
-                        <li><a data-scroll href="#doctors">Dokter</a></li>
-                     </ul>
-                  </div>
-               </nav>
-               <div class="serch-bar">
-                  <div id="custom-search-input">
-                     <div class="input-group col-md-12">
-                        <input type="text" class="form-control input-lg" placeholder="Search" />
-                        <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                        </span>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </header>
-      <div id="home" class="parallax first-section wow fadeIn" data-stellar-background-ratio="0.4" style="background-image:<?= base_url() ?>/docs/assets/images/slider-bg.png;">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12 col-sm-12">
-                  <div class="text-contant">
-                     <h2>
-                        <span class="center"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" width="70" height="70" alt="#" /></span>
-                        <a href="" class="typewrite" data-period="2000" data-type='[ "Selamat Datang!", "Semoga Lekas Sembuh" ]'>
-                        <span class="wrap"></span>
-                        </a>
-                     </h2>
-                  </div>
-               </div>
-            </div>
-            <!-- end row -->
-         </div>
-         <!-- end container -->
-      </div>
-      <!-- end section -->
-      <div id="time-table" class="time-table-section">
-         <div class="container">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-               <div class="row">
-                  <div class="service-time one" style="background:#2895f1;">
-                     <span class="info-icon"><i class="fa fa-ambulance" aria-hidden="true"></i></span>
-                     <h3>Laboratorium</h3>
-                     <p>Melayani tes laboratorium untuk mendapat informasi kesehatan Anda lebih mudah.</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-               <div class="row">
-                  <div class="service-time middle" style="background:#0071d1;">
-                     <span class="info-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span> 
-                     <h3>Waktu Buka</h3>
-                     <div class="time-table-section">
-                        <ul>
-                           <li><span class="left">Senin - Jum'at</span><span class="right">7.00 – 21.00</span></li>
-                           <li><span class="left">Sabtu</span><span class="right">8.00 – 20.00</span></li>
-                           <li><span class="left">Minggu</span><span class="right">8.00 – 15.00</span></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-               <div class="row">
-                  <div class="service-time three" style="background:#0060b1;">
-                     <span class="info-icon"><i class="fa fa-hospital-o" aria-hidden="true"></i></span>
-                     <h3>Poli yang Tersedia</h3>
-                     <p>Tersedia Poli Anak, Poli Umum, dan Poli Gigi</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div id="about" class="section wow fadeIn">
-         <div class="container">
-            <div class="heading">
-               <span class="icon-logo"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" alt="#"></span>
-               <h2>Klinik Maryam</h2>
-            </div>
-            <!-- end title -->
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="message-box">
-                     <h4>Bagaimana cara daftar?</h4>
-                     <h2>Klinik Service</h2>
-                     <p class="lead">Anda bisa mendaftar menjadi pasien Klinik Maryam dengan cara klik tombol Daftar di bawah ini.</p>
-                     <p>Jika Anda kesulitan silahkan tanyakan melalui kontak kami atau datang langsung ke tempat.</p>
-                     <a href="<?=base_url("Registrasi")?>" data-scroll class="btn btn-light btn-radius btn-brd grd1 effect-1">Daftar</a>
-                  </div>
-                  <!-- end messagebox -->
-               </div>
-               <!-- end col -->
-               <div class="col-md-6">
-                  <div class="post-media wow fadeIn">
-                     <img src="<?= base_url() ?>/docs/assets/images/about_03.jpg" alt="" class="img-responsive">
-                     <a href="http://www.youtube.com/watch?v=nrJtHemSPW4" data-rel="prettyPhoto[gal]" class="playbutton"><i class="flaticon-play-button"></i></a>
-                  </div>
-                  <!-- end media -->
-               </div>
-               <!-- end col -->
-            </div>
-            <!-- end row -->
-            <hr class="hr1">
-            <div class="row">
-               <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="service-widget">
-                     <div class="post-media wow fadeIn">
-                        <a href="<?= base_url() ?>/docs/assets/images/clinic_01.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
-                        <img src="<?= base_url() ?>/docs/assets/images/clinic_01.jpg" alt="" class="img-responsive">
-                     </div>
-                     <h3>Laboratorium</h3>
-                  </div>
-                  <!-- end service -->
-               </div>
-               <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="service-widget">
-                     <div class="post-media wow fadeIn">
-                        <a href="<?= base_url() ?>/docs/assets/images/clinic_02.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
-                        <img src="<?= base_url() ?>/docs/assets/images/clinic_02.jpg" alt="" class="img-responsive">
-                     </div>
-                     <h3>Poli Anak</h3>
-                  </div>
-                  <!-- end service -->
-               </div>
-               <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="service-widget">
-                     <div class="post-media wow fadeIn">
-                        <a href="<?= base_url() ?>/docs/assets/images/clinic_03.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
-                        <img src="<?= base_url() ?>/docs/assets/images/clinic_03.jpg" alt="" class="img-responsive">
-                     </div>
-                     <h3>Poli Umum</h3>
-                  </div>
-                  <!-- end service -->
-               </div>
-               <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="service-widget">
-                     <div class="post-media wow fadeIn">
-                        <a href="<?= base_url() ?>/docs/assets/images/clinic_01.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="flaticon-unlink"></i></a>
-                        <img src="<?= base_url() ?>/docs/assets/images/clinic_01.jpg" alt="" class="img-responsive">
-                     </div>
-                     <h3>Poli Gigi</h3>
-                  </div>
-                  <!-- end service -->
-               </div>
-            </div>
-            <!-- end row -->
-         </div>
-         <!-- end container -->
-      </div>
-      <div id="service" class="services wow fadeIn">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                  <div class="inner-services">
-                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="serv">
-                           <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon1.png" alt="#" /></span>
-                           <h4>PELAYANAN RAMAH</h4>
-                           <p>Kami akan melayani Anda dengan sepenuh hati.</p>
-                        </div>
-                     </div>
-                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="serv">
-                           <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon2.png" alt="#" /></span>
-                           <h4>LABORATORIUM TERPERCAYA</h4>
-                           <p>Memperkerjakan ahli dan alat yang mendukung.</p>
-                        </div>
-                     </div>
-                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="serv">
-                           <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon3.png" alt="#" /></span>
-                           <h4>DOKTER ANDALAN</h4>
-                           <p>Dokter kami akan memberikan pelayanan terbaik.</p>
-                        </div>
-                     </div>
-                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="serv">
-                           <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon4.png" alt="#" /></span>
-                           <h4>RUANG RAMAH ANAK</h4>
-                           <p>Kami menyediakan ruang tunggu ramah anak.</p>
-                        </div>
-                     </div>
-                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="serv">
-                           <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon5.png" alt="#" /></span>
-                           <h4>BERSIH DAN NYAMAN</h4>
-                           <p>Kebersihan klinik terjaga untuk kenyamanan Anda.</p>
-                        </div>
-                     </div>
-                     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="serv">
-                           <span class="icon-service"><img src="<?= base_url() ?>/docs/assets/images/service-icon6.png" alt="#" /></span>
-                           <h4>LAYANAN CUSTOMER ONLINE</h4>
-                           <p>Anda bisa menghubungi kami melalui kontak untuk mendapat informasi.</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- end section -->
-	  
-	  <!-- doctor -->
-	  
-	  <div id="doctors" class="parallax section db" data-stellar-background-ratio="0.4" style="background:#fff;" data-scroll-id="doctors" tabindex="-1">
-        <div class="container">
-		
-		<div class="heading">
-               <span class="icon-logo"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" alt="#"></span>
-               <h2>Daftar Dokter</h2>
-            </div>
 
-            <div class="row dev-list text-center">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.2s; animation-name: fadeIn;">
-                    <div class="widget clearfix">
-                        <img src="<?= base_url() ?>/docs/assets/images/doctor_01.jpg" alt="" class="img-responsive img-rounded">
-                        <div class="widget-title">
-                            <h3>Mahen Pratama</h3>
-                            <small>Dokter Anak</small>
-                        </div>
-                        <!-- end title -->
-                        <!-- <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-                        <div class="footer-social">
-                            <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
-                        </div> -->
-                    </div><!--widget -->
-                </div><!-- end col -->
+  <title>Klinik Maryam Beranda</title>
+  <meta content="" name="description">
 
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.4s; animation-name: fadeIn;">
-                    <div class="widget clearfix">
-                        <img src="<?= base_url() ?>/docs/assets/images/doctor_02.jpg" alt="" class="img-responsive img-rounded">
-                        <div class="widget-title">
-                            <h3>Astridiah Primacita</h3>
-                            <small>Dokter Umum</small>
-                        </div>
-                        <!-- end title -->
-                        <!-- <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
+  <meta content="" name="keywords">
 
-                        <div class="footer-social">
-                            <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
-                        </div> -->
-                    </div><!--widget -->
-                </div><!-- end col -->
+  <!-- Favicons -->
+  <link href="<?= base_url() ?>/docs/flexstart/assets/img/favicon.png" rel="icon">
+  <link href="<?= base_url() ?>/docs/flexstart/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 wow fadeIn">
-                    <div class="widget clearfix">
-                        <img src="<?= base_url() ?>/docs/assets/images/doctor_03.jpg" alt="" class="img-responsive img-rounded">
-                        <div class="widget-title">
-                            <h3>Ratna Dewi Safitri</h3>
-                            <small>Dokter Gigi</small>
-                        </div>
-                        <!-- end title -->
-                        <!-- <p>Hello guys, I am Soren from Sirbistana. I am senior art director and founder of Violetta.</p>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-                        <div class="footer-social">
-                            <a href="#" class="btn grd1"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-github"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="btn grd1"><i class="fa fa-linkedin"></i></a>
-                        </div> -->
-                    </div><!--widget -->
-                </div><!-- end col -->
+  <!-- Vendor CSS Files -->
+  <link href="<?= base_url() ?>/docs/flexstart/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="<?= base_url() ?>/docs/flexstart/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?= base_url() ?>/docs/flexstart/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="<?= base_url() ?>/docs/flexstart/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="<?= base_url() ?>/docs/flexstart/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="<?= base_url() ?>/docs/flexstart/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-            </div><!-- end row -->
-        </div><!-- end container -->
+  <!-- Template Main CSS File -->
+  <link href="<?= base_url() ?>/docs/flexstart/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: FlexStart - v1.9.0
+  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="<?= base_url() ?>/docs/flexstart/assets/img/logo.png" alt="">
+        <span>Klinik Maryam</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#beranda">Beranda</a></li>
+          <li><a class="nav-link scrollto" href="#about">Tentang Kami</a></li>
+          <li><a class="nav-link scrollto" href="#poliklinik">Poliklinik</a></li>
+          <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="getstarted scrollto" href="<?= base_url('Login') ?>">Sign In</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
     </div>
-	  
-      <!-- <div id="getintouch" class="section wb wow fadeIn" style="padding-bottom:0;">
-         <div class="container">
-            <div class="heading">
-               <span class="icon-logo"><img src="<?= base_url() ?>/docs/assets/images/icon-logo.png" alt="#"></span>
-               <h2>Letak Klinik</h2>
+  </header><!-- End Header -->
+
+  <!-- ======= beranda Section ======= -->
+  <section id="beranda" class="hero d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">We offer modern solutions for growing your business</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+          <div data-aos="fade-up" data-aos-delay="600">
+            <div class="text-center text-lg-start">
+              <a href="<?= base_url('Login') ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>Sign In</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
             </div>
-         </div>
-         <div class="contact-section">
-            <div class="form-contant">
-               <form id="ajax-contact" action="assets/mailer.php" method="post">
-                  <div class="row">
-                     <div class="col-md-6">
-                        <div class="form-group in_name">
-                           <input type="text" class="form-control" placeholder="Name" required="required">
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group in_email">
-                           <input type="email" class="form-control" placeholder="E-mail" required="required">
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group in_email">
-                           <input type="tel" class="form-control" id="phone" placeholder="Phone" required="required">
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group in_email">
-                           <input type="text" class="form-control" id="subject" placeholder="Subject" required="required">
-                        </div>
-                     </div>
-                     <div class="col-md-12">
-                        <div class="form-group in_message"> 
-                           <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required"></textarea>
-                        </div>
-                        <div class="actions">
-                           <input type="submit" value="Send Message" name="submit" id="submitButton" class="btn small" title="Submit Your Message!">
-                        </div>
-                     </div>
-                  </div>
-               </form>
-            </div>
-            <div id="googleMap" style="width:100%;height:450px;"></div>
-         </div>
-      </div> -->
-      <footer id="footer" class="footer-area wow fadeIn">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="subcriber-info">
-                     <h3>Klinik Maryam</h3>
-                     <p>Klinik Maryam salah satu klinik terpercaya di Kabupaten Madiun. Sudah berdiri sejak 2012.</p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="footer-info padding">
-                     <h3>Kontak</h3>
-                     <p><i class="fa fa-map-marker" aria-hidden="true"></i> Jalan Manggil No 112</p>
-                     <p><i class="fa fa-paper-plane" aria-hidden="true"></i> klinikmaryam@gmail.com</p>
-                     <p><i class="fa fa-phone" aria-hidden="true"></i> 085 607 937 344</p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="subcriber-info">
-                     <h3>Saran & Kritik</h3>
-                     <p>Sampaikan saran dan kritik anda melalui e-mail kami.</p>
-                     <div class="subcriber-box">
-                        <form id="mc-form" class="mc-form">
-                           <div class="newsletter-form">
-                              <input type="email" autocomplete="off" id="mc-email" placeholder="Email address" class="form-control" name="EMAIL">
-                              <button class="mc-submit" type="submit"><i class="fa fa-paper-plane"></i></button> 
-                              <div class="clearfix"></div>
-                              <!-- mailchimp-alerts Start -->
-                              <div class="mailchimp-alerts">
-                                 <div class="mailchimp-submitting"></div>
-                                 <!-- mailchimp-submitting end -->
-                                 <div class="mailchimp-success"></div>
-                                 <!-- mailchimp-success end -->
-                                 <div class="mailchimp-error"></div>
-                                 <!-- mailchimp-error end -->
-                              </div>
-                              <!-- mailchimp-alerts end -->
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </footer>
-      <div class="copyright-area wow fadeIn">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-8">
-                  <div class="footer-text">
-                     <p>© 2018. Distributed by <a id="tw" href="https://themewagon.com/" target="_blank">ThemeWagon</a></p>
-                  </div>
-               </div>
-               <!-- <div class="col-md-4">
-                  <div class="social">
-                     <ul class="social-links">
-                        <li><a href=""><i class="fa fa-rss"></i></a></li>
-                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                        <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                        <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href=""><i class="fa fa-youtube"></i></a></li>
-                        <li><a href=""><i class="fa fa-pinterest"></i></a></li>
-                     </ul>
-                  </div>
-               </div> -->
-            </div>
-         </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="<?= base_url() ?>/docs/flexstart/assets/img/hero-img.png" class="img-fluid" alt="">
+        </div>
       </div>
-      <!-- end copyrights -->
-      <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
-      <!-- all js files -->
-      <script src="<?= base_url() ?>/docs/assets/js/all.js"></script>
-      <!-- all plugins -->
-      <script src="<?= base_url() ?>/docs/assets/js/custom.js"></script>
-      <!-- map -->
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNUPWkb4Cjd7Wxo-T4uoUldFjoiUA1fJc&callback=myMap"></script>
-   </body>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gx-0">
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>Who We Are</h3>
+              <h2>Expedita voluptas omnis cupiditate totam eveniet nobis sint iste. Dolores est repellat corrupti reprehenderit.</h2>
+              <p>
+                Quisquam vel ut sint cum eos hic dolores aperiam. Sed deserunt et. Inventore et et dolor consequatur itaque ut voluptate sed et. Magnam nam ipsum tenetur suscipit voluptatum nam et est corrupti.
+              </p>
+              <div class="text-center text-lg-start">
+                <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Read More</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+            <img src="<?= base_url() ?>/docs/flexstart/assets/img/features-2.png" class="img-fluid" alt="">
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- End About Section -->
+
+    <!-- ======= Features Section ======= -->
+    <section id="poliklinik" class="features">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Features</h2>
+          <p>Laboriosam et omnis fuga quis dolor direda fara</p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <img src="<?= base_url() ?>/docs/flexstart/assets/img/features.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
+            <div class="row align-self-center gy-4">
+
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="200">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Eos aspernatur rem</h3>
+                </div>
+              </div>
+
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="300">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Facilis neque ipsa</h3>
+                </div>
+              </div>
+
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="400">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Volup amet voluptas</h3>
+                </div>
+              </div>
+
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="500">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Rerum omnis sint</h3>
+                </div>
+              </div>
+
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="600">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Alias possimus</h3>
+                </div>
+              </div>
+
+              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <i class="bi bi-check"></i>
+                  <h3>Repellendus mollitia</h3>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div> <!-- / row -->
+
+      </div>
+
+    </section><!-- End Features Section -->
+
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>F.A.Q</h2>
+          <p>Frequently Asked Questions</p>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- F.A.Q List 1-->
+            <div class="accordion accordion-flush" id="faqlist1">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                    Non consectetur a erat nam at lectus urna duis?
+                  </button>
+                </h2>
+                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                    Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
+                  </button>
+                </h2>
+                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
+                  </button>
+                </h2>
+                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+
+            <!-- F.A.Q List 2-->
+            <div class="accordion accordion-flush" id="faqlist2">
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-1">
+                    Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                  </button>
+                </h2>
+                <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                  <div class="accordion-body">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-2">
+                    Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
+                  </button>
+                </h2>
+                <div id="faq2-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                  <div class="accordion-body">
+                    Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-3">
+                    Varius vel pharetra vel turpis nunc eget lorem dolor?
+                  </button>
+                </h2>
+                <div id="faq2-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                  <div class="accordion-body">
+                    Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End F.A.Q Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Contact</h2>
+          <p>Contact Us</p>
+        </header>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-12">
+
+            <div class="row gy-3">
+              <div class="col-md-3">
+                <div class="info-box">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p>A108 Adam Street,<br>New York, NY 535022</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="info-box">
+                  <i class="bi bi-telephone"></i>
+                  <h3>Call Us</h3>
+                  <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="info-box">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>info@example.com<br>contact@example.com</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="info-box">
+                  <i class="bi bi-clock"></i>
+                  <h3>Open Hours</h3>
+                  <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-5 col-md-12 footer-info">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <img src="<?= base_url() ?>/docs/flexstart/assets/img/logo.png" alt="">
+              <span>Klinik Maryam</span>
+            </a>
+            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+          </div>
+
+          <div class="col-lg-2 col-6 footer-links">
+          </div>
+
+          <div class="col-lg-2 col-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#beranda">Beranda</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#about">Tentang Kami</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#poliklinik">Poliklinik</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#faq">FAQ</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+            <h4>Contact Us</h4>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Klinik Maryam</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="<?= base_url() ?>/docs/flexstart/assets/vendor/purecounter/purecounter.js"></script>
+  <script src="<?= base_url() ?>/docs/flexstart/assets/vendor/aos/aos.js"></script>
+  <script src="<?= base_url() ?>/docs/flexstart/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?= base_url() ?>/docs/flexstart/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="<?= base_url() ?>/docs/flexstart/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="<?= base_url() ?>/docs/flexstart/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="<?= base_url() ?>/docs/flexstart/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="<?= base_url() ?>/docs/flexstart/assets/js/main.js"></script>
+
+</body>
+
 </html>
