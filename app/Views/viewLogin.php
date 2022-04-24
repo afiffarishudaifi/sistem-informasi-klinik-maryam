@@ -23,7 +23,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>E-Klinik Maryam</b></a>
+      <a href="<?= base_url('LandingPage'); ?>" class="h1"><b>E-Klinik Maryam</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Login untuk dapat akses ke sistem</p>
