@@ -40,6 +40,17 @@ class Karyawan extends BaseController
         $session = session();
         $encrypter = \Config\Services::encrypter();
 
+        $data = array(
+            'email'     => $this->request->getPost('input_email'),
+            'level'     => $this->request->getPost('input_level'),
+            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
+            'level'     => $this->request->getPost('input_level')
+        );
+
+        $modeluser = new Model_user();
+        $modeluser->add_data($data);
+        $max_id = $modeluser->max_id()->getRowArray(); 
+
         if($this->request->getPost('input_status') == '') {
             $status = 'Tidak Aktif';
         } else {
@@ -55,6 +66,7 @@ class Karyawan extends BaseController
         }
 
         $data = array(
+            'id_user' => $max_id['id_user'],
             'nik_karyawan'     => $this->request->getPost('input_nik'),
             'jenis_kelamin'     => $this->request->getPost('input_kelamin'),
             'tgl_lahir'     => $this->request->getPost('input_tanggal'),
@@ -68,20 +80,6 @@ class Karyawan extends BaseController
 
         $model = new Model_karyawan();
         $model->add_data($data);
-
-        // $max_id = $model->detail_data($data['nik_karyawan'])->getRowArray(); 
-
-        $data = array(
-            'nik_karyawan' => $data['nik_karyawan'],
-            'email'     => $this->request->getPost('input_email'),
-            'level'     => $this->request->getPost('input_level'),
-            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
-            'level'     => $this->request->getPost('input_level')
-        );
-
-        $modeluser = new Model_user();
-        $modeluser->add_data($data);
-
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Admin/Karyawan'));
     }
@@ -208,6 +206,8 @@ class Karyawan extends BaseController
             }
             $model->delete_data($id);
             
+            $modeluser = new Model_user();
+            $modeluser->delete_data($id_user);
             session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
         // } else {
         //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
@@ -223,7 +223,6 @@ class Karyawan extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_user'] = $value['id_user'];
-            $isi['email'] = $value['email'];
             $isi['nama_karyawan'] = $value['nama_karyawan'];
             $isi['no_telp_karyawan'] = $value['no_telp_karyawan'];
             $isi['alamat_karyawan'] = $value['alamat_karyawan'];

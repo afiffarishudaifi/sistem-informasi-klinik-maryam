@@ -13,8 +13,7 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select('karyawan.nik_karyawan, nama_karyawan, id_user, alamat_karyawan, no_telp_karyawan, status_karyawan');
-        $builder->join('user','user.nik_karyawan = karyawan.nik_karyawan');
+        $builder->select('nik_karyawan, nama_karyawan, id_user, alamat_karyawan, no_telp_karyawan, status_karyawan');
         return $builder->get();
     }
 
@@ -28,9 +27,9 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select("karyawan.nik_karyawan, email, user.id_user, level, email, jenis_kelamin, tgl_lahir, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan");
-        $builder->join('user','user.nik_karyawan = karyawan.nik_karyawan');
-        $builder->where('karyawan.nik_karyawan', $id);
+        $builder->select("karyawan.nik_karyawan, user.id_user, level, email, jenis_kelamin, tgl_lahir, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan");
+        $builder->join('user','user.id_user = karyawan.id_user');
+        $builder->where('nik_karyawan', $id);
         return $builder->get();
     }
 
@@ -59,12 +58,4 @@ class Model_karyawan extends Model
         $builder->where('email', $email);
         return $builder->get();
     }
-
-    // public function max_id()
-    // {
-    // 	$db      = \Config\Database::connect();
-    //     $builder = $db->table('karyawan');
-    //     $builder->selectMax('nik_karyawan');
-    //     return $builder->get();
-    // }
 }

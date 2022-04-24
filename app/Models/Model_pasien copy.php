@@ -26,8 +26,8 @@ class Model_pasien extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
-        $builder->where('pasien.nik', $id);
-        $builder->join('user','user.nik = pasien.nik','right');
+        $builder->where('nik', $id);
+        $builder->join('user','user.id_user = pasien.id_user','right');
         return $builder->get();
     }
 
@@ -79,8 +79,8 @@ class Model_pasien extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
-        $builder->where('pasien.nik', $id);
-        $builder->join('user','user.nik = pasien.nik');
+        $builder->where('pasien.id_user', $id);
+        $builder->join('user','user.id_user = pasien.id_user');
         return $builder->get();
     }
 }

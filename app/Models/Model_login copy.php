@@ -14,7 +14,7 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
-        $query = $builder->join('admin', 'admin.id_admin = user.id_admin');
+        $query = $builder->join('admin', 'admin.id_user = user.id_user');
         $query = $builder->where('email', $email);
         $query = $builder->where('level', 'Admin');
         return $query->get();
@@ -24,8 +24,8 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
-        $query = $builder->select('pasien.nik, user.id_user, nama_pasien, password, email');
-        $query = $builder->join('pasien', 'pasien.nik = user.nik');
+        $query = $builder->select('nik, user.id_user, nama_pasien, password, email');
+        $query = $builder->join('pasien', 'pasien.id_user = user.id_user');
         $query = $builder->where('email', $email);
         $query = $builder->where('level', 'Pasien');
         return $query->get();
@@ -35,8 +35,8 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
-        $query = $builder->select('karyawan.nik_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, email');
-        $query = $builder->join('karyawan', 'karyawan.nik_karyawan = user.nik_karyawan');
+        $query = $builder->select('nik_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, email');
+        $query = $builder->join('karyawan', 'karyawan.id_user = user.id_user');
         $query = $builder->where('email', $email);
         $query = $builder->where('level', 'karyawan');
         return $query->get();
@@ -46,8 +46,8 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
-        $query = $builder->select('karyawan.nik_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, email');
-        $query = $builder->join('karyawan', 'karyawan.nik_karyawan = user.nik_karyawan');
+        $query = $builder->select('nik_karyawan, user.id_user, nama_karyawan, foto_karyawan, password, email');
+        $query = $builder->join('karyawan', 'karyawan.id_user = user.id_user');
         $query = $builder->where('email', $email);
         $query = $builder->where('level', 'Apoteker');
         return $query->get();
@@ -64,14 +64,6 @@ class Model_login extends Model
     // start google
 
     public function cek_max()
-    {
-        $db      = \Config\Database::connect();
-        $builder = $db->table('admin');
-        $builder->selectMax('id_user');
-        return $builder->get();
-    }
-
-    public function cek_max_pasien()
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
@@ -92,9 +84,9 @@ class Model_login extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('user');
-        $builder->select('user.id_user, pasien.nik');
+        $builder->select('nik, pasien.id_user');
         $builder->where('oauth_id',$id);
-        $builder->join('pasien','pasien.nik = user.nik');
+        $builder->join('pasien','pasien.id_user = user.id_user');
         return $builder->get();
     }
 

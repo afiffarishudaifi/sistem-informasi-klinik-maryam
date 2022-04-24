@@ -27,7 +27,7 @@ class Login extends BaseController
 	{
         $session = session();
         $model = new Model_login();
-        $max = $model->cek_max_pasien()->getRowArray()['id_user'];
+        $max = $model->cek_max()->getRowArray()['id_user'];
         $max = $max + 1;
 
 		$token = $this->googleClient->fetchAccessTokenWithAuthCode($this->request->getVar('code'));
@@ -60,21 +60,22 @@ class Login extends BaseController
                 ];
 			}else{
                 //new User want to Login
-                $data_pasien = array(
-                    'nik' => $max,
-                    'nama_pasien' => $data['name']
-                );
-
-                $model = new Model_pasien();
-                $model->add_data($data_pasien);
-
 				$userdata = [
-                    'nik'=>$max,
+                    'id_user'=>$max,
                     'oauth_id'=>$data['id'],
 					'email'=>$data['email'] , 
                     'Level' => 'Pasien'
                 ];
 				$this->loginModel->insertUserData($userdata);
+
+                $data_pasien = array(
+                    'nik' => $max,
+                    'id_user' => $max,
+                    'nama_pasien'     => $data['name']
+                );
+
+                $model = new Model_pasien();
+                $model->add_data($data_pasien);
 
                 $max_login = $model->cek_max_login($data['id'])->getRowArray()['id_user'];
                 $max_login = $max_login + 1;

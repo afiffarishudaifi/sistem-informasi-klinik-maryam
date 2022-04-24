@@ -30,7 +30,7 @@ $session = session();
                   <img src="<?= base_url() ?>/docs/adminlte/dist/img/avatar.png"
                       style="width: 30px; border-radius: 50%;" alt="avatar">
                 <?php } else { ?>
-                  <img src="<?= base_url() ?>/docs/img/img_karyawan/<?= $session->get('foto') ?>"
+                  <img src="<?= base_url() ?>/<?= $session->get('foto') ?>"
                       style="width: 30px; border-radius: 50%;" alt="avatar">
                 <?php } ?>
               </a>

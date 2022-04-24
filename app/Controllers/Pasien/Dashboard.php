@@ -28,7 +28,7 @@ class Dashboard extends BaseController
         $cek_data =  $model->cek_data($id)->getRowArray();
 
         if($cek_data != null) {
-            if($cek_data['alamat_pasien'] == '' || $cek_data['no_telp_pasien'] == '' || $cek_data['agama'] == '' || $cek_data['tgl_lahir'] == null || $cek_data != null) {
+            if($cek_data['alamat_pasien'] == '' || $cek_data['no_telp_pasien'] == '' || $cek_data['agama'] == '' || $cek_data['tgl_lahir'] == null) {
                 return redirect()->to(base_url('Pasien/Pengaturan'));
             } 
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2022 at 11:09 AM
+-- Generation Time: Apr 24, 2022 at 06:57 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id_admin` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
   `nama_admin` varchar(35) NOT NULL,
   `alamat_admin` varchar(100) NOT NULL,
   `no_telp_admin` varchar(13) NOT NULL
@@ -39,8 +38,9 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id_admin`, `id_user`, `nama_admin`, `alamat_admin`, `no_telp_admin`) VALUES
-(1, 2, 'Jaya Hartono', 'Kota Madiun', '085697458123');
+INSERT INTO `admin` (`id_admin`, `nama_admin`, `alamat_admin`, `no_telp_admin`) VALUES
+(6, 'Gilang R', 'Kota Madiun', '084564564561'),
+(7, 'Ahmad F', 'Kota Madiun', '084564564564');
 
 -- --------------------------------------------------------
 
@@ -58,14 +58,6 @@ CREATE TABLE `antrian` (
   `no_antrian` int(11) NOT NULL,
   `status_antrian` enum('Menunggu','Sudah Dipanggil') NOT NULL DEFAULT 'Menunggu'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `antrian`
---
-
-INSERT INTO `antrian` (`id_antrian`, `nik`, `id_poli`, `keluhan`, `umur`, `tanggal_daftar`, `no_antrian`, `status_antrian`) VALUES
-(1, '8745123265991246', 1, 'sakit gigi', 22, '2022-03-27 00:00:00', 1, 'Menunggu'),
-(2, '8745123265991246', 1, 'gigi gusi', 23, '2022-03-27 00:00:00', 2, 'Menunggu');
 
 -- --------------------------------------------------------
 
@@ -99,8 +91,6 @@ CREATE TABLE `detail_resep` (
 --
 
 INSERT INTO `detail_resep` (`id_detail`, `id_resep`, `id_obat`, `jumlah_obat`, `total_biaya`, `tanggal_resep`) VALUES
-(1, 1, 3, 3, 30000, '2022-03-27 14:31:55'),
-(2, 1, 3, 2, 20000, '2022-03-27 14:31:55'),
 (3, 2, 3, 3, 30000, '2022-03-27 14:31:55'),
 (4, 2, 3, 4, 40000, '2022-03-27 14:31:55');
 
@@ -146,7 +136,10 @@ CREATE TABLE `kamar` (
 --
 
 INSERT INTO `kamar` (`id_kamar`, `nama_kamar`, `biaya_kamar`, `status_kamar`) VALUES
-(1, 'Kamar 1A', '50000', 'Terisi');
+(1, 'Kamar 1A', '50000', 'Terisi'),
+(2, 'Kamar 1B', '50000', 'Terisi'),
+(3, 'Kamar 2A', '50000', 'Kosong'),
+(4, 'Kamar 2B', '50000', 'Kosong');
 
 -- --------------------------------------------------------
 
@@ -156,7 +149,6 @@ INSERT INTO `kamar` (`id_kamar`, `nama_kamar`, `biaya_kamar`, `status_kamar`) VA
 
 CREATE TABLE `karyawan` (
   `nik_karyawan` varchar(16) NOT NULL,
-  `id_user` int(11) NOT NULL,
   `nama_karyawan` varchar(35) NOT NULL,
   `no_telp_karyawan` varchar(13) NOT NULL,
   `alamat_karyawan` varchar(100) NOT NULL,
@@ -170,8 +162,10 @@ CREATE TABLE `karyawan` (
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`nik_karyawan`, `id_user`, `nama_karyawan`, `no_telp_karyawan`, `alamat_karyawan`, `status_karyawan`, `jenis_kelamin`, `tgl_lahir`, `foto_karyawan`) VALUES
-('7410852096307410', 4, 'Mahesa Karyawan', '085641254123', 'Kota madiun', 'Aktif', 'Laki - Laki', '2021-11-10', 'docs/img/img_karyawan/1648271500_77694736cf8e5d5f55a5.png');
+INSERT INTO `karyawan` (`nik_karyawan`, `nama_karyawan`, `no_telp_karyawan`, `alamat_karyawan`, `status_karyawan`, `jenis_kelamin`, `tgl_lahir`, `foto_karyawan`) VALUES
+('0212121212121212', 'Arya Bagus', '058965412325', 'Kota Madiun', 'Aktif', 'Laki - Laki', '2022-04-24', 'docs/img/img_karyawan/1650772533_cbdb5f285eee66158da5.png'),
+('6541241254785451', 'Anin Artiana', '02132123212', 'Kota Kediri', 'Aktif', 'Perempuan', '2022-04-24', 'docs/img/img_karyawan/1650772284_9766fe2d632068e0f2a9.png'),
+('6541241254785454', 'Naim Irfani', '08545745121', 'Kota Madiun', 'Aktif', 'Laki - Laki', '2022-04-24', 'docs/img/img_karyawan/1650772088_278e8e81e6129b0b6b9a.png');
 
 -- --------------------------------------------------------
 
@@ -211,7 +205,8 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`id_obat`, `id_kategori`, `nama_obat`, `stok_obat`, `harga_obat`) VALUES
-(3, 2, 'Vitamin A', 86, 10000);
+(3, 2, 'Vitamin A', 86, 10000),
+(4, 1, 'Vitamin B', 100, 10000);
 
 -- --------------------------------------------------------
 
@@ -221,7 +216,6 @@ INSERT INTO `obat` (`id_obat`, `id_kategori`, `nama_obat`, `stok_obat`, `harga_o
 
 CREATE TABLE `pasien` (
   `nik` varchar(16) NOT NULL,
-  `id_user` int(11) NOT NULL,
   `nama_pasien` varchar(35) NOT NULL,
   `alamat_pasien` varchar(100) NOT NULL,
   `no_telp_pasien` varchar(13) NOT NULL,
@@ -235,8 +229,10 @@ CREATE TABLE `pasien` (
 -- Dumping data for table `pasien`
 --
 
-INSERT INTO `pasien` (`nik`, `id_user`, `nama_pasien`, `alamat_pasien`, `no_telp_pasien`, `jenis_kelamin`, `tgl_lahir`, `agama`, `status`) VALUES
-('8745123265991246', 7, 'Kautsa Pasien', 'kota madiun', '087451236541', 'Laki - Laki', '2021-10-07', 'Islam', 'Pasien Baru');
+INSERT INTO `pasien` (`nik`, `nama_pasien`, `alamat_pasien`, `no_telp_pasien`, `jenis_kelamin`, `tgl_lahir`, `agama`, `status`) VALUES
+('3232323232323232', 'Afif Faris Hudaifi', 'Kota Madiun', '023541245782', 'Laki - Laki', '2022-04-24', 'Islam', 'Pasien Baru'),
+('6565656565656565', 'Rizqunal Kafi', 'Kota Madiun', '02321232123', 'Laki - Laki', '2022-04-24', 'Kristen', 'Pasien Baru'),
+('9898989898989898', 'Agus Wahyu', 'Kota Madiun', '089654784125', 'Laki - Laki', '2022-04-24', 'Islam', 'Pasien Baru');
 
 -- --------------------------------------------------------
 
@@ -297,7 +293,8 @@ CREATE TABLE `rawat_inap` (
 --
 
 INSERT INTO `rawat_inap` (`id_inap`, `id_kamar`, `nik`, `waktu_masuk`, `waktu_keluar`, `lama_hari`, `total_tagihan_inap`, `status_inap`) VALUES
-(2, 1, '8745123265991246', '2022-03-31 11:52:00', NULL, NULL, NULL, 'Belum Selesai');
+(2, 1, '8745123265991246', '2022-03-31 11:52:00', NULL, NULL, NULL, 'Belum Selesai'),
+(3, 2, '2', '2022-04-11 16:40:00', NULL, NULL, 0, 'Belum Selesai');
 
 -- --------------------------------------------------------
 
@@ -323,7 +320,6 @@ CREATE TABLE `rekam_medis` (
 --
 
 INSERT INTO `rekam_medis` (`id_rekam`, `id_inap`, `nik`, `nik_dokter`, `id_penyakit`, `hasil_pemeriksaan`, `saran_dokter`, `tensi_darah`, `tanggal_rekam`, `status`) VALUES
-(1, NULL, '8745123265991246', '3216549873216549', 1, 'hasil juga aman', 'saran dokter aman', 20, '2022-03-15 19:43:27', 'Jalan'),
 (5, 2, NULL, '3216549873216549', 1, 'bagus', 'bagus', 20, '2022-03-27 00:00:00', 'Inap');
 
 -- --------------------------------------------------------
@@ -346,7 +342,6 @@ CREATE TABLE `resep` (
 --
 
 INSERT INTO `resep` (`id_resep`, `id_rekam`, `tanggal`, `status_bayar`, `tagihan_obat`, `status`) VALUES
-(1, 1, '2022-03-08', 'Belum Lunas', 0, 'Jalan'),
 (2, 5, '2022-03-27', 'Belum Lunas', 0, 'Inap');
 
 -- --------------------------------------------------------
@@ -357,6 +352,9 @@ INSERT INTO `resep` (`id_resep`, `id_rekam`, `tanggal`, `status_bayar`, `tagihan
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
+  `nik` varchar(16) DEFAULT NULL,
+  `nik_karyawan` varchar(16) DEFAULT NULL,
+  `id_admin` int(11) DEFAULT NULL,
   `email` varchar(40) NOT NULL,
   `oauth_id` varchar(50) NOT NULL,
   `password` varchar(150) NOT NULL,
@@ -367,11 +365,15 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `email`, `oauth_id`, `password`, `level`) VALUES
-(1, 'afiffaris5@gmail.com', '108858565960947332249', '', 'Pasien'),
-(2, 'admin@gmail.com', '', '6z4cOSbH/gRIixMPDzRNZ3TjrzjLUp9RHyv/WruEBqmFkbDlYs1WknDh+j1OMhG9lly/KYIhRKf5g0dqvhqK/HTnrd8VEe+2hRzzYYbIDrUYE0uDp4I=', 'Admin'),
-(4, '', '', '44ZnaYvNibvKD4ybbg33LdFdnBLJZR480yYvu976hF1aB5lqIl/sQ1ghYuOWkw88jNZ2Qtgxz8nq25bDgmbyrP6F5KX1fjY4evo50Y45kFeYJ+gnWjFA5wA=', 'Karyawan'),
-(7, 'kautsa@gmail.com', '', 'AvVFJ9sSTCJ2TYH87WYTnELIz8Nfzl3TdKlE4DXUAoFzTONCoU6wA+BV4kodCqN4WSxDTCG7elq0pENqNt/hOuZaGP39Cg+uM+QSvTCuflLZw2BIP1wt', 'Pasien');
+INSERT INTO `user` (`id_user`, `nik`, `nik_karyawan`, `id_admin`, `email`, `oauth_id`, `password`, `level`) VALUES
+(11, NULL, NULL, 6, 'gilang@gmail.com', '', 'fEuU7DjZf5ODYP/EdBl0yYrGeWoHLcijPK8Mgnc0TOSxbsz5+x84BUPkHZg7LTRuFE5j7ihLNRpXSCFCOHUqzJweXsQt30JMPurYEWsynghKRu32TQE=', 'Admin'),
+(12, NULL, NULL, 7, 'ahmad@gmail.com', '', '3kvpMYQ2IbT2KBRizd0ZE0vHC39HY27TxjLX85igRJdyCe173fXAsBNtRzf48dxfaW2Wq0WUsPa2GJx6D5HizYYFccOMAE/5b/DKhCeG8u7ElfbKXg==', 'Admin'),
+(20, NULL, '6541241254785454', NULL, 'naim@gmail.com', '', 'wZOp7uepKDFJ1iSA0uCewSdShLLkQ8dL1aBGenP76tkhYRvgm1MXIL3Csymz8x8G9ILP+bGfC35d8EJDSG935PcCuAg3ma8C5Dae1e3pFGLlgTeC', 'Karyawan'),
+(22, NULL, '6541241254785451', NULL, 'anin@gmail.com', '', 'uWYGpbxlAwXNoAOsHXghcZZ23KQMgJ31f9zg7cG2uIkW51GG1VmLqx2eVIR/MOPz9lvY4ovbVklilBxGOnVKTMAdMxH28oFFe12my+JvZlX/w+zn', 'Apoteker'),
+(23, NULL, '0212121212121212', NULL, 'arya@gmail.com', '', 'mRy6PG8wywnU6VXBWAPfWwNpPwWELXj3ARwwlSoDNI+tYCD80P3UnI640es3Ci2Bx+wtl+o44wSFttq6NYkFDhFxxdiT/IE9N9qX696LL1/Ey0xP', 'Karyawan'),
+(28, '9898989898989898', NULL, NULL, 'agus@gmail.com', '', 'UnfU4yL4fMg6QLR5fNxOGANYMgFeeXbUfsOU32AdkemZGZBok5f/ex9NhgUfZztPeTXT+2RkBOGLQXGuvEN7wh6JDEFVya1tlk6wHwMMzc1y3+52', 'Pasien'),
+(29, '6565656565656565', NULL, NULL, 'kafi@gmail.com', '', 'M2EEIMeAvR1iWEgxR5UDmL0vogtVzKTZ76JcNmR8NL0VvzDwH5Jd325R/mVDQ4WBXpaxrYFgUKISh6bgji0WbHxlS6mK71Wy4IdOCQhuS9LWfNG7', 'Pasien'),
+(32, '3232323232323232', NULL, NULL, 'afiffaris5@gmail.com', '108858565960947332249', 'fe9HXK5JHGy1i8AaaZPlOjZFR0VgbFYr0syJzp5EP30QCw40Bh3RXRdLuQXcPpq1g2mZjtdO/1TIjwvranflsD0IxHW1E33mwxmlKGwQuGT0+DyN', 'Pasien');
 
 --
 -- Indexes for dumped tables
@@ -381,8 +383,7 @@ INSERT INTO `user` (`id_user`, `email`, `oauth_id`, `password`, `level`) VALUES
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id_admin`),
-  ADD KEY `id_user` (`id_user`);
+  ADD PRIMARY KEY (`id_admin`);
 
 --
 -- Indexes for table `antrian`
@@ -424,8 +425,7 @@ ALTER TABLE `kamar`
 -- Indexes for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  ADD PRIMARY KEY (`nik_karyawan`),
-  ADD KEY `id_user` (`id_user`);
+  ADD PRIMARY KEY (`nik_karyawan`);
 
 --
 -- Indexes for table `kategori_obat`
@@ -444,8 +444,7 @@ ALTER TABLE `obat`
 -- Indexes for table `pasien`
 --
 ALTER TABLE `pasien`
-  ADD PRIMARY KEY (`nik`),
-  ADD KEY `id_user` (`id_user`);
+  ADD PRIMARY KEY (`nik`);
 
 --
 -- Indexes for table `penyakit`
@@ -487,7 +486,10 @@ ALTER TABLE `resep`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD KEY `nik` (`nik`),
+  ADD KEY `nik_karyawan` (`nik_karyawan`),
+  ADD KEY `id_admin` (`id_admin`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -497,13 +499,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `antrian`
 --
 ALTER TABLE `antrian`
-  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detail_penyakit`
@@ -521,7 +523,7 @@ ALTER TABLE `detail_resep`
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kamar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kategori_obat`
@@ -533,7 +535,7 @@ ALTER TABLE `kategori_obat`
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `penyakit`
@@ -551,7 +553,7 @@ ALTER TABLE `poli`
 -- AUTO_INCREMENT for table `rawat_inap`
 --
 ALTER TABLE `rawat_inap`
-  MODIFY `id_inap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_inap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rekam_medis`
@@ -569,17 +571,11 @@ ALTER TABLE `resep`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `admin`
---
-ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `antrian`
@@ -596,22 +592,10 @@ ALTER TABLE `detail_resep`
   ADD CONSTRAINT `detail_resep_ibfk_2` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `karyawan`
---
-ALTER TABLE `karyawan`
-  ADD CONSTRAINT `karyawan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `obat`
 --
 ALTER TABLE `obat`
   ADD CONSTRAINT `obat_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori_obat` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `pasien`
---
-ALTER TABLE `pasien`
-  ADD CONSTRAINT `pasien_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rawat_inap`
@@ -633,6 +617,14 @@ ALTER TABLE `rekam_medis`
 --
 ALTER TABLE `resep`
   ADD CONSTRAINT `resep_ibfk_1` FOREIGN KEY (`id_rekam`) REFERENCES `rekam_medis` (`id_rekam`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`nik`) REFERENCES `pasien` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`nik_karyawan`) REFERENCES `karyawan` (`nik_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id_admin`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

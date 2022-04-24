@@ -15,8 +15,13 @@ $session = session();
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= base_url() ?>/docs/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
-                    alt="User Image">
+                <?php if($session->get('foto') == '' || $session->get('foto') == null) { ?>
+                <img src="<?= base_url() ?>/docs/adminlte/dist/img/avatar.png"
+                    style="width: 30px; img-circle elevation-2" alt="avatar">
+                <?php } else { ?>
+                <img src="<?= base_url() ?>/<?= $session->get('foto') ?>"
+                    style="width: 30px; img-circle elevation-2" alt="avatar">
+                <?php } ?>
             </div>
             <div class="info">
                 <a href="#" class="d-block"><?= $session->get('nama_login'); ?></a>

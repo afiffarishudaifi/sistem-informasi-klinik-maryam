@@ -23,8 +23,13 @@
           </li>
           <li class="nav-item">
               <a class="nav-link" data-toggle="dropdown" href="#">
+                <?php if($session->get('foto') == '' || $session->get('foto') == null) { ?>
                   <img src="<?= base_url() ?>/docs/adminlte/dist/img/avatar.png"
                       style="width: 30px; border-radius: 50%;" alt="avatar">
+                <?php } else { ?>
+                  <img src="<?= base_url() ?>/<?= $session->get('foto') ?>"
+                      style="width: 30px; border-radius: 50%;" alt="avatar">
+                <?php } ?>
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                   <div class="dropdown-divider"></div>

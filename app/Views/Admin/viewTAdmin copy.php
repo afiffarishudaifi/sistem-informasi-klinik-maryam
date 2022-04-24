@@ -112,10 +112,10 @@
                                     data-parsley-required="true" placeholder="Masukkan Nama Admin" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>Email Admin</label>
-                                <input type="email" class="form-control" id="input_email" name="input_email"
-                                    data-parsley-required="true" placeholder="Masukkan Email Admin" autofocus="on">
-                                <span class="text-danger" id="error_email"></span>
+                                <label>Username Admin</label>
+                                <input type="text" class="form-control" id="input_username" name="input_username"
+                                    data-parsley-required="true" placeholder="Masukkan Username Admin" autofocus="on">
+                                <span class="text-danger" id="error_username"></span>
                             </div>
                             <div class="form-group">
                                 <label>Password Admin</label>
@@ -173,20 +173,20 @@
                                     data-parsley-required="true" placeholder="Masukkan Nama Admin" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>Email Admin</label>
-                                <input type="email" class="form-control" id="edit_email" name="edit_email"
-                                    data-parsley-required="true" placeholder="Masukkan Email Admin" autofocus="on">
-                                <span class="text-danger" id="error_edit_email"></span>
+                                <label>Username Admin</label>
+                                <input type="text" class="form-control" id="edit_username" name="edit_username"
+                                    data-parsley-required="true" placeholder="Masukkan Username Admin" autofocus="on">
+                                <span class="text-danger" id="error_edit_username"></span>
                             </div>
                             <div class="form-group">
                                 <label>Password Admin</label>
                                 <input type="Password" class="form-control" id="edit_password" name="edit_password"
-                                    placeholder="Masukkan Password Admin" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Password Admin" autofocus="on">
                             </div>
                             <div class="form-group">
                                 <label>Ulangi Password</label>
                                 <input type="Password" class="form-control" id="edit_password_konfirmasi" name="edit_password_konfirmasi"
-                                    placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#edit_password">
+                                    data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#edit_password">
                             </div>
                             <div class="form-group">
                                 <label>Alamat Admin</label>
@@ -266,7 +266,7 @@
         });
 
         $(function() {
-            $("#input_email").keyup(function(){
+            $("#input_username").keyup(function(){
 
                 var nama = $(this).val().trim();
           
@@ -274,13 +274,13 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Admin/cek_email'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Admin/cek_username'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_email").html('Email telah dipakai,coba yang lain');
-                                $("#input_email").val('');
+                                $("#error_username").html('Username telah dipakai,coba yang lain');
+                                $("#input_username").val('');
                             }else{
-                                $("#error_email").html('');
+                                $("#error_username").html('');
                             }
                         }, error: function () {
             
@@ -290,21 +290,21 @@
                 }
           
               });
-            $("#edit_email").keyup(function(){
+            $("#edit_username").keyup(function(){
 
                 var nama = $(this).val().trim();
           
-                if(nama != '' && nama != $('#edit_email_lama').val()){
+                if(nama != '' && nama != $('#edit_username_lama').val()){
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Admin/cek_email'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Admin/cek_username'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_edit_email").html('Email telah dipakai,coba yang lain');
-                                $("#edit_email").val('');
+                                $("#error_edit_username").html('Username telah dipakai,coba yang lain');
+                                $("#edit_username").val('');
                             }else{
-                                $("#error_edit_email").html('');
+                                $("#error_edit_username").html('');
                             }
                         }, error: function () {
             
@@ -318,7 +318,7 @@
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
                 $("#input_nama").val('');
-                $("#input_email").val('');
+                $("#input_username").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
                 $("#input_alamat").val('');
@@ -328,7 +328,7 @@
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
                 $("#input_nama").val('');
-                $("#input_email").val('');
+                $("#input_username").val('');
                 $("#input_password").val('');
                 $("#input_password_konfirmasi").val('');
                 $("#input_alamat").val('');
@@ -338,7 +338,7 @@
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
                 $("#edit_nama").val('');
-                $("#edit_email").val('');
+                $("#edit_username").val('');
                 $("#edit_password").val('');
                 $("#edit_password_konfirmasi").val('');
                 $("#edit_alamat").val('');
@@ -352,7 +352,7 @@
                     $('#id_user').val(json.id_user);
                     $('#id_admin').val(json.id_admin);
                     $('#edit_nama').val(json.nama_admin);
-                    $('#edit_email').val(json.email);
+                    $('#edit_username').val(json.username);
                     $('#edit_alamat').val(json.alamat_admin);
                     $('#edit_no_telp').val(json.no_telp_admin);
                 });
