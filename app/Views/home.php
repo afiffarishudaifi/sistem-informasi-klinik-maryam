@@ -53,8 +53,11 @@
           <li><a class="nav-link scrollto" href="#about">Tentang Kami</a></li>
           <li><a class="nav-link scrollto" href="#poliklinik">Poliklinik</a></li>
           <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="<?= base_url('Login') ?>">Sign In</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
+          <?php $session = session();
+          if(session() == FALSE){?>
+          <li><a class="getstarted scrollto" href="<?= base_url('Login') ?>">Login</a></li>
+          <?php }else{ ?> <li><a class="nav-link scrollto active" href="#"><?=$session->get('nama_login');?></a></li><?php }?>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -68,12 +71,12 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center">
-          <h1 data-aos="fade-up">We offer modern solutions for growing your business</h1>
-          <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+          <h1 data-aos="fade-up">Klinik Maryam melayani dengan sepenuh hati</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Siap membantu dengan sigap dan tepat</h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="<?= base_url('Login') ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                <span>Sign In</span>
+              <a href="<?= base_url('Registrasi') ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>Daftar</span>
                 <i class="bi bi-arrow-right"></i>
               </a>
             </div>
@@ -96,16 +99,16 @@
 
           <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
             <div class="content">
-              <h3>Who We Are</h3>
-              <h2>Expedita voluptas omnis cupiditate totam eveniet nobis sint iste. Dolores est repellat corrupti reprehenderit.</h2>
+              <h3>Klinik Maryam</h3>
+              <h2>Adalah salah satu fasilitas kesehatan terpercaya di Kabupaten Madiun yang sudah berdiri sejak tahun 2012.</h2>
               <p>
-                Quisquam vel ut sint cum eos hic dolores aperiam. Sed deserunt et. Inventore et et dolor consequatur itaque ut voluptate sed et. Magnam nam ipsum tenetur suscipit voluptatum nam et est corrupti.
+                Melayani beberapa polikniknik yang siap menangani masalah atau konsultasi kesehatan Anda dan keluarga.
               </p>
               <div class="text-center text-lg-start">
-                <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                <!-- <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
                   <span>Read More</span>
                   <i class="bi bi-arrow-right"></i>
-                </a>
+                </a> -->
               </div>
             </div>
           </div>
@@ -125,8 +128,8 @@
       <div class="container" data-aos="fade-up">
 
         <header class="section-header">
-          <h2>Features</h2>
-          <p>Laboriosam et omnis fuga quis dolor direda fara</p>
+          <h2>Poliklik</h2>
+          <p>Layanan Poliklinik</p>
         </header>
 
         <div class="row">
@@ -141,42 +144,11 @@
               <div class="col-md-6" data-aos="zoom-out" data-aos-delay="200">
                 <div class="feature-box d-flex align-items-center">
                   <i class="bi bi-check"></i>
-                  <h3>Eos aspernatur rem</h3>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="300">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Facilis neque ipsa</h3>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="400">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Volup amet voluptas</h3>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="500">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Rerum omnis sint</h3>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="600">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Alias possimus</h3>
-                </div>
-              </div>
-
-              <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
-                <div class="feature-box d-flex align-items-center">
-                  <i class="bi bi-check"></i>
-                  <h3>Repellendus mollitia</h3>
+                  <?php 
+                      foreach ($poli as $item) {
+                  ?>
+                  <h3><?= $item['nama_poli']; ?></h3>
+                  <?php } ?>
                 </div>
               </div>
 
@@ -206,12 +178,12 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
-                    Non consectetur a erat nam at lectus urna duis?
+                    Jam berapa klinik mulai dibuka?
                   </button>
                 </h2>
                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                   <div class="accordion-body">
-                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                    Klinik dibuka mulai dari jam 7 pagi.
                   </div>
                 </div>
               </div>
@@ -219,12 +191,12 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
-                    Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
+                    Metode pembayaran seperti apa yang tersedia?
                   </button>
                 </h2>
                 <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                   <div class="accordion-body">
-                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                    Untuk saat ini masih menggunakan uang tunai saja.
                   </div>
                 </div>
               </div>
@@ -232,12 +204,12 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
-                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
+                    Apakah Klinik Maryam juga melayani tebus obat?
                   </button>
                 </h2>
                 <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
                   <div class="accordion-body">
-                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                    Belum, saat ini dokter kami hanya memberi resep. Anda bisa menebus obat di apotek terdekat.
                   </div>
                 </div>
               </div>
@@ -253,12 +225,12 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-1">
-                    Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                    Bisakah berkonsultasi & tanya harga melalui telepon?
                   </button>
                 </h2>
                 <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
                   <div class="accordion-body">
-                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                    Bisa, anda bisa menghubungi kami melalui telepon dengan nomor (0334) 567890 atau ponsel 087 757 341 567.
                   </div>
                 </div>
               </div>
@@ -266,12 +238,12 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-2">
-                    Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
+                    Apakah saya bisa melihat riwayat periksa di Klinik Maryam?
                   </button>
                 </h2>
                 <div id="faq2-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
                   <div class="accordion-body">
-                    Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                    Bisa, Anda bisa melihat riwayat periksa pribadi dengan login terlebih dahulu. Lalu pilih menu laporan, klik submenu Riwayat Rekam Medis.
                   </div>
                 </div>
               </div>
@@ -279,12 +251,12 @@
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-3">
-                    Varius vel pharetra vel turpis nunc eget lorem dolor?
+                    Apakah Klinik Maryam melayani rawat inap?
                   </button>
                 </h2>
                 <div id="faq2-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
                   <div class="accordion-body">
-                    Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
+                    Benar, kami menyediakan layanan rawat inap sesuai dengan anjuran dokter. Anda bisa mendaftar pada website.
                   </div>
                 </div>
               </div>
@@ -304,8 +276,8 @@
       <div class="container" data-aos="fade-up">
 
         <header class="section-header">
-          <h2>Contact</h2>
-          <p>Contact Us</p>
+          <h2>Kontak</h2>
+          <p>Kontak Kami</p>
         </header>
 
         <div class="row gy-4">
@@ -316,29 +288,29 @@
               <div class="col-md-3">
                 <div class="info-box">
                   <i class="bi bi-geo-alt"></i>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street,<br>New York, NY 535022</p>
+                  <h3>Alamat</h3>
+                  <p>Desa Kedungpanji, <br> Kec Lembeyan<br>Kab. Magetan, Jawa Timur</p>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="info-box">
                   <i class="bi bi-telephone"></i>
-                  <h3>Call Us</h3>
-                  <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                  <h3>Telepon</h3>
+                  <p>(0334) 567890<br>087 757 341 567</p>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="info-box">
                   <i class="bi bi-envelope"></i>
-                  <h3>Email Us</h3>
-                  <p>info@example.com<br>contact@example.com</p>
+                  <h3>Email & Fax</h3>
+                  <p>klinikmaryam@gmail.com<br>234453679</p>
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="info-box">
                   <i class="bi bi-clock"></i>
-                  <h3>Open Hours</h3>
-                  <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+                  <h3>Jam Buka</h3>
+                  <p>Senin - Jum'at<br>7:00 - 20:00 WIB</p>
                 </div>
               </div>
             </div>
@@ -363,7 +335,8 @@
               <img src="<?= base_url() ?>/docs/flexstart/assets/img/logo.png" alt="">
               <span>Klinik Maryam</span>
             </a>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+            <p>Kesehatan yang baik bukanlah sesuatu yang dapat kita beli. Namun, sesuatu yang dapat menjadi tabungan yang sangat berharga.</p>
+            <p>-Anne Wilson Schaef-</p>
           </div>
 
           <div class="col-lg-2 col-6 footer-links">
@@ -376,18 +349,18 @@
               <li><i class="bi bi-chevron-right"></i> <a href="#about">Tentang Kami</a></li>
               <li><i class="bi bi-chevron-right"></i> <a href="#poliklinik">Poliklinik</a></li>
               <li><i class="bi bi-chevron-right"></i> <a href="#faq">FAQ</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#contact">Contact</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#contact">Kontak</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
             <h4>Contact Us</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              Desa Kedungpanji, Kec Lembeyan <br>
+              Kab. Magetan, Jawa Timur<br>
+              Indonesia <br><br>
+              <strong>Telepon:</strong> (0334) 567890<br>
+              <strong>Email:</strong> klinikmaryam@gmail.com<br>
             </p>
 
           </div>
