@@ -74,8 +74,8 @@
           <h2 data-aos="fade-up" data-aos-delay="400">Siap membantu dengan sigap dan tepat</h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="<?= base_url('Registrasi') ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                <span>Daftar</span>
+              <a href="<?= base_url('Login') ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>Login</span>
                 <i class="bi bi-arrow-right"></i>
               </a>
             </div>

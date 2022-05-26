@@ -18,9 +18,6 @@ class Registrasi extends BaseController
     public function simpanPasien()
     {
         $model = new Model_pasien();
-        $model->add_data($data);
-        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-
         $session = session();
         $encrypter = \Config\Services::encrypter();
 
