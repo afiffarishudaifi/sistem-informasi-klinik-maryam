@@ -42,9 +42,9 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Kamar</th>
-                                                <th>Biaya Kamar</th>
-                                                <th>Status Kamar</th>
+                                                <th style="text-align: center;">Nama Kamar</th>
+                                                <th style="text-align: center;">Biaya Kamar</th>
+                                                <th style="text-align: center;">Status Kamar</th>
                                             </tr>
                                         </thead>
                                         <tbody>

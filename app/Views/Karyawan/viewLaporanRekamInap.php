@@ -66,11 +66,11 @@
                                     <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Nama Dokter</th>
-                                                <th>Hasil Pemeriksaan</th>
-                                                <th>Saran</th>
-                                                <th>Tanggal Periksa</th>
+                                                <th style="text-align: center;">Nama Pasien</th>
+                                                <th style="text-align: center;">Nama Dokter</th>
+                                                <th style="text-align: center;">Hasil Pemeriksaan</th>
+                                                <th style="text-align: center;">Saran</th>
+                                                <th style="text-align: center;">Tanggal Periksa</th>
                                             </tr>
                                         </thead>
                                     </table>

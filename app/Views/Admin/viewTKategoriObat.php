@@ -48,8 +48,8 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Kategori</th>
-                                                <th>Aksi</th>
+                                                <th style="text-align: center;">Nama Kategori</th>
+                                                <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

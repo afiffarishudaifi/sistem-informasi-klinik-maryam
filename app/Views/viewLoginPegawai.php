@@ -31,7 +31,7 @@
 
       <form action="<?= base_url('Login/loginSistemPegawai'); ?>" method="POST" autocomplete="off">
         <div class="input-group mb-3">
-          <input type="email" required=""  name="email" id="email" class="form-control" placeholder="Email">
+          <input type="email" required=""  name="email" id="email" class="form-control" placeholder="Email" autofocus="">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa fa-user"></span>

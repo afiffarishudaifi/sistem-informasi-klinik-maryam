@@ -25,6 +25,9 @@ class RawatJalan extends BaseController
     {
         $session = session();
         $model = new Model_rawatjalan();
+
+        // $tanggal = Date();
+        // var_dump($tanggal);
         $data = $model->view_data()->getResultArray();
 
         $data = [
@@ -763,5 +766,19 @@ class RawatJalan extends BaseController
         $response['data'] = $dokter;
 
         return $this->response->setJSON($response);
+    }
+
+    public function SelesaiAntrian($id)
+    {
+        $session = session();
+        $model = new Model_rawatjalan();
+
+        $data = array(
+            'status_antrian' => 'Sudah Dipanggil'
+        );
+
+        $model->update_data($data, $id);
+        $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
+        return redirect()->to(base_url('Karyawan/RawatJalan'));   
     }
 }

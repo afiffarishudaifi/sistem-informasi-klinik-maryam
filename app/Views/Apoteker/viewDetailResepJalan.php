@@ -48,9 +48,9 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Obat</th>
-                                                <th>Jumlah Obat</th>
-                                                <th>Tagihan</th>
+                                                <th style="text-align: center;">Nama Obat</th>
+                                                <th style="text-align: center;">Jumlah Obat</th>
+                                                <th style="text-align: center;">Tagihan</th>
                                             </tr>
                                         </thead>
                                         <tbody>

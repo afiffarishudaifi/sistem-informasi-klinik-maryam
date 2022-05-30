@@ -48,11 +48,11 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Nama Poli</th>
-                                                <th>Antrian</th>
-                                                <th>Status Antrian</th>
-                                                <th>Aksi</th>
+                                                <th style="text-align: center;">Nama Pasien</th>
+                                                <th style="text-align: center;">Nama Poli</th>
+                                                <th style="text-align: center;">Antrian</th>
+                                                <th style="text-align: center;">Status Antrian</th>
+                                                <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

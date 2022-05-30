@@ -48,10 +48,10 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Obat</th>
-                                                <th>Jumlah Obat</th>
-                                                <th>Tagihan</th>
-                                                <th>Aksi</th>
+                                                <th style="text-align: center;">Nama Obat</th>
+                                                <th style="text-align: center;">Jumlah Obat</th>
+                                                <th style="text-align: center;">Tagihan</th>
+                                                <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -88,7 +88,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Karyawan/RawatInap/add_detail_resep'); ?>" method="post" id="form_add"
+        <form action="<?= base_url('Karyawan/RawatInap/add_detail_resep'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -141,7 +141,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Karyawan/RawatInap/update_detail_resep'); ?>" method="post" id="form_edit"
+        <form action="<?= base_url('Karyawan/RawatInap/update_detail_resep'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -196,7 +196,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Karyawan/RawatInap/delete_detail_resep'); ?>" method="post">
+        <form action="<?= base_url('Karyawan/RawatInap/delete_detail_resep'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -259,7 +259,7 @@
                 placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_obat'); ?>',
+                    url: '<?= base_url('Karyawan/RawatInap/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -281,7 +281,7 @@
                 placeholder: "Pilih Obat",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_obat'); ?>',
+                    url: '<?= base_url('Karyawan/RawatInap/data_obat'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -300,7 +300,7 @@
             });
 
             $('#input_obat').on('change', function() {
-              $.getJSON('<?php echo base_url('Karyawan/RawatInap/harga_obat'); ?>' + '/' + this.value, {},
+              $.getJSON('<?= base_url('Karyawan/RawatInap/harga_obat'); ?>' + '/' + this.value, {},
                 function(json) {
                     $('#input_harga').val(json.harga_obat);
                     var hasil = $('#input_jumlah').val() * json.harga_obat;
@@ -309,7 +309,7 @@
             });
 
             $('#edit_obat').on('change', function() {
-              $.getJSON('<?php echo base_url('Karyawan/RawatInap/harga_obat'); ?>' + '/' + this.value, {},
+              $.getJSON('<?= base_url('Karyawan/RawatInap/harga_obat'); ?>' + '/' + this.value, {},
                 function(json) {
                     $('#edit_harga').val(json.harga_obat);
                     var hasil = $('#edit_jumlah').val() * json.harga_obat;
@@ -354,7 +354,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Karyawan/RawatInap/data_edit_detail_resep'); ?>' + '/' + isi, {},
+            $.getJSON('<?= base_url('Karyawan/RawatInap/data_edit_detail_resep'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id_detail);
                     $('#edit_resep').val(json.id_resep);

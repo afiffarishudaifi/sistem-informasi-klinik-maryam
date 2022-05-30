@@ -74,10 +74,10 @@
                                     <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Nama Obat</th>
-                                                <th>Jumlah Obat</th>
-                                                <th>Total Biaya</th>
-                                                <th>Tanggal Penjualan</th>
+                                                <th style="text-align: center;">Nama Obat</th>
+                                                <th style="text-align: center;">Jumlah Obat</th>
+                                                <th style="text-align: center;">Total Biaya</th>
+                                                <th style="text-align: center;">Tanggal Penjualan</th>
                                             </tr>
                                         </thead>
                                     </table>

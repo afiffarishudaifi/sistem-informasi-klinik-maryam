@@ -16,6 +16,7 @@ class Model_rawatjalan extends Model
         $builder->select('id_antrian, pasien.nik, pasien.nama_pasien, poli.nama_poli, antrian.no_antrian, antrian.status_antrian');
         $builder->join('poli','antrian.id_poli = poli.id_poli');
         $builder->join('pasien','antrian.nik = pasien.nik');
+        // $builder->where('antrian.tanggal_daftar',$tanggal);
         return $builder->get();
     }
 

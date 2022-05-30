@@ -48,13 +48,13 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Nomor Kamar</th>
-                                                <th>Waktu Masuk</th>
-                                                <th>Waktu Keluar</th>
-                                                <th>Total Tagihan Inap</th>
-                                                <th>Status Inap</th>
-                                                <th>Aksi</th>
+                                                <th style="text-align: center;">Nama Pasien</th>
+                                                <th style="text-align: center;">Nomor Kamar</th>
+                                                <th style="text-align: center;">Waktu Masuk</th>
+                                                <th style="text-align: center;">Waktu Keluar</th>
+                                                <th style="text-align: center;">Total Tagihan Inap</th>
+                                                <th style="text-align: center;">Status Inap</th>
+                                                <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

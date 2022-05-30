@@ -77,11 +77,11 @@
                                     <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Waktu Masuk</th>
-                                                <th>Waktu Keluar</th>
-                                                <th>Total Tagiahn</th>
-                                                <th>Status Inap</th>
+                                                <th style="text-align: center;">Nama Pasien</th>
+                                                <th style="text-align: center;">Waktu Masuk</th>
+                                                <th style="text-align: center;">Waktu Keluar</th>
+                                                <th style="text-align: center;">Total Tagiahn</th>
+                                                <th style="text-align: center;">Status Inap</th>
                                             </tr>
                                         </thead>
                                     </table>

@@ -48,11 +48,11 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nama Pasien</th>
-                                                <th>Nama Poli</th>
-                                                <th>Antrian</th>
-                                                <th>Status Antrian</th>
-                                                <th>Aksi</th>
+                                                <th style="text-align: center;">Nama Pasien</th>
+                                                <th style="text-align: center;">Nama Poli</th>
+                                                <th style="text-align: center;">Antrian</th>
+                                                <th style="text-align: center;">Status Antrian</th>
+                                                <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -66,9 +66,14 @@
                                                 <td><?= $item['status_antrian']; ?></td>
                                                 <td>
                                                         <center>
+                                                            <?php if($item['status_antrian'] != 'Sudah Dipanggil') { ?>
+                                                            <a href="<?= base_url('Karyawan/RawatJalan/SelesaiAntrian') . '/' . $item['id_antrian']; ?>" class="btn btn-sm btn-edit btn-info">Selesai Antrian</a>
                                                             <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_antrian']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
                                                             <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_antrian']; ?>)" data-toggle="modal"
                                                                 data-target="#deleteModal" data-id="<?= $item['id_antrian']; ?>">Hapus</a>
+                                                            <?php } else { ?>
+                                                                -
+                                                            <?php } ?>
                                                         </center>
                                                     </td>
                                             </tr>
@@ -90,7 +95,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Karyawan/RawatJalan/add_pendaftaran'); ?>" method="post" id="form_add"
+        <form action="<?= base_url('Karyawan/RawatJalan/add_pendaftaran'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -143,7 +148,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Karyawan/RawatJalan/update_pendaftaran'); ?>" method="post" id="form_edit"
+        <form action="<?= base_url('Karyawan/RawatJalan/update_pendaftaran'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -197,7 +202,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Karyawan/RawatJalan/delete_pendaftaran'); ?>" method="post">
+        <form action="<?= base_url('Karyawan/RawatJalan/delete_pendaftaran'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">

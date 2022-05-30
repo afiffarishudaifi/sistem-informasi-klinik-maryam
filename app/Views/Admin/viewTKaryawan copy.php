@@ -48,12 +48,12 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Nama Karyawan</th>
-                                                <th>No Telp</th>
-                                                <th>Alamat Karyawan</th>
-                                                <th>Status Karyawan</th>
-                                                <th>Aksi</th>
+                                                <th style="text-align: center;">No</th>
+                                                <th style="text-align: center;">Nama Karyawan</th>
+                                                <th style="text-align: center;">No Telp</th>
+                                                <th style="text-align: center;">Alamat Karyawan</th>
+                                                <th style="text-align: center;">Status Karyawan</th>
+                                                <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
