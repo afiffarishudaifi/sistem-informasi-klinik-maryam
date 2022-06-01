@@ -61,7 +61,7 @@
         <a href="<?php 
           echo $googleButton;
         ?>" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+          <i class="fab fa-google-plus mr-2"></i> Sign in Google+
         </a>
       </div>
 
