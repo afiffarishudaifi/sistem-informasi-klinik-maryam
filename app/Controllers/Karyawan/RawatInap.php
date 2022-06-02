@@ -12,11 +12,10 @@ class RawatInap extends BaseController
     public function __construct()
     {
         $session = session();
-
         if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
             return redirect()->to('Login/loginPegawai');
         }
-
+        
         $this->Model_rawatinap = new Model_rawatinap();
         helper(['form', 'url']);
         $this->db = db_connect();
@@ -25,6 +24,10 @@ class RawatInap extends BaseController
     public function index()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+
         $model = new Model_rawatinap();
         $data = $model->view_data()->getResultArray();
 
@@ -37,7 +40,10 @@ class RawatInap extends BaseController
 
     public function add_pendaftaran()
     {
-        $session = session(); 
+        $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
 
         $nik = $this->request->getPost('input_pasien');
 
@@ -72,6 +78,9 @@ class RawatInap extends BaseController
     public function update_pendaftaran()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         date_default_timezone_set('Asia/Jakarta');
         
@@ -105,6 +114,9 @@ class RawatInap extends BaseController
     public function delete_pendaftaran()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $id = $this->request->getPost('id');
         $id_kamar = $this->request->getPost('id_kamar');
@@ -282,6 +294,9 @@ class RawatInap extends BaseController
     public function rekamInap()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $data = $model->view_data_rekam()->getResultArray();
 
@@ -295,6 +310,9 @@ class RawatInap extends BaseController
     public function add_rekam()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $waktu_rekam = $this->request->getPost('input_tanggal');
 
@@ -317,6 +335,9 @@ class RawatInap extends BaseController
     public function update_rekam()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         date_default_timezone_set('Asia/Jakarta');
         $id = $this->request->getPost('id_rekam');
@@ -340,6 +361,9 @@ class RawatInap extends BaseController
     public function delete_inap()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $id = $this->request->getPost('id');
         // $foreign = $model->cek_foreign($id);
@@ -517,6 +541,9 @@ class RawatInap extends BaseController
     public function resepInap()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $data = $model->view_data_resep()->getResultArray();
        
@@ -625,6 +652,9 @@ class RawatInap extends BaseController
     public function add_resep()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         if($this->request->getPost('input_status') == '') {
             $status = 'Belum Lunas';
@@ -647,6 +677,9 @@ class RawatInap extends BaseController
     public function update_resep()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         if($this->request->getPost('edit_status') == '') {
             $status = 'Belum Lunas';
@@ -669,6 +702,9 @@ class RawatInap extends BaseController
     public function delete_resep()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $id = $this->request->getPost('id');
         // $foreign = $model->cek_foreign($id);
@@ -700,6 +736,9 @@ class RawatInap extends BaseController
     public function detailResep($id)
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $data = $model->view_detail_resep($id)->getResultArray();
 
@@ -722,6 +761,9 @@ class RawatInap extends BaseController
     public function add_detail_resep()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
 
         $id_resep = $this->request->getPost('id_resep');
@@ -758,6 +800,9 @@ class RawatInap extends BaseController
     public function update_detail_resep()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         
         $id = $this->request->getPost('id_detail');
@@ -800,6 +845,9 @@ class RawatInap extends BaseController
     public function delete_detail_resep()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
         $model = new Model_rawatinap();
         $id = $this->request->getPost('id');
         $id_resep = $this->request->getPost('id_resep');

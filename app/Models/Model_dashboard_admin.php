@@ -54,6 +54,15 @@ class Model_dashboard_admin extends Model
         return $builder->get();
     }
 
+    public function obat_kosong()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('obat');
+        $builder->select('id_obat');
+        $builder->where('stok_obat', 0);
+        return $builder->get();
+    }
+
     public function pasien()
     {
         $db      = \Config\Database::connect();

@@ -41,6 +41,10 @@ class ResepRawatJalan extends BaseController
     {
         $session = session();
 
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
+            return redirect()->to('Login');
+        }
+
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
         if ($tanggal) { $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1])); } else { $param['cek_waktu2'] = date("Y-m-d"); };
@@ -80,6 +84,10 @@ class ResepRawatJalan extends BaseController
     public function data_cetak($tanggal = null)
     {
         $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
+            return redirect()->to('Login');
+        }
 
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };

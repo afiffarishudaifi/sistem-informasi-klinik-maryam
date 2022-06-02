@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Karyawan;
+namespace App\Controllers\Apoteker;
 
 use App\Controllers\BaseController;
 use App\Models\Model_kamar;
@@ -18,10 +18,10 @@ class Kamar extends BaseController
     {
         $session = session();
 
-        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Apoteker') {
             return redirect()->to('Login/loginPegawai');
         }
-
+        
         $model = new Model_kamar();
         $kamar = $model->view_data()->getResultArray();
 
@@ -29,6 +29,6 @@ class Kamar extends BaseController
             'judul' => 'Tabel Kamar',
             'kamar' => $kamar
         ];
-        return view('Karyawan/viewTKamar', $data);
+        return view('Apoteker/viewTKamar', $data);
     }
 }

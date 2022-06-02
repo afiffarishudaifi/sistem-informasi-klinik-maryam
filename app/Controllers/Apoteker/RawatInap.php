@@ -25,6 +25,11 @@ class RawatInap extends BaseController
     public function index()
     {
         $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Apoteker') {
+            return redirect()->to('Login/loginPegawai');
+        }
+        
         $model = new Model_rawatinap();
         $data = $model->view_data()->getResultArray();
 

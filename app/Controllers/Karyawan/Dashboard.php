@@ -10,6 +10,11 @@ class Dashboard extends BaseController
     public function index()
     {
         $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+
         $model = new Model_dashboard_admin();
         
         $kamar_kosong = $model->kamar_kosong()->getResultArray();

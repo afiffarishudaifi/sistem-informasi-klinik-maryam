@@ -60,6 +60,15 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="<?= base_url('Apoteker/Kamar'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Kamar') {
+                                echo "active";
+                            } ?>">
+                                <i class="fas fa-bed nav-icon"></i>
+                                <p>Kamar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('Apoteker/Obat'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Obat') {
                                 echo "active";

@@ -24,6 +24,10 @@ class RawatJalan extends BaseController
     public function index()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+
         $model = new Model_rawatjalan();
 
         // $tanggal = Date();
@@ -40,6 +44,10 @@ class RawatJalan extends BaseController
     public function add_pendaftaran()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+
         $model = new Model_rawatjalan();
         $poli = $this->request->getPost('input_poli');
         $tanggal_daftar = $this->request->getPost('input_tanggal');
@@ -72,6 +80,10 @@ class RawatJalan extends BaseController
     public function update_pendaftaran()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+        
         $model = new Model_rawatjalan();
         
         $id = $this->request->getPost('id_antrian');
@@ -106,6 +118,10 @@ class RawatJalan extends BaseController
     public function delete_pendaftaran()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+        
         $model = new Model_rawatjalan();
         $id = $this->request->getPost('id');
         // $foreign = $model->cek_foreign($id);

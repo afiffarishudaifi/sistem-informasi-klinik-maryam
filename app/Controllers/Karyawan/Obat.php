@@ -24,6 +24,10 @@ class Obat extends BaseController
     public function index()
     {
         $session = session();
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+            return redirect()->to('Login/loginPegawai');
+        }
+        
         $model = new Model_obat();
         $obat = $model->view_data()->getResultArray();
 

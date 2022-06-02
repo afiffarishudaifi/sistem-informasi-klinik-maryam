@@ -22,6 +22,11 @@ class Dashboard extends BaseController
     public function index()
     {
         $session = session();
+
+        if (!$session->get('nama_login') || $session->get('status_login') != 'Pasien') {
+            return redirect()->to('Login');
+        }
+
         $model = new Model_pasien();
         $id = $session->get('nik');
 
@@ -37,17 +42,5 @@ class Dashboard extends BaseController
             'judul' => 'Tabel Pasien'
         ];
         return view('Pasien/index', $data);
-    }
-
-    public function add_admin()
-    {
-    }
-
-    public function update_admin()
-    {
-    }
-
-    public function delete_admin()
-    {
     }
 }
