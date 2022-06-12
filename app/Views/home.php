@@ -53,10 +53,7 @@
           <li><a class="nav-link scrollto" href="#poliklinik">Poliklinik</a></li>
           <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
           <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
-          <?php $session = session();
-          if(session() == FALSE){?>
           <li><a class="getstarted scrollto" href="<?= base_url('Login') ?>">Login</a></li>
-          <?php }else{ ?> <li><a class="nav-link scrollto active" href="#"><?=$session->get('nama_login');?></a></li><?php }?>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -74,8 +71,8 @@
           <h2 data-aos="fade-up" data-aos-delay="400">Siap membantu dengan sigap dan tepat</h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="<?= base_url('Login') ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                <span>Login</span>
+              <a href="<?= base_url('Pendaftaran/Pendaftaran') ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>Pendaftaran</span>
                 <i class="bi bi-arrow-right"></i>
               </a>
             </div>

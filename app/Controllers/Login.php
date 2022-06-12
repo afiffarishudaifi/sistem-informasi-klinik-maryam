@@ -105,6 +105,18 @@ class Login extends BaseController
     // end google
     public function index()
     {
+        // $session = session();
+
+        // if ($session->get('nama_login') || $session->get('status_login') == 'Pasien') {
+        //     return redirect()->to('Pasien/Dashboard');
+        // } else if ($session->get('nama_login') || $session->get('status_login') == 'Karyawan') {
+        //     return redirect()->to('Karyawan/Dashboard');
+        // }
+
+        // helper(['form']);
+
+        // $data['googleButton'] = $this->googleClient->createAuthUrl();
+        // return view('viewLogin', $data);
         $session = session();
 
         if ($session->get('nama_login') || $session->get('status_login') == 'Pasien') {
@@ -114,9 +126,7 @@ class Login extends BaseController
         }
 
         helper(['form']);
-
-        $data['googleButton'] = $this->googleClient->createAuthUrl();
-        return view('viewLogin', $data);
+        return view('viewLoginPegawai');
     }
 
     public function loginAdmin()

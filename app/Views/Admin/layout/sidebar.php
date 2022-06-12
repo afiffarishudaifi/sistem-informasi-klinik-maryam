@@ -56,15 +56,6 @@ $session = session();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Admin'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Admin') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-user nav-icon"></i>
-                                <p>Admin</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?= base_url('Admin/Dokter'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Dokter') {
                                 echo "active";
@@ -74,21 +65,30 @@ $session = session();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Kamar'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Kamar') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-bed nav-icon"></i>
-                                <p>Kamar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?= base_url('Admin/Karyawan'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Karyawan') {
                                 echo "active";
                             } ?>">
                                 <i class="fa fa-users nav-icon"></i>
                                 <p>Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Admin/Poliklinik'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Poliklinik') {
+                                echo "active";
+                            } ?>">
+                                <i class="fa fa-medkit nav-icon"></i>
+                                <p>Poliklinik</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Admin/Kamar'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Kamar') {
+                                echo "active";
+                            } ?>">
+                                <i class="fa fa-bed nav-icon"></i>
+                                <p>Kamar</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -110,6 +110,15 @@ $session = session();
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="<?= base_url('Admin/Penyakit'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Penyakit') {
+                                echo "active";
+                            } ?>">
+                                <i class="fa fa-medkit nav-icon"></i>
+                                <p>Penyakit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="<?= base_url('Admin/Pasien'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Pasien') {
                                 echo "active";
@@ -119,21 +128,12 @@ $session = session();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Poliklinik'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Poliklinik') {
+                            <a href="<?= base_url('Admin/Admin'); ?>" class="nav-link <?php
+                            if ($uri->getSegment(2) == 'Admin') {
                                 echo "active";
                             } ?>">
-                                <i class="fa fa-medkit nav-icon"></i>
-                                <p>Poliklinik</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= base_url('Admin/Penyakit'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Penyakit') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-medkit nav-icon"></i>
-                                <p>Penyakit</p>
+                                <i class="fa fa-user nav-icon"></i>
+                                <p>User</p>
                             </a>
                         </li>
                     </ul>

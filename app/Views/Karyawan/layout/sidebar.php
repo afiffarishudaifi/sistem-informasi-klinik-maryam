@@ -69,15 +69,6 @@ $session = session();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/Obat'); ?>" class="nav-link <?php
-                            if ($uri->getSegment(2) == 'Obat') {
-                                echo "active";
-                            } ?>">
-                                <i class="fa fa-asterisk nav-icon"></i>
-                                <p>Obat</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?= base_url('Karyawan/Pasien'); ?>" class="nav-link <?php
                             if ($uri->getSegment(2) == 'Pasien') {
                                 echo "active";
