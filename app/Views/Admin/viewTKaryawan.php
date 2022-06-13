@@ -49,10 +49,11 @@
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">No</th>
-                                                <th style="text-align: center;">Nama Karyawan</th>
+                                                <th style="text-align: center;">Nama</th>
                                                 <th style="text-align: center;">No Telp</th>
-                                                <th style="text-align: center;">Alamat Karyawan</th>
-                                                <th style="text-align: center;">Status Karyawan</th>
+                                                <th style="text-align: center;">Alamat</th>
+                                                <th style="text-align: center;">Status</th>
+                                                <th style="text-align: center;">Divisi</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -67,6 +68,7 @@
                                                     <td><?= $item['no_telp_karyawan']; ?></td>
                                                     <td><?= $item['alamat_karyawan']; ?></td>
                                                     <td><?= $item['status_karyawan']; ?></td>
+                                                    <td><?= $item['divisi']; ?></td>
                                                     <td>
                                                         <center>
                                                             <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['nik_karyawan']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
@@ -93,7 +95,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/Karyawan/add_karyawan'); ?>" method="post" id="form_add"
+        <form action="<?= base_url('Admin/Karyawan/add_karyawan'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -161,11 +163,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Level</label>
-                                <select class="form-control" id="input_level" name="input_level">
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Apoteker">Apoteker</option>
+                                <label>Divisi</label>
+                                <select class="form-control" id="input_divisi" name="input_divisi">
+                                    <option value="Pendaftaran">Pendaftaran</option>
+                                    <option value="Poli">Poli</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group" id="input_poli_view" style="display: none;">
+                                <label>Poli</label>
+                                <select class="form-control select2" id="input_poli" name="input_poli">
+                                </select>   
                             </div>
                             
                             <div class="form-group">
@@ -220,6 +228,7 @@
                             <input type="hidden" name="nik_karyawan" id="nik_karyawan">
                             <input type="hidden" name="email_lama" id="email_lama">
                             <input type="hidden" name="id_user" id="id_user">
+                            <input type="hidden" name="poli_lama" id="poli_lama">
 
                             <div class="form-group">
                                 <label>Nama Karyawan</label>
@@ -270,11 +279,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Level</label>
-                                <select class="form-control" id="edit_level" name="edit_level">
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Apoteker">Apoteker</option>
+                                <label>Divisi</label>
+                                <select class="form-control" id="edit_divisi" name="edit_divisi">
+                                    <option value="Pendaftaran">Pendaftaran</option>
+                                    <option value="Poli">Poli</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group" id="edit_poli_view" style="display: none;">
+                                <label>Poli</label>
+                                <select class="form-control select2" id="edit_poli" name="edit_poli">
+                                </select>   
                             </div>
                             
                             <div class="form-group">
@@ -376,13 +391,14 @@
         });
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?= base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#edit_nama').val(json.nama_karyawan);
                     $('#nik_karyawan').val(json.nik_karyawan);
                     $('#edit_nik').val(json.nik_karyawan);
                     $('#id_user').val(json.id_user);
                     $('#edit_tanggal').val(json.tgl_lahir);
+                    $('#poli_lama').val(json.id_poli);
 
                     if(json.jenis_kelamin == 'Perempuan'){
                         document.getElementById("edit_kelamin").selectedIndex = 1;
@@ -390,10 +406,24 @@
                         document.getElementById("edit_kelamin").selectedIndex = 0;
                     }
 
-                    if(json.level == 'Apoteker'){
-                        document.getElementById("edit_level").selectedIndex = 1;
+                    if(json.divisi == 'Poli'){
+                        document.getElementById("edit_divisi").selectedIndex = 1;
                     }else{
-                        document.getElementById("edit_level").selectedIndex = 0;
+                        document.getElementById("edit_divisi").selectedIndex = 0;
+                    }
+
+                    if (json.divisi == 'Poli') {
+                        $('#edit_poli_view').show();
+
+                        $('#edit_poli').append('<option selected value="' + json.id_poli + '">' + json.nama_poli +
+                        '</option>');
+                        $('#edit_poli').select2('data', {
+                            id: json.id_poli,
+                            text: json.nama_poli
+                        });
+                        $('#edit_poli').trigger('change');
+                    } else {
+                        $('#edit_poli_view').hide();
                     }
                     
                     if(json.status_karyawan=='Aktif'){
@@ -419,6 +449,72 @@
     
     <script type="text/javascript">
         $(function() {
+
+            $("#input_divisi").change(function() {
+                if (this.value == "Pendaftaran"){
+                    $('#input_poli_view').hide();
+                    $('#input_poli').val('').change();
+                } else {
+                    $('#input_poli_view').show();
+                }
+            }).change();
+
+            $("#edit_divisi").change(function() {
+                if (this.value == "Pendaftaran"){
+                    $('#edit_poli_view').hide();
+                    $('#edit_poli').val('').change();
+                } else {
+                    $('#edit_poli_view').show();
+                    $('#edit_poli').val($('#poli_lama').val()).change();
+                }
+            }).change();
+
+            $('.select2').select2()
+
+            $("#input_poli").select2({
+                placeholder: "Pilih Poliklinik",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Karyawan/data_poli'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_poli").select2({
+                placeholder: "Pilih Poliklinik",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Karyawan/data_poli'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -484,8 +580,6 @@
                 }
           
               });
-
-            $('.select2').select2()
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();

@@ -30,9 +30,8 @@ class RawatJalan extends BaseController
 
         $model = new Model_rawatjalan();
 
-        // $tanggal = Date();
-        // var_dump($tanggal);
-        $data = $model->view_data()->getResultArray();
+        $id_poli = $session->get('id_poli');
+        $data = $model->view_data($id_poli)->getResultArray();
 
         $data = [
             'judul' => 'Tabel Rawat Jalan',
@@ -49,7 +48,8 @@ class RawatJalan extends BaseController
         }
 
         $model = new Model_rawatjalan();
-        $poli = $this->request->getPost('input_poli');
+        // $poli = $this->request->getPost('input_poli');
+        $poli = $session->get('id_poli');
         $tanggal_daftar = $this->request->getPost('input_tanggal');
         $params = [
             'id_poli' => $poli,
@@ -87,7 +87,7 @@ class RawatJalan extends BaseController
         $model = new Model_rawatjalan();
         
         $id = $this->request->getPost('id_antrian');
-        $poli = $this->request->getPost('edit_poli');
+        $poli = $session->get('id_poli');
         $tanggal_daftar = $this->request->getPost('edit_tanggal');
         $params = [
             'id_poli' => $poli,
@@ -387,15 +387,16 @@ class RawatJalan extends BaseController
         echo json_encode($isi);
     }
 
-    public function resepJalan()
+    public function resepJalan($id)
     {
         $session = session();
         $model = new Model_rawatjalan();
-        $data = $model->view_data_resep()->getResultArray();
+        $data = $model->view_data_resep($id)->getResultArray();
 
         $data = [
             'judul' => 'Tabel Resep Rawat Jalan',
-            'data' => $data
+            'data' => $data,
+            'id_rekam' => $id
         ];
         return view('Karyawan/viewResepJalan', $data);
     }
@@ -511,7 +512,7 @@ class RawatJalan extends BaseController
 
         $model->add_data_resep($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Karyawan/RawatJalan/resepJalan'));
+        return redirect()->to(base_url('Karyawan/RawatJalan/resepJalan' . '/' . $this->request->getPost('input_rekam')));
     }
 
     public function update_resep()
@@ -533,7 +534,7 @@ class RawatJalan extends BaseController
 
         $model->update_data_resep($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Karyawan/RawatJalan/resepJalan'));
+        return redirect()->to(base_url('Karyawan/RawatJalan/resepJalan' . '/' . $this->request->getPost('edit_rekam')));
     }
 
     public function delete_resep()

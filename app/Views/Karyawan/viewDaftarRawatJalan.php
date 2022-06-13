@@ -109,15 +109,11 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                        	<input type="hidden" id="input_poli" name="input_poli" value="<?= $session->get('id_poli') ?>">
 
                             <div class="form-group">
                                 <label>Pasien</label>
                                 <select class="form-control select2" id="input_pasien" name="input_pasien">
-                                </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Poli</label>
-                                <select class="form-control select2" id="input_poli" name="input_poli">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -163,15 +159,11 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_antrian" id="id_antrian">
+                        	<input type="hidden" id="edit_poli" name="edit_poli" value="<?= $session->get('id_poli') ?>">
 
                             <div class="form-group">
                                 <label>Pasien</label>
                                 <select class="form-control select2" id="edit_pasien" name="edit_pasien">
-                                </select>   
-                            </div>
-                            <div class="form-group">
-                                <label>Poli</label>
-                                <select class="form-control select2" id="edit_poli" name="edit_poli">
                                 </select>   
                             </div>
                             <div class="form-group">
@@ -259,50 +251,6 @@
         $(function() {
             $('.select2').select2()
 
-            $("#input_poli").select2({
-                placeholder: "Pilih Poliklinik",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatJalan/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#edit_poli").select2({
-                placeholder: "Pilih Poliklinik",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatJalan/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
             $("#input_pasien").select2({
                 placeholder: "Pilih Pasien",
                 theme: 'bootstrap4',
@@ -389,6 +337,7 @@
                     $('#edit_tanggal').val(json.tanggal_daftar);
                     $('#edit_keluhan').val(json.keluhan);
                     $('#edit_umur').val(json.umur);
+                    $('#edit_poli').val(json.id_poli);
 
                     if(json.status_dokter=='Aktif'){
                         $("#edit_status").prop('checked',true);
@@ -396,14 +345,6 @@
                         $("#edit_status").prop('checked',false);
                     }
                     $('#edit_foto').val(json.foto_dokter);
-
-                    $('#edit_poli').append('<option selected value="' + json.id_poli + '">' + json.nama_poli +
-                        '</option>');
-                    $('#edit_poli').select2('data', {
-                        id: json.id_poli,
-                        text: json.nama_poli
-                    });
-                    $('#edit_poli').trigger('change');
 
                     $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
                         '</option>');

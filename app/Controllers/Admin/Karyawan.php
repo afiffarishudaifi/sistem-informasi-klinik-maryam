@@ -61,6 +61,8 @@ class Karyawan extends BaseController
             'nama_karyawan'     => $this->request->getPost('input_nama'),
             'no_telp_karyawan'     => $this->request->getPost('input_no_telp'),
             'alamat_karyawan'     => $this->request->getPost('input_alamat'),
+            'divisi'     => $this->request->getPost('input_divisi'),
+            'id_poli'     => $this->request->getPost('input_poli'),
             'status_karyawan'     => $status,
             'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru
             
@@ -74,9 +76,8 @@ class Karyawan extends BaseController
         $data = array(
             'nik_karyawan' => $data['nik_karyawan'],
             'email'     => $this->request->getPost('input_email'),
-            'level'     => $this->request->getPost('input_level'),
-            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
-            'level'     => $this->request->getPost('input_level')
+            'level'     => 'Karyawan',
+            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password')))
         );
 
         $modeluser = new Model_user();
@@ -115,6 +116,8 @@ class Karyawan extends BaseController
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
+                    'divisi'     => $this->request->getPost('edit_divisi'),
+                    'id_poli'     => $this->request->getPost('edit_poli'),
                     'status_karyawan'  => $status,
                     'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru
                 );
@@ -126,6 +129,8 @@ class Karyawan extends BaseController
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
+                    'divisi'     => $this->request->getPost('edit_divisi'),
+                    'id_poli'     => $this->request->getPost('edit_poli'),
                     'status_karyawan'  => $status,
                     'foto_karyawan'     => "docs/img/img_karyawan/" . $namabaru
                 );
@@ -149,6 +154,8 @@ class Karyawan extends BaseController
                     'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
+                    'divisi'     => $this->request->getPost('edit_divisi'),
+                    'id_poli'     => $this->request->getPost('edit_poli'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
                     'status_karyawan'  => $status
                 );
@@ -159,6 +166,8 @@ class Karyawan extends BaseController
                     'tgl_lahir'     => $this->request->getPost('edit_tanggal'),
                     'nama_karyawan'  => $this->request->getPost('edit_nama'),
                     'no_telp_karyawan'   => $this->request->getPost('edit_no_telp'),
+                    'divisi'     => $this->request->getPost('edit_divisi'),
+                    'id_poli'     => $this->request->getPost('edit_poli'),
                     'alamat_karyawan'   => $this->request->getPost('edit_alamat'),
                     'status_karyawan'  => $status
                 );
@@ -173,13 +182,11 @@ class Karyawan extends BaseController
         if ($password != '') {
             $data = array(
                 'email'     => $this->request->getPost('edit_email'),
-                'level'     => $this->request->getPost('edit_level'),
                 'password'     => base64_encode($encrypter->encrypt($this->request->getPost('edit_password')))
             );
         } else {
             $data = array(
-                'email'     => $this->request->getPost('edit_email'),
-                'level'     => $this->request->getPost('edit_level')
+                'email'     => $this->request->getPost('edit_email')
             );
         }
         
@@ -232,7 +239,9 @@ class Karyawan extends BaseController
             $isi['nik_karyawan'] = $value['nik_karyawan'];
             $isi['jenis_kelamin'] = $value['jenis_kelamin'];
             $isi['tgl_lahir'] = $value['tgl_lahir'];
-            $isi['level'] = $value['level'];
+            $isi['divisi'] = $value['divisi'];
+            $isi['id_poli'] = $value['id_poli'];
+            $isi['nama_poli'] = $value['nama_poli'];
         endforeach;
         echo json_encode($isi);
     }
@@ -244,6 +253,49 @@ class Karyawan extends BaseController
         $respon = json_decode(json_encode($cek_email), true);
         $data['results'] = count($respon);
         echo json_encode($data);
+    }
+
+    public function data_poli()
+    {
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
+
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("poli");
+
+        $poli = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('id_poli, nama_poli');
+            $builder->like('nama_poli', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_poli, nama_poli');
+            $query = $builder->get();
+            $data = $query->getResult();
+        }
+
+        foreach ($data as $country) {
+            $poli[] = array(
+                "id" => $country->id_poli,
+                "text" => $country->nama_poli,
+            );
+        }
+
+        $response['data'] = $poli;
+
+        return $this->response->setJSON($response);
     }
 
 }

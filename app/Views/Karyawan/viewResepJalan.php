@@ -76,7 +76,7 @@
                                                     <center>
                                                         <a href="<?= base_url('Karyawan/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
                                                         <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>)" data-toggle="modal"
+                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>, <?= $id_rekam ?>)" data-toggle="modal"
                                                             data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>">Hapus</a>
                                                     </center>
                                                 </td>
@@ -113,12 +113,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-                            <div class="form-group">
-                                <label>Rekam Medis</label>
-                                <select class="form-control select2" id="input_rekam" name="input_rekam">
-                                </select>   
-                            </div>
+                            <input type="hidden" name="input_rekam" id="input_rekam" value="<?= $id_rekam; ?>">
 
                             <div class="form-group">
                                 <label>Tanggal Pemberian Resep</label>
@@ -164,12 +159,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_resep" id="id_resep">
-
-                            <div class="form-group">
-                                <label>Rekam Medis</label>
-                                <select class="form-control select2" id="edit_rekam" name="edit_rekam">
-                                </select>   
-                            </div>
+                            <input type="hidden" name="edit_rekam" id="edit_rekam" value="<?= $id_rekam; ?>">
 
                             <div class="form-group">
                                 <label>Tanggal Pemberian Resep</label>
@@ -218,6 +208,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="id_rekam" class="id_rekam">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -241,8 +232,9 @@
     <?= $this->include("Karyawan/layout/js_tabel") ?>
 
     <script>
-        function Hapus(id){
+        function Hapus(id, id_rekam){
             $('.id').val(id);
+            $('.id_rekam').val(id_rekam);
             $('#deleteModal').modal('show');
         };
 
@@ -255,51 +247,7 @@
         });
 
         $(function() {
-            $('.select2').select2()
-
-            $("#input_rekam").select2({
-                placeholder: "Pilih Rekam Medis",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatJalan/data_rekam'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#edit_rekam").select2({
-                placeholder: "Pilih  Rekam Medis",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatJalan/data_rekam'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
+            $('.select2').select2();
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
@@ -329,14 +277,7 @@
                 function(json) {
                     $('#id_resep').val(json.id_resep);
                     $('#edit_tanggal').val(json.tanggal);
-
-                    $('#edit_rekam').append('<option selected value="' + json.id_rekam + '">' + json.nama_pasien +
-                        '</option>');
-                    $('#edit_rekam').select2('data', {
-                        id: json.id_rekam,
-                        text: json.created_at
-                    });
-                    $('#edit_rekam').trigger('change');
+                    $('#edit_rekam').val(json.id_rekam);
 
                     if(json.status_bayar=='Lunas'){
                         $("#edit_status").prop('checked',true);

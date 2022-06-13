@@ -13,8 +13,9 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select('karyawan.nik_karyawan, nama_karyawan, id_user, alamat_karyawan, no_telp_karyawan, status_karyawan');
+        $builder->select('karyawan.nik_karyawan, nama_karyawan, divisi, nama_poli, id_user, alamat_karyawan, no_telp_karyawan, status_karyawan');
         $builder->join('user','user.nik_karyawan = karyawan.nik_karyawan');
+        $builder->join('poli','poli.id_poli = karyawan.id_poli','left');
         return $builder->get();
     }
 
@@ -28,8 +29,9 @@ class Model_karyawan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('karyawan');
-        $builder->select("karyawan.nik_karyawan, email, user.id_user, level, email, jenis_kelamin, tgl_lahir, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan");
+        $builder->select("karyawan.nik_karyawan, email, user.id_user, level, email, jenis_kelamin, tgl_lahir, karyawan.nama_karyawan, karyawan.alamat_karyawan, karyawan.no_telp_karyawan, karyawan.status_karyawan, karyawan.foto_karyawan, karyawan.id_poli, nama_poli, divisi");
         $builder->join('user','user.nik_karyawan = karyawan.nik_karyawan');
+        $builder->join('poli','poli.id_poli = karyawan.id_poli','left');
         $builder->where('karyawan.nik_karyawan', $id);
         return $builder->get();
     }
