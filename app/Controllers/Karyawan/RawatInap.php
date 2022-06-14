@@ -293,12 +293,15 @@ class RawatInap extends BaseController
 
     public function rekamInap()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $session = session();
         if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
             return redirect()->to('Login/loginPegawai');
         }
         $model = new Model_rawatinap();
-        $data = $model->view_data_rekam()->getResultArray();
+        $bulan_ini = date('m');
+        $tahun_ini = date('Y');
+        $data = $model->view_data_rekam($bulan_ini, $tahun_ini)->getResultArray();
 
         $data = [
             'judul' => 'Tabel Rekam Medis Rawat Inap',

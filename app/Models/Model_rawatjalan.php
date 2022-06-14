@@ -77,7 +77,7 @@ class Model_rawatjalan extends Model
 
     // rekam medis
 
-    public function view_data_rekam()
+    public function view_data_rekam($bulan_ini, $tahun_ini)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('rekam_medis');
@@ -86,6 +86,8 @@ class Model_rawatjalan extends Model
         $builder->join('pasien','rekam_medis.nik = pasien.nik');
         $builder->join('penyakit','rekam_medis.id_penyakit = penyakit.id_penyakit');
         $builder->where('rekam_medis.status','Jalan');
+        $builder->where('month(tanggal_rekam)', $bulan_ini);
+        $builder->where('year(tanggal_rekam)', $tahun_ini);
         return $builder->get();
     }
 

@@ -83,7 +83,7 @@ $session = session();
                 <li class="nav-item">
                     <a href="#" class="nav-link <?php
                             if (
-                                $uri->getSegment(2) == 'RawatJalan' || $uri->getSegment(2) == 'rekamJalan' || $uri->getSegment(2) == 'resepJalan'
+                                $uri->getSegment(2) == 'RawatJalan' || $uri->getSegment(2) == 'rekamJalan'
                             ) {
                                 echo "active";
                             } ?>">
@@ -106,12 +106,6 @@ $session = session();
                                 <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link">
                                     <i class="fa fa-file nav-icon"></i>
                                     <p>Rekam Medis Rawat Jalan</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url('Karyawan/RawatJalan/resepJalan'); ?>" class="nav-link">
-                                    <i class="fa fa-sticky-note nav-icon"></i>
-                                    <p>Resep Rawat Jalan</p>
                                 </a>
                             </li>
                         <?php } ?>

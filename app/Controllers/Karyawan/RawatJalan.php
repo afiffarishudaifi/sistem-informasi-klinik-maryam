@@ -242,9 +242,12 @@ class RawatJalan extends BaseController
 
     public function rekamJalan()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $session = session();
         $model = new Model_rawatjalan();
-        $data = $model->view_data_rekam()->getResultArray();
+        $bulan_ini = date('m');
+        $tahun_ini = date('Y');
+        $data = $model->view_data_rekam($bulan_ini, $tahun_ini)->getResultArray();
 
         $data = [
             'judul' => 'Tabel Rekam Medis Rawat Jalan',
