@@ -54,7 +54,7 @@ class RawatJalan extends BaseController
         $data = array(
             'nik'     => $this->request->getPost('input_pasien'),
             'id_poli'     => $poli,
-            'keluhan'     => $this->request->getPost('input_keluhan'),
+            // 'keluhan'     => $this->request->getPost('input_keluhan'),
             'umur'     => $this->request->getPost('input_umur'),
             'tanggal_daftar'     => $tanggal_daftar,
             'no_antrian' => $max,
@@ -88,7 +88,7 @@ class RawatJalan extends BaseController
         $data = array(
             'nik'     => $this->request->getPost('edit_pasien'),
             'id_poli'     => $poli,
-            'keluhan'     => $this->request->getPost('edit_keluhan'),
+            // 'keluhan'     => $this->request->getPost('edit_keluhan'),
             'umur'     => $this->request->getPost('edit_umur'),
             'tanggal_daftar'     => $tanggal_daftar,
             'no_antrian' => $max,
@@ -127,7 +127,7 @@ class RawatJalan extends BaseController
             $isi['nama_pasien'] = $value['nama_pasien'];
             $isi['id_poli'] = $value['id_poli'];
             $isi['nama_poli'] = $value['nama_poli'];
-            $isi['keluhan'] = $value['keluhan'];
+            // $isi['keluhan'] = $value['keluhan'];
             $isi['umur'] = $value['umur'];
             $isi['status_antrian'] = $value['status_antrian'];
             $isi['tanggal_daftar'] = $value['tanggal_daftar'];

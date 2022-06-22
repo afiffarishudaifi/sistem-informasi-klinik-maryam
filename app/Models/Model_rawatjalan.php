@@ -31,7 +31,8 @@ class Model_rawatjalan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('antrian');
-        $builder->select("id_antrian, pasien.nik, pasien.nama_pasien, pasien.nik, poli.id_poli, antrian.keluhan, antrian.umur, antrian.status_antrian, DATE_FORMAT(antrian.tanggal_daftar, '%Y-%m-%dT%H:%i') as tanggal_daftar, poli.nama_poli, antrian.no_antrian, antrian.status_antrian");
+        // $builder->select("id_antrian, pasien.nik, pasien.nama_pasien, pasien.nik, poli.id_poli, antrian.keluhan, antrian.umur, antrian.status_antrian, DATE_FORMAT(antrian.tanggal_daftar, '%Y-%m-%dT%H:%i') as tanggal_daftar, poli.nama_poli, antrian.no_antrian, antrian.status_antrian");
+        $builder->select("id_antrian, pasien.nik, pasien.nama_pasien, pasien.nik, poli.id_poli, antrian.umur, antrian.status_antrian, DATE_FORMAT(antrian.tanggal_daftar, '%Y-%m-%dT%H:%i') as tanggal_daftar, poli.nama_poli, antrian.no_antrian, antrian.status_antrian");
         $builder->join('poli','antrian.id_poli = poli.id_poli');
         $builder->join('pasien','antrian.nik = pasien.nik');
         $builder->where('id_antrian', $id);

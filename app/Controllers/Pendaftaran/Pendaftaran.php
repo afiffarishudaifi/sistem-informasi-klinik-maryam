@@ -189,7 +189,7 @@ class Pendaftaran extends BaseController
         $data = array(
             'nik'     => $this->request->getPost('input_nik'),
             'id_poli'     => $poli,
-            'keluhan'     => $this->request->getPost('input_keluhan'),
+            // 'keluhan'     => $this->request->getPost('input_keluhan'),
             'umur'     => $this->request->getPost('input_umur'),
             'tanggal_daftar'     => $tanggal_daftar,
             'no_antrian' => $max,

@@ -138,7 +138,7 @@ $session = session();
                         </li>
                     </ul>
                 </li>
-                <!-- <li class="nav-header">PERAWATAN</li>
+                <!-- <li class="nav-header">PEMERIKSAAN</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link <?php
                             if (

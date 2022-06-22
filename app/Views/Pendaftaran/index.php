@@ -329,12 +329,12 @@
 	                    <select class="form-control select2" id="input_poli" name="input_poli" required style="width: 100%">
 	                    </select>   
 	                </div>
-	                <div class="col-md-12">
+	                <!-- <div class="col-md-12">
 	                    <label>Keluhan</label>
 	                </div>
 	                <div class="col-md-12">
 	                    <input type="text" class="form-control" id="input_keluhan" name="input_keluhan"placeholder="Masukkan Keluhan" required>
-	                </div>
+	                </div> -->
 	                <div class="col-md-12">
 	                    <label>Umur Pasien</label>
 	                </div>
