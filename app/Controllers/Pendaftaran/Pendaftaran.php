@@ -218,11 +218,11 @@ class Pendaftaran extends BaseController
             'umur' => $this->request->getPost('input_umur')
         ];
 
-        $dompdf = new \Dompdf\Dompdf(); 
-        $dompdf->loadHtml(view('pdf-view', $data));
-        $dompdf->setPaper('A6', 'portrait');
-        $dompdf->render();
-        $dompdf->stream();
+        // $dompdf = new \Dompdf\Dompdf(); 
+        // $dompdf->loadHtml(view('pdf-view', $data));
+        // $dompdf->setPaper('A6', 'portrait');
+        // $dompdf->render();
+        // $dompdf->stream();
 
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Pendaftaran/Pendaftaran'));
