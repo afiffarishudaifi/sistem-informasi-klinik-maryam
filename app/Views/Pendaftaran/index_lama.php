@@ -64,8 +64,179 @@
 
     </div>
   </header><!-- End Header -->
+  	<section id="pendaftaran" class="values">
 
-    <section id="Pendaftaran" class="contact">
+      <div class="container">
+
+        <header class="section-header">
+          <h2></h2>
+          <p></p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-lg-2"></div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          	<a href="javascript:void(0)" id="btnInapDaftar">
+	            <div class="box">
+	              <img src="<?= base_url() . '/' ?>docs/flexstart/assets/img/rawatinap.png" class="img-fluid">
+	              <h3>Pendaftaran Rawat Inap</h3>
+	              <p style="color: #000000;">Pendaftaran bagi pasien yang ingin melakukan rawat Inap.</p>
+	            </div>
+	        </a>
+          </div>
+
+          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+          	<a href="javascript:void(0)" id="btnJalanDaftar">
+	            <div class="box">
+	              <img src="<?= base_url() . '/' ?>docs/flexstart/assets/img/rawatjalan.png" class="img-fluid">
+	              <h3>Pendaftaran Rawat Jalan</h3>
+	              <p style="color: #000000;">Pendaftaran bagi pasien yang ingin melakukan rawat Jalan.</p>
+	            </div>
+	        </a>
+          </div>
+          <div class="col-lg-2"></div>
+        </div>
+
+      </div>
+
+    </section><!-- End Values Section -->
+
+
+  <!-- ======= Contact Section ======= -->
+    <section id="formInap" class="contact" style="display: none;">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header" style="padding-top: 20px;">
+          <h2></h2>
+          <p>Pendaftaran</p>
+        </header>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3"></div>
+
+          <div class="col-lg-6">
+            <form action="<?= base_url('Pendaftaran/Pendaftaran/add_pendaftaran_inap'); ?>" method="post" id="form_add" autocomplete="off" enctype="multipart/form-data">
+	            
+	            <div class="row gy-4">
+		            <?= csrf_field(); ?>
+
+		            <div class="col-md-12">
+	                    <label>NIK Pasien</label>
+	                </div>
+	                <div class="col-md-12">
+	                    <input type="text" class="form-control hanya_angka" autofocus="on" minlength=16 id="input_nik" name="input_nik" maxlength=16 required="" placeholder="Masukkan NIK">
+	                </div>
+
+	                <div class="col-md-12">
+                        <label>Status Pasien</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <label for="example-checkbox1">
+                                <input type="checkbox" id="input_status_inap" onchange="showDataInap(this.value)" name="input_status_inap"
+                                    value="Baru"> &nbsp Baru
+                            </label>
+                        </div>
+                    </div>
+
+	                <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <label>Nama Pasien</label>
+                    </div>
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <input type="text" class="form-control data-pasien-inap-input" id="input_nama" name="input_nama"
+                            placeholder="Masukkan Nama Pasien" autofocus="on">
+                    </div>
+
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <label>Alamat Pasien</label>
+                    </div>
+                    <div class="col-md-12 data-pasien-inap data-pasien-inap-input" style="display: none;">
+                        <textarea class="form-control" id="input_alamat" name="input_alamat" placeholder="Masukkan alamat"></textarea>
+                    </div>
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <label>No Telp Pasien</label>
+                    </div>
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <input type="text" class="form-control data-pasien-inap-input hanya_angka" id="input_no_telp" name="input_no_telp" placeholder="Masukkan No Telp Pasien" autofocus="on">
+                    </div>
+
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <label>Jenis Kelamin</label>
+                    </div>
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <select class="form-control" id="input_kelamin" name="input_kelamin">
+                            <option value="Laki - Laki">Laki - Laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <label>Tanggal Lahir</label>
+                    </div>
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <input type="date" value="<?= date('Y-m-d') ?>" class="form-control data-pasien-inap-input" id="input_tanggal" name="input_tanggal" autocomplete="off" />
+                    </div>
+
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <label>Agama</label>
+                    </div>
+                    <div class="col-md-12 data-pasien-inap" style="display: none;">
+                        <input type="text" class="form-control data-pasien-inap-input" id="input_agama" name="input_agama"
+                            placeholder="Masukkan Agama" autofocus="on">
+                        <span class="text-danger" id="error_email"></span>
+                    </div>
+
+		            <div class="col-md-12">
+	                    <label>Pilih Kamar</label> 
+	                </div>
+
+	                <div class="col-md-12">
+	                    <select class="form-control select2" id="input_kamar" name="input_kamar" required style="width: 100%">
+	                    </select>   
+	                </div>
+
+	                <div class="col-md-12">
+	                    <label>Tanggal Masuk</label> 
+	                </div>
+
+	                <div class="col-md-12">
+	                    <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk" autocomplete="off" />
+	                    </select>   
+	                </div>
+
+		            <div class="form-group form-material floating" data-plugin="formMaterial">
+		                <div class="col-xs-12">
+		                    <div id="html_element" data-callback="daftarInap"></div>
+		                </div>
+		            </div>
+
+	                <div class="col-md-12">
+	                	<center>
+	                        <button type="reset" style="padding: 10px 30px;" class="btn btn-sm btn-secondary" id="batalInap">Batal</button>
+	                        <button type="submit" class="btn btn-sm btn-primary" disabled name="tambah" id="simpanInap"  style="background: #03989e;
+          							    border: 0;
+          							    padding: 10px 30px;
+          							    color: #fff;
+          							    transition: 0.4s;
+          							    border-radius: 4px;">Simpan</button>
+	                	</center>
+	                </div>
+               	</div>
+	        </form>
+
+          </div>
+          <div class="col-lg-3"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="formJalan" class="contact" style="display: none;">
 
       <div class="container" data-aos="fade-up">
 
@@ -158,7 +329,12 @@
 	                    <select class="form-control select2" id="input_poli" name="input_poli" required style="width: 100%">
 	                    </select>   
 	                </div>
-
+	                <!-- <div class="col-md-12">
+	                    <label>Keluhan</label>
+	                </div>
+	                <div class="col-md-12">
+	                    <input type="text" class="form-control" id="input_keluhan" name="input_keluhan"placeholder="Masukkan Keluhan" required>
+	                </div> -->
 	                <div class="col-md-12">
 	                    <label>Umur Pasien</label>
 	                </div>
@@ -174,13 +350,13 @@
 	                </div>
 		            <div class="form-group form-material floating" data-plugin="formMaterial">
 		                <div class="col-xs-12">
-		                    <div id="html_element" data-callback="daftarJalan"></div>
+		                    <div id="html_element_jalan" data-callback="daftarJalan"></div>
 		                </div>
 		            </div>
 	                <div class="col-md-12">
 	                	<center>
 	                        <button type="reset" class="btn btn-secondary" style="padding: 10px 30px;" id="batalJalan">Batal</button>
-	                        <button type="submit" name="tambah" disabled class="btn btn-primary" id="simpanJalan"  style="background: #03989e;
+	                        <button type="submit" name="tambah" disabled class="btn btn-primary" style="background: #03989e;
         							    border: 0;
         							    padding: 10px 30px;
         							    color: #fff;
@@ -190,10 +366,14 @@
 	                </div>
 	            </div>
 	        </form>
+
           </div>
           <div class="col-lg-3"></div>
+
         </div>
+
       </div>
+
     </section>
 
   </main><!-- End #main -->
@@ -224,6 +404,10 @@
 	        'sitekey' : '6LcHgtMeAAAAAC7rnGpIJKktILKUvdZbc-PFayHP',
 	    });
 	};
+
+	function daftarInap() {
+	    document.getElementById('simpanInap').disabled = false;
+	}
 
 	function daftarJalan() {
 	    document.getElementById('simpanJalan').disabled = false;
@@ -323,6 +507,11 @@
             });
         })
 
+  		$('#btnInapDaftar').click(function() {
+		  $('#formInap').show();
+		  $('#pendaftaran').hide();
+        });
+
         function showDataJalan(data){
         	if ($("#input_status_jalan").prop('checked') == true) {
         		$('.data-pasien-jalan').show();
@@ -339,9 +528,38 @@
         	}
         }
 
-        $('#simpanJalan').on('click', function() {
-            // $('#form_add')[0].reset();
+        function showDataInap(data){
+        	if ($("#input_status_inap").prop('checked') == true) {
+        		$('.data-pasien-inap').show();
+		        $("#input_nama").attr('required', '');
+		        $("#input_alamat").attr('required', '');
+		        $("#input_no_telp").attr('required', '');
+		        $("#input_agama").attr('required', '');
+        	} else {
+        		$('.data-pasien-inap').hide();
+		        $("#input_nama").removeAttr('required', '');
+		        $("#input_alamat").removeAttr('required', '');
+		        $("#input_no_telp").removeAttr('required', '');
+		        $("#input_agama").removeAttr('required', '');
+        	}
+        }
+
+        $('#batalInap').click(function() {
+		  $('#formInap').hide();
+		  $('#pendaftaran').show();
+        });
+
+        $('#btnJalanDaftar').click(function() {
+		  $('#formJalan').show();
+		  $('#pendaftaran').hide();
+        });
+
+        $('#batalJalan').click(function() {
+		  $('#formJalan').hide();
+		  $('#pendaftaran').show();
         });
   </script>
+
 </body>
+
 </html>

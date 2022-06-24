@@ -14,7 +14,8 @@
         "laminas/laminas-escaper": "^2.8",
         "psr/log": "^1.1",
         "mpdf/mpdf": "^8.0",
-        "google/apiclient": "^2.7"
+        "google/apiclient": "^2.7",
+        "dompdf/dompdf": "^1.2"
     },
     "require-dev": {
         "codeigniter/coding-standard": "^1.1",

@@ -4,6 +4,7 @@ namespace App\Controllers\Pendaftaran;
 
 use App\Controllers\BaseController;
 use App\Models\Model_pasien;
+use App\Models\Model_poli;
 use App\Models\Model_rawatinappasien;
 use App\Models\Model_rawatjalanpasien;
 
@@ -150,6 +151,13 @@ class Pendaftaran extends BaseController
         
         $model->add_data($data);
         $model->update_status_kamar($ubah_kamar, $kamar);
+        
+        $dompdf = new \Dompdf\Dompdf(); 
+        $dompdf->loadHtml(view('pdf-view'));
+        $dompdf->setPaper('A5', 'portrait');
+        $dompdf->render();
+        $dompdf->stream();
+
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Pendaftaran/Pendaftaran'));
     }
@@ -189,7 +197,6 @@ class Pendaftaran extends BaseController
         $data = array(
             'nik'     => $this->request->getPost('input_nik'),
             'id_poli'     => $poli,
-            // 'keluhan'     => $this->request->getPost('input_keluhan'),
             'umur'     => $this->request->getPost('input_umur'),
             'tanggal_daftar'     => $tanggal_daftar,
             'no_antrian' => $max,
@@ -197,6 +204,26 @@ class Pendaftaran extends BaseController
         );
 
         $model->add_data($data);
+
+        $model_pasien = new Model_pasien();
+        $data_pasien = $model_pasien->detail_data($this->request->getPost('input_nik'))->getRowArray();
+
+        $model_poli = new Model_poli();
+        $data_poli = $model_poli->detail_data($poli)->getRowArray();
+        $data = [
+            'data_pasien' => $data_pasien,
+            'antrian' => $max,
+            'tanggal_daftar' => $this->request->getPost('input_tanggal'),
+            'poli' => $data_poli['nama_poli'],
+            'umur' => $this->request->getPost('input_umur')
+        ];
+
+        $dompdf = new \Dompdf\Dompdf(); 
+        $dompdf->loadHtml(view('pdf-view', $data));
+        $dompdf->setPaper('A6', 'portrait');
+        $dompdf->render();
+        $dompdf->stream();
+
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Pendaftaran/Pendaftaran'));
     }

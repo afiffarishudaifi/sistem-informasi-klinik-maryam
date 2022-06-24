@@ -27,7 +27,7 @@ class Model_pasien extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table('pasien');
         $builder->where('pasien.nik', $id);
-        $builder->join('user','user.nik = pasien.nik','right');
+        // $builder->join('user','user.nik = pasien.nik','right');
         return $builder->get();
     }
 
