@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                     <td align="right">Tanggal Daftar</td>
-                    <td> : <?= $data_pasien['alamat_pasien'] ?></td>
+                    <td> : <?= $tanggal_daftar ?></td>
                 </tr>
                 <tr>
                     <td align="right">Agama</td>

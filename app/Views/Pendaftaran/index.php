@@ -81,8 +81,9 @@
           <div class="col-lg-6">
             <form action="<?= base_url('Pendaftaran/Pendaftaran/add_pendaftaran_jalan'); ?>" method="post" id="form_add" autocomplete="off" enctype="multipart/form-data">
 							     
-				<div class="row gy-4">       
+				    <div class="row gy-4">       
 		            <?= csrf_field(); ?>
+                  <input type="hidden" name="parameter" id="parameter" value="">
 
 	                <div class="col-md-12">
 	                    <label>NIK Pasien</label>
@@ -180,7 +181,7 @@
 	                <div class="col-md-12">
 	                	<center>
 	                        <button type="reset" class="btn btn-secondary" style="padding: 10px 30px;" id="batalJalan">Batal</button>
-	                        <button type="submit" name="tambah" disabled class="btn btn-primary" id="simpanJalan"  style="background: #03989e;
+	                        <button type="submit" name="tambah" disabled class="btn btn-primary" id="simpanJalan" style="background: #03989e;
         							    border: 0;
         							    padding: 10px 30px;
         							    color: #fff;
@@ -229,9 +230,6 @@
 	    document.getElementById('simpanJalan').disabled = false;
 	}
 	</script>
-
-	<!-- Parsley -->
-	<script src="<?= base_url() ?>/docs/tambahan/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
 
 	<!-- Select2 -->
 	<script src="<?= base_url() ?>/docs/adminlte/plugins/select2/js/select2.full.min.js"></script>
@@ -340,7 +338,12 @@
         }
 
         $('#simpanJalan').on('click', function() {
-            // $('#form_add')[0].reset();
+          setTimeout(function() {
+            toastr.success('Berhasil Daftar')
+          }, 2000);
+          setTimeout(function() {
+            location.reload();
+          }, 4000);
         });
   </script>
 </body>
