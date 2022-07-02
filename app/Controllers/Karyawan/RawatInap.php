@@ -473,6 +473,7 @@ class RawatInap extends BaseController
             $builder->select('id_inap, nama_kamar');
             $builder->join('kamar','rawat_inap.id_kamar = rawat_inap.id_kamar');
             $builder->where('status_kamar','Terisi');
+            $builder->groupBy('kamar.id_kamar');
             $builder->like('nama_kamar', $query, 'both');
             $query = $builder->get();
             $data = $query->getResult();
@@ -482,6 +483,7 @@ class RawatInap extends BaseController
             $builder->select('id_inap, nama_kamar');
             $builder->join('kamar','rawat_inap.id_kamar = rawat_inap.id_kamar');
             $builder->where('status_kamar','Terisi');
+            $builder->groupBy('kamar.id_kamar');
             $query = $builder->get();
             $data = $query->getResult();
         }

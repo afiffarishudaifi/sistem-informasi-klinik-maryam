@@ -94,12 +94,14 @@ $session = session();
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= base_url('Karyawan/RawatJalan'); ?>" class="nav-link">
-                                <i class="fa fa-plus-circle nav-icon"></i>
-                                <p>Daftar Rawat Jalan</p>
-                            </a>
-                        </li>
+                        <?php if($session->get('divisi') == 'Pendaftaran') { ?>
+                            <li class="nav-item">
+                                <a href="<?= base_url('Karyawan/RawatJalan'); ?>" class="nav-link">
+                                    <i class="fa fa-plus-circle nav-icon"></i>
+                                    <p>Daftar Rawat Jalan</p>
+                                </a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item">
                             <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link">
                                 <i class="fa fa-file nav-icon"></i>

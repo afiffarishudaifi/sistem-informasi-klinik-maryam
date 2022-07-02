@@ -48,7 +48,7 @@
                                     <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th style="text-align: center;">Nama Pasien</th>
+                                                <th style="text-align: center;">Kamar Pasien</th>
                                                 <th style="text-align: center;">Nama Dokter</th>
                                                 <th style="text-align: center;">Nama Penyakit</th>
                                                 <th style="text-align: center;">Hasil Pemeriksaan</th>
@@ -62,7 +62,7 @@
                                                 foreach ($data as $item) {
                                             ?>
                                             <tr>
-                                                <td><?= $item['nama_pasien']; ?></td>
+                                                <td><?= $item['nama_kamar']; ?></td>
                                                 <td><?= $item['nama_dokter']; ?></td>
                                                 <td><?= $item['nama_penyakit']; ?></td>
                                                 <td><?= $item['hasil_pemeriksaan']; ?></td>

@@ -87,11 +87,11 @@ class Model_rawatinap extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('rekam_medis');
-        $builder->select('rekam_medis.id_rekam, rekam_medis.hasil_pemeriksaan, rekam_medis.saran_dokter, rekam_medis.tensi_darah, rekam_medis.tanggal_rekam, rekam_medis.nik, rekam_medis.nik_dokter, pasien.nama_pasien, dokter.nama_dokter, nama_penyakit');
+        $builder->select('rekam_medis.id_rekam, rekam_medis.hasil_pemeriksaan, rekam_medis.saran_dokter, rekam_medis.tensi_darah, rekam_medis.tanggal_rekam, rekam_medis.nik, rekam_medis.nik_dokter, kamar.nama_kamar, dokter.nama_dokter, nama_penyakit');
         $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
         $builder->join('rawat_inap','rekam_medis.id_inap = rawat_inap.id_inap');
         $builder->join('kamar','rawat_inap.id_kamar = kamar.id_kamar');
-        $builder->join('pasien','rawat_inap.nik = pasien.nik');
+        // $builder->join('pasien','rekam_medis.nik = pasien.nik');
         $builder->join('penyakit','rekam_medis.id_penyakit = penyakit.id_penyakit');
         $builder->where('rekam_medis.status','Inap');
         $builder->where('month(tanggal_rekam)', $bulan_ini);
