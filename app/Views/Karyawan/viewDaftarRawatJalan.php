@@ -109,25 +109,31 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        	<input type="hidden" id="input_poli" name="input_poli" value="<?= $session->get('id_poli') ?>">
 
                             <div class="form-group">
                                 <label>Pasien</label>
                                 <select class="form-control select2" id="input_pasien" name="input_pasien">
                                 </select>   
                             </div>
+
                             <div class="form-group">
+                                <label>Poli</label>
+                                <select class="form-control select2" id="input_poli" name="input_poli">
+                                </select>   
+                            </div>
+
+                            <!-- <div class="form-group">
                                 <label>Keluhan</label>
                                 <input type="text" class="form-control" id="input_keluhan" name="input_keluhan"
                                     data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>Umur Pasien</label>
                                 <input type="number" class="form-control" id="input_umur" name="input_umur"
                                     data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>Tanggal Pemeriksaan</label>
+                                <label>Tanggal Pendaftaran</label>
                                 <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
                             </div>
 
@@ -159,25 +165,30 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_antrian" id="id_antrian">
-                        	<input type="hidden" id="edit_poli" name="edit_poli" value="<?= $session->get('id_poli') ?>">
 
                             <div class="form-group">
                                 <label>Pasien</label>
                                 <select class="form-control select2" id="edit_pasien" name="edit_pasien">
                                 </select>   
                             </div>
+
                             <div class="form-group">
+                                <label>Poli</label>
+                                <select class="form-control select2" id="edit_poli" name="edit_poli">
+                                </select>   
+                            </div>
+                            <!-- <div class="form-group">
                                 <label>Keluhan</label>
                                 <input type="text" class="form-control" id="edit_keluhan" name="edit_keluhan"
                                     data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>Umur Pasien</label>
                                 <input type="number" class="form-control" id="edit_umur" name="edit_umur"
                                     data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
                             </div>
                             <div class="form-group">
-                                <label>Tanggal Pemeriksaan</label>
+                                <label>Tanggal Pendaftaran</label>
                                 <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
                             </div>
 
@@ -295,6 +306,50 @@
                 }
             });
 
+            $("#input_poli").select2({
+                placeholder: "Pilih Poli",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Karyawan/RawatJalan/data_poli'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $("#edit_poli").select2({
+                placeholder: "Pilih Poli",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Karyawan/RawatJalan/data_poli'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
@@ -335,9 +390,9 @@
                     $('#edit_alamat').val(json.alamat_dokter);
                     $('#edit_no_telp').val(json.no_telp_dokter);
                     $('#edit_tanggal').val(json.tanggal_daftar);
-                    $('#edit_keluhan').val(json.keluhan);
+                    // $('#edit_keluhan').val(json.keluhan);
                     $('#edit_umur').val(json.umur);
-                    $('#edit_poli').val(json.id_poli);
+                    // $('#edit_poli').val(json.id_poli);
 
                     if(json.status_dokter=='Aktif'){
                         $("#edit_status").prop('checked',true);
@@ -346,13 +401,21 @@
                     }
                     $('#edit_foto').val(json.foto_dokter);
 
-                    $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
+                    $('#edit_pasien').append('<option selected value="' + json.nik + '">' + json.nama_pasien +
                         '</option>');
                     $('#edit_pasien').select2('data', {
-                        id: json.id_pasien,
+                        id: json.nik,
                         text: json.nama_pasien
                     });
                     $('#edit_pasien').trigger('change');
+
+                    $('#edit_poli').append('<option selected value="' + json.id_poli + '">' + json.nama_poli +
+                        '</option>');
+                    $('#edit_poli').select2('data', {
+                        id: json.id_poli,
+                        text: json.nama_poli
+                    });
+                    $('#edit_poli').trigger('change');
 
                     $('#edit_jadwal').append('<option selected value="' + json.id_jadwal + '">' + json.nama_hari +
                         '</option>');

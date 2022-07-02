@@ -9,15 +9,29 @@ class Model_rawatjalan extends Model
     protected $table = 'antrian';
     protected $primaryKey = 'id_antrian';
 
-    public function view_data($id)
+    // public function view_data($id)
+    // {
+    //     $db      = \Config\Database::connect();
+    //     $builder = $db->table('antrian');
+    //     $builder->select('id_antrian, pasien.nik, pasien.nama_pasien, poli.nama_poli, antrian.no_antrian, antrian.status_antrian');
+    //     $builder->join('poli','antrian.id_poli = poli.id_poli');
+    //     $builder->join('pasien','antrian.nik = pasien.nik');
+    //     $builder->where('poli.id_poli', $id);
+    //     // $builder->where('antrian.tanggal_daftar',$tanggal);
+    //     return $builder->get();
+    // }
+
+    public function view_data()
     {
+        $tanggal = date('Y-m-d');
         $db      = \Config\Database::connect();
         $builder = $db->table('antrian');
         $builder->select('id_antrian, pasien.nik, pasien.nama_pasien, poli.nama_poli, antrian.no_antrian, antrian.status_antrian');
         $builder->join('poli','antrian.id_poli = poli.id_poli');
         $builder->join('pasien','antrian.nik = pasien.nik');
-        $builder->where('poli.id_poli', $id);
-        // $builder->where('antrian.tanggal_daftar',$tanggal);
+        // $builder->where('status_antrian', 'Menunggu');
+        // $builder->where('poli.id_poli', $id);
+        $builder->where('antrian.tanggal_daftar',$tanggal);
         return $builder->get();
     }
 

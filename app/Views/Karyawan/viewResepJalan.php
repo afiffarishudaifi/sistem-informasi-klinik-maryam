@@ -24,9 +24,11 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
-                                        data-target="#addModal"><i class="fa fa-plus"></i>
+                                <li class="breadcrumb-item">
+                                    <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
+                                    <?php } ?>
                                 </li>
                             </ol>
                         </div>
@@ -75,9 +77,11 @@
                                                 <td>
                                                     <center>
                                                         <a href="<?= base_url('Karyawan/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>, <?= $id_rekam ?>)" data-toggle="modal"
+                                                        <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>, <?= $id_rekam ?>)" data-toggle="modal"
                                                             data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>">Hapus</a>
+                                                        <?php } ?>
                                                     </center>
                                                 </td>
                                             </tr>

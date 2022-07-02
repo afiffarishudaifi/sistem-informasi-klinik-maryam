@@ -24,9 +24,12 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
+                                <li class="breadcrumb-item">
+                                    <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                        <button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
+                                    <?php } ?>
                                 </li>
                             </ol>
                         </div>
@@ -51,7 +54,9 @@
                                                 <th style="text-align: center;">Nama Obat</th>
                                                 <th style="text-align: center;">Jumlah Obat</th>
                                                 <th style="text-align: center;">Tagihan</th>
-                                                <th style="text-align: center;">Aksi</th>
+                                                <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                                    <th style="text-align: center;">Aksi</th>
+                                                <?php } ?>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -62,13 +67,15 @@
                                                 <td><?= $item['nama_obat']; ?></td>
                                                 <td><?= $item['jumlah_obat']; ?></td>
                                                 <td><?= $item['total_biaya']; ?></td>
-                                                <td>
-                                                    <center>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_resep']; ?>)" data-toggle="modal"
-                                                            data-target="#deleteModal" data-id="<?= $item['id_detail']; ?>">Hapus</a>
-                                                    </center>
-                                                </td>
+                                                <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                                    <td>
+                                                        <center>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_resep']; ?>)" data-toggle="modal"
+                                                                data-target="#deleteModal" data-id="<?= $item['id_detail']; ?>">Hapus</a>
+                                                        </center>
+                                                    </td>
+                                                <?php } ?>
                                             </tr>
                                             <?php } ?>
                                         </tbody>

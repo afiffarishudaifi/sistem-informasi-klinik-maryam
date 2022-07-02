@@ -94,21 +94,18 @@ $session = session();
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <?php if($session->get('divisi') == 'Pendaftaran') { ?>
-                            <li class="nav-item">
-                                <a href="<?= base_url('Karyawan/RawatJalan'); ?>" class="nav-link">
-                                    <i class="fa fa-plus-circle nav-icon"></i>
-                                    <p>Daftar Rawat Jalan</p>
-                                </a>
-                            </li>
-                        <?php } else { ?>
-                            <li class="nav-item">
-                                <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link">
-                                    <i class="fa fa-file nav-icon"></i>
-                                    <p>Rekam Medis Rawat Jalan</p>
-                                </a>
-                            </li>
-                        <?php } ?>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Karyawan/RawatJalan'); ?>" class="nav-link">
+                                <i class="fa fa-plus-circle nav-icon"></i>
+                                <p>Daftar Rawat Jalan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link">
+                                <i class="fa fa-file nav-icon"></i>
+                                <p>Rekam Medis Rawat Jalan</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -130,6 +127,12 @@ $session = session();
                                 <a href="<?= base_url('Karyawan/RawatInap'); ?>" class="nav-link">
                                     <i class="fa fa-plus-square nav-icon"></i>
                                     <p>Daftar Rawat Inap</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('Karyawan/RawatInap/resepInap'); ?>" class="nav-link">
+                                    <i class="fa fa-sticky-note nav-icon"></i>
+                                    <p>Resep Rawat Inap</p>
                                 </a>
                             </li>
                         <?php } else { ?>

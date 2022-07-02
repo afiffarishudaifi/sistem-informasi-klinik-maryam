@@ -24,10 +24,12 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
+                                <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                    <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
-                                </li>
+                                    </li>
+                                <?php } ?>
                             </ol>
                         </div>
                     </div>
@@ -69,7 +71,10 @@
                                                 <td>
                                                         <center>
                                                             <a href="<?= base_url('Karyawan/RawatJalan/resepJalan') . '/' . $item['id_rekam']; ?>" class="btn btn-sm btn-edit btn-info">Resep</a>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+
+                                                            <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <?php } ?>
                                                         </center>
                                                     </td>
                                             </tr>

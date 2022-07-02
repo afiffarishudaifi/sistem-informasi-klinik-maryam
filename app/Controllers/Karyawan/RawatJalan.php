@@ -30,8 +30,9 @@ class RawatJalan extends BaseController
 
         $model = new Model_rawatjalan();
 
-        $id_poli = $session->get('id_poli');
-        $data = $model->view_data($id_poli)->getResultArray();
+        // $id_poli = $session->get('id_poli');
+        // $data = $model->view_data($id_poli)->getResultArray();
+        $data = $model->view_data()->getResultArray();
 
         $data = [
             'judul' => 'Tabel Rawat Jalan',
@@ -48,8 +49,8 @@ class RawatJalan extends BaseController
         }
 
         $model = new Model_rawatjalan();
-        // $poli = $this->request->getPost('input_poli');
-        $poli = $session->get('id_poli');
+        $poli = $this->request->getPost('input_poli');
+        // $poli = $session->get('id_poli');
         $tanggal_daftar = $this->request->getPost('input_tanggal');
         $params = [
             'id_poli' => $poli,
@@ -87,13 +88,14 @@ class RawatJalan extends BaseController
         $model = new Model_rawatjalan();
         
         $id = $this->request->getPost('id_antrian');
-        $poli = $session->get('id_poli');
+        $poli = $this->request->getPost('edit_poli');
+        // $poli = $session->get('id_poli');
         $tanggal_daftar = $this->request->getPost('edit_tanggal');
         $params = [
             'id_poli' => $poli,
             'tanggal_daftar' => $tanggal_daftar
-        ];  
-        $max = $model->cek_max($params)->getRowArray()['id_antrian'];
+        ];
+        $max = $model->cek_max($params)->getRowArray()['no_antrian'];
         if ($max == null) {
             $max = 1;
         } else {
@@ -103,13 +105,12 @@ class RawatJalan extends BaseController
         $data = array(
             'nik'     => $this->request->getPost('edit_pasien'),
             'id_poli'     => $poli,
-            // 'keluhan'     => $this->request->getPost('edit_keluhan'),
             'umur'     => $this->request->getPost('edit_umur'),
             'tanggal_daftar'     => $tanggal_daftar,
             'no_antrian' => $max,
             'status_antrian' => 'Menunggu'
         );
-
+        
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         return redirect()->to(base_url('Karyawan/RawatJalan'));
