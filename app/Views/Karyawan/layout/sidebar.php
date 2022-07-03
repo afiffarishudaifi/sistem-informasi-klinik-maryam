@@ -101,13 +101,20 @@ $session = session();
                                     <p>Daftar Rawat Jalan</p>
                                 </a>
                             </li>
-                        <?php } ?>
+                            <li class="nav-item">
+                                <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link">
+                                    <i class="fa fa-file nav-icon"></i>
+                                    <p>Resep Rawat Jalan</p>
+                                </a>
+                            </li>
+                        <?php } else { ?>
                         <li class="nav-item">
                             <a href="<?= base_url('Karyawan/RawatJalan/rekamJalan'); ?>" class="nav-link">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Rekam Medis Rawat Jalan</p>
                             </a>
                         </li>
+                        <?php } ?>
                     </ul>
                 </li>
                 <li class="nav-item">
