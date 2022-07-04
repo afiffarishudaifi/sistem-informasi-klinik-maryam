@@ -419,6 +419,7 @@
             });
           };
         }(jQuery));
+        
         function detail_edit(isi) {
             $.getJSON('<?= base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
