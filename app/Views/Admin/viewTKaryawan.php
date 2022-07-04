@@ -118,7 +118,7 @@
 
                             <div class="form-group">
                                 <label>NIK Karyawan</label>
-                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="input_nik" name="input_nik"
+                                <input type="text" class="form-control hanya_angka" id="input_nik" name="input_nik"
                                     data-parsley-required="true" placeholder="Masukkan NIK Karyawan" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
@@ -145,7 +145,7 @@
 
                             <div class="form-group">
                                 <label>No Telepon Karyawan</label>
-                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="input_no_telp" name="input_no_telp" placeholder="Masukkan Telp Karyawan" autofocus="on">
+                                <input type="text" class="form-control hanya_angka" id="input_no_telp" name="input_no_telp" placeholder="Masukkan Telp Karyawan" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -238,7 +238,7 @@
 
                             <div class="form-group">
                                 <label>NIK Karyawan</label>
-                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="edit_nik" name="edit_nik"
+                                <input type="text" class="form-control hanya_angka" id="edit_nik" name="edit_nik"
                                     data-parsley-required="true" placeholder="Masukkan NIK Karyawan" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
@@ -262,7 +262,7 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telepon Karyawan</label>
-                                <input type="text" onkeyup="onlyNumber(event)" class="form-control" id="edit_no_telp" name="edit_no_telp" placeholder="Masukkan Telp Karyawan" autofocus="on">
+                                <input type="text" class="form-control hanya_angka" id="edit_no_telp" name="edit_no_telp" placeholder="Masukkan Telp Karyawan" autofocus="on">
                             </div>
                             <div class="form-group">
                                 <label>Alamat Karyawan</label>
@@ -388,8 +388,37 @@
             } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
+            $(".hanya_angka").inputFilter(function(value) {
+                return /^\d*$/.test(value);    // Allow digits only, using a RegExp
+            },"Hanya Angka");
         });
 
+        (function($) {
+          $.fn.inputFilter = function(callback, errMsg) {
+            return this.on("input keydown keyup mousedown mouseup select contextmenu drop focusout", function(e) {
+              if (callback(this.value)) {
+                // Accepted value
+                if (["keydown","mousedown","focusout"].indexOf(e.type) >= 0){
+                  $(this).removeClass("input-error");
+                  this.setCustomValidity("");
+                }
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+              } else if (this.hasOwnProperty("oldValue")) {
+                // Rejected value - restore the previous one
+                $(this).addClass("input-error");
+                this.setCustomValidity(errMsg);
+                this.reportValidity();
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+              } else {
+                // Rejected value - nothing to restore
+                this.value = "";
+              }
+            });
+          };
+        }(jQuery));
         function detail_edit(isi) {
             $.getJSON('<?= base_url('Admin/Karyawan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {

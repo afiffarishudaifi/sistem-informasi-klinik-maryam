@@ -147,9 +147,20 @@
                         <label>Agama</label>
                     </div>
 
-                    <div class="col-md-12 data-pasien-jalan" style="display: none;">
+                    <!-- <div class="col-md-12 data-pasien-jalan" style="display: none;">
                         <input type="text" class="form-control data-pasien-jalan-input" id="input_agama_jalan" name="input_agama" placeholder="Masukkan Agama" autofocus="on">
                         <span class="text-danger" id="error_email"></span>
+                    </div> -->
+
+                    <div class="col-md-12 data-pasien-jalan" style="display: none;">
+                        <select name="input_agama" id="input_agama_jalan" class="form-control data-pasien-jalan-input">
+                          <option value="Islam">Islam</option>
+                          <option value="Kristen">Kristen</option>
+                          <option value="Hindu">Hindu</option>
+                          <option value="Budha">Budha</option>
+                          <option value="Katolik">Katolik</option>
+                          <option value="Khonghucu">Khonghucu</option>
+                        </select>
                     </div>
 
 	                <div class="col-md-12">
@@ -243,7 +254,7 @@
 		$(document).ready(function() {
 		  $(".hanya_angka").inputFilter(function(value) {
 		    return /^\d*$/.test(value);    // Allow digits only, using a RegExp
-		  },"Only digits allowed");
+		  },"Hanya Angka");
 		});
 
 		(function($) {

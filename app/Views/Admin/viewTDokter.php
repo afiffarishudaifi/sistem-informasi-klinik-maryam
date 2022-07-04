@@ -107,7 +107,7 @@
 
                             <div class="form-group">
                                 <label>NIK Dokter</label>
-                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="input_nik" name="input_nik" placeholder="Masukkan NIK Dokter" autofocus="on">
+                                <input type="text" class="form-control hanya_angka" autofocus="on" minlength=16 id="input_nik" name="input_nik" maxlength=16 required="" placeholder="Masukkan NIK" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -127,7 +127,7 @@
                             </div>
                             <div class="form-group">
                                 <label>No Telp Dokter</label>
-                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="input_no_telp" name="input_no_telp" placeholder="Masukkan No Telp Dokter" autofocus="on">
+                                <input type="text" class="form-control hanya_angka" id="input_no_telp" name="input_no_telp" placeholder="Masukkan No Telp Dokter" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -189,7 +189,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>NIK Dokter</label>
-                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="edit_nik" name="edit_nik" placeholder="Masukkan NIK Dokter" autofocus="on">
+                                <input type="text" class="form-control hanya_angka" autofocus="on" minlength=16 id="edit_nik" name="edit_nik" maxlength=16 required="" placeholder="Masukkan NIK" autofocus="on">
                             </div>
 
                             <div class="form-group">
@@ -212,7 +212,7 @@
 
                             <div class="form-group">
                                 <label>No Telp Dokter</label>
-                                <input type="text" onkeyup='onlyNumber(event)' class="form-control" id="edit_no_telp" name="edit_no_telp" placeholder="Masukkan Nama Dokter" autofocus="on">   
+                                <input type="text" class="form-control hanya_angka" id="edit_no_telp" name="edit_no_telp" placeholder="Masukkan Nama Dokter" autofocus="on">   
                             </div>
 
                             <div class="form-group">
@@ -318,7 +318,38 @@
             } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
+            $(".hanya_angka").inputFilter(function(value) {
+                return /^\d*$/.test(value);    // Allow digits only, using a RegExp
+            },"Hanya Angka");
         });
+
+        (function($) {
+          $.fn.inputFilter = function(callback, errMsg) {
+            return this.on("input keydown keyup mousedown mouseup select contextmenu drop focusout", function(e) {
+              if (callback(this.value)) {
+                // Accepted value
+                if (["keydown","mousedown","focusout"].indexOf(e.type) >= 0){
+                  $(this).removeClass("input-error");
+                  this.setCustomValidity("");
+                }
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+              } else if (this.hasOwnProperty("oldValue")) {
+                // Rejected value - restore the previous one
+                $(this).addClass("input-error");
+                this.setCustomValidity(errMsg);
+                this.reportValidity();
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+              } else {
+                // Rejected value - nothing to restore
+                this.value = "";
+              }
+            });
+          };
+        }(jQuery));
+
 
         $(function() {
 
