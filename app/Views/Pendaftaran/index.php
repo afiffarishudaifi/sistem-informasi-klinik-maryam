@@ -181,9 +181,13 @@
 	                <div class="col-md-12">
 	                    <label>Tanggal Daftar</label>
 	                </div>
-	               	<div class="col-md-12">
+	               	<!-- <div class="col-md-12">
 	                    <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="input_tanggal" name="input_tanggal"autocomplete="off" />
-	                </div>
+	                </div> -->
+
+                  <div class="col-md-12">
+                      <input type="date" value="<?= date('Y-m-d') ?>" class="form-control" id="input_tanggal" name="input_tanggal"autocomplete="off" min="<?= date('Y-m-d'); ?>"/>
+                  </div>
 		            <div class="form-group form-material floating" data-plugin="formMaterial">
 		                <div class="col-xs-12">
 		                    <div id="html_element" data-callback="daftarJalan"></div>
