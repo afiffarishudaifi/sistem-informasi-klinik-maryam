@@ -68,8 +68,8 @@
                                                 <td><?= $item['saran_dokter']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="<?= base_url('Admin/RawatJalan/resepJalan'); ?>" class="btn btn-sm btn-edit btn-info">Resep</a>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="<?= base_url('Admin/RawatJalan/resepJalan'); ?>" class="btn btn-sm btn-edit btn-info"><i class="fa fa-eye"></i></a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
                                                         </center>
                                                     </td>
                                             </tr>

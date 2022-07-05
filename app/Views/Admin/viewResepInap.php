@@ -74,10 +74,10 @@
                                                 <td><?= $item['tanggal']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Admin/RawatInap/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info">Detail Resep</a>
-                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                        <a href="<?= base_url('Admin/RawatInap/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info"><i class="fa fa-eye"></i></a>
+                                                        <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
                                                         <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>)" data-toggle="modal"
-                                                            data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>">Hapus</a>
+                                                            data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>"><i class="fa fa-trash"></i></a>
                                                     </center>
                                                 </td>
                                             </tr>

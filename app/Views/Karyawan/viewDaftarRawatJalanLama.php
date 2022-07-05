@@ -68,9 +68,9 @@
                                                         <center>
                                                             <?php if($item['status_antrian'] != 'Sudah Dipanggil') { ?>
                                                             <a href="<?= base_url('Karyawan/RawatJalan/SelesaiAntrian') . '/' . $item['id_antrian']; ?>" class="btn btn-sm btn-edit btn-info">Selesai Antrian</a>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_antrian']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_antrian']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
                                                             <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_antrian']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_antrian']; ?>">Hapus</a>
+                                                                data-target="#deleteModal" data-id="<?= $item['id_antrian']; ?>"><i class="fa fa-trash"></i></a>
                                                             <?php } else { ?>
                                                                 -
                                                             <?php } ?>

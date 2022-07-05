@@ -66,9 +66,9 @@
                                                 <td><?= $item['status_dokter']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['nik_dokter']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['nik_dokter']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
                                                             <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['nik_dokter']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['nik_dokter']; ?>">Hapus</a>
+                                                                data-target="#deleteModal" data-id="<?= $item['nik_dokter']; ?>"><i class="fa fa-trash"></i></a>
                                                         </center>
                                                     </td>
                                             </tr>

@@ -59,9 +59,9 @@
                                             <tr>
             
                                                 <td><?= sprintf("%03s", $item['nama_kategori']) ; ?></td>
-                                                <td><a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kategori']; ?>)" class="btn btn-sm btn-edit btn-warning">Edit</a>
+                                                <td><a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kategori']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
                                                     <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_kategori']; ?>)" data-toggle="modal"
-                                                       data-target="#deleteModal" data-id="<?= $item['id_kategori']; ?>">Hapus</a></td>
+                                                       data-target="#deleteModal" data-id="<?= $item['id_kategori']; ?>"><i class="fa fa-trash"></a></td>
                                             </tr>
                                             <?php } ?>
                                         </tbody>
