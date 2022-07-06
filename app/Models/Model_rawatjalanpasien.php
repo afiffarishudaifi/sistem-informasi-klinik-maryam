@@ -32,7 +32,19 @@ class Model_rawatjalanpasien extends Model
         $builder->selectMax('no_antrian');
         $builder->join('poli','antrian.id_poli = poli.id_poli');
         $builder->where('poli.id_poli',$params['id_poli']);
-        $builder->where('antrian.tanggal_daftar', $params['tanggal_daftar']);
+        $builder->where('date(antrian.tanggal_daftar)', $params['tanggal_daftar']);
+        return $builder->get();
+    }
+
+    public function cek_data_sebelumnya($params)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('antrian');
+        $builder->join('poli','antrian.id_poli = poli.id_poli');
+        $builder->where('poli.id_poli',$params['id_poli']);
+        $builder->where('date(antrian.tanggal_daftar)', $params['tanggal_daftar']);
+        $builder->where('antrian.no_antrian', $params['max']);
+        $builder->where('antrian.nik', $params['nik']);
         return $builder->get();
     }
 

@@ -132,11 +132,11 @@
                                 <label>Saran Dokter</label>
                                 <textarea class="form-control" id="input_saran" name="input_saran" placeholder="Masukkan saran dokter"></textarea>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Tensi Darah Pasien</label>
                                 <input type="number" class="form-control" id="input_tensi" name="input_tensi"
                                     data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class="modal-footer">
@@ -197,7 +197,7 @@
                             <div class="form-group">
                                 <label>Tensi Darah Pasien</label>
                                 <input type="number" class="form-control" id="edit_tensi" name="edit_tensi"
-                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Tensi Pasien" autofocus="on">
                             </div>
 
                         </div>

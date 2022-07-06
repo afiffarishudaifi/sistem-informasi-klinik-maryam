@@ -86,7 +86,7 @@ class Model_rawatjalan extends Model
         $builder->selectMax('no_antrian');
         $builder->join('poli','antrian.id_poli = poli.id_poli');
         $builder->where('poli.id_poli',$params['id_poli']);
-        $builder->where('antrian.tanggal_daftar', $params['tanggal_daftar']);
+        $builder->where('date(antrian.tanggal_daftar)', $params['tanggal_daftar']);
         return $builder->get();
     }
 

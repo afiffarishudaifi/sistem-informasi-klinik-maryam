@@ -66,6 +66,14 @@ class Model_pasien extends Model
         return $builder->get();
     }
 
+    public function cek_nik_nama($nik)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pasien');
+        $builder->where('nik', $nik);
+        return $builder->get();
+    }
+
     public function cek_max_login($id)
     {
         $db      = \Config\Database::connect();

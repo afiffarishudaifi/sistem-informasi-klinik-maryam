@@ -37,10 +37,6 @@
                     <td> : <?= $data_pasien['alamat_pasien'] ?></td>
                 </tr>
                 <tr>
-                    <td align="right">Umur Pasien</td>
-                    <td> : <?= $umur ?></td>
-                </tr>
-                <tr>
                     <td align="right">Jenis Kelamin</td>
                     <td> : <?= $data_pasien['jenis_kelamin'] ?></td>
                 </tr>

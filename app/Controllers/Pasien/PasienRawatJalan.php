@@ -69,7 +69,7 @@ class PasienRawatJalan extends BaseController
             'nik'     => $session->get('user_id'),
             'id_poli'     => $poli,
             'keluhan'     => $this->request->getPost('input_keluhan'),
-            'umur'     => $this->request->getPost('input_umur'),
+            // 'umur'     => $this->request->getPost('input_umur'),
             'tanggal_daftar'     => $tanggal_daftar,
             'no_antrian' => $max,
             'status_antrian' => 'Menunggu'

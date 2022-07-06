@@ -66,7 +66,7 @@
                                                 <td><?= $item['status_antrian']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <?php if($item['status_antrian'] != 'Sudah Dipanggil') { ?>
+                                                            <?php if($item['status_antrian'] != 'Sudah Diperiksa') { ?>
                                                             <a href="<?= base_url('Karyawan/RawatJalan/SelesaiAntrian') . '/' . $item['id_antrian']; ?>" class="btn btn-sm btn-edit btn-info">Selesai Antrian</a>
                                                             <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_antrian']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
                                                             <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_antrian']; ?>)" data-toggle="modal"
@@ -125,11 +125,11 @@
                                 <input type="text" class="form-control" id="input_keluhan" name="input_keluhan"
                                     data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Umur Pasien</label>
                                 <input type="number" class="form-control" id="input_umur" name="input_umur"
                                     data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>Tanggal Pemeriksaan</label>
                                 <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
@@ -179,11 +179,11 @@
                                 <input type="text" class="form-control" id="edit_keluhan" name="edit_keluhan"
                                     data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Umur Pasien</label>
                                 <input type="number" class="form-control" id="edit_umur" name="edit_umur"
                                     data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>Tanggal Pemeriksaan</label>
                                 <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
@@ -388,7 +388,7 @@
                     $('#edit_no_telp').val(json.no_telp_dokter);
                     $('#edit_tanggal').val(json.tanggal_daftar);
                     $('#edit_keluhan').val(json.keluhan);
-                    $('#edit_umur').val(json.umur);
+                    // $('#edit_umur').val(json.umur);
 
                     if(json.status_dokter=='Aktif'){
                         $("#edit_status").prop('checked',true);
