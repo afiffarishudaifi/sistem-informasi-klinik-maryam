@@ -67,8 +67,8 @@
                                                     <td><?= $item['no_telp_admin']; ?></td>
                                                     <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_admin']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_admin']; ?>)" data-toggle="modal"
+                                                            <a href="" title="Edit" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_admin']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
+                                                            <a href="" title="Hapus" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_admin']; ?>)" data-toggle="modal"
                                                                 data-target="#deleteModal" data-id="<?= $item['id_admin']; ?>"><i class="fa fa-trash"></i></a>
                                                         </center>
                                                     </td>

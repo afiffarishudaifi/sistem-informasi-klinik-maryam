@@ -92,7 +92,7 @@ class Model_rawatjalan extends Model
 
     // rekam medis
 
-    public function view_data_rekam($bulan_ini, $tahun_ini)
+    public function view_data_rekam_ori($bulan_ini, $tahun_ini)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('rekam_medis');
@@ -103,6 +103,32 @@ class Model_rawatjalan extends Model
         $builder->where('rekam_medis.status','Jalan');
         $builder->where('month(tanggal_rekam)', $bulan_ini);
         $builder->where('year(tanggal_rekam)', $tahun_ini);
+        return $builder->get();
+    }
+
+    public function view_data_rekam_detail($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('rekam_medis');
+        $builder->select('pasien.nik, id_rekam, pasien.nama_pasien, dokter.nama_dokter, rekam_medis.hasil_pemeriksaan, penyakit.nama_penyakit, saran_dokter, tensi_darah, tanggal_rekam');
+        $builder->join('dokter','dokter.nik_dokter = rekam_medis.nik_dokter');
+        $builder->join('pasien','rekam_medis.nik = pasien.nik');
+        $builder->join('penyakit','rekam_medis.id_penyakit = penyakit.id_penyakit');
+        $builder->where('rekam_medis.status','Jalan');
+        $builder->where('pasien.nik', $id);
+        return $builder->get();
+    }
+
+    public function view_data_rekam($bulan_ini, $tahun_ini)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('antrian');
+        $builder->select('id_antrian, pasien.nik, pasien.nama_pasien, pasien.alamat_pasien, pasien.no_telp_pasien');
+        $builder->join('pasien','antrian.nik = pasien.nik');
+        $builder->where('month(antrian.tanggal_daftar)', $bulan_ini);
+        $builder->where('year(antrian.tanggal_daftar)', $tahun_ini);
+        $builder->groupBy('pasien.nik');
+        $builder->orderBy('antrian.id_antrian');
         return $builder->get();
     }
 

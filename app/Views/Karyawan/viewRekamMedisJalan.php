@@ -54,7 +54,7 @@
                                                 <th style="text-align: center;">Nama Dokter</th>
                                                 <th style="text-align: center;">Nama Penyakit</th>
                                                 <th style="text-align: center;">Hasil Pemeriksaan</th>
-                                                <th style="text-align: center;">Saran Dokter</th>
+                                                <th style="text-align: center;">Tanggal Rekam Medis</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -67,13 +67,13 @@
                                                 <td><?= $item['nama_dokter']; ?></td>
                                                 <td><?= $item['nama_penyakit']; ?></td>
                                                 <td><?= $item['hasil_pemeriksaan']; ?></td>
-                                                <td><?= $item['saran_dokter']; ?></td>
+                                                <td><?= $item['tanggal_rekam']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="<?= base_url('Karyawan/RawatJalan/resepJalan') . '/' . $item['id_rekam']; ?>" class="btn btn-sm btn-edit btn-info"><i class="fa fa-eye"></i></a>
+                                                            <a href="<?= base_url('Karyawan/RawatJalan/resepJalan') . '/' . $item['id_rekam']; ?>" title="Detail" class="btn btn-sm btn-edit btn-info"><i class="fa fa-eye"></i></a>
 
                                                             <?php if($session->get('divisi') != 'Pendaftaran') { ?>
-                                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
+                                                                <a href="" title="Edit" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
                                                             <?php } ?>
                                                         </center>
                                                     </td>
@@ -110,12 +110,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-                            <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="input_pasien" name="input_pasien">
-                                </select>   
-                            </div>
+                            <input type="hidden" name="input_pasien" value="<?= $nik ?>">
 
                             <div class="form-group">
                                 <label>Dokter</label>
@@ -171,13 +166,7 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_rekam" id="id_rekam">
-
-                            
-                            <div class="form-group">
-                                <label>Pasien</label>
-                                <select class="form-control select2" id="edit_pasien" name="edit_pasien">
-                                </select>   
-                            </div>
+                            <input type="hidden" name="edit_pasien" value="<?= $nik ?>">
 
                             <div class="form-group">
                                 <label>Dokter</label>
@@ -236,6 +225,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="nik" value="<?= $nik; ?>">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -270,49 +260,6 @@
             } else if ('<?= $session->getFlashdata('gagal'); ?>' != '') {
                 toastr.error('<?= $session->getFlashdata('gagal'); ?>')
             }
-        });
-
-        $("#input_pasien").select2({
-            placeholder: "Pilih Pasien",
-            theme: 'bootstrap4',
-            ajax: {
-                url: '<?php echo base_url('Karyawan/RawatJalan/data_pasien'); ?>',
-                type: "post",
-                delay: 250,
-                dataType: 'json',
-                data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-        });
-        $("#edit_pasien").select2({
-            placeholder: "Pilih Pasien",
-            theme: 'bootstrap4',
-            ajax: {
-                url: '<?php echo base_url('Karyawan/RawatJalan/data_pasien'); ?>',
-                type: "post",
-                delay: 250,
-                dataType: 'json',
-                data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
         });
 
         $("#input_dokter").select2({

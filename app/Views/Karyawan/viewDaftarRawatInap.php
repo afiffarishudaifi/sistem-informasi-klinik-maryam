@@ -70,8 +70,8 @@
                                                 <td><?= $item['status_inap']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_inap']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
-                                                            <a href="" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_inap']; ?>,<?= $item['id_kamar']; ?>)" data-toggle="modal"
+                                                            <a href="" title="Edit" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_inap']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
+                                                            <a href="" title="Hapus" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_inap']; ?>,<?= $item['id_kamar']; ?>)" data-toggle="modal"
                                                                 data-target="#deleteModal" data-id="<?= $item['id_inap']; ?>"><i class="fa fa-trash"></i></a>
                                                         </center>
                                                     </td>

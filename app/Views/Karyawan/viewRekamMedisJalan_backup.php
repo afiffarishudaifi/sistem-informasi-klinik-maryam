@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?= $this->include("Admin/layout/head_tabel") ?>
+<?= $this->include("Karyawan/layout/head_tabel") ?>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
-        <?= $this->include("Admin/layout/navbar") ?>
+        <?= $this->include("Karyawan/layout/navbar") ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?= $this->include("Admin/layout/sidebar") ?>
+        <?= $this->include("Karyawan/layout/sidebar") ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -24,10 +24,12 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
+                                <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                    <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
                                         Tambah Data</button>
-                                </li>
+                                    </li>
+                                <?php } ?>
                             </ol>
                         </div>
                     </div>
@@ -45,13 +47,14 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">Nama Pasien</th>
-                                                <th style="text-align: center;">Nama Poli</th>
-                                                <th style="text-align: center;">Antrian</th>
-                                                <th style="text-align: center;">Status Antrian</th>
+                                                <th style="text-align: center;">Nama Dokter</th>
+                                                <th style="text-align: center;">Nama Penyakit</th>
+                                                <th style="text-align: center;">Hasil Pemeriksaan</th>
+                                                <th style="text-align: center;">Saran Dokter</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -61,14 +64,17 @@
                                             ?>
                                             <tr>
                                                 <td><?= $item['nama_pasien']; ?></td>
-                                                <td><?= $item['nama_poli']; ?></td>
-                                                <td><?= $item['no_antrian']; ?></td>
-                                                <td><?= $item['status_antrian']; ?></td>
+                                                <td><?= $item['nama_dokter']; ?></td>
+                                                <td><?= $item['nama_penyakit']; ?></td>
+                                                <td><?= $item['hasil_pemeriksaan']; ?></td>
+                                                <td><?= $item['saran_dokter']; ?></td>
                                                 <td>
                                                         <center>
-                                                            <a href="" title="Edit" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_antrian']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
-                                                            <a href="" title="Hapus" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_antrian']; ?>)" data-toggle="modal"
-                                                                data-target="#deleteModal" data-id="<?= $item['id_antrian']; ?>"><i class="fa fa-trash"></i></a>
+                                                            <a href="<?= base_url('Karyawan/RawatJalan/resepJalan') . '/' . $item['id_rekam']; ?>" class="btn btn-sm btn-edit btn-info"><i class="fa fa-eye"></i></a>
+
+                                                            <?php if($session->get('divisi') != 'Pendaftaran') { ?>
+                                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_rekam']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
+                                                            <?php } ?>
                                                         </center>
                                                     </td>
                                             </tr>
@@ -90,7 +96,7 @@
         </div>
 
         <!-- Start Modal Add Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/add_pendaftaran'); ?>" method="post" id="form_add"
+        <form action="<?php echo base_url('Karyawan/RawatJalan/add_rekam'); ?>" method="post" id="form_add"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -98,7 +104,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rawat Jalan </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Rekam Medis </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -110,24 +116,31 @@
                                 <select class="form-control select2" id="input_pasien" name="input_pasien">
                                 </select>   
                             </div>
+
                             <div class="form-group">
-                                <label>Poli</label>
-                                <select class="form-control select2" id="input_poli" name="input_poli">
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="input_dokter" name="input_dokter">
                                 </select>   
                             </div>
+
                             <div class="form-group">
-                                <label>Keluhan</label>
-                                <input type="text" class="form-control" id="input_keluhan" name="input_keluhan"
-                                    data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
+                                <label>Penyakit</label>
+                                <select class="form-control select2" id="input_penyakit" name="input_penyakit">
+                                </select>   
                             </div>
-                            <!-- <div class="form-group">
-                                <label>Umur Pasien</label>
-                                <input type="number" class="form-control" id="input_umur" name="input_umur"
-                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
-                            </div> -->
+
                             <div class="form-group">
-                                <label>Tanggal Pemeriksaan</label>
-                                <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="input_tanggal" name="input_tanggal" data-parsley-required="true" autocomplete="off" />
+                                <label>Hasil Pemeriksaan</label>
+                                <textarea class="form-control" id="input_hasil" name="input_hasil" placeholder="Masukkan hasil pemeriksaan"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Saran Dokter</label>
+                                <textarea class="form-control" id="input_saran" name="input_saran" placeholder="Masukkan saran dokter"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Tensi Darah Pasien</label>
+                                <input type="number" class="form-control" id="input_tensi" name="input_tensi"
+                                    data-parsley-required="true" placeholder="Masukkan Tensi Pasien" autofocus="on">
                             </div>
 
                         </div>
@@ -143,7 +156,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/RawatJalan/update_pendaftaran'); ?>" method="post" id="form_edit"
+        <form action="<?php echo base_url('Karyawan/RawatJalan/update_rekam'); ?>" method="post" id="form_edit"
             data-parsley-validate="true" autocomplete="off" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
@@ -151,37 +164,45 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rawat Jalan </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Rekam Medis </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_antrian" id="id_antrian">
+                            <input type="hidden" name="id_rekam" id="id_rekam">
 
+                            
                             <div class="form-group">
                                 <label>Pasien</label>
                                 <select class="form-control select2" id="edit_pasien" name="edit_pasien">
                                 </select>   
                             </div>
+
                             <div class="form-group">
-                                <label>Poli</label>
-                                <select class="form-control select2" id="edit_poli" name="edit_poli">
+                                <label>Dokter</label>
+                                <select class="form-control select2" id="edit_dokter" name="edit_dokter">
                                 </select>   
                             </div>
+
                             <div class="form-group">
-                                <label>Keluhan</label>
-                                <input type="text" class="form-control" id="edit_keluhan" name="edit_keluhan"
-                                    data-parsley-required="true" placeholder="Masukkan Keluhan" autofocus="on">
+                                <label>Penyakit</label>
+                                <select class="form-control select2" id="edit_penyakit" name="edit_penyakit">
+                                </select>   
                             </div>
-                            <!-- <div class="form-group">
-                                <label>Umur Pasien</label>
-                                <input type="number" class="form-control" id="edit_umur" name="edit_umur"
-                                    data-parsley-required="true" placeholder="Masukkan Umur Pasien" autofocus="on">
-                            </div> -->
+
                             <div class="form-group">
-                                <label>Tanggal Pemeriksaan</label>
-                                <input type="datetime-local" value="<?= date('Y-m-d') ?>T00:00" class="form-control" id="edit_tanggal" name="edit_tanggal" data-parsley-required="true" autocomplete="off" />
+                                <label>Hasil Pemeriksaan</label>
+                                <textarea class="form-control" id="edit_hasil" name="edit_hasil" placeholder="Masukkan hasil pemeriksaan"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Saran Dokter</label>
+                                <textarea class="form-control" id="edit_saran" name="edit_saran" placeholder="Masukkan saran dokter"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Tensi Darah Pasien</label>
+                                <input type="number" class="form-control" id="edit_tensi" name="edit_tensi"
+                                    data-parsley-required="true" placeholder="Masukkan Tensi Pasien" autofocus="on">
                             </div>
 
                         </div>
@@ -197,7 +218,7 @@
         <!-- End Modal Edit Class-->
 
         <!-- Start Modal Delete Class -->
-        <form action="<?php echo base_url('Admin/RawatJalan/delete_pendaftaran'); ?>" method="post">
+        <form action="<?php echo base_url('Karyawan/RawatJalan/delete_rekam'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -210,7 +231,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus pendaftaran ini?</h4>
+                            <h4>Apakah Ingin menghapus rekam medis ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -225,7 +246,7 @@
         <!-- End Modal Delete Class -->
 
         <!-- /.content-wrapper -->
-        <?= $this->include("Admin/layout/footer") ?>
+        <?= $this->include("Karyawan/layout/footer") ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -235,7 +256,7 @@
     </div>
     <!-- ./wrapper -->
     
-    <?= $this->include("Admin/layout/js_tabel") ?>
+    <?= $this->include("Karyawan/layout/js_tabel") ?>
 
     <script>
         function Hapus(id){
@@ -251,18 +272,15 @@
             }
         });
 
-        $(function() {
-            $('.select2').select2()
-
-            $("#input_poli").select2({
-                placeholder: "Pilih Poliklinik",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
+        $("#input_pasien").select2({
+            placeholder: "Pilih Pasien",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatJalan/data_pasien'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
                         return {
                             query: params.term, // search term
                         };
@@ -274,17 +292,16 @@
                     },
                     cache: true
                 }
-            });
-
-            $("#edit_poli").select2({
-                placeholder: "Pilih Poliklinik",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_poli'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
+        });
+        $("#edit_pasien").select2({
+            placeholder: "Pilih Pasien",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatJalan/data_pasien'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
                         return {
                             query: params.term, // search term
                         };
@@ -296,17 +313,17 @@
                     },
                     cache: true
                 }
-            });
+        });
 
-            $("#input_pasien").select2({
-                placeholder: "Pilih Pasien",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pasien'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
+        $("#input_dokter").select2({
+            placeholder: "Pilih Dokter",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatJalan/data_dokter'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
                         return {
                             query: params.term, // search term
                         };
@@ -318,17 +335,16 @@
                     },
                     cache: true
                 }
-            });
-
-            $("#edit_pasien").select2({
-                placeholder: "Pilih Pasien",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Admin/RawatJalan/data_pasien'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
+        });
+        $("#edit_dokter").select2({
+            placeholder: "Pilih Dokter",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatJalan/data_dokter'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
                         return {
                             query: params.term, // search term
                         };
@@ -340,81 +356,114 @@
                     },
                     cache: true
                 }
-            });
+        });
 
-            $('#batal').on('click', function() {
-                $('#form_add')[0].reset();
-                $('#form_edit')[0].reset();
-                $("#input_nama").val('');
-                $("#input_poli").val('');
-                $("#input_alamat").val('');
-                $("#input_no_telp").val('');
-                $("#input_status").prop('checked',false);
-                $("#input_foto").val('');
-            });
+        $("#input_penyakit").select2({
+            placeholder: "Pilih Penyakit",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatJalan/data_penyakit'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
+        $("#edit_penyakit").select2({
+            placeholder: "Pilih Penyakit",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Karyawan/RawatJalan/data_penyakit'); ?>',
+                type: "post",
+                delay: 250,
+                dataType: 'json',
+                data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+        });
 
-            $('#batal_add').on('click', function() {
-                $('#form_add')[0].reset();
-                $("#input_nama").val('');
-                $("#input_poli").val('');
-                $("#input_alamat").val('');
-                $("#input_no_telp").val('');
-                $("#input_status").prop('checked',false);
-                $("#input_foto").val('');
-            });
+        $('#batal').on('click', function() {
+            $('#form_add')[0].reset();
+            $('#form_edit')[0].reset();
+            $("#input_saran").val('');
+            $("#input_pasien").val('');
+            $("#input_dokter").val('');
+            $("#input_penyakit").val('');
+            $("#input_tensi").val('');
+            $("#input_saran").val('');
+        });
 
-            $('#batal_up').on('click', function() {
-                $('#form_edit')[0].reset();
-                $("#edit_nama").val('');
-                $("#edit_poli").val('');
-                $("#edit_alamat").val('');
-                $("#edit_no_telp").val('');
-                $("#edit_status").prop('checked',false);
-                $("#edit_foto").val('');
-            });
-        })
+        $('#batal_add').on('click', function() {
+            $('#form_add')[0].reset();
+            $("#input_saran").val('');
+            $("#input_pasien").val('');
+            $("#input_dokter").val('');
+            $("#input_penyakit").val('');
+            $("#input_tensi").val('');
+            $("#input_saran").val('');
+        });
+
+        $('#batal_up').on('click', function() {
+            $('#form_edit')[0].reset();
+            $("#edit_saran").val('');
+            $("#edit_pasien").val('');
+            $("#edit_dokter").val('');
+            $("#edit_penyakit").val('');
+            $("#edit_tensi").val('');
+            $("#edit_saran").val('');
+        });
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/RawatJalan/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Karyawan/RawatJalan/data_edit_rekam'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_antrian').val(json.id_antrian);
+                    $('#id_rekam').val(json.id_rekam);
 
-                    $('#edit_alamat').val(json.alamat_dokter);
-                    $('#edit_no_telp').val(json.no_telp_dokter);
-                    $('#edit_tanggal').val(json.tanggal_daftar);
-                    $('#edit_keluhan').val(json.keluhan);
-                    // $('#edit_umur').val(json.umur);
+                    $('#edit_saran').val(json.saran_dokter);
+                    $('#edit_tensi').val(json.tensi_darah);
+                    $('#edit_hasil').val(json.hasil_pemeriksaan);
 
-                    if(json.status_dokter=='Aktif'){
-                        $("#edit_status").prop('checked',true);
-                    }else{
-                        $("#edit_status").prop('checked',false);
-                    }
-                    $('#edit_foto').val(json.foto_dokter);
-
-                    $('#edit_poli').append('<option selected value="' + json.id_poli + '">' + json.nama_poli +
-                        '</option>');
-                    $('#edit_poli').select2('data', {
-                        id: json.id_poli,
-                        text: json.nama_poli
-                    });
-                    $('#edit_poli').trigger('change');
-
-                    $('#edit_pasien').append('<option selected value="' + json.id_pasien + '">' + json.nama_pasien +
+                    $('#edit_pasien').append('<option selected value="' + json.nik + '">' + json.nama_pasien +
                         '</option>');
                     $('#edit_pasien').select2('data', {
-                        id: json.id_pasien,
+                        id: json.nik,
                         text: json.nama_pasien
                     });
                     $('#edit_pasien').trigger('change');
 
-                    $('#edit_jadwal').append('<option selected value="' + json.id_jadwal + '">' + json.nama_hari +
+                    $('#edit_dokter').append('<option selected value="' + json.nik_dokter + '">' + json.nama_dokter +
                         '</option>');
-                    $('#edit_jadwal').select2('data', {
-                        id: json.id_jadwal,
-                        text: json.nama_hari
+                    $('#edit_dokter').select2('data', {
+                        id: json.nik_dokter,
+                        text: json.nama_dokter
                     });
-                    $('#edit_jadwal').trigger('change');
+                    $('#edit_dokter').trigger('change');
+
+                    $('#edit_penyakit').append('<option selected value="' + json.id_penyakit + '">' + json.nama_penyakit +
+                        '</option>');
+                    $('#edit_penyakit').select2('data', {
+                        id: json.id_penyakit,
+                        text: json.nama_penyakit
+                    });
+                    $('#edit_penyakit').trigger('change');
                 });
         }
         
@@ -433,7 +482,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
-        });
+            });
     });
     </script>
 </body>

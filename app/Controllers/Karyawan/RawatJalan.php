@@ -241,6 +241,37 @@ class RawatJalan extends BaseController
         return $this->response->setJSON($response);
     }
 
+    // public function rekamJalan()
+    // {
+    //     date_default_timezone_set('Asia/Jakarta');
+    //     $session = session();
+    //     $model = new Model_rawatjalan();
+    //     $bulan_ini = date('m');
+    //     $tahun_ini = date('Y');
+    //     $data = $model->view_data_rekam_ori($bulan_ini, $tahun_ini)->getResultArray();
+
+    //     $data = [
+    //         'judul' => 'Tabel Rekam Medis Rawat Jalan',
+    //         'data' => $data
+    //     ];
+    //     return view('Karyawan/viewRekamMedisJalan', $data);
+    // }
+
+    public function rekamJalanDetail($id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $session = session();
+        $model = new Model_rawatjalan();
+        $data = $model->view_data_rekam_detail($id)->getResultArray();
+
+        $data = [
+            'judul' => 'Tabel Detail Rekam Medis Rawat Jalan',
+            'data' => $data,
+            'nik' => $id
+        ];
+        return view('Karyawan/viewRekamMedisJalan', $data);
+    }
+
     public function rekamJalan()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -254,7 +285,7 @@ class RawatJalan extends BaseController
             'judul' => 'Tabel Rekam Medis Rawat Jalan',
             'data' => $data
         ];
-        return view('Karyawan/viewRekamMedisJalan', $data);
+        return view('Karyawan/viewRekamMedisAntrian', $data);
     }
 
     public function data_pendaftaran()
@@ -319,6 +350,7 @@ class RawatJalan extends BaseController
     {
         $session = session();
         $model = new Model_rawatjalan();
+        $nik = $this->request->getPost('input_pasien');
 
         $data = array(
             'id_penyakit'     => $this->request->getPost('input_penyakit'),
@@ -331,7 +363,7 @@ class RawatJalan extends BaseController
 
         $model->add_data_rekam($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Karyawan/RawatJalan/rekamJalan'));
+        return redirect()->to(base_url('Karyawan/RawatJalan/rekamJalanDetail' . '/' . $nik));
     }
 
     public function update_rekam()
@@ -340,6 +372,7 @@ class RawatJalan extends BaseController
         $model = new Model_rawatjalan();
         
         $id = $this->request->getPost('id_rekam');
+        $nik = $this->request->getPost('edit_pasien');
         $data = array(
             'id_penyakit'     => $this->request->getPost('edit_penyakit'),
             'nik'     => $this->request->getPost('edit_pasien'),
@@ -351,7 +384,7 @@ class RawatJalan extends BaseController
 
         $model->update_data_rekam($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Karyawan/RawatJalan/rekamJalan'));
+        return redirect()->to(base_url('Karyawan/RawatJalan/rekamJalanDetail' . '/' . $nik));
     }
 
     public function delete_rekam()
@@ -359,6 +392,7 @@ class RawatJalan extends BaseController
         $session = session();
         $model = new Model_rawatjalan();
         $id = $this->request->getPost('id');
+        $nik = $this->request->getPost('nik');
         // $foreign = $model->cek_foreign($id);
         // if ($foreign == 0) {
             $model->delete_data_rekam($id);
@@ -366,7 +400,7 @@ class RawatJalan extends BaseController
         // } else {
         //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         // }
-        return redirect()->to('/Karyawan/RawatJalan/rekamJalan');
+        return redirect()->to('/Karyawan/RawatJalan/rekamJalanDetail' . '/' . $nik);
     }
 
     public function data_edit_rekam($id_rekam)
