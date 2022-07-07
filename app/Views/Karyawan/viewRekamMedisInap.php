@@ -50,7 +50,7 @@
                                             <tr>
                                                 <th style="text-align: center;">Kamar Pasien</th>
                                                 <th style="text-align: center;">Nama Dokter</th>
-                                                <th style="text-align: center;">Nama Penyakit</th>
+                                                <th style="text-align: center;">Nama Diagnosis</th>
                                                 <th style="text-align: center;">Hasil Pemeriksaan</th>
                                                 <th style="text-align: center;">Saran Dokter</th>
                                                 <th style="text-align: center;">Waktu Rekam</th>
@@ -107,19 +107,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-                            <div class="form-group">
-                                <label>Kamar</label>
-                                <select class="form-control select2" id="input_kamar" name="input_kamar">
-                                </select>   
-                            </div>
+                            <input type="hidden" name="input_inap" value="<?= $id_inap; ?>">
                             <div class="form-group">
                                 <label>Dokter</label>
                                 <select class="form-control select2" id="input_dokter" name="input_dokter">
                                 </select>   
                             </div>
                             <div class="form-group">
-                                <label>Penyakit</label>
+                                <label>Diagnosis</label>
                                 <select class="form-control select2" id="input_penyakit" name="input_penyakit">
                                 </select>   
                             </div>
@@ -169,19 +164,14 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_rekam" id="id_rekam">
-
-                            <div class="form-group">
-                                <label>Kamar</label>
-                                <select class="form-control select2" id="edit_kamar" name="edit_kamar">
-                                </select>   
-                            </div>
+                            <input type="hidden" name="edit_inap" value="<?= $id_inap; ?>">
                             <div class="form-group">
                                 <label>Dokter</label>
                                 <select class="form-control select2" id="edit_dokter" name="edit_dokter">
                                 </select>   
                             </div>
                             <div class="form-group">
-                                <label>Penyakit</label>
+                                <label>Diagnosis</label>
                                 <select class="form-control select2" id="edit_penyakit" name="edit_penyakit">
                                 </select>   
                             </div>
@@ -233,6 +223,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="id_inap" value="<?= $id_inap; ?>">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -270,51 +261,7 @@
         });
 
         $(function() {
-            $('.select2').select2()
-
-            $("#input_kamar").select2({
-                placeholder: "Pilih Kamar",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_kamar_rekam'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
-
-            $("#edit_kamar").select2({
-                placeholder: "Pilih Kamar",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('Karyawan/RawatInap/data_kamar_rekam'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
-                }
-            });
+            $('.select2').select2();
 
             $("#input_dokter").select2({
                 placeholder: "Pilih Dokter",
@@ -361,7 +308,7 @@
             });
 
             $("#input_penyakit").select2({
-            placeholder: "Pilih Penyakit",
+            placeholder: "Pilih Diagnosis",
             theme: 'bootstrap4',
             ajax: {
                 url: '<?php echo base_url('Karyawan/RawatInap/data_penyakit'); ?>',
@@ -382,7 +329,7 @@
                 }
         });
         $("#edit_penyakit").select2({
-            placeholder: "Pilih Penyakit",
+            placeholder: "Pilih Diagnosis",
             theme: 'bootstrap4',
             ajax: {
                 url: '<?php echo base_url('Karyawan/RawatInap/data_penyakit'); ?>',

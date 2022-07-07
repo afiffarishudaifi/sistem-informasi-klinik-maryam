@@ -27,7 +27,7 @@ class Penyakit extends BaseController
         $penyakit = $model->view_data()->getResultArray();
 
         $data = [
-            'judul' => 'Tabel Penyakit',
+            'judul' => 'Tabel Diagnosis',
             'penyakit' => $penyakit
         ];
         return view('Admin/viewTPenyakit', $data);

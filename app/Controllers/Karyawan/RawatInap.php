@@ -291,6 +291,40 @@ class RawatInap extends BaseController
         return $this->response->setJSON($response);
     }
 
+    // public function rekamInap()
+    // {
+    //     date_default_timezone_set('Asia/Jakarta');
+    //     $session = session();
+    //     if (!$session->get('nama_login') || $session->get('status_login') != 'Karyawan') {
+    //         return redirect()->to('Login/loginPegawai');
+    //     }
+    //     $model = new Model_rawatinap();
+    //     $bulan_ini = date('m');
+    //     $tahun_ini = date('Y');
+    //     $data = $model->view_data_rekam($bulan_ini, $tahun_ini)->getResultArray();
+
+    //     $data = [
+    //         'judul' => 'Tabel Rekam Medis Rawat Inap',
+    //         'data' => $data
+    //     ];
+    //     return view('Karyawan/viewRekamMedisInap', $data);
+    // }
+
+    public function rekamInapDetail($id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $session = session();
+        $model = new Model_rawatinap();
+        $data = $model->view_data_rekam_detail($id)->getResultArray();
+
+        $data = [
+            'judul' => 'Tabel Detail Rekam Medis Rawat Inap',
+            'data' => $data,
+            'id_inap' => $id
+        ];
+        return view('Karyawan/viewRekamMedisInap', $data);
+    }
+
     public function rekamInap()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -299,15 +333,13 @@ class RawatInap extends BaseController
             return redirect()->to('Login/loginPegawai');
         }
         $model = new Model_rawatinap();
-        $bulan_ini = date('m');
-        $tahun_ini = date('Y');
-        $data = $model->view_data_rekam($bulan_ini, $tahun_ini)->getResultArray();
+        $data = $model->view_data_rekam()->getResultArray();
 
         $data = [
             'judul' => 'Tabel Rekam Medis Rawat Inap',
             'data' => $data
         ];
-        return view('Karyawan/viewRekamMedisInap', $data);
+        return view('Karyawan/viewRekamMedisInapPasien', $data);
     }
 
     public function add_rekam()
@@ -319,8 +351,10 @@ class RawatInap extends BaseController
         $model = new Model_rawatinap();
         $waktu_rekam = $this->request->getPost('input_tanggal');
 
+        $id_inap = $this->request->getPost('input_inap');
+
         $data = array(
-            'id_inap'     => $this->request->getPost('input_kamar'),
+            'id_inap'     => $id_inap,
             'nik_dokter'     => $this->request->getPost('input_dokter'),
             'id_penyakit'     => $this->request->getPost('input_penyakit'),
             'hasil_pemeriksaan'     => $this->request->getPost('input_hasil'),
@@ -332,7 +366,7 @@ class RawatInap extends BaseController
 
         $model->add_data_rekam($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Karyawan/RawatInap/rekamInap'));
+        return redirect()->to(base_url('Karyawan/RawatInap/rekamInapDetail' . '/' . $id_inap));
     }
 
     public function update_rekam()
@@ -345,9 +379,10 @@ class RawatInap extends BaseController
         date_default_timezone_set('Asia/Jakarta');
         $id = $this->request->getPost('id_rekam');
         $waktu_rekam = $this->request->getPost('edit_tanggal');
+        $id_inap = $this->request->getPost('edit_inap');
         
         $data = array(
-            'id_inap'     => $this->request->getPost('edit_kamar'),
+            'id_inap'     => $id_inap,
             'nik_dokter'     => $this->request->getPost('edit_dokter'),
             'id_penyakit'     => $this->request->getPost('edit_penyakit'),
             'hasil_pemeriksaan'     => $this->request->getPost('edit_hasil'),
@@ -358,7 +393,7 @@ class RawatInap extends BaseController
 
         $model->update_data_rekam($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Karyawan/RawatInap/rekamInap'));
+        return redirect()->to(base_url('Karyawan/RawatInap/rekamInapDetail' . '/' . $id_inap));
     }
 
     public function delete_inap()
@@ -369,6 +404,7 @@ class RawatInap extends BaseController
         }
         $model = new Model_rawatinap();
         $id = $this->request->getPost('id');
+        $id_inap = $this->request->getPost('id_inap');
         // $foreign = $model->cek_foreign($id);
         // if ($foreign == 0) {
             $model->delete_data_rekam($id);
@@ -376,7 +412,7 @@ class RawatInap extends BaseController
         // } else {
         //     session()->setFlashdata('gagal', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         // }
-        return redirect()->to('/Karyawan/RawatInap/rekamInap');
+        return redirect()->to('/Karyawan/RawatInap/rekamInapDetail' . '/' . $id_inap);
     }
 
     public function data_edit_rekam($id_pemeriksaan)
@@ -553,7 +589,7 @@ class RawatInap extends BaseController
         $data = $model->view_data_resep()->getResultArray();
        
         $data = [
-            'judul' => 'Tabel Rekam Medis Resep Rawat Inap',
+            'judul' => 'Tabel Resep Rawat Inap',
             'data' => $data
         ];
         return view('Karyawan/viewResepInap', $data);

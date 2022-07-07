@@ -49,7 +49,7 @@
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">No</th>
-                                                <th style="text-align: center;">Nama Penyakit</th>
+                                                <th style="text-align: center;">Nama Diagnosis</th>
                                                 <th style="text-align: center;">Deskripsi</th>
                                                 <th style="text-align: center;">Aksi</th>
                                             </tr>
@@ -96,7 +96,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Penyakit </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Diagnosis </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -104,9 +104,9 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Nama Penyakit</label>
+                                <label>Nama Diagnosis</label>
                                 <input type="text" class="form-control" id="input_nama" name="input_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Penyakit" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Diagnosis" autofocus="on">
                                 <span class="text-danger" id="error_nama"></span>
                             </div>
 
@@ -136,7 +136,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Penyakit</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Diagnosis</h5>
                                 <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -145,9 +145,9 @@
                             <input type="hidden" name="id_penyakit" id="id_penyakit">
 
                             <div class="form-group">
-                                <label>Nama Penyakit</label>
+                                <label>Nama Diagnosis</label>
                                 <input type="text" class="form-control" id="edit_nama" name="edit_nama"
-                                    data-parsley-required="true" placeholder="Masukkan Nama Penyakit" autofocus="on">
+                                    data-parsley-required="true" placeholder="Masukkan Nama Diagnosis" autofocus="on">
                                 <span class="text-danger" id="error_edit_nama"></span>
                             </div>
 
@@ -182,7 +182,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus penyakit ini?</h4>
+                            <h4>Apakah Ingin menghapus Diagnosis ini?</h4>
 
                         </div>
                         <div class="modal-footer">

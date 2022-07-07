@@ -115,7 +115,7 @@ $session = session();
                                 echo "active";
                             } ?>">
                                 <i class="fa fa-medkit nav-icon"></i>
-                                <p>Penyakit</p>
+                                <p>Diagnosis</p>
                             </a>
                         </li>
                         <li class="nav-item">

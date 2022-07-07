@@ -52,7 +52,7 @@
                                             <tr>
                                                 <th style="text-align: center;">Nama Pasien</th>
                                                 <th style="text-align: center;">Nama Dokter</th>
-                                                <th style="text-align: center;">Nama Penyakit</th>
+                                                <th style="text-align: center;">Nama Diagnosis</th>
                                                 <th style="text-align: center;">Hasil Pemeriksaan</th>
                                                 <th style="text-align: center;">Tanggal Rekam Medis</th>
                                                 <th style="text-align: center;">Aksi</th>
@@ -119,7 +119,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Penyakit</label>
+                                <label>Diagnosis</label>
                                 <select class="form-control select2" id="input_penyakit" name="input_penyakit">
                                 </select>   
                             </div>
@@ -175,7 +175,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Penyakit</label>
+                                <label>Diagnosis</label>
                                 <select class="form-control select2" id="edit_penyakit" name="edit_penyakit">
                                 </select>   
                             </div>
@@ -306,7 +306,7 @@
         });
 
         $("#input_penyakit").select2({
-            placeholder: "Pilih Penyakit",
+            placeholder: "Pilih Diagnosis",
             theme: 'bootstrap4',
             ajax: {
                 url: '<?php echo base_url('Karyawan/RawatJalan/data_penyakit'); ?>',
@@ -327,7 +327,7 @@
                 }
         });
         $("#edit_penyakit").select2({
-            placeholder: "Pilih Penyakit",
+            placeholder: "Pilih Diagnosis",
             theme: 'bootstrap4',
             ajax: {
                 url: '<?php echo base_url('Karyawan/RawatJalan/data_penyakit'); ?>',
