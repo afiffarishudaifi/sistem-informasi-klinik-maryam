@@ -78,8 +78,8 @@
                                                     <center>
                                                         <a href="<?= base_url('Karyawan/RawatJalan/detailResep') . '/' . $item['id_resep']; ?>" name="btn-edit" class="btn btn-sm btn-edit btn-info"><i class="fa fa-eye"></i></a>
                                                         <?php if($session->get('divisi') != 'Pendaftaran') { ?>
-                                                            <a href="" title="Edit" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></a>
-                                                            <a href="" title="Hapus" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>, <?= $id_rekam ?>)" data-toggle="modal" data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>"><i class="fa fa-trash"></a>
+                                                            <a href="" title="Edit" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_resep']; ?>)" class="btn btn-sm btn-edit btn-warning"><i class="fa fa-edit"></i></a>
+                                                            <a href="" title="Hapus" class="btn btn-sm btn-delete btn-danger" onclick="Hapus(<?= $item['id_resep']; ?>, <?= $id_rekam ?>)" data-toggle="modal" data-target="#deleteModal" data-id="<?= $item['id_resep']; ?>"><i class="fa fa-trash"></i></a>
                                                         <?php } ?>
                                                     </center>
                                                 </td>

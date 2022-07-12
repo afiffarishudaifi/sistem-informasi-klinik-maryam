@@ -6,12 +6,17 @@
         <center>
             <table style='width:auto; font-size:8pt; font-family:tahoma; border-collapse: collapse;'>
                 <tr>
-                    <td align='center' colspan="2">
+                    <td align='center'>
+                        <span style='font-size:12pt'><img src="<?= base_url('/docs/img/logo.jpg') ?>"></span></br>
+                    </td>
+                    <td align='center'>
                         <span style='font-size:12pt'><b>Klinik Maryam</b></span></br>
                     </td>
                 </tr>
                 <tr>
-                    <td align='center' colspan="2">
+                    <td align='center'>
+                    </td>
+                    <td align='center'>
                         </br>Desa Kedungpanji, Kec Lembeyan
                         Kab. Magetan, Jawa Timur
                         Indonesia </br>

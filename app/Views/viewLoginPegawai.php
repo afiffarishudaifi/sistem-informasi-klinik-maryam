@@ -53,9 +53,9 @@
       </form>
       <!-- /.social-auth-links -->
 
-      <p class="mb-1">
+      <!-- <p class="mb-1">
         Lupa password ? <a href="<?= base_url('Login/resetPasien') ?>"> klik </a>untuk reset password
-      </p>
+      </p> -->
     </div>
     <!-- /.card-body -->
   </div>

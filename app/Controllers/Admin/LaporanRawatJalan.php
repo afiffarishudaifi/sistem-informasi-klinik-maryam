@@ -100,7 +100,8 @@ class LaporanRawatJalan extends BaseController
                 $isi['nama_pasien'] = $value['nama_pasien'];
                 $isi['nama_poli'] = $value['nama_poli'];
                 $isi['tanggal_daftar'] = $value['tanggal_daftar'];
-                $isi['keluhan'] = $value['keluhan'];
+                $isi['alamat_pasien'] = $value['alamat_pasien'];
+                $isi['no_telp_pasien'] = $value['no_telp_pasien'];
                 array_push($data, $isi);
             }
         }
@@ -108,9 +109,12 @@ class LaporanRawatJalan extends BaseController
         echo json_encode($data);
     }
 
-    public function data_cetak($tanggal = null, $poli = null)
+    public function data_cetak()
     {
         $session = session();
+
+        $tanggal = $this->request->getPost('tanggal');
+        $poli = $this->request->getPost('input_poli');
 
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
@@ -125,20 +129,10 @@ class LaporanRawatJalan extends BaseController
         $model = new Model_laporanrawatjalan();
         $laporan = $model->filter($param)->getResultArray();
 
-        $respon = $laporan;
-        $data = array();
-
-        if ($respon) {
-            foreach ($respon as $value) {
-                $isi['id_antrian'] = $value['id_antrian'];
-                $isi['nama_pasien'] = $value['nama_pasien'];
-                $isi['nama_poli'] = $value['nama_poli'];
-                $isi['tanggal_daftar'] = $value['tanggal_daftar'];
-                $isi['keluhan'] = $value['keluhan'];
-                array_push($data, $isi);
-            }
-        }
-
-        echo json_encode($data);
+        $data = [
+            'judul' => 'Laporan Pendaftaran Rawat Jalan',
+            'laporan' => $laporan
+        ];
+        return view('Admin/cetakPendaftaranJalan', $data);
     }
 }

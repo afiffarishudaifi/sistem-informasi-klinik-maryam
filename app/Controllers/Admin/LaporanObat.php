@@ -111,9 +111,12 @@ class LaporanObat extends BaseController
         echo json_encode($data);
     }
 
-    public function data_cetak($tanggal = null, $obat = null)
+    public function data_cetak()
     {
         $session = session();
+
+        $tanggal = $this->request->getPost('tanggal');
+        $obat = $this->request->getPost('input_obat');
 
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
@@ -128,20 +131,10 @@ class LaporanObat extends BaseController
         $model = new Model_laporanpenjualanobat();
         $laporan = $model->filter($param)->getResultArray();
 
-        $respon = $laporan;
-        $data = array();
-
-        if ($respon) {
-            foreach ($respon as $value) {
-                $isi['nama_obat'] = $value['nama_obat'];
-                $isi['jumlah_obat'] = $value['jumlah_obat'];
-                $isi['total_biaya'] = $value['total_biaya'];
-                $isi['stok_obat'] = $value['stok_obat'];
-                $isi['tanggal_resep'] = $value['tanggal_resep'];
-                array_push($data, $isi);
-            }
-        }
-
-        echo json_encode($data);
+        $data = [
+            'judul' => 'Laporan Penjualan Obat',
+            'laporan' => $laporan
+        ];
+        return view('Karyawan/cetakPendaftaranJalan', $data);
     }
 }

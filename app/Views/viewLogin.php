@@ -65,9 +65,9 @@
         </a>
       </div>
 
-      <p class="mb-1">
+      <!-- <p class="mb-1">
         Lupa password ? <a href="<?= base_url('Login/resetPasien') ?>"> klik </a>untuk resert password
-      </p>
+      </p> -->
     </div>
     <!-- /.card-body -->
   </div>

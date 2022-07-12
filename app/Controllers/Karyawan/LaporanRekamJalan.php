@@ -150,9 +150,12 @@ class LaporanRekamJalan extends BaseController
         return $this->response->setJSON($response);
     }
 
-    public function data_cetak($tanggal = null, $pasien = null, $dokter = null)
+    public function data_cetak()
     {
         $session = session();
+
+        $tanggal = $this->request->getPost('tanggal');
+        $pasien = $this->request->getPost('input_pasien');
 
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
@@ -164,29 +167,19 @@ class LaporanRekamJalan extends BaseController
             $param['nik'] = null;
         }
 
-        if ($dokter != 'null') {
-            $param['nik_dokter'] = $dokter;
-        } else {
-            $param['nik_dokter'] = null;
-        }
+        // if ($dokter != 'null') {
+        //     $param['nik_dokter'] = $dokter;
+        // } else {
+        //     $param['nik_dokter'] = null;
+        // }
 
         $model = new Model_laporanrekammedis();
         $laporan = $model->filter_jalan($param)->getResultArray();
 
-        $respon = $laporan;
-        $data = array();
-
-        if ($respon) {
-            foreach ($respon as $value) {
-                $isi['nama_pasien'] = $value['nama_pasien'];
-                $isi['nama_dokter'] = $value['nama_dokter'];
-                $isi['hasil_pemeriksaan'] = $value['hasil_pemeriksaan'];
-                $isi['saran_dokter'] = $value['saran_dokter'];
-                $isi['tanggal_rekam'] = $value['tanggal_rekam'];
-                array_push($data, $isi);
-            }
-        }
-
-        echo json_encode($data);
+        $data = [
+            'judul' => 'Laporan Rekam Medis Rawat Jalan',
+            'laporan' => $laporan
+        ];
+        return view('Karyawan/cetakRekamJalan', $data);
     }
 }

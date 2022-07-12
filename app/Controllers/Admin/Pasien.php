@@ -51,16 +51,7 @@ class Pasien extends BaseController
 
         $model = new Model_pasien();
         $model->add_data($data);
-
-        $data = array(
-            'nik'     => $this->request->getPost('input_nik'),
-            'email'     => $this->request->getPost('input_email'),
-            'password'     => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
-            'level'     => 'Pasien'
-        );
-
-        $modeluser = new Model_user();
-        $modeluser->add_data($data);
+        
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Admin/Pasien'));
     }
@@ -100,19 +91,6 @@ class Pasien extends BaseController
 
         $model->update_data($data, $id);
 
-        $modeluser = new Model_user();
-        if ($password != '') {
-            $data = array(
-                'email'     => $this->request->getPost('edit_email'),
-                'password'     => base64_encode($encrypter->encrypt($this->request->getPost('edit_password')))
-            );
-        } else {
-            $data = array(
-                'email'     => $this->request->getPost('edit_email')
-            );
-        }
-        
-        $modeluser->update_data($data, $id_user);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         return redirect()->to(base_url('Admin/Pasien'));
     }
@@ -160,8 +138,6 @@ class Pasien extends BaseController
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['nik'] = $value['nik'];
-            $isi['id_user'] = $value['id_user'];
-            $isi['email'] = $value['email'];
             $isi['nama_pasien'] = $value['nama_pasien'];
             $isi['no_telp_pasien'] = $value['no_telp_pasien'];
             $isi['alamat_pasien'] = $value['alamat_pasien'];

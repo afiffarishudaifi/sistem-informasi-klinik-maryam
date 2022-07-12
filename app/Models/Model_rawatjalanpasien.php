@@ -45,6 +45,7 @@ class Model_rawatjalanpasien extends Model
         $builder->where('date(antrian.tanggal_daftar)', $params['tanggal_daftar']);
         $builder->where('antrian.no_antrian', $params['max']);
         $builder->where('antrian.nik', $params['nik']);
+        $builder->where('antrian.status_antrian', 'Menunggu');
         return $builder->get();
     }
 

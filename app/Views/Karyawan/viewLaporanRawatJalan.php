@@ -42,33 +42,36 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                 	<div style="padding-bottom: 20px;">
-				                		<div class="row">
-				                			<div class="col-md-5">
-				                				<div class="input-group">
-				                                    <div class="input-group-prepend">
-				                                        <span class="input-group-text">
-				                                            <i class="fa fa-calendar"></i>
-				                                        </span>
-				                                    </div>
-				                                    <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
-				                                </div>
-				                			</div>
-			                                <div class="col-md-5">			                                	
-				                                <select class="form-control select2" id="input_poli" name="input_poli" onchange="ganti(this.value)">
-				                                </select>
-			                                </div>
-				                            <div class="col-md-2">
-				                                <button class="btn btn-sm btn-success"><span class="fa fa-print"></span> Cetak</button>
-				                                <button type="button" id="btn_reset" class="btn btn-sm btn-danger"><span class="fa fa-undo"></span> Reset</button>
-				                            </div>
-				                		</div>
+                                        <form method="post" action="<?= base_url('') ?>/Karyawan/LaporanRawatJalan/data_cetak">
+    				                		<div class="row">
+    				                			<div class="col-md-5">
+    				                				<div class="input-group">
+    				                                    <div class="input-group-prepend">
+    				                                        <span class="input-group-text">
+    				                                            <i class="fa fa-calendar"></i>
+    				                                        </span>
+    				                                    </div>
+    				                                    <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
+    				                                </div>
+    				                			</div>
+    			                                <div class="col-md-5">			                                	
+    				                                <select class="form-control select2" id="input_poli" name="input_poli" onchange="ganti(this.value)">
+    				                                </select>
+    			                                </div>
+    				                            <div class="col-md-2">
+    				                                <button type="submit" class="btn btn-sm btn-success"><span class="fa fa-print"></span> Cetak</button>
+    				                                <button type="button" id="btn_reset" class="btn btn-sm btn-danger"><span class="fa fa-undo"></span> Reset</button>
+    				                            </div>
+    				                		</div>
+                                        </form>
 				                	</div>
                                     <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">Nama Pasien</th>
                                                 <th style="text-align: center;">Nama Poli</th>
-                                                <th style="text-align: center;">Keluhan</th>
+                                                <th style="text-align: center;">No Telp</th>
+                                                <th style="text-align: center;">Aamat</th>
                                                 <th style="text-align: center;">Tanggal Daftar</th>
                                             </tr>
                                         </thead>
@@ -160,7 +163,10 @@
                         "data": "nama_poli"
                     },
                     {
-                        "data": "keluhan"
+                        "data": "no_telp_pasien"
+                    },
+                    {
+                        "data": "alamat_pasien"
                     },
                     {
                         "data": "tanggal_daftar"

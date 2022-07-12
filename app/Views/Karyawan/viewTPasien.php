@@ -118,21 +118,6 @@
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
                             </div>
                             <div class="form-group">
-                                <label>Email Pasien</label>
-                                <input type="email" class="form-control" id="input_email" name="input_email"
-                                    data-parsley-required="true" placeholder="Masukkan Email Pasien" autofocus="on">
-                                <span class="text-danger" id="error_email"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Password Pasien</label>
-                                <input type="Password" class="form-control" id="input_password" name="input_password"
-                                    data-parsley-required="true" placeholder="Masukkan Password Pasien" autofocus="on" data-parsley-equalto="#input_password_konfirmasi">
-                            </div>
-                            <div class="form-group">
-                                <label>Ulangi Password</label>
-                                <input type="Password" class="form-control" id="input_password_konfirmasi" name="input_password_konfirmasi" data-parsley-required="true" placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#input_password">
-                            </div>
-                            <div class="form-group">
                                 <label>Alamat Pasien</label>
                                 <textarea class="form-control" id="input_alamat" name="input_alamat" placeholder="Masukkan alamat"></textarea>
                             </div>
@@ -203,22 +188,6 @@
                                     data-parsley-required="true" placeholder="Masukkan NIK Pasien" minlength="16" maxlength="16" autofocus="on">
                                 <span class="text-danger" id="error_nik_edit"></span>
                                 <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Email Pasien</label>
-                                <input type="email" class="form-control" id="edit_email" name="edit_email"
-                                    data-parsley-required="true" placeholder="Masukkan Email Pasien" autofocus="on">
-                                <span class="text-danger" id="error_edit_email"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Password Pasien</label>
-                                <input type="Password" class="form-control" id="edit_password" name="edit_password"
-                                    placeholder="Masukkan Password Pasien" autofocus="on" data-parsley-equalto="#edit_password_konfirmasi">
-                            </div>
-                            <div class="form-group">
-                                <label>Ulangi Password</label>
-                                <input type="Password" class="form-control" id="edit_password_konfirmasi" name="edit_password_konfirmasi"
-                                    placeholder="Masukkan Ulangi Password" autofocus="on" data-parsley-equalto="#edit_password">
                             </div>
                             <div class="form-group">
                                 <label>Alamat Pasien</label>
@@ -447,10 +416,8 @@
             $.getJSON('<?php echo base_url('Karyawan/Pasien/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#nik').val(json.nik);
-                    $('#id_user').val(json.id_user);
                     $('#edit_nama').val(json.nama_pasien);
                     $('#edit_nik').val(json.nik);
-                    $('#edit_email').val(json.email);
                     $('#edit_alamat').val(json.alamat_pasien);
                     $('#edit_no_telp').val(json.no_telp_pasien);
                     $('#edit_tanggal').val(json.tgl_lahir);

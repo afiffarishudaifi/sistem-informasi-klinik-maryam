@@ -111,9 +111,12 @@ class LaporanRawatInap extends BaseController
         echo json_encode($data);
     }
 
-    public function data_cetak($tanggal = null, $status = null)
+    public function data_cetak()
     {
         $session = session();
+
+        $tanggal = $this->request->getPost('tanggal');
+        $poli = $this->request->getPost('input_poli');
 
         if ($tanggal) $tgl = explode(' - ', $tanggal);
         if ($tanggal) { $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0])); } else { $param['cek_waktu1'] = date("Y-m-d"); };
@@ -128,21 +131,10 @@ class LaporanRawatInap extends BaseController
         $model = new Model_laporanrawatinap();
         $laporan = $model->filter($param)->getResultArray();
 
-        $respon = $laporan;
-        $data = array();
-
-        if ($respon) {
-            foreach ($respon as $value) {
-                $isi['id_inap'] = $value['id_inap'];
-                $isi['nama_pasien'] = $value['nama_pasien'];
-                $isi['waktu_masuk'] = $value['waktu_masuk'];
-                $isi['waktu_keluar'] = $value['waktu_keluar'];
-                $isi['total_tagihan_inap'] = $value['total_tagihan_inap'];
-                $isi['status_inap'] = $value['status_inap'];
-                array_push($data, $isi);
-            }
-        }
-
-        echo json_encode($data);
+        $data = [
+            'judul' => 'Laporan Rekam Medis Rawat Inap',
+            'laporan' => $laporan
+        ];
+        return view('Karyawan/cetakPendaftaranInap', $data);
     }
 }
