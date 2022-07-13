@@ -51,8 +51,9 @@ class Dokter extends BaseController
         if ($avatar != '') {
             $namabaru     = $avatar->getRandomName();
             $avatar->move('docs/img/img_dokter/', $namabaru);
+            $namabaru = "docs/img/img_dokter/" . $namabaru;
         } else {
-            $namabaru = 'noimage.jpg';
+            $namabaru = 'n';
         }
 
         $data = array(
@@ -64,7 +65,7 @@ class Dokter extends BaseController
             'tanggal_lahir' => $this->request->getPost('input_tanggal'),
             'no_telp_dokter' => $this->request->getPost('input_no_telp'),
             'status_dokter' => $status,
-            'foto_dokter'     => "docs/img/img_dokter/" . $namabaru
+            'foto_dokter'     => $namabaru
         );
         
         $model = new Model_dokter();
