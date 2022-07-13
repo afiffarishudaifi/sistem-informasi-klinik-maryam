@@ -135,6 +135,6 @@ class LaporanObat extends BaseController
             'judul' => 'Laporan Penjualan Obat',
             'laporan' => $laporan
         ];
-        return view('Karyawan/cetakPendaftaranJalan', $data);
+        return view('Admin/cetakLaporanObat', $data);
     }
 }

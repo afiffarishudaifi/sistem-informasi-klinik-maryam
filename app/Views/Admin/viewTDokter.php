@@ -408,7 +408,6 @@
                     }else{
                         $("#edit_status").prop('checked',false);
                     }
-                    $('#edit_foto').val(json.foto_dokter);
                     $('#edit_tanggal').val(json.tanggal_lahir);
                     if(json.jenis_kelamin == 'Perempuan'){
                         document.getElementById("edit_kelamin").selectedIndex = 1;
