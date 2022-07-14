@@ -53,7 +53,7 @@
                 <th style="text-align: center;">Nama Obat</th>
                 <th style="text-align: center;">Jumlah Obat</th>
                 <th style="text-align: center;">Total Biaya</th>
-                <th style="text-align: center;">Stok Obay</th>
+                <th style="text-align: center;">Stok Obat</th>
                 <th style="text-align: center;">Tanggal Penjualan</th>
             </tr>
         	<?php
