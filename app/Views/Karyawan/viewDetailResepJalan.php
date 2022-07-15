@@ -28,7 +28,7 @@
                                     <?php if($session->get('divisi') != 'Pendaftaran') { ?>
                                         <button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
-                                        Tambah Data</button>
+                                        Tambah Obat</button>
                                     <?php } ?>
                                 </li>
                             </ol>

@@ -26,7 +26,7 @@
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><button class="btn btn-success" data-toggle="modal"
                                         data-target="#addModal"><i class="fa fa-plus"></i>
-                                        Tambah Data</button>
+                                        Tambah Obat</button>
                                 </li>
                             </ol>
                         </div>

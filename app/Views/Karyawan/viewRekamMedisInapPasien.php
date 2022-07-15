@@ -58,7 +58,7 @@
                                                 <td><?= $item['nama_kamar']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Karyawan/RawatInap/rekamInapDetail') . '/' . $item['id_inap']; ?>" class="btn btn-sm btn-edit btn-info"title="Detail"><i class="fa fa-eye"></i></a>
+                                                        <a href="<?= base_url('Karyawan/RawatInap/rekamInapDetail') . '/' . $item['id_inap']; ?>" class="btn btn-sm btn-edit btn-info" title="Detail"><i class="fa fa-eye"></i></a>
                                                     </center>
                                                 </td>
                                             </tr>

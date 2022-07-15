@@ -56,7 +56,7 @@
                                                 <td><?= $item['no_telp_pasien']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?= base_url('Karyawan/RawatJalan/rekamJalanDetail') . '/' . $item['nik']; ?>" class="btn btn-sm btn-edit btn-info"title="Detail"><i class="fa fa-eye"></i></a>
+                                                        <a href="<?= base_url('Karyawan/RawatJalan/rekamJalanDetail') . '/' . $item['nik']; ?>" class="btn btn-sm btn-edit btn-info" title="Detail"><i class="fa fa-eye"></i></a>
                                                     </center>
                                                 </td>
                                             </tr>
